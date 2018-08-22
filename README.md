@@ -6,19 +6,35 @@
 
 | 路径                     | 说明                                     |
 | ------------------------ | ---------------------------------------- |
-| vCampusClient            | 前端                                     |
-| vCampusServer            | 后端                                     |
-| vCampus                  | 数据库                                   |
+| `vCampusClient`            | 前端                                     |
+| `vCampusServer `           | 后端                                     |
+| `vCampusDatabase`          | 数据库                                   |
+|  `vCampusCommon`         | 项目依赖 |
 | `docs/api`               | 不存在的API文档                          |
 | `docs`                   | 开发日志、设计说明书以及其他要提交的文件 |
 | `java-app-template-demo` | 一个包含前后端的完整java程序示例         |
 
 ## 构想
 
-前端采用MVC模式开发，如果你不清楚MVC模式的话，可以参考[教程](http://www.runoob.com/design-pattern/mvc-pattern.html)。
+前端采用MVC模式开发，如果你不清楚MVC模式的话，可以[参考教程](http://www.runoob.com/design-pattern/mvc-pattern.html)。
 
 前端视图层主要专注界面，要开发出一个大体的界面框架，方便代码复用。
 
 通过调用后端接口，对数据库进行增删改查，并把结果返回给前端，前端需要相应地更新视图，或给出其他交互信息。
 
 编辑器：demo里用的是idea…
+
+maven相关：还木有开始考虑orz...
+
+git相关：如果你还不够熟悉git，可以查看[这个教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)。
+
+如果你使用git bash，下面有一些常用命令：
+
+```bash
+git clone git@github.com:SericaLaw/vCampus.git
+git add .
+git status
+git commit -m "comment"
+git push origin master (or other branch)
+```
+
