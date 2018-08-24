@@ -5,7 +5,7 @@
 | 路径                            | 说明                             |
 | ------------------------------- | -------------------------------- |
 | `./lib`                         | 后端依赖                         |
-|  `./test`       	              |测试程序所在目录，这里可以看到所有API的用法示例|
+|  `./test`       	              |测试程序所在目录，里面有一个模拟的数据库。`ApiTest.java`文件里包括所有已经测试过可用的API。|
 | `./src/vCampus/models`          | 暂时使用的模型，相关技术（如是否使用JavaFX的数据绑定）确定后可以放到根目录下的`vCampusCommon/models`中，以便前后端共同使用 |
 | `./src/vCampus/server/api`      | api源代码                        |
 | `./src/vCampus/server/database` | 数据库交互相关工具类             |
