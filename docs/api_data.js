@@ -6,30 +6,19 @@ define({ "api": [
     "title": "login",
     "name": "LoginAPI",
     "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "Username",
-            "description": "<p>User's name.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "Password",
-            "description": "<p>User's password.</p>"
-          }
-        ]
-      }
+      "examples": [
+        {
+          "title": "JSON-Request:",
+          "content": "{\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\"\n}",
+          "type": "json"
+        }
+      ]
     },
     "success": {
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"CampusID\": \"213160000\",\n  \"Lastname\": \"Doe\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"CampusCardID\": \"213160000\",\n  \"FirstName\":\"张\",\n  \"LastName\": \"三\"\n}",
           "type": "json"
         }
       ]
@@ -38,13 +27,13 @@ define({ "api": [
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"Error\": \"UserNotFound\"\n}",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"WrongUsernameOrPassword\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"UserNotFound\"\n}",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "example/example.cpp",
+    "filename": "example/Account.cpp",
     "groupTitle": "Account"
   },
   {
@@ -72,7 +61,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "example/example.cpp",
+    "filename": "example/Account.cpp",
     "groupTitle": "Account"
   },
   {
@@ -82,45 +71,13 @@ define({ "api": [
     "title": "register",
     "name": "RegisterAPI",
     "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "CampusID",
-            "description": "<p>User's campus ID.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "Username",
-            "description": "<p>User's name.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "Password",
-            "description": "<p>User's password.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "FirstName",
-            "description": "<p>User's first name.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "LastName",
-            "description": "<p>User's last name.</p>"
-          }
-        ]
-      }
+      "examples": [
+        {
+          "title": "JSON-Request:",
+          "content": "{\n    \"CampusID\":\"213160000\",\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\",\n    \"FirstName\":\"trialfirstname\",\n    \"LastName\":\"triallastname\"\n}",
+          "type": "json"
+        }
+      ]
     },
     "success": {
       "examples": [
@@ -135,13 +92,41 @@ define({ "api": [
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Forbidden\n{\n  \"Error\": \"User already created.\"\n}",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"User already created.\"\n}",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "example/example.cpp",
+    "filename": "example/Account.cpp",
+    "groupTitle": "Account"
+  },
+  {
+    "group": "Account",
+    "type": "get",
+    "url": "/account/user/",
+    "title": "unregister",
+    "name": "UnRegisterAPI",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"User already created.\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "example/Account.cpp",
     "groupTitle": "Account"
   }
 ] });
