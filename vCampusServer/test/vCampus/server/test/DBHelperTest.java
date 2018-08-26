@@ -37,7 +37,8 @@ public class DBHelperTest {
                         "Daisy",
                         "123",
                         "Johnson",
-                        "Daisy"
+                        "Daisy",
+                        "student"
                 );
         Account resAccount = JSON.parseObject(jsonData, Account.class);
 
@@ -57,7 +58,8 @@ public class DBHelperTest {
                         "Foo",
                         "Bar",
                         "Doe",
-                        "John"
+                        "John",
+                        "student"
                 );
         Account expectedAccount2 =
                 new Account(
@@ -65,7 +67,8 @@ public class DBHelperTest {
                         "Daisy",
                         "Bar",
                         "Johnson",
-                        "Daisy"
+                        "Daisy",
+                        "student"
                 );
         List<Account> expectedList = new ArrayList<Account>();
         expectedList.add(expectedAccount1);
@@ -99,7 +102,8 @@ public class DBHelperTest {
                         "Oliver",
                         "456",
                         "Queen",
-                        "Oliver"
+                        "Oliver",
+                        "student"
                 );
 
         boolean insertSuc =

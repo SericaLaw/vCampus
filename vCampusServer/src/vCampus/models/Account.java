@@ -6,13 +6,15 @@ public class Account {
     private String password;
     private String lastName;
     private String firstName;
+    private String role;
 
-    public Account(String campusCardID, String username, String password, String lastName, String firstName) {
+    public Account(String campusCardID, String username, String password, String lastName, String firstName, String role) {
         setCampusCardID(campusCardID);
         setUsername(username);
         setPassword(password);
         setLastName(lastName);
         setFirstName(firstName);
+        setRole(role);
     }
     public String getCampusCardID() {
         return campusCardID;
@@ -54,12 +56,20 @@ public class Account {
         this.firstName = firstName;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        assert role.equals("student") || role.equals("teacher") || role.equals("admin");
+        this.role = role;
+    }
 
     @Override
     public String toString() {
         return String.format("Class Account [ campusCardID = %s, username = %s, " +
-                "password = %s, lastName = %s, firstName = %s ]",
-                campusCardID, username, password, lastName, firstName);
+                "password = %s, lastName = %s, firstName = %s, role = %s]",
+                campusCardID, username, password, lastName, firstName, role);
     }
 
     @Override
@@ -70,8 +80,10 @@ public class Account {
             Account another = (Account) obj;
             return this.campusCardID.equals(another.campusCardID) && this.firstName.equals(another.firstName)
                     && this.lastName.equals(another.lastName) && this.username.equals(another.username)
-                    && this.password.equals(another.password);
+                    && this.password.equals(another.password) && this.role.equals(another.role);
         }
         return false;
     }
+
+
 }

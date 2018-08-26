@@ -42,15 +42,14 @@ public class HttpResponse implements Serializable {
         return statusCode;
     }
 
-    // parsed jsonData 针对于 select的结果 且结果数组里只有一个对象的情况
-    // 目前GET方法返回的都是list，所以下面的写法和HttpRequest不同
+
     public <T> T data(Class<T> clazz) {
         String jsonData = getJsonData();
-        // 将字符串转为Student类
-        List<T> list = JSON.parseArray(jsonData, clazz);
-        return list.get(0);
+        // 将字符串转为T类
+        T parsedData = JSON.parseObject(jsonData, clazz);
+        return parsedData;
     }
-    // parsed jsonData 针对于 select的结果 且结果数组里只有一个对象的情况
+
     public <T> List<T>  dataList(Class<T> clazz) {
         String jsonData = getJsonData();
         // 将字符串转为Student类
