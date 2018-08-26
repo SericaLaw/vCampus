@@ -225,7 +225,9 @@ public class DBHelper {
         logger.log("Executing SQL: " + sql);
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.execute();
+            stmt.executeUpdate();
+            if(stmt.getUpdateCount() == 0)
+                return false;
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

@@ -42,17 +42,84 @@ HttpResponse register = Api.post("/account", JSON.toJSONString(newAccount));
 | PATCH  | 需要向服务器提交数据，通常是要修改数据表中的数据项           |
 
 ### Status Code
+下面是一些常见HTTP状态码，当然有一些项目可能不会用到。
 
 | 状态码                    | 说明                             |
 | ------------------------- | -------------------------------- |
-| 200 OK                    | 一切正常                         |
+| 200 OK                    | 请求成功，一切正常                         |
+| 201 Created | 请求被实现，且有一个新资源以及依据请求的需要建立了|
 | 400 Bad Request           | 往往是向服务器提交的数据格式错误 |
+| 401 Unauthorized | 当前请求需要用户验证 |
 | 403 Forbidden             | 被拒绝的请求，如密码错误         |
 | 404 Not Found             | 请求的url不存在                  |
 | 500 Internal Server Error | 后端代码执行错误                 |
-|                           |                                  |
-|                           |                                  |
-|                           |                                  |
-|                           |                                  |
 
 ### URL
+
+## 一些和API文档有出入的地方
+
+# Account
+
+# Account - Login
+
+```
+~/account/login
+```
+
+- [Error-Response:](https://sericalaw.github.io/vCampus/?ADUIN=943914044&ADSESSION=1535248891&ADTAG=CLIENT.QQ.5587_.0&ADPUBNO=26847#error-examples-Account-LoginAPI-0_0_0-0)
+
+```
+HTTP/1.1 403 Bad Request
+{
+  "Error": "WrongUsernameOrPassword"
+}
+```
+
+# Account - Logout
+
+服务器暂时没有这个方法
+
+# Account - Register
+
+POST
+
+```
+~/account/user/
+```
+
+- [JSON-Request:](https://sericalaw.github.io/vCampus/?ADUIN=943914044&ADSESSION=1535248891&ADTAG=CLIENT.QQ.5587_.0&ADPUBNO=26847#parameter-examples-Account-PostAccountUser-0_0_0-0)
+
+```
+{
+    "CampusCardID": "213160000",
+}
+```
+
+- [Error-Response:](https://sericalaw.github.io/vCampus/?ADUIN=943914044&ADSESSION=1535248891&ADTAG=CLIENT.QQ.5587_.0&ADPUBNO=26847#error-examples-Account-PostAccountUser-0_0_0-0)
+
+```
+HTTP/1.1 403 Bad Request
+```
+
+# Account - UnRegister
+
+DELETE
+
+```
+~/account/campusCardID/:campusCardID
+```
+
+- [Success-Response:](https://sericalaw.github.io/vCampus/?ADUIN=943914044&ADSESSION=1535248891&ADTAG=CLIENT.QQ.5587_.0&ADPUBNO=26847#success-examples-Account-UnRegisterAPI-0_0_0-0)
+
+```
+HTTP/1.1 200 OK
+```
+
+- [Error-Response:](https://sericalaw.github.io/vCampus/?ADUIN=943914044&ADSESSION=1535248891&ADTAG=CLIENT.QQ.5587_.0&ADPUBNO=26847#error-examples-Account-UnRegisterAPI-0_0_0-0)
+
+```
+HTTP/1.1 403 Forbidden
+{
+  "Error": "User doesn't exist."
+}
+```

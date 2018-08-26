@@ -3,14 +3,22 @@ package vCampus.server.test;
 import com.alibaba.fastjson.JSON;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
 import vCampus.models.Account;
 import vCampus.server.database.DBHelper;
+import vCampus.server.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 
+/**
+ * 以test/database下的数据库中的Account表为例
+ * 21316XXXX用于DBHelper测试
+ */
 public class DBHelperTest {
     DBHelper dbHelper = new DBHelper();
     @Ignore
@@ -35,7 +43,7 @@ public class DBHelperTest {
 
         assertEquals(true, expectedAccount.equals(resAccount));
     }
-    @Ignore
+
     @Test
     public void testSelect() {
         String jsonData = dbHelper.select(
@@ -53,11 +61,11 @@ public class DBHelperTest {
                 );
         Account expectedAccount2 =
                 new Account(
-                        "213150000",
-                        "Foo",
+                        "213160001",
+                        "Daisy",
                         "Bar",
-                        "John",
-                        "Doe"
+                        "Johnson",
+                        "Daisy"
                 );
         List<Account> expectedList = new ArrayList<Account>();
         expectedList.add(expectedAccount1);
@@ -131,5 +139,15 @@ public class DBHelperTest {
         assertEquals(true, jsonData.equals("{}"));
     }
 
-    public static void main(String[] args) {}
+    private static Logger logger = new Logger("DBHelperTest");
+    public static void main(String[] args) {
+        Result result = JUnitCore.runClasses(DBHelperTest.class);
+        for(Failure failure : result.getFailures()) {
+            logger.log(failure.toString());
+        }
+        if (result.wasSuccessful())
+            logger.log("Unit test passed.");
+        else
+            logger.log("Unit test failed.");
+    }
 }

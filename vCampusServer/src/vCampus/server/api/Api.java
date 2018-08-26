@@ -4,9 +4,12 @@ import java.util.*;
 import java.io.ObjectOutputStream;
 import com.alibaba.fastjson.*;
 import vCampus.server.http.*;
+import vCampus.server.util.Logger;
+
 import java.net.*;
 import java.io.*;
 public class Api {
+    private static Logger logger = new Logger("API");
     private Api(){}
     // 每调用一次API，都开一个连接
     private static Socket getSocket() {
@@ -39,8 +42,8 @@ public class Api {
         return sendResponse(getSocket(), request, response);
     }
     // DELETE 当数据被删除
-    public static HttpResponse delete(String route, String key){
-        HttpRequest request = new HttpRequest(RequestMethod.DELETE, route, key);
+    public static HttpResponse delete(String route){
+        HttpRequest request = new HttpRequest(RequestMethod.DELETE, route);
         HttpResponse response = new HttpResponse("500", null);
         return sendResponse(getSocket(), request, response);
     }
@@ -55,9 +58,10 @@ public class Api {
             ObjectInputStream ois = new ObjectInputStream(
                     new BufferedInputStream(socket.getInputStream()));
 
-            response =(HttpResponse) ois.readObject();
+            response = (HttpResponse) ois.readObject();
 
-            System.out.println(response.toString());
+            logger.log(response.toString());
+
             socket.shutdownInput();
             socket.close();
         } catch (Exception e) {

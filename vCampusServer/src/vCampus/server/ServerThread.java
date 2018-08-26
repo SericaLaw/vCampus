@@ -7,12 +7,15 @@ import java.util.Map;
 import com.alibaba.fastjson.JSON;
 import vCampus.server.http.*;
 import vCampus.server.database.*;
+import vCampus.server.util.Logger;
+
 /*
  * 服务器线程处理类
  */
 public class ServerThread extends Thread {
     // 和本线程相关的Socket
-    private Socket socket = null;
+    private Socket socket;
+    private static Logger logger = new Logger("ServerThread");
 
     public ServerThread(Socket socket) {
         this.socket = socket;
@@ -29,7 +32,7 @@ public class ServerThread extends Thread {
             HttpRequest request = (HttpRequest) ois.readObject();//把客户端发过来的流读取成对象形式
 
             // log
-            System.out.println(request.toString());
+            logger.log(request.toString());
 
             socket.shutdownInput();//关闭输入流
 
@@ -60,7 +63,7 @@ public class ServerThread extends Thread {
                         Map<String, String> resData = JSON.parseObject(jsonData, Map.class);
                         String pwd = resData.get("Password");
                         if(pwd == null)
-                            response = new HttpResponse("404", "User Not Found");
+                            response = new HttpResponse("404", null, "User not found.");
                         else if (pwd.equals(requestData.get("password")))
                             response = new HttpResponse("200", jsonData, "OK");
                         else
@@ -69,13 +72,19 @@ public class ServerThread extends Thread {
                         // TODO:一般形式的POST都可以接在下面的case下
                     case "/account":
                         boolean insertSuc = dbhelper.insert("Account", request.getJsonData());
-                        if(insertSuc)  // 创建成功，200
+                        if(insertSuc)  // 创建成功，201
                             response = new HttpResponse("201", null, "OK");
-                        else
-                            response = new HttpResponse("403",null, "insertion failed");
+                        else // 创建失败，403，往往是因为已经有创建过的了
+                            response = new HttpResponse("403",null, "User already created.");
                         break;
 
                 }
+            } else if(method == RequestMethod.DELETE) {
+                boolean deleteSuc = dbhelper.delete(request.getTableName(), request.getKey(), request.getValue());
+                if(deleteSuc)
+                    response = new HttpResponse();
+                else
+                    response = new HttpResponse("404", null, "Item not found.");
             } else {
                 response = new HttpResponse("404", null, "Request Url Not Found: " + request.getRoute());
             }
