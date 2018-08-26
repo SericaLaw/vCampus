@@ -52,7 +52,6 @@ public class ServerThread extends Thread {
                     response = new HttpResponse("200", null, "OK");
                 else
                     response = new HttpResponse("403", null, "update failed");
-
             } else if (method == RequestMethod.POST) {
                 switch (request.getRoute()) {
                     case "/account/login":
@@ -67,12 +66,14 @@ public class ServerThread extends Thread {
                         else
                             response = new HttpResponse("403", null, "Wrong password.");
                         break;
+                        // TODO:一般形式的POST都可以接在下面的case下
                     case "/account":
                         boolean insertSuc = dbhelper.insert("Account", request.getJsonData());
                         if(insertSuc)  // 创建成功，200
                             response = new HttpResponse("201", null, "OK");
                         else
                             response = new HttpResponse("403",null, "insertion failed");
+                        break;
 
                 }
             } else {

@@ -6,8 +6,6 @@ public class Account {
     private String password;
     private String lastName;
     private String firstName;
-    private String selectCourse;
-    private String teachCourseID;
 
     public Account(String campusCardID, String username, String password, String lastName, String firstName) {
         setCampusCardID(campusCardID);
@@ -56,27 +54,24 @@ public class Account {
         this.firstName = firstName;
     }
 
-    public String getSelectCourse() {
-        return selectCourse;
-    }
-
-    public void setSelectCourse(String selectCourse) {
-        this.selectCourse = selectCourse;
-    }
-
-    public String getTeachCourseID() {
-        return teachCourseID;
-    }
-
-    public void setTeachCourseID(String teachCourseID) {
-        this.teachCourseID = teachCourseID;
-    }
 
     @Override
     public String toString() {
         return String.format("Class Account [ campusCardID = %s, username = %s, " +
-                "password = %s, lastName = %s, firstName = %s, " +
-                "selectCourse = %s, teachCourseID = %s ]",
-                campusCardID, username, password, lastName, firstName, selectCourse, teachCourseID);
+                "password = %s, lastName = %s, firstName = %s ]",
+                campusCardID, username, password, lastName, firstName);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj)
+            return true;
+        if(obj instanceof Account) {
+            Account another = (Account) obj;
+            return this.campusCardID.equals(another.campusCardID) && this.firstName.equals(another.firstName)
+                    && this.lastName.equals(another.lastName) && this.username.equals(another.username)
+                    && this.password.equals(another.password);
+        }
+        return false;
     }
 }

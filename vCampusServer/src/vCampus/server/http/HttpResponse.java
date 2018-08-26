@@ -7,11 +7,16 @@ import java.io.Serializable;
 import java.util.List;
 
 public class HttpResponse implements Serializable {
-    private String jsonData = null;
-    private String statusCode = null;
-    private String message = null;
+    private String jsonData;
+    private String statusCode;
+    private String message;
 
-    public HttpResponse() {}
+    // default response
+    public HttpResponse() {
+        jsonData = null;
+        statusCode = "200";
+        message = "OK";
+    }
 
     public HttpResponse(String statusCode, String jsonData) {
         this.statusCode = statusCode;
@@ -38,6 +43,7 @@ public class HttpResponse implements Serializable {
     }
 
     // parsed jsonData 针对于 select的结果 且结果数组里只有一个对象的情况
+    // 目前GET方法返回的都是list，所以下面的写法和HttpRequest不同
     public <T> T data(Class<T> clazz) {
         String jsonData = getJsonData();
         // 将字符串转为Student类
@@ -55,5 +61,18 @@ public class HttpResponse implements Serializable {
     @Override
     public String toString() {
         return statusCode + " --> "  + message + "\n[ JSON data = " + jsonData + " ]\n";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj)
+            return true;
+        if(obj instanceof HttpResponse) {
+            HttpResponse another = (HttpResponse) obj;
+            return this.message.equals(another.message) &&
+                    this.statusCode.equals(another.statusCode) &&
+                    this.jsonData.equals(another.jsonData);
+        }
+        return false;
     }
 }
