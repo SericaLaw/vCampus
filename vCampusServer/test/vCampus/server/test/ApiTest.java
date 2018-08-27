@@ -6,6 +6,7 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import vCampus.models.Account;
+import vCampus.models.RoleEnum;
 import vCampus.server.api.Api;
 import vCampus.server.database.DBHelper;
 import vCampus.server.http.HttpResponse;
@@ -32,7 +33,7 @@ public class ApiTest {
                 "123",
                 "Bar",
                 "Foo",
-                "student"
+                RoleEnum.STUDENT
         );
 
         // 200
@@ -68,7 +69,7 @@ public class ApiTest {
         HttpResponse res;
         Account newAccount;
 
-        newAccount = new Account("213170002", "RegisterTest","123","Bar", "Foo", "student");
+        newAccount = new Account("213170002", "RegisterTest","123","Bar", "Foo", RoleEnum.STUDENT);
         res = Api.post("/account", JSON.toJSONString(newAccount));
         expectedRes = new HttpResponse("201", null, "OK");
 
@@ -85,7 +86,7 @@ public class ApiTest {
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
         // 403 User already created.
-        newAccount = new Account("213170012", "RegisterTest","123","Bar", "Foo", "student");
+        newAccount = new Account("213170012", "RegisterTest","123","Bar", "Foo", RoleEnum.STUDENT);
         res = Api.post("/account", JSON.toJSONString(newAccount));
         expectedRes = new HttpResponse("403", null, "User already created.");
 

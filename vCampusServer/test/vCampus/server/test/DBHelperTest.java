@@ -7,6 +7,7 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import vCampus.models.Account;
+import vCampus.models.RoleEnum;
 import vCampus.server.database.DBHelper;
 import vCampus.server.util.Logger;
 
@@ -38,7 +39,7 @@ public class DBHelperTest {
                         "123",
                         "Johnson",
                         "Daisy",
-                        "student"
+                        RoleEnum.STUDENT
                 );
         Account resAccount = JSON.parseObject(jsonData, Account.class);
 
@@ -59,7 +60,7 @@ public class DBHelperTest {
                         "Bar",
                         "Doe",
                         "John",
-                        "student"
+                        RoleEnum.STUDENT
                 );
         Account expectedAccount2 =
                 new Account(
@@ -68,7 +69,7 @@ public class DBHelperTest {
                         "Bar",
                         "Johnson",
                         "Daisy",
-                        "student"
+                        RoleEnum.STUDENT
                 );
         List<Account> expectedList = new ArrayList<Account>();
         expectedList.add(expectedAccount1);
@@ -103,7 +104,7 @@ public class DBHelperTest {
                         "456",
                         "Queen",
                         "Oliver",
-                        "student"
+                        RoleEnum.STUDENT
                 );
 
         boolean insertSuc =

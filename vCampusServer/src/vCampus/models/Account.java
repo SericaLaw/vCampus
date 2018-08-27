@@ -8,13 +8,13 @@ public class Account {
     private String firstName;
     private String role;
 
-    public Account(String campusCardID, String username, String password, String lastName, String firstName, String role) {
+    public Account(String campusCardID, String username, String password, String lastName, String firstName, RoleEnum role) {
         setCampusCardID(campusCardID);
         setUsername(username);
         setPassword(password);
         setLastName(lastName);
         setFirstName(firstName);
-        setRole(role);
+        setRole(role.getName());
     }
     public String getCampusCardID() {
         return campusCardID;

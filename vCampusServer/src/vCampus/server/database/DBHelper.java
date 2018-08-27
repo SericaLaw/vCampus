@@ -8,7 +8,7 @@ import java.util.*;
 
 public class DBHelper {
     // HARD CODE HERE, DB_DIR是指相对于项目工程的路径，如果是在vCampusServer文件夹下运行，那么DB_DIR如下配置
-    private String DB_DIR = "/test/database/Database.accdb";
+    private String DB_DIR = "/vCampusServer/test/database/Database.accdb";
     // DB_PATH = 项目所在系统中的绝对路径 + DB_DIR
     private String DB_PATH;
     // 数据库URL：最终传入DriverManager.getConnection方法的URL
