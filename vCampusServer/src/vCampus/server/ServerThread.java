@@ -39,7 +39,7 @@ public class ServerThread extends Thread {
             RequestMethod method = request.getType();
 
             DBHelper dbhelper = new DBHelper();
-            HttpResponse response = new HttpResponse(null,null,null);
+            HttpResponse response;
             if (method == RequestMethod.GET) {
                 //获取输出流，响应客户端的请求
                 String jsonData = dbhelper.select(request.getTableName(), request.getKey(), request.getValue());
@@ -56,8 +56,7 @@ public class ServerThread extends Thread {
                 else
                     response = new HttpResponse("403", null, "update failed");
             } else if (method == RequestMethod.POST) {
-                switch (request.getRoute()) {
-                    case "/account/login":
+                if (request.getRoute().equals("/account/login")) {
                         Map<String, String> requestData = request.data(Map.class);
                         String jsonData = dbhelper.selectOne("Account","Username", requestData.get("username"));
                         Map<String, String> resData = JSON.parseObject(jsonData, Map.class);
@@ -68,23 +67,20 @@ public class ServerThread extends Thread {
                             response = new HttpResponse("200", jsonData, "OK");
                         else
                             response = new HttpResponse("403", null, "Wrong password.");
-                        break;
-                        // TODO:一般形式的POST都可以接在下面的case下
-                    case "/account":
-                        boolean insertSuc = dbhelper.insert("Account", request.getJsonData());
-                        if(insertSuc)  // 创建成功，201
-                            response = new HttpResponse("201", null, "OK");
-                        else // 创建失败，403，往往是因为已经有创建过的了
-                            response = new HttpResponse("403",null, "User already created.");
-                        break;
-
+                } else {
+                    // 一般形式的post
+                    boolean insertSuc = dbhelper.insert(request.getTableName(), request.getJsonData());
+                    if (insertSuc)  // 创建成功，201
+                        response = new HttpResponse("201", null, "OK");
+                    else // 创建失败，403，往往是因为已经有创建过的了
+                        response = new HttpResponse("403", null, request.getTableName() + " already exist.");
                 }
             } else if(method == RequestMethod.DELETE) {
                 boolean deleteSuc = dbhelper.delete(request.getTableName(), request.getKey(), request.getValue());
                 if(deleteSuc)
                     response = new HttpResponse();
                 else
-                    response = new HttpResponse("404", null, "Item not found.");
+                    response = new HttpResponse("404", null, request.getTableName() + " not found.");
             } else {
                 response = new HttpResponse("404", null, "Request Url Not Found: " + request.getRoute());
             }

@@ -91,13 +91,20 @@ public class DBHelper {
             assert map.size() == 1;
             String dataKey = null;
             String dataValue = null;
+
+            String sql = "UPDATE "+ tableName +
+                    " SET ";
+
             for (Map.Entry<String, String> entry:map.entrySet()) {
                 dataKey = entry.getKey();
                 dataValue = entry.getValue();
+                sql += String.format("%s = '%s', ", dataKey, dataValue);
             }
-            String sql = "UPDATE "+ tableName +
-                    " SET "+ dataKey + " = " + dataValue + " WHERE "
-                    + key + " = '" + value + "'";
+            sql = sql.substring(0,sql.length() - 2); // 去除多余的逗号
+            sql += String.format(" WHERE %s = '%s'", key, value);
+//            String sql = "UPDATE "+ tableName +
+//                    " SET "+ dataKey + " = " + dataValue + " WHERE "
+//                    + key + " = '" + value + "'";
             logger.log("Executing SQL: " + sql);
             PreparedStatement stmt =
                     conn.prepareStatement(sql);
@@ -171,7 +178,6 @@ public class DBHelper {
                 for(int i = 1; i <= data.getColumnCount(); i++) {
                     item.put(data.getColumnName(i),rs.getString(i));
                 }
-                item.put(key, value);
                 res.add(item);
             }
             jsonData = JSON.toJSONString(res);

@@ -65,12 +65,16 @@ public class HttpRequest implements Serializable {
     // TODO:这里需要修改以适合有缺省项的route
     private void parse() {
         String[] p = route.split("/");
+        // tableName
         if (p.length >= 2)
             tableName = p[1].substring(0, 1).toUpperCase() + p[1].substring(1);
+        // key
         if (p.length >= 3)
-            key = p[2];
+            key = p[2].substring(0, 1).toUpperCase() + p[2].substring(1);
+        // value
         if (p.length >= 4)
             value = p[3];
+        // query
         if (p.length >= 5)
             query = p[4];
     }

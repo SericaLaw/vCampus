@@ -45,7 +45,7 @@ public class DBHelperTest {
 
         assertEquals(true, expectedAccount.equals(resAccount));
     }
-
+    @Ignore
     @Test
     public void testSelect() {
         String jsonData = dbHelper.select(
@@ -94,7 +94,7 @@ public class DBHelperTest {
         assertEquals(true, flag);
 
     }
-
+    @Ignore
     @Test
     public void testInsertAndDelete() {
         Account newAccount =
@@ -144,6 +144,11 @@ public class DBHelperTest {
         assertEquals(true, jsonData.equals("{}"));
     }
 
+    @Test
+    public void testUpdate() {
+        boolean updateSuc = dbHelper.update("StuInfo", "CampusCardID", "213160000", "{\"Birthplace\":\"Shanghai\",\"Major\":\"SE\"}");
+        assertEquals(true, updateSuc);
+    }
     private static Logger logger = new Logger("DBHelperTest");
     public static void main(String[] args) {
         Result result = JUnitCore.runClasses(DBHelperTest.class);

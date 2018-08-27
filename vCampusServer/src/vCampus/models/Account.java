@@ -8,6 +8,7 @@ public class Account {
     private String firstName;
     private String role;
 
+    public Account() {}
     public Account(String campusCardID, String username, String password, String lastName, String firstName, RoleEnum role) {
         setCampusCardID(campusCardID);
         setUsername(username);
