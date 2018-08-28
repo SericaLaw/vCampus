@@ -1,0 +1,79 @@
+#welcome-text {
+    -fx-font-family: 'Raleway', sans-serif;
+    -fx-font-size: 68px;
+    -fx-fill: #6C496F;
+}
+
+#register-text {
+    -fx-font-family: 'Raleway', sans-serif;
+    -fx-font-size: 48px;
+    -fx-fill: #6C496F;
+}
+
+#error-text {
+    -fx-font-family: 'Raleway', sans-serif;
+    -fx-font-size: 18px;
+    -fx-fill: #e11;
+}
+.text-field {
+    -fx-text-fill: #b8b8b8;
+    -fx-font-family: 'Droid Sans', sans-serif;
+    -fx-font-size:24px;
+    -fx-padding:12px;
+
+}
+
+.text-field:hover {
+    -fx-text-fill: #6C496F;
+}
+.text-field:focused {
+    -fx-text-fill: #6C496F;
+}
+.button {
+    -fx-text-fill: #fff;
+    -fx-font-family: 'Raleway', sans-serif;
+    -fx-padding: 16px;
+    -fx-cursor:hand;
+    -fx-font-size: 26px;
+    -fx-background-color: #6C496F;
+    -fx-background-radius: 10px;
+    -fx-border-width: 5px;
+    -fx-border-style: solid;
+}
+
+.button:hover {
+    -fx-text-fill: #6C496F;
+    -fx-background-color: #fff;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-color: #6C496F;
+}
+
+.hyperlink {
+    -fx-text-fill: #00b;
+    -fx-font-family: 'Raleway', sans-serif;
+    -fx-font-size: 18px;
+    -fx-padding: 12px;
+}
+
+#grid-login {
+    -fx-padding: 100px 150px;
+    -fx-hgap: 20px;
+    -fx-vgap: 10px;
+}
+
+
+.label {
+    -fx-text-fill: #6C496F;
+    -fx-font-family: 'Droid Sans', sans-serif;
+    -fx-font-size:24px;
+    -fx-padding:15px;
+}
+
+.radio-button {
+    -fx-text-fill: #6C496F;
+    -fx-font-family: 'Droid Sans', sans-serif;
+    -fx-font-size:18px;
+    -fx-padding:15px;
+}
