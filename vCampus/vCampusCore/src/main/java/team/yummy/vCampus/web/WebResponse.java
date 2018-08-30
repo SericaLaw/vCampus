@@ -1,4 +1,4 @@
-package team.yummy.vCampus.utils.http;
+package team.yummy.vCampus.web;
 
 
 import com.alibaba.fastjson.JSON;
@@ -6,25 +6,25 @@ import com.alibaba.fastjson.JSON;
 import java.io.Serializable;
 import java.util.List;
 
-public class HttpResponse implements Serializable {
+public class WebResponse implements Serializable {
     private String jsonData;
     private String statusCode;
     private String message;
 
     // default response
-    public HttpResponse() {
+    public WebResponse() {
         jsonData = null;
         statusCode = "200";
         message = "OK";
     }
 
-    public HttpResponse(String statusCode, String jsonData) {
+    public WebResponse(String statusCode, String jsonData) {
         this.statusCode = statusCode;
         this.jsonData = jsonData;
         message = "success";
     }
 
-    public HttpResponse(String statusCode, String jsonData, String message) {
+    public WebResponse(String statusCode, String jsonData, String message) {
         this.statusCode = statusCode;
         this.jsonData = jsonData;
         this.message = message;
@@ -66,8 +66,8 @@ public class HttpResponse implements Serializable {
     public boolean equals(Object obj) {
         if(this == obj)
             return true;
-        if(obj instanceof HttpResponse) {
-            HttpResponse another = (HttpResponse) obj;
+        if(obj instanceof WebResponse) {
+            WebResponse another = (WebResponse) obj;
             return this.message.equals(another.message) &&
                     this.statusCode.equals(another.statusCode) &&
                     this.jsonData.equals(another.jsonData);

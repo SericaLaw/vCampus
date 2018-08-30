@@ -1,15 +1,17 @@
 package team.yummy.vCampus.data;
 
 import com.alibaba.fastjson.JSON;
-import team.yummy.vCampus.utils.Logger;
+import team.yummy.vCampus.util.Logger;
 
+import java.io.File;
+import java.net.URI;
 import java.sql.*;
 import java.util.*;
 
 public class DBHelper {
-    // HARD CODE HERE, DB_DIR是指相对于项目工程的路径，如果是在vCampusServer文件夹下运行，那么DB_DIR如下配置
-    private String DB_DIR = "/vCampusServer/db/trial1.accdb";
-    // DB_PATH = 项目所在系统中的绝对路径 + DB_DIR
+    // DB_URI  = 数据库的资源标识符
+    private URI DB_URI;
+    // DB_PATH = 项目所在系统中的绝对路径
     private String DB_PATH;
     // 数据库URL：最终传入DriverManager.getConnection方法的URL
     private String DB_URL;
@@ -21,11 +23,12 @@ public class DBHelper {
      * 构造函数，用于配置数据库路径
      * 每次创建一个DBHelper实例时，都会打印相关日志信息
      */
-    public DBHelper() {
+    public DBHelper(URI uri) {
         // 获取项目路径
+        DB_URI = uri;
         // TODO:在下面配置数据库路径，DB_PATH = 项目所在系统中的绝对路径 + DB_DIR
-        DB_PATH = System.getProperty("user.dir").replace('\\', '/') + DB_DIR;
-        DB_URL = "jdbc:Access:///"+DB_PATH;
+        DB_PATH = new File(DB_URI).getAbsolutePath().replace('\\', '/');
+        DB_URL = "jdbc:Access:///" + DB_PATH;
         try {
             // 连接数据库
             Class.forName("com.hxtt.sql.access.AccessDriver");
@@ -35,31 +38,33 @@ public class DBHelper {
             e.printStackTrace();
         }
     }
+
     /**
      * 向数据表中插入数据条目
+     *
      * @param tableName 要执行插入操作的数据表名
-     * @param jsonData 待插入项的JSON形式数据
+     * @param jsonData  待插入项的JSON形式数据
      * @return 执行成功与否
      */
-            public boolean insert(String tableName, String jsonData) {
-                try {
+    public boolean insert(String tableName, String jsonData) {
+        try {
 
-                    // jsonData to Map
-                    Map<String, String> mapData = JSON.parseObject(jsonData, Map.class);
-                    String dataKey = null;
-                    String dataValue = null;
-                    String sql = "INSERT INTO " + tableName + " (";
-            for (Map.Entry<String, String> entry:mapData.entrySet()) {
+            // jsonData to Map
+            Map<String, String> mapData = JSON.parseObject(jsonData, Map.class);
+            String dataKey = null;
+            String dataValue = null;
+            String sql = "INSERT INTO " + tableName + " (";
+            for (Map.Entry<String, String> entry : mapData.entrySet()) {
                 dataKey = entry.getKey();
                 sql += dataKey + ", ";
             }
-            sql = sql.substring(0,sql.length() - 2); // 去除多余的逗号
+            sql = sql.substring(0, sql.length() - 2); // 去除多余的逗号
             sql += ") VALUES (";
-            for (Map.Entry<String, String> entry:mapData.entrySet()) {
+            for (Map.Entry<String, String> entry : mapData.entrySet()) {
                 dataValue = entry.getValue();
                 sql += "'" + dataValue + "', ";
             }
-            sql = sql.substring(0,sql.length() - 2); // 去除多余的逗号
+            sql = sql.substring(0, sql.length() - 2); // 去除多余的逗号
             sql += ")";
             // log
             logger.log("Executing SQL: " + sql);
@@ -77,10 +82,11 @@ public class DBHelper {
 
     /**
      * 更新数据表中数据
+     *
      * @param tableName 要执行插入操作的数据表名
-     * @param key 用于定位数据项的key
-     * @param value 用于定位数据项的value
-     * @param jsonData 待修改项的JSON形式数据
+     * @param key       用于定位数据项的key
+     * @param value     用于定位数据项的value
+     * @param jsonData  待修改项的JSON形式数据
      * @return 执行成功与否
      */
     public boolean update(String tableName, String key, String value, String jsonData) {
@@ -91,12 +97,12 @@ public class DBHelper {
             assert map.size() == 1;
             String dataKey = null;
             String dataValue = null;
-            for (Map.Entry<String, String> entry:map.entrySet()) {
+            for (Map.Entry<String, String> entry : map.entrySet()) {
                 dataKey = entry.getKey();
                 dataValue = entry.getValue();
             }
-            String sql = "UPDATE "+ tableName +
-                    " SET "+ dataKey + " = " + dataValue + " WHERE "
+            String sql = "UPDATE " + tableName +
+                    " SET " + dataKey + " = " + dataValue + " WHERE "
                     + key + " = '" + value + "'";
             logger.log("Executing SQL: " + sql);
             PreparedStatement stmt =
@@ -114,9 +120,10 @@ public class DBHelper {
 
     /**
      * 从数据表中选取一个数据（通常是唯一的，如选一个用户）
+     *
      * @param tableName 要执行查询操作的数据表名
-     * @param key 用于定位数据的key
-     * @param value 用于定位数据的value
+     * @param key       用于定位数据的key
+     * @param value     用于定位数据的value
      * @return 查询结果的JSON形式数据
      */
     public String selectOne(String tableName, String key, String value) {
@@ -133,9 +140,9 @@ public class DBHelper {
             ResultSet rs = stmt.executeQuery();
             ResultSetMetaData data = rs.getMetaData();
             Map<String, String> item = new HashMap();
-            if(rs.next()) {
-                for(int i = 1; i <= data.getColumnCount(); i++) {
-                    item.put(data.getColumnName(i),rs.getString(i));
+            if (rs.next()) {
+                for (int i = 1; i <= data.getColumnCount(); i++) {
+                    item.put(data.getColumnName(i), rs.getString(i));
                 }
                 item.put(key, value);
             }
@@ -149,9 +156,10 @@ public class DBHelper {
 
     /**
      * 从数据表中选取一串数据（如同一个学生选的所有课程）
+     *
      * @param tableName 要执行查询操作的数据表名
-     * @param key 用于定位数据的key
-     * @param value 用于定位数据的value
+     * @param key       用于定位数据的key
+     * @param value     用于定位数据的value
      * @return 查询结果的JSON形式字符串
      */
     public String select(String tableName, String key, String value) {
@@ -166,10 +174,10 @@ public class DBHelper {
             // 得到ResultSet
             ResultSet rs = stmt.executeQuery();
             ResultSetMetaData data = rs.getMetaData();
-            while(rs.next()) {
+            while (rs.next()) {
                 Map<String, String> item = new HashMap();
-                for(int i = 1; i <= data.getColumnCount(); i++) {
-                    item.put(data.getColumnName(i),rs.getString(i));
+                for (int i = 1; i <= data.getColumnCount(); i++) {
+                    item.put(data.getColumnName(i), rs.getString(i));
                 }
                 item.put(key, value);
                 res.add(item);
@@ -214,9 +222,10 @@ public class DBHelper {
 
     /**
      * 从数据表中删除数据项
+     *
      * @param tableName 要执行删除操作的数据表名
-     * @param key 用于定位数据的key
-     * @param value 用于定位数据的value
+     * @param key       用于定位数据的key
+     * @param value     用于定位数据的value
      * @return 执行成功与否
      */
     public boolean delete(String tableName, String key, String value) {
@@ -226,7 +235,7 @@ public class DBHelper {
         try {
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
-            if(stmt.getUpdateCount() == 0)
+            if (stmt.getUpdateCount() == 0)
                 return false;
             return true;
         } catch (SQLException e) {
@@ -234,6 +243,7 @@ public class DBHelper {
             return false;
         }
     }
+
     // 一般形式
     public String excuteSQL(String sql) {
         try {
@@ -246,6 +256,7 @@ public class DBHelper {
         }
         return null;
     }
+
     public static void main(String[] args) {
 
 //        System.out.println(new DBHelper().DB_URL);

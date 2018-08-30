@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import team.yummy.vCampus.client.api.Api;
-import team.yummy.vCampus.utils.http.HttpResponse;
+import team.yummy.vCampus.web.WebResponse;
 
 public class WelcomeFormController {
     @FXML private Text errorText;
@@ -34,7 +34,7 @@ public class WelcomeFormController {
         // some other logic...
 
         // api
-        HttpResponse res = Api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
+        WebResponse res = Api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
         if(res.getStatusCode().equals("200"))
             errorText.setText("登录成功");
         else if(res.getStatusCode().equals("404"))

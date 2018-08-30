@@ -1,9 +1,9 @@
 package team.yummy.vCampus.client.api;
 
 import java.io.ObjectOutputStream;
-import com.alibaba.fastjson.*;
-import team.yummy.vCampus.utils.http.*;
-import team.yummy.vCampus.utils.Logger;
+
+import team.yummy.vCampus.web.*;
+import team.yummy.vCampus.util.Logger;
 
 import java.net.*;
 import java.io.*;
@@ -22,32 +22,32 @@ public class Api {
         return socket;
     }
 
-    public static HttpResponse get(String route) {
-        HttpRequest request = new HttpRequest(RequestMethod.GET, route);
-        HttpResponse response = new HttpResponse();
+    public static WebResponse get(String route) {
+        WebRequest request = new WebRequest(RequestMethod.GET, route);
+        WebResponse response = new WebResponse();
         return sendResponse(getSocket(), request, response);
     }
 
     // POST /tableName/key/:value, data 当新数据被创建
-    public static HttpResponse post(String route, String data){
-        HttpRequest request = new HttpRequest(RequestMethod.POST, route, data);
-        HttpResponse response = new HttpResponse();
+    public static WebResponse post(String route, String data){
+        WebRequest request = new WebRequest(RequestMethod.POST, route, data);
+        WebResponse response = new WebResponse();
         return sendResponse(getSocket(), request, response);
     }
     // PATCH /tableName/:id, data为json string 当数据被修改
-    public static HttpResponse patch(String route, String key, String data){
-        HttpRequest request = new HttpRequest(RequestMethod.PATCH, route);
-        HttpResponse response = new HttpResponse();
+    public static WebResponse patch(String route, String key, String data){
+        WebRequest request = new WebRequest(RequestMethod.PATCH, route);
+        WebResponse response = new WebResponse();
         return sendResponse(getSocket(), request, response);
     }
     // DELETE 当数据被删除
-    public static HttpResponse delete(String route){
-        HttpRequest request = new HttpRequest(RequestMethod.DELETE, route);
-        HttpResponse response = new HttpResponse("500", null);
+    public static WebResponse delete(String route){
+        WebRequest request = new WebRequest(RequestMethod.DELETE, route);
+        WebResponse response = new WebResponse("500", null);
         return sendResponse(getSocket(), request, response);
     }
 
-    private static HttpResponse sendResponse(Socket socket, HttpRequest request, HttpResponse response) {
+    private static WebResponse sendResponse(Socket socket, WebRequest request, WebResponse response) {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             oos.writeObject(request);
@@ -57,7 +57,7 @@ public class Api {
             ObjectInputStream ois = new ObjectInputStream(
                     new BufferedInputStream(socket.getInputStream()));
 
-            response = (HttpResponse) ois.readObject();
+            response = (WebResponse) ois.readObject();
 
             logger.log(response.toString());
 

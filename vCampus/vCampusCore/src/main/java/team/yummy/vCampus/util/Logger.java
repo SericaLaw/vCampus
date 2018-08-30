@@ -1,4 +1,4 @@
-package team.yummy.vCampus.utils;
+package team.yummy.vCampus.util;
 
 public class Logger {
     private String moduleName = null;
