@@ -26,13 +26,12 @@ public class DBHelperTest {
 
     {
         try {
-            dbHelper = new DBHelper(getClass().getClassLoader().getResource("Database.accdb").toURI());
+            dbHelper = new DBHelper(getClass().getClassLoader().getResource("test_database.accdb").toURI());
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
     }
 
-    @Ignore
     @Test
     public void testSelectOne() {
         String jsonData =
@@ -46,7 +45,7 @@ public class DBHelperTest {
                 new Account(
                         "213160001",
                         "Daisy",
-                        "123",
+                        "Bar",
                         "Johnson",
                         "Daisy",
                         RoleEnum.STUDENT
@@ -55,7 +54,7 @@ public class DBHelperTest {
 
         assertEquals(true, expectedAccount.equals(resAccount));
     }
-    @Ignore
+
     @Test
     public void testSelect() {
         String jsonData = dbHelper.select(
@@ -104,7 +103,7 @@ public class DBHelperTest {
         assertEquals(true, flag);
 
     }
-    @Ignore
+
     @Test
     public void testInsertAndDelete() {
         Account newAccount =
@@ -153,7 +152,7 @@ public class DBHelperTest {
         // selectOne的查询结果为空时jsonData是 {}
         assertEquals(true, jsonData.equals("{}"));
     }
-
+    
     @Test
     public void testUpdate() {
         boolean updateSuc = dbHelper.update("StuInfo", "CampusCardID", "213160000", "{\"Birthplace\":\"Shanghai\",\"Major\":\"SE\"}");

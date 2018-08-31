@@ -15,7 +15,7 @@ public class RoutingMiddleware implements Middleware {
     public void run(WebContext ctx, WebContext.MiddlewareInvoker next) {
         try {
             // 准备数据库
-            URI db_uri = Server.class.getClassLoader().getResource("Database.accdb").toURI();
+            URI db_uri = Server.class.getClassLoader().getResource("test_database.accdb").toURI();
             ctx.logger.log("Database dir: " + db_uri.toString());
             DBHelper dbhelper = new DBHelper(db_uri);
 
