@@ -2,7 +2,7 @@ define({ "api": [
   {
     "group": "Account",
     "type": "post",
-    "url": "/account/user/:id",
+    "url": "/account/login",
     "title": "Login",
     "name": "LoginAPI",
     "parameter": {
@@ -27,7 +27,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"WrongUsernameOrPassword\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"UserNotFound\"\n}",
+          "content": "HTTP/1.1 403 Forbidden\n{\n  \"message\": \"Wrong password.\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"message\": \"Account not found.\"\n}",
           "type": "json"
         }
       ]
@@ -95,13 +95,13 @@ define({ "api": [
   {
     "group": "Account",
     "type": "post",
-    "url": "/account/user/",
+    "url": "/account/campusCardID/:id",
     "title": "Register",
     "parameter": {
       "examples": [
         {
           "title": "JSON-Request:",
-          "content": "{\n    \"CampusID\":\"213160000\",\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\",\n    \"FirstName\":\"trialfirstname\",\n    \"LastName\":\"triallastname\"\n}",
+          "content": "{\n    \"CampusCardID\":\"213160000\",\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\",\n    \"FirstName\":\"trialfirstname\",\n    \"LastName\":\"triallastname\",\n    \"role\":\"student\"\n}",
           "type": "json"
         }
       ]
@@ -110,7 +110,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
+          "content": "HTTP/1.1 201 OK",
           "type": "json"
         }
       ]
@@ -119,7 +119,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"User already created.\"\n}",
+          "content": "HTTP/1.1 403 Forbidden\n{\n  \"Error\": \"Account already created.\"\n}",
           "type": "json"
         }
       ]
@@ -127,12 +127,12 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "example/Account.cpp",
     "groupTitle": "Account",
-    "name": "PostAccountUser"
+    "name": "PostAccountCampuscardidId"
   },
   {
     "group": "Account",
-    "type": "get",
-    "url": "/account/user/",
+    "type": "delete",
+    "url": "/account/campusCardID/:id",
     "title": "UnRegister",
     "name": "UnRegisterAPI",
     "success": {
@@ -148,7 +148,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"User already created.\"\n}",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"message\": \"Account not found.\"\n}",
           "type": "json"
         }
       ]
@@ -828,17 +828,8 @@ define({ "api": [
   {
     "group": "StuInfo",
     "type": "delete",
-    "url": "/StuInfo/:CampusCardID",
+    "url": "/StuInfo/campusCardID/:id",
     "title": "DeleteStuInfo",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\",\n    \"CampusID\":\"213160000\"\n}",
-          "type": "json"
-        }
-      ]
-    },
     "success": {
       "examples": [
         {
@@ -852,7 +843,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"Error\": \"Stuinfo not yet created\"\n}",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"Error\": \"StuInfo not found.\"\n}",
           "type": "json"
         }
       ]
@@ -860,18 +851,27 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "example/StuInfo.cpp",
     "groupTitle": "StuInfo",
-    "name": "DeleteStuinfoCampuscardid"
+    "name": "DeleteStuinfoCampuscardidId"
   },
   {
     "group": "StuInfo",
     "type": "get",
-    "url": "/StuInfo/:CampusCardID",
+    "url": "~/stuInfo/campusCardID/:id",
     "title": "GetStuInfo",
     "success": {
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n {\n     \"CampusID\":\"213160000\",\n     \"SeniorHigh\":\"a\",\n     \"IDNum\":\"320121199800000000\",\n     \"Birthplace\":\"Mars\",\n     \"Sex\":\"0\"\n }",
+          "content": "HTTP/1.1 200 OK\n {\n     \"campusCardID\":\"213160000\",\n     \"studentID\":\"09016101\"\n     \"seniorHigh\":\"a\",\n     \"IDNum\":\"320121199800000000\",\n     \"birthplace\":\"Mars\",\n     \"sex\":\"male\",\n     \"department\":\"School of CS\",\n     \"major\":\"Computer Science\"\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"Error\": \"StuInfo not found.\"\n}",
           "type": "json"
         }
       ]
@@ -879,18 +879,18 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "example/StuInfo.cpp",
     "groupTitle": "StuInfo",
-    "name": "GetStuinfoCampuscardid"
+    "name": "GetStuinfoCampuscardidId"
   },
   {
     "group": "StuInfo",
     "type": "patch",
-    "url": "/StuInfo/:CampusCardID",
+    "url": "/StuInfo/campusCardID/:id",
     "title": "ModifyStuInfo",
     "parameter": {
       "examples": [
         {
           "title": "JSON-Request:",
-          "content": "{\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\",\n    \"CampusID\":\"213160000\",\n    \"SeniorHigh\":\"a\",\n    \"IDNum\":\"320121199800000000\",\n    \"Birthplace\":\"Mars\",\n    \"Sex\":\"0\"\n}",
+          "content": "{\n    \"CampusCardID\":\"213160000\",\n    \"SeniorHigh\":\"a\",\n    \"IDNum\":\"320121199800000000\",\n    \"Birthplace\":\"Mars\"\n}",
           "type": "json"
         }
       ]
@@ -908,7 +908,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"Wrong username or password\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"Stuinfo not yet created\"\n}",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"Error\": \"StuInfo not found.\"\n}",
           "type": "json"
         }
       ]
@@ -916,18 +916,18 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "example/StuInfo.cpp",
     "groupTitle": "StuInfo",
-    "name": "PatchStuinfoCampuscardid"
+    "name": "PatchStuinfoCampuscardidId"
   },
   {
     "group": "StuInfo",
     "type": "post",
-    "url": "/StuInfo",
+    "url": "~/stuInfo",
     "title": "CreateStuInfo",
     "parameter": {
       "examples": [
         {
           "title": "JSON-Request:",
-          "content": "{\n    \"CampusID\":\"213160000\",\n    \"SeniorHigh\":\"a\",\n    \"IDNum\":\"320121199800000000\",\n    \"Birthplace\":\"Mars\",\n    \"Sex\":\"0\"\n}",
+          "content": "{\n    \"campusCardID\":\"213160000\",\n    \"studentID\":\"09016101\"\n    \"seniorHigh\":\"a\",\n    \"IDNum\":\"320121199800000000\",\n    \"birthplace\":\"Mars\",\n    \"sex\":\"男\",\n    \"department\":\"School of CS\",\n    \"major\":\"Computer Science\"\n}",
           "type": "json"
         }
       ]
@@ -936,7 +936,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
+          "content": "HTTP/1.1 201 OK",
           "type": "json"
         }
       ]
@@ -945,7 +945,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"Student info already created.\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"CampusID does not exist\"\n}",
+          "content": "HTTP/1.1 403 Bad Request\n{\n  \"Error\": \"StuInfo already exist.\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"CampusID does not exist\"\n}",
           "type": "json"
         }
       ]

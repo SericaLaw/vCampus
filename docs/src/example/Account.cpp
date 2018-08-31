@@ -1,42 +1,43 @@
 /**
  * @apiGroup Account    
- * @api {post} /account/user/ Register
+ * @api {post} /account/campusCardID/:id Register
  * @apiParamExample {json} JSON-Request:
  *      {
- *          "CampusID":"213160000",
+ *          "CampusCardID":"213160000",
  *          "Username":"trial",
  *          "Password":"trialpwd",
  *          "FirstName":"trialfirstname",
- *          "LastName":"triallastname"
+ *          "LastName":"triallastname",
+ *          "role":"student"
  *      }
  * 
  * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
+ *     HTTP/1.1 201 OK
  * 
  * @apiErrorExample Error-Response:
- *     HTTP/1.1 400 Bad Request
+ *     HTTP/1.1 403 Forbidden
  *     {
- *       "Error": "User already created."
+ *       "Error": "Account already created."
  *     }
  */
 
 /**
  * @apiGroup Account    
- * @api {get} /account/user/ UnRegister
+ * @api {delete} /account/campusCardID/:id UnRegister
  * @apiName UnRegisterAPI
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  * 
  * @apiErrorExample Error-Response:
- *     HTTP/1.1 400 Bad Request
+ *     HTTP/1.1 404 Not Found
  *     {
- *       "Error": "User already created."
+ *       "message": "Account not found."
  *     }
  */
 
 /**
  * @apiGroup Account    
- * @api {post} /account/user/:id Login
+ * @api {post} /account/login Login
  * @apiName LoginAPI
  * 
  * @apiParamExample {json} JSON-Request:
@@ -54,13 +55,13 @@
  *     }
  * 
  * @apiErrorExample Error-Response:
- *     HTTP/1.1 400 Bad Request
+ *     HTTP/1.1 403 Forbidden
  *     {
- *       "Error": "WrongUsernameOrPassword"
+ *       "message": "Wrong password."
  *     }
  *     HTTP/1.1 404 Not Found
  *     {
- *       "Error": "UserNotFound"
+ *       "message": "Account not found."
  *     }
  */
 
