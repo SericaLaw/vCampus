@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class WebResponse implements Serializable {
+    private Integer sessionId;
     private String jsonData;
     private String statusCode;
     private String message;
@@ -73,5 +74,13 @@ public class WebResponse implements Serializable {
                     this.jsonData.equals(another.jsonData);
         }
         return false;
+    }
+
+    public Integer getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(Integer sessionId) {
+        this.sessionId = sessionId;
     }
 }

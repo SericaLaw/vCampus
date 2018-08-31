@@ -17,6 +17,7 @@ public class SessionMiddleware implements Middleware {
             Integer id = new Random().nextInt();
             ctx.session = new Session(id, new Timestamp(60 * 1000));
             ctx.server.sessions.put(id, ctx.session);
+            ctx.response.setSessionId(id);
         }
         next.invoke();
     }
