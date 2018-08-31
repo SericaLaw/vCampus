@@ -19,7 +19,6 @@ import static junit.framework.Assert.assertEquals;
  * test/database 21317XXXX用于API测试
  */
 public class ApiTest {
-    @Ignore
     @Test
     public void testLogin() {
         WebResponse res;
@@ -44,7 +43,7 @@ public class ApiTest {
 
         // 404 用户不存在
         res = Api.post("/account/login", "{\"username\":\"LoginTTest\",\"password\":\"123\"}");
-        expectedRes = new WebResponse("404",null, "User not found.");
+        expectedRes = new WebResponse("404",null, "Account not found.");
 
         assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
         assertEquals(expectedRes.getJsonData(), res.getJsonData());
@@ -115,18 +114,6 @@ public class ApiTest {
         assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
         assertEquals(expectedRes.getJsonData(), res.getJsonData());
         assertEquals(expectedRes.getMessage(), res.getMessage());
-    }
-
-    private static Logger logger = new Logger("ApiTest");
-    public static void main(String[] args) {
-        Result result = JUnitCore.runClasses(ApiTest.class);
-        for(Failure failure : result.getFailures()) {
-            logger.log(failure.toString());
-        }
-        if (result.wasSuccessful())
-            logger.log("Unit test passed.");
-        else
-            logger.log("Unit test failed");
     }
 
     @Test
@@ -213,4 +200,17 @@ public class ApiTest {
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
     }
+
+    private static Logger logger = new Logger("ApiTest");
+    public static void main(String[] args) {
+        Result result = JUnitCore.runClasses(ApiTest.class);
+        for(Failure failure : result.getFailures()) {
+            logger.log(failure.toString());
+        }
+        if (result.wasSuccessful())
+            logger.log("Unit test passed.");
+        else
+            logger.log("Unit test failed");
+    }
+
 }

@@ -152,7 +152,7 @@ public class DBHelperTest {
         // selectOne的查询结果为空时jsonData是 {}
         assertEquals(true, jsonData.equals("{}"));
     }
-    
+
     @Test
     public void testUpdate() {
         boolean updateSuc = dbHelper.update("StuInfo", "CampusCardID", "213160000", "{\"Birthplace\":\"Shanghai\",\"Major\":\"SE\"}");

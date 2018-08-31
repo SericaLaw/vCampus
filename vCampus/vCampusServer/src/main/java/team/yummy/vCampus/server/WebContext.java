@@ -27,6 +27,7 @@ public class WebContext extends Thread {
         this.socket = socket;
         this.server = server;
         this.logger = new Logger("WebContext");
+        this.response = new WebResponse();
     }
 
     // 线程执行的操作，响应客户端的请求

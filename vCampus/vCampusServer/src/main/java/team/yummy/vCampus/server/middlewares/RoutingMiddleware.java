@@ -23,18 +23,27 @@ public class RoutingMiddleware implements Middleware {
                 case GET: {
                     //获取输出流，响应客户端的请求
                     String jsonData = dbhelper.select(ctx.request.getTableName(), ctx.request.getKey(), ctx.request.getValue());
-                    if (jsonData == null)
-                        ctx.response = new WebResponse("404", null, "Not Found");
-                    else
-                        ctx.response = new WebResponse("200", jsonData, "OK");
+                    if (jsonData == null) {
+                        ctx.response.setStatusCode("404");
+                        ctx.response.setMessage("Not Found");
+                    }
+                    else {
+                        ctx.response.setStatusCode("200");
+                        ctx.response.setJsonData(jsonData);
+                        ctx.response.setMessage("OK");
+                    }
                     break;
                 }
                 case PATCH: {
                     boolean updateSuc = dbhelper.update(ctx.request.getTableName(), ctx.request.getKey(), ctx.request.getValue(), ctx.request.getJsonData());
-                    if (updateSuc)
-                        ctx.response = new WebResponse("200", null, "OK");
-                    else
-                        ctx.response = new WebResponse("403", null, "update failed");
+                    if (updateSuc) {
+                        ctx.response.setStatusCode("200");
+                        ctx.response.setMessage("OK");
+                    }
+                    else {
+                        ctx.response.setStatusCode("403");
+                        ctx.response.setMessage("update failed");
+                    }
                     break;
                 }
                 case POST: {
@@ -44,35 +53,52 @@ public class RoutingMiddleware implements Middleware {
                         Map<String, String> resData = JSON.parseObject(jsonData, Map.class);
                         String pwd = resData.get("Password");
                         if (pwd == null) {
-                            ctx.response = new WebResponse("404", null, "User not found.");
+                            ctx.response.setStatusCode("404");
+                            ctx.response.setMessage("Account not found.");
                         } else if (pwd.equals(requestData.get("password"))) {
-                            ctx.response = new WebResponse("200", jsonData, "OK");
-                            // 如有必要，这里可以更新更多内容到Session，如Role
+                            ctx.response.setStatusCode("200");
+                            ctx.response.setJsonData(jsonData);
+                            ctx.response.setMessage("OK");
+                            // TODO: 如有必要，这里可以更新更多内容到Session，如Role
                             ctx.session.setString("username", resData.get("Username"));
                         } else {
-                            ctx.response = new WebResponse("403", null, "Wrong password.");
+                            ctx.response.setStatusCode("403");
+                            ctx.response.setMessage("Wrong password.");
                         }
                     }
+                    // 一般形式的POST
                     else {
                         boolean insertSuc = dbhelper.insert(ctx.request.getTableName(), ctx.request.getJsonData());
-                        if (insertSuc)  // 创建成功，201
-                            ctx.response = new WebResponse("201", null, "OK");
-                        else // 创建失败，403，往往是因为已经有创建过的了
-                            ctx.response = new WebResponse("403", null, "User already exist.");
-                        break;
-                    }
-                        // TODO:一般形式的POST都可以接在下面的case下
+                        if (insertSuc) {
+                            // 创建成功，201
+                            ctx.response.setStatusCode("201");
+                            ctx.response.setMessage("OK");
+                        }
+
+                        else { // 创建失败，403，往往是因为已经有创建过的了
+                            ctx.response.setStatusCode("403");
+                            ctx.response.setMessage(ctx.request.getTableName() + " already exist.");
+                        }
                     }
                     break;
+                }
+
                 case DELETE: {
                     boolean deleteSuc = dbhelper.delete(ctx.request.getTableName(), ctx.request.getKey(), ctx.request.getValue());
-                    if (deleteSuc)
-                        ctx.response = new WebResponse();
-                    else
-                        ctx.response = new WebResponse("404", null, ctx.request.getTableName() +" not found.");
+                    if (deleteSuc) {
+//                        ctx.response = new WebResponse();
+                    }
+                    else {
+                        ctx.response.setStatusCode("404");
+                        ctx.response.setMessage(ctx.request.getTableName() + " not found.");
+//                        ctx.response = new WebResponse("404", null, ctx.request.getTableName() + " not found.");
+                    }
+                    break;
                 }
                 default:
-                    ctx.response = new WebResponse("404", null, "Request Url Not Found: " + ctx.request.getRoute());
+                    ctx.response.setStatusCode("404");
+                    ctx.response.setMessage("Request Url Not Found: " + ctx.request.getRoute());
+//                    ctx.response = new WebResponse("404", null, "Request Url Not Found: " + ctx.request.getRoute());
             }
         } catch (Exception e) {
             e.printStackTrace();

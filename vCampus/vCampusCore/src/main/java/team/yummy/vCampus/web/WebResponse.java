@@ -17,6 +17,7 @@ public class WebResponse implements Serializable {
         jsonData = null;
         statusCode = "200";
         message = "OK";
+        sessionId = null;
     }
 
     public WebResponse(String statusCode, String jsonData) {
@@ -31,12 +32,18 @@ public class WebResponse implements Serializable {
         this.message = message;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMessage() { return message; }
+
+    public void setMessage(String message) { this.message = message; }
+
+    public String getJsonData() { return jsonData; }
+
+    public void setJsonData(String jsonData) {
+        this.jsonData = jsonData;
     }
 
-    public String getJsonData() {
-        return jsonData;
+    public void setStatusCode(String statusCode) {
+        this.statusCode = statusCode;
     }
 
     public String getStatusCode() {
@@ -53,14 +60,14 @@ public class WebResponse implements Serializable {
 
     public <T> List<T>  dataList(Class<T> clazz) {
         String jsonData = getJsonData();
-        // 将字符串转为Student类
+        // 将字符串转为 T 类
         List<T> list = JSON.parseArray(jsonData, clazz);
         return list;
     }
 
     public <T> T  dataList(Class<T> clazz, int pos) {
         String jsonData = getJsonData();
-        // 将字符串转为Student类
+        // 将字符串转为 T 类
         List<T> list = JSON.parseArray(jsonData, clazz);
         return list.get(pos);
     }
