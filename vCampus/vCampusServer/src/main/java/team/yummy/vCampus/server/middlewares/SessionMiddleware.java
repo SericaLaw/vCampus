@@ -11,6 +11,7 @@ public class SessionMiddleware implements Middleware {
     public void run(WebContext ctx, WebContext.MiddlewareInvoker next) {
         if (ctx.request.getSessionId() != null) {
             ctx.session = ctx.server.sessions.get(ctx.request.getSessionId());
+            ctx.response.setSessionId(ctx.request.getSessionId());
         }
         if (ctx.session == null) {
             // 创建一个新的会话

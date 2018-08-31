@@ -3,6 +3,7 @@ package team.yummy.vCampus.web;
 import com.alibaba.fastjson.JSON;
 
 import java.io.Serializable;
+import java.util.Hashtable;
 import java.util.List;
 
 public class WebRequest implements Serializable {
@@ -26,6 +27,9 @@ public class WebRequest implements Serializable {
 
     // 客户端Session ID
     private Integer sessionId = null;
+
+    // 客户端权限信息
+    private Hashtable<String, byte[]> auth = null;
 
     // post, patch需要使用data，使用JSON字符串
     private String jsonData = null;
@@ -117,6 +121,22 @@ public class WebRequest implements Serializable {
     @Override
     public String toString() {
         return type + " <-- request url: " + route + "\n[parsed]: tableName = " + tableName +", key = " + field + ", value = " + value +", query = " + query +"\n[ jsonData =  " + jsonData +" ]\n[ sessionId = " + sessionId + " ]\n";
+    }
+
+    public Hashtable<String, byte[]> getAuth() {
+        return auth;
+    }
+
+    public void setAuth(Hashtable<String, byte[]> auth) {
+        this.auth = auth;
+    }
+
+    public String getAuthString(String key) {
+        if (auth.containsKey(key)) {
+            return new String(auth.get(key));
+        } else {
+            return null;
+        }
     }
 
 }

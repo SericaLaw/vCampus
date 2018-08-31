@@ -3,7 +3,9 @@ package team.yummy.vCampus.server.middlewares;
 import com.alibaba.fastjson.JSON;
 import team.yummy.vCampus.data.DBHelper;
 import team.yummy.vCampus.server.Server;
+import team.yummy.vCampus.server.Session;
 import team.yummy.vCampus.server.WebContext;
+import team.yummy.vCampus.util.Logger;
 import team.yummy.vCampus.web.WebResponse;
 
 import java.net.URI;
@@ -11,6 +13,7 @@ import java.net.URISyntaxException;
 import java.util.Map;
 
 public class RoutingMiddleware implements Middleware {
+    private Logger logger = new Logger("RoutingMiddleware");
     @Override
     public void run(WebContext ctx, WebContext.MiddlewareInvoker next) {
         try {
@@ -48,6 +51,7 @@ public class RoutingMiddleware implements Middleware {
                 }
                 case POST: {
                     if (ctx.request.getRoute().equals("/account/login")) {
+                        logger.log("/account/login");
                         Map<String, String> requestData = ctx.request.data(Map.class);
                         String jsonData = dbhelper.selectOne("Account", "Username", requestData.get("username"));
                         Map<String, String> resData = JSON.parseObject(jsonData, Map.class);
@@ -60,7 +64,10 @@ public class RoutingMiddleware implements Middleware {
                             ctx.response.setJsonData(jsonData);
                             ctx.response.setMessage("OK");
                             // TODO: 如有必要，这里可以更新更多内容到Session，如Role
-                            ctx.session.setString("username", resData.get("Username"));
+                            Session sess =  ctx.server.sessions.get(ctx.session.getSessionId());
+                            sess.setString("username", resData.get("Username"));
+                            sess.setString("password", resData.get("Password"));
+                            logger.log(String.format("Session [ sessionId = %s, username = %s, password = %s ]", sess.getSessionId().toString(), sess.getString("username"), sess.getString("password")));
                         } else {
                             ctx.response.setStatusCode("403");
                             ctx.response.setMessage("Wrong password.");

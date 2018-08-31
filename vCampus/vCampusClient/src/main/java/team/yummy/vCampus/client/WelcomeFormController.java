@@ -34,13 +34,13 @@ public class WelcomeFormController {
         // some other logic...
 
         // api
-        WebResponse res = Api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
-        if(res.getStatusCode().equals("200"))
-            errorText.setText("登录成功");
-        else if(res.getStatusCode().equals("404"))
-            errorText.setText("用户不存在");
-        else if(res.getStatusCode().equals("403"))
-            errorText.setText("密码错误");
+//        WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
+//        if(res.getStatusCode().equals("200"))
+//            errorText.setText("登录成功");
+//        else if(res.getStatusCode().equals("404"))
+//            errorText.setText("用户不存在");
+//        else if(res.getStatusCode().equals("403"))
+//            errorText.setText("密码错误");
     }
     @FXML
     protected void switchToLogin(ActionEvent actionEvent) {

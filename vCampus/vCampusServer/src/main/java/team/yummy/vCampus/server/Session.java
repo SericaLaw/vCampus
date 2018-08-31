@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.Hashtable;
+import java.util.Random;
 
 public class Session {
     // Session ID
@@ -35,7 +36,7 @@ public class Session {
     }
 
     public String getString(String key) {
-        if (data.contains(key)) {
+        if (data.containsKey(key)) {
             return new String(getData().get(key));
         } else {
             return null;
@@ -47,7 +48,7 @@ public class Session {
     }
 
     public Integer getInteger(String key) {
-        if (data.contains(key)) {
+        if (data.containsKey(key)) {
             return new BigInteger(getData().get(key)).intValue();
         } else {
             return null;
@@ -57,4 +58,10 @@ public class Session {
     public void setInteger(String key, Integer value) {
         getData().put(key, ByteBuffer.allocate(4).putInt(value).array());
     }
+
+    public String toString() {
+        return String.format("Session [ sessionId = %s, username = %s, password = %s ]", id.toString(), getString("username"), getString("password"));
+    }
+
+
 }

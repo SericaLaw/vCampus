@@ -1,6 +1,7 @@
 package team.yummy.vCampus.server;
 
 
+import team.yummy.vCampus.server.middlewares.AuthenticationMiddleware;
 import team.yummy.vCampus.server.middlewares.Middleware;
 import team.yummy.vCampus.server.middlewares.RoutingMiddleware;
 import team.yummy.vCampus.server.middlewares.SessionMiddleware;
@@ -37,6 +38,7 @@ public class Server {
 
     public void configure() {
         middlewares.add(new SessionMiddleware());
+        middlewares.add(new AuthenticationMiddleware());
         middlewares.add(new RoutingMiddleware());
     }
 
