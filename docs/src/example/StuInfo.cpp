@@ -1,6 +1,6 @@
 /**
- * @apiGroup StuInfo    
- * @api {post} ~/stuInfo CreateStuInfo
+ * @apiGroup StuInfo
+ * @api {post} ~/stuInfo CreateStuInfo ( passed )
  * @apiParamExample {json} JSON-Request:
  *      {
  *          "campusCardID":"213160000",
@@ -14,25 +14,21 @@
  *      }
  * 
  * @apiSuccessExample Success-Response:
- *     HTTP/1.1 201 OK
+ *     201 OK
  * 
  * @apiErrorExample Error-Response:
- *     HTTP/1.1 403 Bad Request
- *     {
- *       "Error": "StuInfo already exist."
- *     }
- *     HTTP/1.1 404 Not Found
- *     {
- *       "Error": "CampusID does not exist"
- *     } 
+ *     403  "StuInfo already exists."
+ *     
+ *     404  "StuInfo not found."
+ *     
  */
 
 /**
  * @apiGroup StuInfo    
- * @api {get} ~/stuInfo/campusCardID/:id GetStuInfo
+ * @api {get} ~/stuInfo/campusCardID/:id GetStuInfo ( passed )
 
  * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
+ *     200 OK
  *      {
  *          "campusCardID":"213160000",
  *          "studentID":"09016101"
@@ -44,16 +40,14 @@
  *          "major":"Computer Science"
  *      }
  * @apiErrorExample Error-Response:
- *     HTTP/1.1 404 Not Found
- *     {
- *       "Error": "StuInfo not found."
- *     } 
+ *     404 "StuInfo not found."
+ *     
  */
  
 
 /**
  * @apiGroup StuInfo    
- * @api {patch} /StuInfo/campusCardID/:id ModifyStuInfo
+ * @api {patch} ~/stuInfo/campusCardID/:id ModifyStuInfo ( passed )
  * @apiParamExample {json} JSON-Request:
  *      {
  *          "CampusCardID":"213160000",
@@ -63,23 +57,19 @@
  *      }
  * 
  * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
+ *     200 OK
  * 
  * @apiErrorExample Error-Response:
- *     HTTP/1.1 404 Not Found
- *     {
- *       "Error": "StuInfo not found."
- *     } 
+ *     404 "StuInfo not found."
+ *     
  */
 
 /**
  * @apiGroup StuInfo    
- * @api {delete} /StuInfo/campusCardID/:id DeleteStuInfo
+ * @api {delete} ~/stuInfo/campusCardID/:id DeleteStuInfo ( passed )
  * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
+ *     200 OK
  * @apiErrorExample Error-Response:
- *     HTTP/1.1 404 Not Found
- *     {
- *       "Error": "StuInfo not found."
- *     } 
+ *     404  "StuInfo not found."
+ *     
  */

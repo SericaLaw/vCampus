@@ -3,7 +3,7 @@
     "group": "Account",
     "type": "post",
     "url": "/account/login",
-    "title": "Login",
+    "title": "Login ( passed )",
     "name": "LoginAPI",
     "parameter": {
       "examples": [
@@ -18,7 +18,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"CampusCardID\": \"213160000\",\n  \"FirstName\":\"张\",\n  \"LastName\": \"三\"\n}",
+          "content": "200 OK\n{\n  \"CampusCardID\": \"213180000\",\n  \"Username\": \"client\",\n  \"Password\": \"123\",\n  \"FirstName\":\"Foo\",\n  \"LastName\": \"Bar\",\n  \"Role\": \"student\"\n}",
           "type": "json"
         }
       ]
@@ -27,7 +27,7 @@
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 403 Forbidden\n{\n  \"message\": \"Wrong password.\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"message\": \"Account not found.\"\n}",
+          "content": "403 \"Wrong password.\"\n\n404 \"Account not found.\"",
           "type": "json"
         }
       ]
@@ -46,7 +46,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
+          "content": "200 OK",
           "type": "json"
         }
       ]
@@ -55,7 +55,7 @@
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"Error\": \"User not found.\"\n}",
+          "content": "404 \"Account not found.\"",
           "type": "json"
         }
       ]
@@ -95,8 +95,8 @@
   {
     "group": "Account",
     "type": "post",
-    "url": "/account/campusCardID/:id",
-    "title": "Register",
+    "url": "/account",
+    "title": "Register ( passed )",
     "parameter": {
       "examples": [
         {
@@ -110,7 +110,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 201 OK",
+          "content": "201 OK",
           "type": "json"
         }
       ]
@@ -119,7 +119,7 @@
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 403 Forbidden\n{\n  \"Error\": \"Account already created.\"\n}",
+          "content": "403 \"Account already exists.\"",
           "type": "json"
         }
       ]
@@ -127,19 +127,19 @@
     "version": "0.0.0",
     "filename": "example/Account.cpp",
     "groupTitle": "Account",
-    "name": "PostAccountCampuscardidId"
+    "name": "PostAccount"
   },
   {
     "group": "Account",
     "type": "delete",
     "url": "/account/campusCardID/:id",
-    "title": "UnRegister",
+    "title": "UnRegister ( passed )",
     "name": "UnRegisterAPI",
     "success": {
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
+          "content": "200 OK",
           "type": "json"
         }
       ]
@@ -148,7 +148,7 @@
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"message\": \"Account not found.\"\n}",
+          "content": "404 \"Account not found.\"",
           "type": "json"
         }
       ]
@@ -828,13 +828,13 @@
   {
     "group": "StuInfo",
     "type": "delete",
-    "url": "/StuInfo/campusCardID/:id",
-    "title": "DeleteStuInfo",
+    "url": "~/stuInfo/campusCardID/:id",
+    "title": "DeleteStuInfo ( passed )",
     "success": {
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
+          "content": "200 OK",
           "type": "json"
         }
       ]
@@ -843,7 +843,7 @@
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"Error\": \"StuInfo not found.\"\n}",
+          "content": "404  \"StuInfo not found.\"",
           "type": "json"
         }
       ]
@@ -857,12 +857,12 @@
     "group": "StuInfo",
     "type": "get",
     "url": "~/stuInfo/campusCardID/:id",
-    "title": "GetStuInfo",
+    "title": "GetStuInfo ( passed )",
     "success": {
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n {\n     \"campusCardID\":\"213160000\",\n     \"studentID\":\"09016101\"\n     \"seniorHigh\":\"a\",\n     \"IDNum\":\"320121199800000000\",\n     \"birthplace\":\"Mars\",\n     \"sex\":\"male\",\n     \"department\":\"School of CS\",\n     \"major\":\"Computer Science\"\n }",
+          "content": "200 OK\n {\n     \"campusCardID\":\"213160000\",\n     \"studentID\":\"09016101\"\n     \"seniorHigh\":\"a\",\n     \"IDNum\":\"320121199800000000\",\n     \"birthplace\":\"Mars\",\n     \"sex\":\"male\",\n     \"department\":\"School of CS\",\n     \"major\":\"Computer Science\"\n }",
           "type": "json"
         }
       ]
@@ -871,7 +871,7 @@
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"Error\": \"StuInfo not found.\"\n}",
+          "content": "404 \"StuInfo not found.\"",
           "type": "json"
         }
       ]
@@ -884,8 +884,8 @@
   {
     "group": "StuInfo",
     "type": "patch",
-    "url": "/StuInfo/campusCardID/:id",
-    "title": "ModifyStuInfo",
+    "url": "~/stuInfo/campusCardID/:id",
+    "title": "ModifyStuInfo ( passed )",
     "parameter": {
       "examples": [
         {
@@ -899,7 +899,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
+          "content": "200 OK",
           "type": "json"
         }
       ]
@@ -908,7 +908,7 @@
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"Error\": \"StuInfo not found.\"\n}",
+          "content": "404 \"StuInfo not found.\"",
           "type": "json"
         }
       ]
@@ -922,7 +922,7 @@
     "group": "StuInfo",
     "type": "post",
     "url": "~/stuInfo",
-    "title": "CreateStuInfo",
+    "title": "CreateStuInfo ( passed )",
     "parameter": {
       "examples": [
         {
@@ -936,7 +936,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 201 OK",
+          "content": "201 OK",
           "type": "json"
         }
       ]
@@ -945,7 +945,7 @@
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 403 Bad Request\n{\n  \"Error\": \"StuInfo already exist.\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"CampusID does not exist\"\n}",
+          "content": "403  \"StuInfo already exists.\"\n\n404  \"StuInfo not found.\"",
           "type": "json"
         }
       ]

@@ -1,6 +1,6 @@
 /**
- * @apiGroup Account    
- * @api {post} /account/campusCardID/:id Register
+ * @apiGroup Account   
+ * @api {post} /account Register ( passed )
  * @apiParamExample {json} JSON-Request:
  *      {
  *          "CampusCardID":"213160000",
@@ -12,32 +12,15 @@
  *      }
  * 
  * @apiSuccessExample Success-Response:
- *     HTTP/1.1 201 OK
+ *     201 OK
  * 
  * @apiErrorExample Error-Response:
- *     HTTP/1.1 403 Forbidden
- *     {
- *       "Error": "Account already created."
- *     }
+ *     403 "Account already exists."
  */
 
 /**
  * @apiGroup Account    
- * @api {delete} /account/campusCardID/:id UnRegister
- * @apiName UnRegisterAPI
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- * 
- * @apiErrorExample Error-Response:
- *     HTTP/1.1 404 Not Found
- *     {
- *       "message": "Account not found."
- *     }
- */
-
-/**
- * @apiGroup Account    
- * @api {post} /account/login Login
+ * @api {post} /account/login Login ( passed )
  * @apiName LoginAPI
  * 
  * @apiParamExample {json} JSON-Request:
@@ -47,22 +30,32 @@
  *      }
  * 
  * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
+ *     200 OK
  *     {
- *       "CampusCardID": "213160000",
- *       "FirstName":"张",
- *       "LastName": "三"
+ *       "CampusCardID": "213180000",
+ *       "Username": "client",
+ *       "Password": "123",
+ *       "FirstName":"Foo",
+ *       "LastName": "Bar",
+ *       "Role": "student"
  *     }
  * 
  * @apiErrorExample Error-Response:
- *     HTTP/1.1 403 Forbidden
- *     {
- *       "message": "Wrong password."
- *     }
- *     HTTP/1.1 404 Not Found
- *     {
- *       "message": "Account not found."
- *     }
+ *     403 "Wrong password."
+ *     
+ *     404 "Account not found."
+ *     
+ */
+
+/**
+ * @apiGroup Account    
+ * @api {delete} /account/campusCardID/:id UnRegister ( passed )
+ * @apiName UnRegisterAPI
+ * @apiSuccessExample Success-Response:
+ *     200 OK
+ * 
+ * @apiErrorExample Error-Response:
+ *     404 "Account not found."
  */
 
 /**
@@ -71,11 +64,9 @@
  * @apiName LogoutAPI
 
  * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
+ *    200 OK
  * 
  * @apiErrorExample Error-Response:
- *     HTTP/1.1 404 Not Found
- *     {
- *       "Error": "User not found."
- *     }
+ *    404 "Account not found."
+ *    
  */

@@ -126,7 +126,7 @@ public class ApiTest {
         assertEquals(expectedRes.getJsonData(), res.getJsonData());
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
-//        // 测试注销一个不存在的账户，这个场景现在不可能出现了
+//        // 测试注销一个不存在的账户
 //        res = api.delete("/account/campusCardID/213170002");
 //        expectedRes = new WebResponse("404", null, "Account not found.");
 //
@@ -189,7 +189,6 @@ public class ApiTest {
 
         /**
          * PATCH ~/stuInfo/campusCardID/:id
-         * 暂时没有做鉴权，若要的话还需要在ServerThread里添加逻辑
          */
         StuInfo modifiedStuInfo = new StuInfo(
                 "213170000",
@@ -215,6 +214,7 @@ public class ApiTest {
         assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
         assertEquals(true, modifiedStuInfo.equals(res.dataList(StuInfo.class, 0)));
         assertEquals(expectedRes.getMessage(), res.getMessage());
+        
         /**
          * DELETE ~/stuInfo/campusCardID/:id
          */
