@@ -26,7 +26,7 @@ public class Server {
     // 服务器端Socket
     private ServerSocket serverSocket;
 
-    Server(int port) {
+    public Server(int port) {
         try {
             logger = new Logger("Server");
             serverSocket = new ServerSocket(port); // 与port绑定

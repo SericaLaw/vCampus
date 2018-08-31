@@ -58,9 +58,16 @@ public class WebResponse implements Serializable {
         return list;
     }
 
+    public <T> T  dataList(Class<T> clazz, int pos) {
+        String jsonData = getJsonData();
+        // 将字符串转为Student类
+        List<T> list = JSON.parseArray(jsonData, clazz);
+        return list.get(pos);
+    }
+
     @Override
     public String toString() {
-        return statusCode + " --> "  + message + "\n[ JSON data = " + jsonData + " ]\n";
+        return statusCode + " --> "  + message + "\n[ JSON data = " + jsonData + " ]\n[ sessionId = " + sessionId +" ]\n";
     }
 
     @Override

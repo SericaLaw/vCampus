@@ -77,16 +77,15 @@ public class DBHelper {
             return false;
         }
     }
-    // 暂时只支持一次改一个数据，查询条件也只有一个
+
     // 用于形如 PATCH /tableName/:key, params = data的API
 
     /**
      * 更新数据表中数据
-     *
      * @param tableName 要执行插入操作的数据表名
-     * @param key       用于定位数据项的key
-     * @param value     用于定位数据项的value
-     * @param jsonData  待修改项的JSON形式数据
+     * @param key 用于定位数据项的key
+     * @param value 用于定位数据项的value
+     * @param jsonData 待修改项的JSON形式数据
      * @return 执行成功与否
      */
     public boolean update(String tableName, String key, String value, String jsonData) {
@@ -97,13 +96,20 @@ public class DBHelper {
             assert map.size() == 1;
             String dataKey = null;
             String dataValue = null;
-            for (Map.Entry<String, String> entry : map.entrySet()) {
+
+            String sql = "UPDATE "+ tableName +
+                    " SET ";
+
+            for (Map.Entry<String, String> entry:map.entrySet()) {
                 dataKey = entry.getKey();
                 dataValue = entry.getValue();
+                sql += String.format("%s = '%s', ", dataKey, dataValue);
             }
-            String sql = "UPDATE " + tableName +
-                    " SET " + dataKey + " = " + dataValue + " WHERE "
-                    + key + " = '" + value + "'";
+            sql = sql.substring(0,sql.length() - 2); // 去除多余的逗号
+            sql += String.format(" WHERE %s = '%s'", key, value);
+//            String sql = "UPDATE "+ tableName +
+//                    " SET "+ dataKey + " = " + dataValue + " WHERE "
+//                    + key + " = '" + value + "'";
             logger.log("Executing SQL: " + sql);
             PreparedStatement stmt =
                     conn.prepareStatement(sql);

@@ -35,8 +35,8 @@ public class Api {
         return sendResponse(getSocket(), request, response);
     }
     // PATCH /tableName/:id, data为json string 当数据被修改
-    public static WebResponse patch(String route, String key, String data){
-        WebRequest request = new WebRequest(RequestMethod.PATCH, route);
+    public static WebResponse patch(String route, String data){
+        WebRequest request = new WebRequest(RequestMethod.PATCH, route, data);
         WebResponse response = new WebResponse();
         return sendResponse(getSocket(), request, response);
     }

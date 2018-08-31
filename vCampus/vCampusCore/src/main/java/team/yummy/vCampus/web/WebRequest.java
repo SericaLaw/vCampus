@@ -86,7 +86,7 @@ public class WebRequest implements Serializable {
         if (p.length >= 2)
             tableName = p[1].substring(0, 1).toUpperCase() + p[1].substring(1);
         if (p.length >= 3)
-            field = p[2];
+            field = p[2].substring(0, 1).toUpperCase() + p[2].substring(1);
         if (p.length >= 4)
             value = p[3];
         if (p.length >= 5)
@@ -116,7 +116,7 @@ public class WebRequest implements Serializable {
 
     @Override
     public String toString() {
-        return type + " <-- request url: " + route + "\n[parsed]: tableName = " + tableName +", key = " + field + ", value = " + value +", query = " + query +"\n[jsonData]: " + jsonData +'\n';
+        return type + " <-- request url: " + route + "\n[parsed]: tableName = " + tableName +", key = " + field + ", value = " + value +", query = " + query +"\n[ jsonData =  " + jsonData +" ]\n[ sessionId = " + sessionId + " ]\n";
     }
 
 }
