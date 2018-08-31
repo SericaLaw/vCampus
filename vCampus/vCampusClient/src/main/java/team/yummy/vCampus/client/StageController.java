@@ -1,27 +1,25 @@
-package team.yummy.vCampus.client.demo;
+package team.yummy.vCampus.client;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.*;
 import team.yummy.vCampus.client.api.Api;
-import team.yummy.vCampus.util.Logger;
 
 import java.util.HashMap;
 
 public class StageController {
-    private Logger logger = new Logger("Stage Controller");
     public Api api = new Api();
     public String authData = null;
     //建立一个专门存储Stage的Map，全部用于存放Stage对象
     private HashMap<String, Stage> stages = new HashMap<String, Stage>();
-    private HashMap<String, Controllable> controllers = new HashMap<String, Controllable>();
+    private HashMap<String, ViewController> controllers = new HashMap<String, ViewController>();
 
-    public void addController(String name, Controllable controller) {
-        controllers.put(name, controller);
+    public void addController(String name, ViewController viewController) {
+        controllers.put(name, viewController);
     }
 
-    public Controllable getController(String name) {
+    public ViewController getController(String name) {
         return controllers.get(name);
     }
 
@@ -66,10 +64,8 @@ public class StageController {
             Parent root = (Parent) loader.load();
 
             //通过Loader获取FXML对应的ViewCtr，并将本StageController注入到ViewCtr中
-            Controllable controlledStage = (Controllable) loader.getController();
+            ViewController controlledStage = (ViewController) loader.getController();
             controlledStage.setStageController(this);
-            controlledStage.setApi(this.api);
-            controlledStage.setAuthData(this.authData);
 
             //构造对应的Stage
             Scene tempScene = new Scene(root);
@@ -95,12 +91,7 @@ public class StageController {
      * @return 是否显示成功
      */
     public boolean setStage(String name) {
-        // TODO:窗口间状态传送
-        logger.log(this.toString());
-
-        Controllable controlledStage = this.getController(name);
-        controlledStage.setApi(this.api);
-        controlledStage.setAuthData(this.authData);
+        ViewController controlledStage = this.getController(name);
 
         this.getStage(name).show();
         return true;
@@ -116,11 +107,9 @@ public class StageController {
      */
     public boolean setStage(String show, String close) {
         // TODO:窗口间状态传送
-        logger.log(this.toString());
-
-        Controllable controlledStage = this.getController(show);
-        controlledStage.setApi(this.api);
-        controlledStage.setAuthData(this.authData);
+        ViewController showController = this.getController(show);
+        ViewController closeController = this.getController(close);
+        Bridge.transmit(showController, closeController);
 
         getStage(close).close();
         setStage(show);

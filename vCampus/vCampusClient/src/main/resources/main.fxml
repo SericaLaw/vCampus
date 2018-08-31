@@ -11,14 +11,14 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="team.yummy.vCampus.client.demo.MainFormController">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="team.yummy.vCampus.client.MainViewController">
     <center>
         <GridPane id="grid-main" fx:id="home">
             <children>
                 <Button id="grid-main__stu-info" fx:id="homeStuInfoButton" onAction="#getStuInfo" mnemonicParsing="false" opacity="1.0" prefHeight="150.0" prefWidth="200.0"  text="学籍" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                <Button id="grid-main__course" fx:id="homeCourseButton" onAction="#animate" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0"  text="课程" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                <Button id="grid-main__library" fx:id="homeLibraryButton" onAction="#animate" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0"  text="图书馆" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                <Button id="grid-main__shop" fx:id="homeShopButton" onAction="#animate" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0"  text="商店" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                <Button id="grid-main__course" fx:id="homeCourseButton" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0"  text="课程" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                <Button id="grid-main__library" fx:id="homeLibraryButton"  mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0"  text="图书馆" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                <Button id="grid-main__shop" fx:id="homeShopButton"  mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0"  text="商店" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                 <HBox id="main__stat" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <children>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="column">
@@ -109,6 +109,6 @@
         </VBox>
     </left>
     <stylesheets>
-        <URL value="@main_form.css" />
+        <URL value="@main.css" />
     </stylesheets>
 </BorderPane>
