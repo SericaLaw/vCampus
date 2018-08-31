@@ -1,0 +1,92 @@
+#side-bar {
+    -fx-background-color: #128;
+    -fx-effect:dropshadow(gaussian, #888, 30, 0.06, 5, 0);
+    -fx-spacing: 60;
+    -fx-padding: 20;
+    -fx-pref-width: 300;
+    -fx-pref-height: 800;
+}
+#avatar {
+    -fx-spacing: 10;
+}
+
+#avatar .text {
+    -fx-fill:#fff;
+    -fx-font-size: 28px;
+}
+
+#side-bar .button {
+    -fx-background-color: #128;
+    -fx-text-fill: #fff;
+    -fx-font-size: 36px;
+    -fx-padding: 10px 60px;
+}
+
+#side-bar .button:hover {
+    -fx-background-color: #148;
+    -fx-cursor: hand;
+}
+
+#grid-main {
+    -fx-alignment: center;
+}
+
+#main__stat {
+    -fx-alignment:center;
+
+}
+
+#main__stat .column {
+    -fx-alignment: center;
+    -fx-space: 10;
+}
+
+#main__stat .column .title {
+    -fx-fill: #888;
+    -fx-font-size:18px;
+}
+
+#main__stat .column .content {
+    -fx-fill: #128;
+    -fx-font-size:24px;
+}
+#grid-main .button {
+    -fx-text-fill: #fff;
+    -fx-font-size: 36px;
+}
+
+#grid-main .button:hover {
+    -fx-effect: dropshadow(gaussian, #aaa, 30, 0.06, 5, 5);
+    -fx-cursor: hand;
+}
+#grid-main__stu-info {
+    -fx-background-color:#843;
+}
+
+#grid-main__stu-info:hover {
+    -fx-background-color:#854;
+}
+
+#grid-main__course {
+    -fx-background-color: #456;
+}
+
+#grid-main__course:hover {
+    -fx-background-color: #567;
+}
+
+#grid-main__library {
+    -fx-background-color:#355;
+}
+
+#grid-main__library:hover {
+    -fx-background-color:#367;
+}
+
+#grid-main__shop {
+    -fx-background-color:#530;
+}
+
+#grid-main__shop:hover {
+    -fx-background-color:#541;
+}

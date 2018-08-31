@@ -14,7 +14,9 @@ public class Api {
     private Logger logger = new Logger("API");
     private Hashtable<String, byte[]> auth = new Hashtable<>();
     private Integer sessionId = null;
-    public Api(){}
+    public Api() {
+
+    }
 
     // 每调用一次API，都开一个连接
     private static Socket getSocket() {
@@ -99,6 +101,10 @@ public class Api {
 
     public void setSessionId(Integer sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public String toString() {
+        return String.format("Api Auth [ username = %s, password = %s ]", new String(auth.get("username")), new String(auth.get("password")));
     }
 }
 

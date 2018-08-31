@@ -9,9 +9,9 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="team.yummy.vCampus.client.WelcomeFormController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="team.yummy.vCampus.client.demo.WelcomeFormController">
     <stylesheets>
-        <URL value="@welcom_form.css" />
+        <URL value="@welcome_form.css" />
     </stylesheets>
     <GridPane id="grid-login" fx:id="loginGrid" alignment="CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="600.0" prefWidth="800.0" visible="true">
         <children>
@@ -27,7 +27,7 @@
                     <Insets fx:id="x1" />
                 </GridPane.margin>
             </TextField>
-            <PasswordField fx:id="loginPassword" prefWidth="200.0" promptText="passsword" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.margin="$x1" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
+            <PasswordField fx:id="loginPassword" prefWidth="200.0" promptText="Passsword" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.margin="$x1" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
             <Text id="error-text" fx:id="errorText" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="LEFT" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
         </children>
         <columnConstraints>
