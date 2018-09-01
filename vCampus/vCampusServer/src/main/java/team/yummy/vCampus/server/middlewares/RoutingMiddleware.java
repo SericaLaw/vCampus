@@ -40,7 +40,7 @@ public class RoutingMiddleware implements Middleware {
                         }
                     }
                     else if(ctx.request.getQuery() != null && ctx.request.getQuery().equals("Like"))
-                        // ~/book/bookName/机器/like 模糊查询
+                        // 形如 ~/book/bookName/机器/like 模糊查询
                         jsonData = dbhelper.search(ctx.request.getTableName(), ctx.request.getField(), ctx.request.getValue());
                     else
                         // 精准查询
@@ -101,9 +101,16 @@ public class RoutingMiddleware implements Middleware {
                             ctx.response.setMessage("OK");
                         }
 
-                        else { // 创建失败，403，往往是因为已经有创建过的了
-                            ctx.response.setStatusCode("403");
-                            ctx.response.setMessage(ctx.request.getTableName() + " already exist.");
+                        else {
+                            if(ctx.request.getTableName().equals("BorrowBook")) {
+                                // 不能借一本图书馆里没有收录的书
+                                ctx.response.setStatusCode("404");
+                                ctx.response.setMessage("BorrowBook not found.");
+                            } else {
+                                // 创建失败，403，往往是因为已经有创建过的了
+                                ctx.response.setStatusCode("403");
+                                ctx.response.setMessage(ctx.request.getTableName() + " already exist.");
+                            }
                         }
                     }
                     break;

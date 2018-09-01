@@ -175,14 +175,17 @@ public class DBHelperTest {
         // selectOne的查询结果为空时jsonData是 {}
         assertEquals(true, jsonData.equals("{}"));
 
-//        BorrowBookRecord borrowBookRecord = new BorrowBookRecord("102","213160000", new Date());
-//        jsonData = JSON.toJSONString(borrowBookRecord, SerializerFeature.WriteDateUseDateFormat);
-//        dbHelper.insert("BorrowBook", jsonData);
+
+        BorrowBookRecord borrowBookRecord = new BorrowBookRecord("202","213160000", new Date());
+        jsonData = JSON.toJSONString(borrowBookRecord, SerializerFeature.WriteDateUseDateFormat);
+        boolean suc = dbHelper.insert("BorrowBook", jsonData);
+        if(suc)
+            logger.log("suc");
 //        jsonData = dbHelper.select("BorrowBook", "campusCardID", "213160000");
 //        List<BorrowBookRecord> l = JSON.parseArray(jsonData, BorrowBookRecord.class);
 //        logger.log(jsonData);
 
-        dbHelper.delete("BorrowBook", "BookID", "101", "CampusCardID", "213160000");
+//        dbHelper.delete("BorrowBook", "BookID", "101", "CampusCardID", "213160000");
 
 
     }

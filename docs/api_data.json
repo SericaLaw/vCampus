@@ -40,34 +40,6 @@
     "group": "Account",
     "type": "get",
     "url": "/account/user/:id",
-    "title": "Logout",
-    "name": "LogoutAPI",
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "404 \"Account not found.\"",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Account.cpp",
-    "groupTitle": "Account"
-  },
-  {
-    "group": "Account",
-    "type": "get",
-    "url": "/account/user/:id",
     "title": "logout",
     "name": "LogoutAPI",
     "success": {
@@ -90,6 +62,34 @@
     },
     "version": "0.0.0",
     "filename": "example/Bank.cpp",
+    "groupTitle": "Account"
+  },
+  {
+    "group": "Account",
+    "type": "get",
+    "url": "/account/user/:id",
+    "title": "Logout",
+    "name": "LogoutAPI",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "404 \"Account not found.\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "example/Account.cpp",
     "groupTitle": "Account"
   },
   {
@@ -364,7 +364,7 @@
   {
     "group": "Course",
     "type": "get",
-    "url": "/course/:CourseID",
+    "url": "/course/courseID/:id",
     "title": "GetCourseInfo",
     "success": {
       "examples": [
@@ -387,7 +387,7 @@
     "version": "0.0.0",
     "filename": "example/Course.cpp",
     "groupTitle": "Course",
-    "name": "GetCourseCourseid"
+    "name": "GetCourseCourseidId"
   },
   {
     "group": "Course",
@@ -540,13 +540,19 @@
   {
     "group": "Library",
     "type": "delete",
-    "url": "/Book/:id",
-    "title": "ReturnBook",
+    "url": "/borrowBook/bookID/:bid/campusCardID/:cid",
+    "title": "ReturnBook ( passed )",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>还书</p>",
     "parameter": {
       "examples": [
         {
-          "title": "JSON-Request:",
-          "content": "{\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\"\n}",
+          "title": "Request Code Snippets",
+          "content": "res = api.delete(\"/borrowBook/bookID/101/campusCardID/213170000\");",
           "type": "json"
         }
       ]
@@ -554,8 +560,8 @@
     "success": {
       "examples": [
         {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
+          "title": "Success-Response",
+          "content": "200 OK",
           "type": "json"
         }
       ]
@@ -563,8 +569,8 @@
     "error": {
       "examples": [
         {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"Wrong username or password.\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"Book does not exist.\"\n}",
+          "title": "Error-Response",
+          "content": "404 BorrowBook Not Found",
           "type": "json"
         }
       ]
@@ -572,18 +578,43 @@
     "version": "0.0.0",
     "filename": "example/Library.cpp",
     "groupTitle": "Library",
-    "name": "DeleteBookId"
+    "name": "DeleteBorrowbookBookidBidCampuscardidCid"
   },
   {
     "group": "Library",
     "type": "get",
-    "url": "/Book",
-    "title": "ListBooks/SearchBooks",
+    "url": "/book",
+    "title": "GetBookList ( passed )",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>获得图书数据表中前20条信息，用以展示图书馆书目信息，查询结果为空则返回&quot;[]&quot;</p>",
     "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "List_Book",
+            "description": "<p>book list</p>"
+          }
+        ]
+      },
       "examples": [
         {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n {\n     \"BookList\":[\n         {\n             \"BookID\":\"1\",\n             \"BookName\":\"How to become a lousy programmer\",\n             \"Writer\":\"BetaCat\",\n             \"Publisher\":\"Southeast University\",\n             \"BookStatus\":\"Borrowed\"\n         },\n         {\n             \"BookID\":\"2\",\n             \"BookName\":\"How to become a very lousy programmer\",\n             \"Writer\":\"BetaCat\",\n             \"Publisher\":\"Southeast University\",\n             \"BookStatus\":\"UnBorrowed\"\n         }        \n     ]\n }",
+          "title": "Success-Response",
+          "content": "200 OK\n[   \n    {\n        \"Publisher\":\"清华大学出版社\",\n        \"BookID\":\"101\",\n        \"BookName\":\"数据结构\",\n        \"TotalCount\":\"5\",\n        \"Writer\":\"邓俊辉\",\n        \"AvailableCount\":\"4\"\n    },\n    {\n        \"Publisher\":\"清华大学出版社\",\n        \"BookID\":\"102\",\"BookName\":\"机器学习\",\n        \"TotalCount\":\"4\",\n        \"Writer\":\"周志华\",\n        \"AvailableCount\":\"2\"\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request Code Snippets",
+          "content": "res = api.get(\"/book\");",
           "type": "json"
         }
       ]
@@ -595,14 +626,108 @@
   },
   {
     "group": "Library",
-    "type": "post",
-    "url": "/Book/:id",
-    "title": "BorrowBook",
+    "type": "get",
+    "url": "/book/bookName/:keyword/like",
+    "title": "SearchBook ( passed )",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>模糊搜索图书，传入书名关键词keyword</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "List_Book",
+            "description": "<p>book list</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response",
+          "content": "200 OK\n[\n    {\n        \"Publisher\":\"清华大学出版社\",\n        \"BookID\":\"102\",\n        \"BookName\":\"机器学习\",\n        \"TotalCount\":\"4\",\n        \"Writer\":\"周志华\",\n        \"AvailableCount\":\"2\"\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
     "parameter": {
       "examples": [
         {
-          "title": "JSON-Request:",
-          "content": "{\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\"\n}",
+          "title": "Request Code Snippets",
+          "content": "res = api.get(\"/book/bookName/机器/like\");",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "example/Library.cpp",
+    "groupTitle": "Library",
+    "name": "GetBookBooknameKeywordLike"
+  },
+  {
+    "group": "Library",
+    "type": "get",
+    "url": "/borrowBook",
+    "title": "GetBorrowedBook ( passed )",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>获取在借图书列表</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "List_BorroedBook",
+            "description": "<p>在借图书list</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response",
+          "content": "200 OK\n[\n    {\n        \"Publisher\":\"清华大学出版社\",\n        \"BookID\":\"102\",\n        \"BorrowDate\":\"2018-09-01 14:26:34.0\",\n        \"ExpiryDate\":\"2018-10-01 14:26:34.0\",\n        \"BookName\":\"机器学习\",\"Writer\":\"周志华\"\n    },\n    {\n        \"Publisher\":\"南海出版公司\",\n        \"BookID\":\"103\",\n        \"BorrowDate\":\"2018-09-01 14:26:44.0\",\n        \"ExpiryDate\":\"2018-10-01 14:26:44.0\",\n        \"BookName\":\"白夜行\",\n        \"Writer\":\"东野圭吾\"\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request Code Snippets",
+          "content": "res = api.get(\"/borrowBook\");",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "example/Library.cpp",
+    "groupTitle": "Library",
+    "name": "GetBorrowbook"
+  },
+  {
+    "group": "Library",
+    "type": "post",
+    "url": "/borrowBook",
+    "title": "BorrowBook ( passed )",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>借书：注意后端不会判断书籍能否借阅（即availableCount是否大于0），提交请求前前端必须进行验证，不能借阅的书不得出请求</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request Code Snippets",
+          "content": "BorrowBookRecord borrowBookRecord = new BorrowBookRecord(\"101\",\"213170000\", new Date());\njsonData = JSON.toJSONString(borrowBookRecord, SerializerFeature.WriteDateUseDateFormat);\nres = api.post(\"/borrowBook\", jsonData);",
           "type": "json"
         }
       ]
@@ -611,7 +736,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
+          "content": "200 OK",
           "type": "json"
         }
       ]
@@ -619,8 +744,8 @@
     "error": {
       "examples": [
         {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"Wrong username or password.\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"Book does not exist.\"\n}",
+          "title": "Error-Response",
+          "content": "404 BorrowBook Not Found",
           "type": "json"
         }
       ]
@@ -628,7 +753,7 @@
     "version": "0.0.0",
     "filename": "example/Library.cpp",
     "groupTitle": "Library",
-    "name": "PostBookId"
+    "name": "PostBorrowbook"
   },
   {
     "group": "Store",

@@ -241,14 +241,12 @@ public class ApiTest {
          * 返回数据库前20条信息，获取图书馆的书目列表
          */
         res = api.get("/book");
-        logger.log(res.toString());
 
         /**
          * GET ~/book/bookName/:keyword/like
          * 模糊查询，按书名
          */
         res = api.get("/book/bookName/机器/like");
-        logger.log(res.toString());
 
         /**
          * GET ~/borrowBook
@@ -256,14 +254,12 @@ public class ApiTest {
          */
 
         res = api.get("/borrowBook");
-        logger.log(res.toString());
-
         /**
          * POST ~/borrowBook 借书
          * 在BorrowBook表里新增信息，数据库会自动修改availableCount
          * 前端负责实现展示书籍可借与否，后端availableCount < 0不处理
          */
-        BorrowBookRecord borrowBookRecord = new BorrowBookRecord("101","213170000", new Date());
+        BorrowBookRecord borrowBookRecord = new BorrowBookRecord("201","213170000", new Date());
         jsonData = JSON.toJSONString(borrowBookRecord, SerializerFeature.WriteDateUseDateFormat);
         res = api.post("/borrowBook", jsonData);
 
@@ -272,6 +268,8 @@ public class ApiTest {
          * 在BorrowBook里删除信息，数据库自动修改availableCount
          */
         res = api.delete("/borrowBook/bookID/101/campusCardID/213170000");
+
+        res = api.delete("/borrowBook/bookID/201/campusCardID/213170000");
 
 
     }
