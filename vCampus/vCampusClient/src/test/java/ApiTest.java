@@ -1,5 +1,6 @@
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
@@ -10,10 +11,7 @@ import team.yummy.vCampus.models.*;
 import team.yummy.vCampus.util.Logger;
 import team.yummy.vCampus.web.WebResponse;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -214,7 +212,7 @@ public class ApiTest {
         assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
         assertEquals(true, modifiedStuInfo.equals(res.dataList(StuInfo.class, 0)));
         assertEquals(expectedRes.getMessage(), res.getMessage());
-        
+
         /**
          * DELETE ~/stuInfo/campusCardID/:id
          */
@@ -227,6 +225,55 @@ public class ApiTest {
 
     }
 
+    @Test
+    public void testBook() {
+        WebResponse res;
+        WebResponse expectedRes;
+        String jsonData;
+
+        res = api.post("/account/login", "{\"username\":\"LoginTest\",\"password\":\"123\"}");
+        assert res.getStatusCode().equals("200");
+        Map<String, String > resData = res.data(HashMap.class);
+        api.setAuth(resData.get("Username"), resData.get("Password"));
+
+        /**
+         * GET ~/book
+         * 返回数据库前20条信息，获取图书馆的书目列表
+         */
+        res = api.get("/book");
+        logger.log(res.toString());
+
+        /**
+         * GET ~/book/bookName/:keyword/like
+         * 模糊查询，按书名
+         */
+        res = api.get("/book/bookName/机器/like");
+        logger.log(res.toString());
+
+        /**
+         * GET ~/borrowBook/campusCardID/:id
+         * 返回学生已借书籍列表，这里不包括详细信息...
+         */
+
+        res = api.get("/borrowBook/campusCardID/213170000/bookID");
+        logger.log(res.toString());
+//
+//        /**
+//         * POST ~/borrowBook 借书
+//         * 在BorrowBook表里新增信息，数据库会自动修改availableCount
+//         */
+//        BorrowBookRecord borrowBookRecord = new BorrowBookRecord("102","213170000", new Date());
+//        jsonData = JSON.toJSONString(borrowBookRecord, SerializerFeature.WriteDateUseDateFormat);
+//        res = api.post("/borrowBook", jsonData);
+//
+//        /**
+//         * DELETE ~/borrowBook/bookID/:bid/campusCardID/:cid 还书
+//         * 在BorrowBook里删除信息，数据库自动修改availableCount
+//         */
+//        res = api.delete("/borrowBook/bookID/101/campusCardID/213170000");
+
+
+    }
     private static Logger logger = new Logger("ApiTest");
     public static void main(String[] args) {
         Result result = JUnitCore.runClasses(ApiTest.class);

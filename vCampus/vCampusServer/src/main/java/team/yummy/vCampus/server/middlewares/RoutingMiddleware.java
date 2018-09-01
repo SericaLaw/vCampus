@@ -6,10 +6,8 @@ import team.yummy.vCampus.server.Server;
 import team.yummy.vCampus.server.Session;
 import team.yummy.vCampus.server.WebContext;
 import team.yummy.vCampus.util.Logger;
-import team.yummy.vCampus.web.WebResponse;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Map;
 
 public class RoutingMiddleware implements Middleware {
@@ -25,7 +23,18 @@ public class RoutingMiddleware implements Middleware {
             switch (ctx.request.getType()) {
                 case GET: {
                     //获取输出流，响应客户端的请求
-                    String jsonData = dbhelper.select(ctx.request.getTableName(), ctx.request.getKey(), ctx.request.getValue());
+                    String jsonData = null;
+
+                    if(ctx.request.getField() == null) {
+                        // 形如GET ~/book的API，返回数据表前20条记录
+                        jsonData = dbhelper.select(ctx.request.getTableName(), 20);
+                    }
+                    else if(ctx.request.getQuery() != null && ctx.request.getQuery().equals("Like"))
+                        // ~/book/bookName/机器/like 模糊查询
+                        jsonData = dbhelper.search(ctx.request.getTableName(), ctx.request.getField(), ctx.request.getValue());
+                    else
+                        // 精准查询
+                        jsonData = dbhelper.select(ctx.request.getTableName(), ctx.request.getField(), ctx.request.getValue());
                     if (jsonData == null) {
                         ctx.response.setStatusCode("404");
                         ctx.response.setMessage("Not Found");
@@ -38,7 +47,7 @@ public class RoutingMiddleware implements Middleware {
                     break;
                 }
                 case PATCH: {
-                    boolean updateSuc = dbhelper.update(ctx.request.getTableName(), ctx.request.getKey(), ctx.request.getValue(), ctx.request.getJsonData());
+                    boolean updateSuc = dbhelper.update(ctx.request.getTableName(), ctx.request.getField(), ctx.request.getValue(), ctx.request.getJsonData());
                     if (updateSuc) {
                         ctx.response.setStatusCode("200");
                         ctx.response.setMessage("OK");
@@ -91,7 +100,13 @@ public class RoutingMiddleware implements Middleware {
                 }
 
                 case DELETE: {
-                    boolean deleteSuc = dbhelper.delete(ctx.request.getTableName(), ctx.request.getKey(), ctx.request.getValue());
+                    boolean deleteSuc;
+                    if(ctx.request.getQueryValue() != null)
+                        // DELETE ~borrowBook/bookID/:bid/campusCardID/:cid
+                        deleteSuc= dbhelper.delete(ctx.request.getTableName(), ctx.request.getField(), ctx.request.getValue(), ctx.request.getQuery(), ctx.request.getQueryValue());
+                    else
+                        // DELETE ~stuInfo/campusCardID/:id
+                        deleteSuc= dbhelper.delete(ctx.request.getTableName(), ctx.request.getField(), ctx.request.getValue());
                     if (deleteSuc) {
 //                        ctx.response = new WebResponse();
                     }

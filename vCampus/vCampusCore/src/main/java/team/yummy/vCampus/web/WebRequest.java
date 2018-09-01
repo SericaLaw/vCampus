@@ -25,6 +25,8 @@ public class WebRequest implements Serializable {
     // 在查到的行中选取名为query列
     private String query = null;
 
+    private String queryValue = null;
+
     // 客户端Session ID
     private Integer sessionId = null;
 
@@ -72,7 +74,7 @@ public class WebRequest implements Serializable {
         return jsonData;
     }
 
-    public String getKey() {
+    public String getField() {
         return field;
     }
 
@@ -100,7 +102,10 @@ public class WebRequest implements Serializable {
             value = p[3];
         // query
         if (p.length >= 5)
-            query = p[4];
+            query = p[4].substring(0, 1).toUpperCase() + p[4].substring(1);
+        // query value
+        if (p.length >= 6)
+            queryValue = p[5];
     }
 
     public <T> T data(Class<T> clazz) {
@@ -145,4 +150,7 @@ public class WebRequest implements Serializable {
         }
     }
 
+    public String getQueryValue() {
+        return queryValue;
+    }
 }

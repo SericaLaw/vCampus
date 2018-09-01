@@ -35,7 +35,6 @@ public class WelcomeViewController extends ViewController implements Initializab
         switch (res.getStatusCode()) {
             case "200":
                 setAccountJsonData(res.getJsonData());
-                accountJsonData = res.getJsonData();
                 api.setAuth(currentAccount.getUsername(), currentAccount.getPassword());
                 // 切换页面
                 stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);

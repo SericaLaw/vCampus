@@ -3,6 +3,7 @@ package team.yummy.vCampus.data;
 import com.alibaba.fastjson.JSON;
 import team.yummy.vCampus.util.Logger;
 
+import javax.xml.transform.Result;
 import java.io.File;
 import java.net.URI;
 import java.sql.*;
@@ -157,6 +158,57 @@ public class DBHelper {
         }
     }
 
+//    private Map<String,String> convertRsToMap(ResultSet rs) {
+//
+//    }
+
+    private List<Map<String, String >> convertRsToListMap(ResultSet rs) {
+        List<Map<String, String>> res = new ArrayList();
+        ResultSetMetaData data = null;
+        try {
+            data = rs.getMetaData();
+            while (rs.next()) {
+                Map<String, String> item = new HashMap();
+                for (int i = 1; i <= data.getColumnCount(); i++) {
+                    item.put(data.getColumnName(i), rs.getString(i));
+                }
+                res.add(item);
+            }
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+    public String selectAll(String sql) {
+        String jsonData;
+        try {
+            // log
+            logger.log("Executing SQL: " + sql);
+            stmt = conn.prepareStatement(sql);
+            // 得到ResultSet
+            ResultSet rs = stmt.executeQuery();
+            jsonData = JSON.toJSONString(convertRsToListMap(rs));
+            return jsonData;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 从数据表中选取前 count 个数据
+     * @param tableName
+     * @param count
+     * @return
+     */
+    public String select(String tableName, int count) {
+        String sql = String.format("SELECT TOP %d * FROM %s", count, tableName);
+        return selectAll(sql);
+    }
+
     /**
      * 从数据表中选取一串数据（如同一个学生选的所有课程）
      *
@@ -166,25 +218,20 @@ public class DBHelper {
      * @return 查询结果的JSON形式字符串
      */
     public String select(String tableName, String key, String value) {
+        String sql = "SELECT * FROM " + tableName + " WHERE " + key + "=" + "'" + value + "'";
+        return selectAll(sql);
+    }
 
-        ArrayList<Map> res = new ArrayList();
-        String jsonData = null;
+    public String search(String tableName, String field, String keyword) {
+        String jsonData;
         try {
-            String sql = "SELECT * FROM " + tableName + " WHERE " + key + "=" + "'" + value + "'";
+            String sql = "SELECT * FROM " + tableName + " WHERE " + field + " LIKE " + "'%" + keyword + "%'";
             // log
             logger.log("Executing SQL: " + sql);
-            stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE " + key + "=" + "'" + value + "'");
+            stmt = conn.prepareStatement(sql);
             // 得到ResultSet
             ResultSet rs = stmt.executeQuery();
-            ResultSetMetaData data = rs.getMetaData();
-            while (rs.next()) {
-                Map<String, String> item = new HashMap();
-                for (int i = 1; i <= data.getColumnCount(); i++) {
-                    item.put(data.getColumnName(i), rs.getString(i));
-                }
-                res.add(item);
-            }
-            jsonData = JSON.toJSONString(res);
+            jsonData = JSON.toJSONString(convertRsToListMap(rs));
             return jsonData;
         } catch (Exception e) {
             e.printStackTrace();
@@ -221,18 +268,7 @@ public class DBHelper {
 //        }
 //    }
     // 用于形如 DELETE /... 的API
-
-    /**
-     * 从数据表中删除数据项
-     *
-     * @param tableName 要执行删除操作的数据表名
-     * @param key       用于定位数据的key
-     * @param value     用于定位数据的value
-     * @return 执行成功与否
-     */
-    public boolean delete(String tableName, String key, String value) {
-        String sql = "DELETE FROM " + tableName + " WHERE " + key + "=" + "'" + value + "'";
-        // log
+    public boolean delete(String sql) {
         logger.log("Executing SQL: " + sql);
         try {
             stmt = conn.prepareStatement(sql);
@@ -246,6 +282,23 @@ public class DBHelper {
         }
     }
 
+    /**
+     * 从数据表中删除数据项
+     *
+     * @param tableName 要执行删除操作的数据表名
+     * @param key       用于定位数据的key
+     * @param value     用于定位数据的value
+     * @return 执行成功与否
+     */
+    public boolean delete(String tableName, String key, String value) {
+        String sql = "DELETE FROM " + tableName + " WHERE " + key + "= '" + value + "'";
+        return delete(sql);
+    }
+
+    public boolean delete(String tableName, String f1, String v1, String f2, String v2) {
+        String sql = String.format("DELETE FROM %s WHERE %s = '%s' and %s = '%s'",tableName, f1, v1, f2, v2);
+        return delete(sql);
+    }
     // 一般形式
     public String excuteSQL(String sql) {
         try {
@@ -261,10 +314,7 @@ public class DBHelper {
 
     public static void main(String[] args) {
 
-//        System.out.println(new DBHelper().DB_URL);
-//        DBHelper dbHelper = new DBHelper();
-//        String jsondata = dbHelper.select("Account", "campusCardID", "213160000", "password");
-//        System.out.println(jsondata);
+
     }
 }
 

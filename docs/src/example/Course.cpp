@@ -50,7 +50,7 @@
 
 /**
  * @apiGroup Course    
- * @api {get} /course/:CourseID GetCourseInfo
+ * @api {get} /course/courseID/:id GetCourseInfo
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *      {

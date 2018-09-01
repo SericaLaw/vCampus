@@ -59,3 +59,8 @@ git pull
 ### Git教程
 
 1. [廖雪峰](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
+
+### 规范
+
+1. [数据库命名规范](https://blog.csdn.net/yu757371316/article/details/54602545)
+

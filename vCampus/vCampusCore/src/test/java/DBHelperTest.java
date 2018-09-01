@@ -1,5 +1,6 @@
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
@@ -7,12 +8,14 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import team.yummy.vCampus.data.DBHelper;
 import team.yummy.vCampus.models.Account;
+import team.yummy.vCampus.models.BorrowBookRecord;
 import team.yummy.vCampus.models.RoleEnum;
 import team.yummy.vCampus.util.Logger;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
@@ -102,6 +105,19 @@ public class DBHelperTest {
 
         assertEquals(true, flag);
 
+        /**
+         * select( tableName, count )
+         */
+        jsonData = dbHelper.select("BorrowBook", 2);
+
+        List<BorrowBookRecord> b = JSON.parseArray(jsonData, BorrowBookRecord.class);
+        logger.log(jsonData);
+
+        /**
+         * select 数据库不存在的
+         */
+        jsonData = dbHelper.select("BorrowBook", "BookID", "200");
+        logger.log(jsonData);
     }
 
     @Test
@@ -151,6 +167,17 @@ public class DBHelperTest {
                 );
         // selectOne的查询结果为空时jsonData是 {}
         assertEquals(true, jsonData.equals("{}"));
+
+//        BorrowBookRecord borrowBookRecord = new BorrowBookRecord("102","213160000", new Date());
+//        jsonData = JSON.toJSONString(borrowBookRecord, SerializerFeature.WriteDateUseDateFormat);
+//        dbHelper.insert("BorrowBook", jsonData);
+//        jsonData = dbHelper.select("BorrowBook", "campusCardID", "213160000");
+//        List<BorrowBookRecord> l = JSON.parseArray(jsonData, BorrowBookRecord.class);
+//        logger.log(jsonData);
+
+        dbHelper.delete("BorrowBook", "BookID", "101", "CampusCardID", "213160000");
+
+
     }
 
     @Test
@@ -159,6 +186,11 @@ public class DBHelperTest {
         assertEquals(true, updateSuc);
     }
 
+    @Test
+    public void testSearch() {
+        String jsonData = dbHelper.search("Book", "BookName", "机器");
+        logger.log(jsonData);
+    }
     private static Logger logger = new Logger("DBHelperTest");
     public static void main(String[] args) {
         Result result = JUnitCore.runClasses(DBHelperTest.class);
