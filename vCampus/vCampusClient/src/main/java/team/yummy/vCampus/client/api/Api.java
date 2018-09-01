@@ -90,8 +90,9 @@ public class Api {
     }
 
     // 设置鉴权信息，用户登录后只需要调用一次
-    public void setAuth(String username, String password) {
+    public void setAuth(String username, String campusCardID, String password) {
         auth.put("username", username.getBytes());
+        auth.put("campusCardID", campusCardID.getBytes());
         auth.put("password", password.getBytes());
     }
 
@@ -104,7 +105,7 @@ public class Api {
     }
 
     public String toString() {
-        return String.format("Api Auth [ username = %s, password = %s ]", new String(auth.get("username")), new String(auth.get("password")));
+        return String.format("Api Auth [ username = %s, campusCardID = %s, password = %s ]", new String(auth.get("username")), new String(auth.get("campusCardID")), new String(auth.get("password")));
     }
 }
 

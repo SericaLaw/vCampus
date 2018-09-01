@@ -3,7 +3,6 @@ package team.yummy.vCampus.data;
 import com.alibaba.fastjson.JSON;
 import team.yummy.vCampus.util.Logger;
 
-import javax.xml.transform.Result;
 import java.io.File;
 import java.net.URI;
 import java.sql.*;
@@ -49,7 +48,6 @@ public class DBHelper {
      */
     public boolean insert(String tableName, String jsonData) {
         try {
-
             // jsonData to Map
             Map<String, String> mapData = JSON.parseObject(jsonData, Map.class);
             String dataKey = null;
@@ -131,40 +129,46 @@ public class DBHelper {
      * @return 查询结果的JSON形式数据
      */
     public String selectOne(String tableName, String key, String value) {
-
-        ArrayList<Map> res = new ArrayList();
-        String jsonData = null;
+        String jsonData;
         try {
-            String sql = "SELECT * FROM " + tableName + " WHERE " + key + "=" + "'" + value + "'";
+            String sql = "SELECT TOP 1 * FROM " + tableName + " WHERE " + key + "=" + "'" + value + "'";
             // log
             logger.log("Executing SQL: " + sql);
             stmt = conn.prepareStatement(sql);
 
             // 得到ResultSet
             ResultSet rs = stmt.executeQuery();
-            ResultSetMetaData data = rs.getMetaData();
-            Map<String, String> item = new HashMap();
-            if (rs.next()) {
-                for (int i = 1; i <= data.getColumnCount(); i++) {
-                    item.put(data.getColumnName(i), rs.getString(i));
-                }
-                item.put(key, value);
-            }
-            jsonData = JSON.toJSONString(item);
+            jsonData = JSON.toJSONString(convertRsToMap(rs));
             return jsonData;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-//    private Map<String,String> convertRsToMap(ResultSet rs) {
-//
-//    }
+    private Map<String,String> convertRsToMap(ResultSet rs) {
+        ResultSetMetaData data;
+        try {
+            data = rs.getMetaData();
+            Map<String, String> item = new HashMap();
+            if (rs.next()) {
+                for (int i = 1; i <= data.getColumnCount(); i++) {
+                    item.put(data.getColumnName(i), rs.getString(i));
+                }
+            }
+            return item;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
 
     private List<Map<String, String >> convertRsToListMap(ResultSet rs) {
         List<Map<String, String>> res = new ArrayList();
-        ResultSetMetaData data = null;
+        ResultSetMetaData data;
         try {
             data = rs.getMetaData();
             while (rs.next()) {
@@ -182,7 +186,7 @@ public class DBHelper {
 
 
     }
-    public String selectAll(String sql) {
+    public String select(String sql) {
         String jsonData;
         try {
             // log
@@ -206,7 +210,7 @@ public class DBHelper {
      */
     public String select(String tableName, int count) {
         String sql = String.format("SELECT TOP %d * FROM %s", count, tableName);
-        return selectAll(sql);
+        return select(sql);
     }
 
     /**
@@ -219,7 +223,7 @@ public class DBHelper {
      */
     public String select(String tableName, String key, String value) {
         String sql = "SELECT * FROM " + tableName + " WHERE " + key + "=" + "'" + value + "'";
-        return selectAll(sql);
+        return select(sql);
     }
 
     public String search(String tableName, String field, String keyword) {

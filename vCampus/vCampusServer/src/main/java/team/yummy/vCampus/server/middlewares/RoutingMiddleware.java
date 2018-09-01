@@ -25,9 +25,19 @@ public class RoutingMiddleware implements Middleware {
                     //获取输出流，响应客户端的请求
                     String jsonData = null;
 
+
                     if(ctx.request.getField() == null) {
-                        // 形如GET ~/book的API，返回数据表前20条记录
-                        jsonData = dbhelper.select(ctx.request.getTableName(), 20);
+                        switch (ctx.request.getTableName()) {
+                            case "BorrowBook":
+                                // GET ~/borrowBook 关联查询，返回借阅书籍和查询信息
+                                String sql = String.format("SELECT Publisher, ExpiryDate, BorrowDate, BookName, Writer, BookID From Book b, BorrowBook bb WHERE b.BookID = bb.BookID and bb.CampusCardID = '%s'", ctx.session.getString("campusCardID"));
+                                jsonData = dbhelper.select(sql);
+                                break;
+                            default:
+                                // 形如GET ~/book的API，返回数据表前20条记录
+                                jsonData = dbhelper.select(ctx.request.getTableName(), 20);
+                                break;
+                        }
                     }
                     else if(ctx.request.getQuery() != null && ctx.request.getQuery().equals("Like"))
                         // ~/book/bookName/机器/like 模糊查询
@@ -60,7 +70,6 @@ public class RoutingMiddleware implements Middleware {
                 }
                 case POST: {
                     if (ctx.request.getRoute().equals("/account/login")) {
-                        logger.log("/account/login");
                         Map<String, String> requestData = ctx.request.data(Map.class);
                         String jsonData = dbhelper.selectOne("Account", "Username", requestData.get("username"));
                         Map<String, String> resData = JSON.parseObject(jsonData, Map.class);
@@ -76,6 +85,7 @@ public class RoutingMiddleware implements Middleware {
                             Session sess =  ctx.server.sessions.get(ctx.session.getSessionId());
                             sess.setString("username", resData.get("Username"));
                             sess.setString("password", resData.get("Password"));
+                            sess.setString("campusCardID", resData.get("CampusCardID"));
                             logger.log(String.format("Session [ sessionId = %s, username = %s, password = %s ]", sess.getSessionId().toString(), sess.getString("username"), sess.getString("password")));
                         } else {
                             ctx.response.setStatusCode("403");

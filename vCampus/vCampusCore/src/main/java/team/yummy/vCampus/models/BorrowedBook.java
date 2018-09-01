@@ -1,25 +1,27 @@
 package team.yummy.vCampus.models;
 
+import java.util.Date;
+
 /**
- * 对应Book
+ * 在借图书，用于存放关联查询的结果
  */
-public class Book {
+public class BorrowedBook {
     private String bookID;
     private String bookName;
     private String writer;
     private String publisher;
-    private int availableCount;
-    private int totalCount;
+    private Date borrowDate;
+    private Date expiryDate;
 
-    public Book() {}
 
-    public Book(String bookID, String bookName, String writer, String publisher, int availableCount, int totalCount) {
+    public BorrowedBook() {}
+    public BorrowedBook(String bookID, String bookName, String writer, String publisher, Date borrowDate, Date expiryDate) {
         this.bookID = bookID;
         this.bookName = bookName;
         this.writer = writer;
         this.publisher = publisher;
-        this.availableCount = availableCount;
-        this.totalCount = totalCount;
+        this.borrowDate = borrowDate;
+        this.expiryDate = expiryDate;
     }
 
     public String getBookID() {
@@ -54,19 +56,19 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public int getAvailableCount() {
-        return availableCount;
+    public Date getBorrowDate() {
+        return borrowDate;
     }
 
-    public void setAvailableCount(int availableCount) {
-        this.availableCount = availableCount;
+    public void setBorrowDate(Date borrowDate) {
+        this.borrowDate = borrowDate;
     }
 
-    public int getTotalCount() {
-        return totalCount;
+    public Date getExpiryDate() {
+        return expiryDate;
     }
 
-    public void setTotalCount(int totalCount) {
-        this.totalCount = totalCount;
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
     }
 }

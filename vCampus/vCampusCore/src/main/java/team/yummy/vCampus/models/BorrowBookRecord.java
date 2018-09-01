@@ -3,6 +3,9 @@ package team.yummy.vCampus.models;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * 对应BorrowBook表
+ */
 public class BorrowBookRecord {
     private String bookID;
     private String campusCardID;

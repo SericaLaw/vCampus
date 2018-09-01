@@ -114,9 +114,16 @@ public class DBHelperTest {
         logger.log(jsonData);
 
         /**
-         * select 数据库不存在的
+         * select 数据库不存在的项
          */
         jsonData = dbHelper.select("BorrowBook", "BookID", "200");
+        logger.log(jsonData);
+
+        /**
+         * 关联查询
+         */
+        String sql = String.format("SELECT Publisher, ExpiryDate, BorrowDate, BookName, Writer, BookID From Book b, BorrowBook bb WHERE b.BookID = bb.BookID and bb.CampusCardID = '%s'", "213160000");
+        jsonData = dbHelper.select(sql);
         logger.log(jsonData);
     }
 
