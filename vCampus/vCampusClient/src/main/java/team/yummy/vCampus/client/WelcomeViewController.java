@@ -8,28 +8,66 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import team.yummy.vCampus.web.WebResponse;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.event.ActionEvent;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class WelcomeViewController extends ViewController implements Initializable {
 
-    public TextField loginUsername;
-    public PasswordField loginPassword;
-    public GridPane loginGrid;
-    public GridPane registerGrid;
-    public Text errorText;
+    @FXML public TextField login_Tusername;
+    @FXML public PasswordField login_Tpassword;
+    //public Text errorText;
+
+    @FXML private AnchorPane loginpane;
+    @FXML private AnchorPane registerpane;
+
+    @FXML private Label windowclose;
+    @FXML private Label windowmini;
+
+    //private String FirstName;
+    //private String LastName;
+    //private String CampusID;
+    //private String Username;
+    //private String Password;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
 
-    public void login(ActionEvent actionEvent) {
-        String username = loginUsername.getText();
-        String password = loginPassword.getText();
+    @FXML
+    protected void window_close(MouseEvent mouseEvent)
+    {
+        Stage stage = (Stage)windowclose.getScene().getWindow();
+        stage.close();
+    }
 
-        if(username.length() == 0 || password.length() == 0)
+    @FXML
+    protected void window_mini(MouseEvent mouseEvent)
+    {
+        Stage stage = (Stage)windowmini.getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+
+    public void login(ActionEvent actionEvent) {
+        String username = login_Tusername.getText();
+        String password = login_Tpassword.getText();
+
+        /*if(username.length() == 0 || password.length() == 0)
             errorText.setText("用户名和密码不能为空");
+        */
 
         WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
         switch (res.getStatusCode()) {
@@ -39,23 +77,27 @@ public class WelcomeViewController extends ViewController implements Initializab
                 // 切换页面
                 stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
                 break;
-            case "404":
+            /*case "404":
                 errorText.setText("用户不存在");
                 break;
             case "403":
                 errorText.setText("密码错误");
                 break;
+                */
         }
 
     }
 
-    public void switchToRegister(ActionEvent actionEvent) {
-        loginGrid.setVisible(false);
-        registerGrid.setVisible(true);
+    public void signup(ActionEvent actionEvent) {}
+
+    public void switchToSignup(ActionEvent actionEvent) {
+        registerpane.setVisible(true);
+        loginpane.setVisible(false);
+
     }
 
     public void switchToLogin(ActionEvent actionEvent) {
-        registerGrid.setVisible(false);
-        loginGrid.setVisible(true);
+        registerpane.setVisible(false);
+        loginpane.setVisible(true);
     }
 }

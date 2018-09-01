@@ -2,6 +2,7 @@ package team.yummy.vCampus.client;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class App extends Application {
     public final static String MAIN_VIEW_NAME = "MainView";
@@ -11,6 +12,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
         StageController stageController = new StageController();
 
         // 将primaryStage交给stageController处理

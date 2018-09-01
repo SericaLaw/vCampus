@@ -59,7 +59,6 @@ public class StageController {
     public boolean loadStage(String name, String resource) {
         try {
             //加载FXML资源文件
-
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(resource));
             Parent root = (Parent) loader.load();
 
@@ -71,7 +70,7 @@ public class StageController {
             Scene tempScene = new Scene(root);
             Stage tempStage = new Stage();
             tempStage.setScene(tempScene);
-
+            tempStage.initStyle(StageStyle.UNDECORATED);
 
             //将设置好的Stage放到HashMap中
             this.addStage(name, tempStage);

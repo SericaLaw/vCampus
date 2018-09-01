@@ -1,79 +1,184 @@
-#welcome-text {
-    -fx-font-family: 'Raleway', sans-serif;
-    -fx-font-size: 68px;
-    -fx-fill: #6C496F;
+#welcomebackground
+{
+   -fx-background-color:white;
+}
+#loginpane
+{
+   -fx-background-color:transparent;
+}
+#registerpane
+{
+   -fx-background-color:transparent;
 }
 
-#register-text {
-    -fx-font-family: 'Raleway', sans-serif;
-    -fx-font-size: 48px;
-    -fx-fill: #6C496F;
-}
-
-#error-text {
-    -fx-font-family: 'Raleway', sans-serif;
-    -fx-font-size: 18px;
-    -fx-fill: #e11;
-}
-.text-field {
-    -fx-text-fill: #b8b8b8;
-    -fx-font-family: 'Droid Sans', sans-serif;
-    -fx-font-size:24px;
-    -fx-padding:12px;
+.hyperlink{
+    -fx-border-style:none;
+    -fx-border-color:transparent;
+    -fx-text-fill: #87cefa;
 
 }
 
-.text-field:hover {
-    -fx-text-fill: #6C496F;
-}
-.text-field:focused {
-    -fx-text-fill: #6C496F;
-}
-.button {
+
+#login_button:hover {
     -fx-text-fill: #fff;
     -fx-font-family: 'Raleway', sans-serif;
-    -fx-padding: 16px;
     -fx-cursor:hand;
-    -fx-font-size: 26px;
-    -fx-background-color: #6C496F;
+    -fx-font-size: 15px;
+    -fx-background-color: #33b6ff;
     -fx-background-radius: 10px;
-    -fx-border-width: 5px;
-    -fx-border-style: solid;
+
 }
 
-.button:hover {
-    -fx-text-fill: #6C496F;
+#login_button {
+    -fx-text-fill: #87cefa;
+    -fx-background-radius: 20px;
     -fx-background-color: #fff;
-    -fx-border-radius: 10px;
-    -fx-border-width: 2px;
     -fx-border-style: solid;
-    -fx-border-color: #6C496F;
+    -fx-border-color: #33b6ff;
+    -fx-border-radius: 10px;
 }
 
-.hyperlink {
-    -fx-text-fill: #00b;
-    -fx-font-family: 'Raleway', sans-serif;
-    -fx-font-size: 18px;
-    -fx-padding: 12px;
+#login_Tusername
+{
+   -fx-border-style:none;
+   -fx-background-color:none;
+   -fx-font-family:"微软雅黑 Light", sans-serif;
+   -fx-text-fill:#b8b8b8;
+   -fx-font-size:15px;
 }
-
-#grid-login {
-    -fx-padding: 100px 150px;
-    -fx-hgap: 20px;
-    -fx-vgap: 10px;
+#login_Tusername:hover
+{
+   -fx-text-fill:gray
 }
-
-
-.label {
-    -fx-text-fill: #6C496F;
-    -fx-font-family: 'Droid Sans', sans-serif;
-    -fx-font-size:24px;
-    -fx-padding:15px;
+#login_Tusername:focused
+{
+   -fx-text-fill:gray
 }
-
-.radio-button {
-    -fx-text-fill: #6C496F;
-    -fx-font-family: 'Droid Sans', sans-serif;
+#login_Tpassword
+{
+   -fx-border-style:none;
+   -fx-background-color:none;
+   -fx-font-family:"微软雅黑 Light", sans-serif;
+   -fx-text-fill:#b8b8b8;
+   -fx-font-size:15px;
+}
+#login_Tpassword:hover
+{
+   -fx-text-fill:gray
+}
+#login_Tpassword:focused
+{
+   -fx-text-fill:gray
+}
+#windowclose:hover
+{
+    -fx-text-fill:#99c2ff;
+}
+#windowmini:hover
+{
+    -fx-text-fill:#99c2ff;
+}
+#register_Lsignup
+{
+    -fx-font-family:"Book Antiqua";
+    -fx-text-fill:#4cadf8;
+    -fx-font-weight:bold;
+    -fx-font-size:40px;
+}
+#register_Lname
+{
+    -fx-font-family:"微软雅黑 Light";
+    -fx-text-fill:#0083cc;
+    -fx-font-size:14px;
+}
+#register_Lcard
+{
+    -fx-font-family:"微软雅黑 Light";
+    -fx-text-fill:#0083cc;
+    -fx-font-size:14px;
+}
+#register_Lusername
+{
+    -fx-font-family:"微软雅黑 Light";
+    -fx-text-fill:#0083cc;
+    -fx-font-size:14px;
+}
+#register_Lpassword
+{
+    -fx-font-family:"微软雅黑 Light";
+    -fx-text-fill:#0083cc;
+    -fx-font-size:14px;
+}
+#register_Tfirstname
+{
+    -fx-border-style:none;
+    -fx-background-color:none;
+    -fx-text-fill:grey;
     -fx-font-size:18px;
-    -fx-padding:15px;
+    -fx-font-family:"微软雅黑";
+}
+#register_Tlastname
+{
+    -fx-border-style:none;
+    -fx-background-color:none;
+    -fx-text-fill:grey;
+    -fx-font-size:18px;
+    -fx-font-family:"微软雅黑";
+}
+#register_Tcard
+{
+    -fx-border-style:none;
+    -fx-background-color:none;
+    -fx-text-fill:grey;
+    -fx-font-size:18px;
+    -fx-font-family:"华文新魏";
+}
+#register_Tusername
+{
+    -fx-border-style:none;
+    -fx-background-color:none;
+    -fx-text-fill:grey;
+    -fx-font-size:18px;
+    -fx-font-family:"华文新魏";
+}
+#register_Tpassword
+{
+    -fx-border-style:none;
+    -fx-background-color:none;
+    -fx-text-fill:grey;
+}
+
+#register_ok {
+    -fx-text-fill: #87cefa;
+    -fx-background-radius: 20px;
+    -fx-background-color: #fff;
+    -fx-border-style: solid;
+    -fx-border-color: #33b6ff;
+    -fx-border-radius: 10px;
+}
+
+#register_ok:hover {
+    -fx-text-fill: #fff;
+    -fx-font-family: 'Raleway', sans-serif;
+    -fx-cursor:hand;
+    -fx-font-size: 15px;
+    -fx-background-color: #33b6ff;
+    -fx-background-radius: 10px;
+}
+#register_cancel {
+    -fx-text-fill: #87cefa;
+    -fx-background-radius: 20px;
+    -fx-background-color: #fff;
+    -fx-border-style: solid;
+    -fx-border-color: #33b6ff;
+    -fx-border-radius: 10px;
+}
+
+#register_cancel:hover {
+    -fx-text-fill: #fff;
+    -fx-font-family: 'Raleway', sans-serif;
+    -fx-cursor:hand;
+    -fx-font-size: 15px;
+    -fx-background-color: #33b6ff;
+    -fx-background-radius: 10px;
 }

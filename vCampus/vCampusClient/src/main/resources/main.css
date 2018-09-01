@@ -1,92 +1,45 @@
-#side-bar {
-    -fx-background-color: #128;
-    -fx-effect:dropshadow(gaussian, #888, 30, 0.06, 5, 0);
-    -fx-spacing: 60;
-    -fx-padding: 20;
-    -fx-pref-width: 300;
-    -fx-pref-height: 800;
-}
-#avatar {
-    -fx-spacing: 10;
+#main_title{
+    -fx-background-color:#47a5eb;
 }
 
-#avatar .text {
-    -fx-fill:#fff;
-    -fx-font-size: 28px;
+#win_close {
+    -fx-cursor:hand;
+    -fx-text-fill:#a0a0a0;
 }
 
-#side-bar .button {
-    -fx-background-color: #128;
-    -fx-text-fill: #fff;
-    -fx-font-size: 36px;
-    -fx-padding: 10px 60px;
+#win_close:hover {
+    -fx-text-fill:#fff;
 }
 
-#side-bar .button:hover {
-    -fx-background-color: #148;
-    -fx-cursor: hand;
+#win_mini {
+    -fx-cursor:hand;
+    -fx-text-fill:#a0a0a0;
 }
 
-#grid-main {
-    -fx-alignment: center;
+#win_mini:hover {
+    -fx-text-fill:#fff;
 }
 
-#main__stat {
-    -fx-alignment:center;
-
+#main_userIcon{
+    -fx-cursor:hand;
+    -fx-text-fill:#a0a0a0;
 }
 
-#main__stat .column {
-    -fx-alignment: center;
-    -fx-space: 10;
+#main_usermag{
+    -fx-background-color:#eee;
 }
 
-#main__stat .column .title {
-    -fx-fill: #888;
-    -fx-font-size:18px;
+#main_sidebar{
+    -fx-background-color:#eee;
 }
 
-#main__stat .column .content {
-    -fx-fill: #128;
-    -fx-font-size:24px;
-}
-#grid-main .button {
-    -fx-text-fill: #fff;
-    -fx-font-size: 36px;
+.button{
+    -fx-background-color:#eee;
+    -fx-text-fill:#707070;
 }
 
-#grid-main .button:hover {
-    -fx-effect: dropshadow(gaussian, #aaa, 30, 0.06, 5, 5);
-    -fx-cursor: hand;
-}
-#grid-main__stu-info {
-    -fx-background-color:#843;
-}
-
-#grid-main__stu-info:hover {
-    -fx-background-color:#854;
-}
-
-#grid-main__course {
-    -fx-background-color: #456;
-}
-
-#grid-main__course:hover {
-    -fx-background-color: #567;
-}
-
-#grid-main__library {
-    -fx-background-color:#355;
-}
-
-#grid-main__library:hover {
-    -fx-background-color:#367;
-}
-
-#grid-main__shop {
-    -fx-background-color:#530;
-}
-
-#grid-main__shop:hover {
-    -fx-background-color:#541;
+.button:hover{
+    -fx-text-fill:#000;
+        -fx-border-color: transparent transparent transparent #47a5eb;
+        -fx-border-width:6px;
 }

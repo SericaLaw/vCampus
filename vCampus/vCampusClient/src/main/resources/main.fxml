@@ -2,113 +2,157 @@
 
 <?import java.lang.*?>
 <?import java.net.*?>
-<?import java.util.*?>
+<?import java.net.URL?>
 <?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="team.yummy.vCampus.client.MainViewController">
-    <center>
-        <GridPane id="grid-main" fx:id="home">
-            <children>
-                <Button id="grid-main__stu-info" fx:id="homeStuInfoButton" onAction="#getStuInfo" mnemonicParsing="false" opacity="1.0" prefHeight="150.0" prefWidth="200.0"  text="学籍" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                <Button id="grid-main__course" fx:id="homeCourseButton" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0"  text="课程" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                <Button id="grid-main__library" fx:id="homeLibraryButton"  mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0"  text="图书馆" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                <Button id="grid-main__shop" fx:id="homeShopButton"  mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0"  text="商店" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                <HBox id="main__stat" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                    <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="column">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0"  styleClass="title" text="余额" />
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0"  styleClass="content" text="1" />
-                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="column">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0"  styleClass="title" text="跑操" />
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0"  styleClass="content" text="44" />
-                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="column">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0"  styleClass="title" text="绩点" />
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0"  styleClass="content" text="4.81" />
-                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="column">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0"  styleClass="title" text="SRTP" />
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0"  styleClass="text, content" text="100" />
-                            </children>
-                        </VBox>
-                    </children>
-                </HBox>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-border-image-resource: url('https://wx3.sinaimg.cn/mw1024/0064BX7Sgy1fom1xj20vcj30xc0p0n0u.jpg');" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    <children>
-                        <ImageView fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" >
-                            <image>
-                                <Image url="@images/user.png" />
-                            </image>
-                        </ImageView>
-                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18px;&#10;-fx-fill: #888;" text="今日多云" />
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20px;&#10;-fx-fill: #128;" text="零下100℃" />
-                            </children>
-                            <padding>
-                                <Insets left="10.0" />
-                            </padding>
-                        </VBox>
-                    </children>
-                    <padding>
-                        <Insets left="30.0" right="30.0" />
-                    </padding>
-                </HBox>
-            </children>
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-        </GridPane>
-    </center>
-    <left>
-        <VBox id="side-bar" alignment="TOP_CENTER" prefHeight="800.0" prefWidth="300.0" spacing="50.0" >
-            <children>
-                <HBox id="avatar" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                    <children>
-                        <ImageView fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@images/user.png" />
-                            </image>
-                            <HBox.margin>
-                                <Insets fx:id="x1" />
-                            </HBox.margin>
-                        </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0"  styleClass="text" text="叶神" textAlignment="CENTER" wrappingWidth="100.0" HBox.margin="$x1" />
-                    </children>
-                </HBox>
-                <Button mnemonicParsing="false"   text="Home" />
-                <Button mnemonicParsing="false"  text="Button" />
-                <Button mnemonicParsing="false"  text="Button" />
-            </children>
-            <padding>
-                <Insets top="20.0" />
-            </padding>
-            <BorderPane.margin>
-                <Insets fx:id="x1" />
-            </BorderPane.margin>
-        </VBox>
-    </left>
-    <stylesheets>
-        <URL value="@main.css" />
-    </stylesheets>
-</BorderPane>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1000.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="team.yummy.vCampus.client.MainViewController">
+  <children>
+    <AnchorPane fx:id="main_title" minHeight="0.0" minWidth="0.0" onMouseDragged="#titledragged" onMousePressed="#titlepressed" prefHeight="55.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <Label layoutX="26.0" layoutY="12.0" text="VCampus" textFill="WHITE">
+          <font>
+            <Font name="Lucida Calligraphy Italic" size="21.0" />
+          </font>
+        </Label>
+        <Label fx:id="win_close" layoutX="960.0" layoutY="10.0" onMouseReleased="#winclose" prefWidth="21.0" text="×" textFill="GREY">
+          <font>
+            <Font name="System Bold" size="27.0" />
+          </font>
+        </Label>
+        <Label fx:id="win_mini" layoutX="922.0" layoutY="6.0" minHeight="29.0" onMouseReleased="#winmini" prefHeight="45.0" prefWidth="31.0" text="一" textFill="GREY">
+          <font>
+            <Font name="System Bold" size="17.0" />
+          </font>
+        </Label>
+      </children>
+    </AnchorPane>
+    <AnchorPane layoutX="0.0" layoutY="55.0" minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="998.0">
+      <children>
+        <AnchorPane id="main_sidebar" minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="189.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.topAnchor="0.0">
+          <children>
+            <Button alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="false" graphicTextGap="4.0" layoutY="41.0" mnemonicParsing="false" onAction="#switchStuInfo" prefHeight="33.0" prefWidth="188.0" text=" 个人信息" textFill="BLACK" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
+              <graphic>
+                <ImageView id="StuInfoIcon.png" fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
+                  <image>
+                    <Image url="@images/StuInfoIcon.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="false" layoutY="75.0" mnemonicParsing="false" onAction="#switchCourse" prefHeight="33.0" prefWidth="188.0" text=" 选课系统" textFill="BLACK" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
+              <graphic>
+                <ImageView id="CourseIcon.png" fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
+                  <image>
+                    <Image url="@images/CourseIcon.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="false" layoutX="0.0" layoutY="153.0" mnemonicParsing="false" onAction="#switchDorm" prefHeight="33.0" prefWidth="188.0" text=" 宿舍" textFill="BLACK">
+              <graphic>
+                <ImageView id="DormIcon.png" fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
+                  <image>
+                    <Image url="@images/DormIcon.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="false" layoutX="0.0" layoutY="221.0" mnemonicParsing="false" onAction="#switchBank" prefHeight="33.0" prefWidth="188.0" text=" 银行" textFill="BLACK">
+              <graphic>
+                <ImageView id="BankIcon.png" fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
+                  <image>
+                    <Image url="@images/BankIcon.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="false" layoutX="0.0" layoutY="187.0" mnemonicParsing="false" onAction="#switchLibrary" prefHeight="33.0" prefWidth="188.0" text=" 图书馆" textFill="BLACK">
+              <graphic>
+                <ImageView id="LibraryIcon.png" fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
+                  <image>
+                    <Image url="@images/LibraryIcon.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="false" layoutX="0.0" layoutY="255.0" mnemonicParsing="false" onAction="#switchStore" prefHeight="33.0" prefWidth="188.0" text=" 商店" textFill="BLACK">
+              <graphic>
+                <ImageView id="StoreIcon.png" fitHeight="20.0" fitWidth="20.0">
+                  <image>
+                    <Image url="@images/StoreIcon.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Label layoutX="16.0" layoutY="12.0" prefWidth="100.0" text="Personal">
+              <font>
+                <Font name="Californian FB" size="18.0" fx:id="x2" />
+              </font>
+            </Label>
+            <Label font="$x2" layoutX="16.0" layoutY="121.0" prefWidth="86.0" text="Campus" />
+            <Button alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="false" layoutX="0.0" layoutY="569.0" mnemonicParsing="false" onAction="#swithAccountmag" prefHeight="33.0" prefWidth="188.0" text=" 账户管理" textFill="BLACK">
+              <graphic>
+                <ImageView id="accountIcon.png">
+                  <image>
+                    <Image url="@images/accountIcon.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="613.0" prefWidth="812.0" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="0.0">
+          <children>
+            <AnchorPane fx:id="StuInfoPane" layoutX="0.0" layoutY="0.0" prefHeight="610.0" prefWidth="812.0">
+              <children>
+                <Label layoutX="406.0" layoutY="305.0" text="个人信息" />
+              </children>
+            </AnchorPane>
+            <AnchorPane fx:id="CoursePane" layoutX="0.0" layoutY="0.0" prefHeight="610.0" prefWidth="812.0">
+              <children>
+                <Label layoutX="406.0" layoutY="305.0" text="选课系统" />
+              </children>
+            </AnchorPane>
+            <AnchorPane fx:id="DormPane" prefHeight="610.0" prefWidth="812.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                <Label layoutX="406.0" layoutY="305.0" text="宿舍" />
+              </children>
+            </AnchorPane>
+            <AnchorPane fx:id="LibraryPane" prefHeight="610.0" prefWidth="812.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                <Label layoutX="383.0" layoutY="294.0" text="图书馆" />
+              </children>
+            </AnchorPane>
+            <AnchorPane fx:id="BankPane" prefHeight="610.0" prefWidth="812.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                <Label layoutX="406.0" layoutY="305.0" text="银行" />
+              </children>
+            </AnchorPane>
+            <AnchorPane fx:id="StorePane" layoutX="0.0" prefHeight="610.0" prefWidth="812.0" AnchorPane.bottomAnchor="3.0" AnchorPane.topAnchor="0.0">
+              <children>
+                <Label layoutX="406.0" layoutY="305.0" text="商店" />
+              </children>
+            </AnchorPane>
+            <AnchorPane fx:id="AccountMagPane" layoutX="0.0" prefHeight="610.0" prefWidth="812.0" AnchorPane.bottomAnchor="3.0" AnchorPane.topAnchor="0.0">
+              <children>
+                <Label layoutX="406.0" layoutY="305.0" text="账户管理" />
+              </children>
+            </AnchorPane>
+          </children>
+        </AnchorPane>
+      </children>
+    </AnchorPane>
+  </children>
+  <stylesheets>
+    <URL value="@main.css" />
+  </stylesheets>
+</AnchorPane>

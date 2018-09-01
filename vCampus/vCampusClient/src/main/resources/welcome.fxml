@@ -2,82 +2,126 @@
 
 <?import java.lang.*?>
 <?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="team.yummy.vCampus.client.WelcomeViewController">
+<AnchorPane fx:id="welcomebackground" minHeight="500.0" minWidth="360.0" prefHeight="500.0" prefWidth="720.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="team.yummy.vCampus.client.WelcomeViewController">
+    <children>
+        <ImageView id="whale.png" layoutX="0.0" layoutY="44.0">
+            <image>
+                <Image url="@images/whale.png" preserveRatio="true" smooth="true" />
+            </image>
+        </ImageView>
+        <AnchorPane fx:id="loginpane" minWidth="360.0" prefHeight="500.0" prefWidth="360.0" visible="true" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <GridPane layoutX="34.0" layoutY="100.0" prefHeight="291.0" prefWidth="292.0">
+                    <children>
+                        <AnchorPane prefHeight="111.0" prefWidth="315.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
+                            <children>
+                                <Label layoutX="14.0" layoutY="8.0" prefHeight="70.0" prefWidth="246.0" text="Welcome" textFill="#4cadf8">
+                                    <font>
+                                        <Font name="Book Antiqua Bold" size="40.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                            <children>
+                                <Line endX="110.0" endY="-18.0" layoutY="69.0" startX="-90.0" startY="-18.0" AnchorPane.leftAnchor="27.0" />
+                                <TextField fx:id="login_Tusername" focusTraversable="false" layoutX="19.0" layoutY="24.0" prefWidth="204.0" promptText="用 户 名" visible="true" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                            <children>
+                                <Line endX="110.0" endY="0.0" startX="-90.0" startY="0.0" AnchorPane.bottomAnchor="22.0" AnchorPane.rightAnchor="64.0" />
+                                <PasswordField fx:id="login_Tpassword" focusTraversable="false" layoutY="24.0" prefWidth="204.0" promptText="密 码" visible="true" AnchorPane.leftAnchor="19.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <children>
+                                <Hyperlink id="login_signup" layoutX="-7.0" layoutY="43.0" onAction="#switchToSignup" text="注册" textFill="#3889ff" underline="true">
+                                    <font>
+                                        <Font name="System Bold" size="15.0" fx:id="x1" />
+                                    </font>
+                                </Hyperlink>
+                                <Button fx:id="login_button" onAction="#login" font="$x1" layoutX="55.0" layoutY="40.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="66.0" text="登录" textFill="BLACK" />
+                            </children>
+                        </AnchorPane>
+                    </children>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.0" minWidth="10.0" prefWidth="114.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="201.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                </GridPane>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="registerpane" layoutY="0.0" minHeight="500.0" minWidth="367.0" prefHeight="500.0" prefWidth="360.0" visible="false" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Label fx:id="register_Lsignup" layoutY="62.0" prefHeight="45.0" prefWidth="189.0" text="Sign up" textFill="#3385ff" AnchorPane.leftAnchor="60.0">
+                    <font>
+                        <Font name="System Bold" size="35.0" />
+                    </font>
+                </Label>
+                <Label fx:id="register_Lname" prefWidth="176.0" text="姓                        名" textFill="#66c8ff" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="148.0" AnchorPane.topAnchor="138.0">
+                    <font>
+                        <Font name="Vivaldi Italic" size="16.0" />
+                    </font>
+                </Label>
+                <Label fx:id="register_Lcard" prefWidth="79.00009999999747" text="一 卡 通" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="236.5" AnchorPane.topAnchor="198.0">
+                    <font>
+                        <Font size="15.0" fx:id="x4" />
+                    </font>
+                    <textFill>
+                        <Color blue="0.800" green="0.514" red="0.000" fx:id="x5" />
+                    </textFill>
+                </Label>
+                <Label fx:id="register_Lusername" font="$x4" prefWidth="86.00009999999747" text="用 户 名" textFill="$x5" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="225.0" AnchorPane.topAnchor="258.0" />
+                <Label fx:id="register_Lpassword" prefWidth="58.0" text="密 码" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="230.25" AnchorPane.topAnchor="318.0">
+                    <font>
+                        <Font size="16.0" fx:id="x8" />
+                    </font>
+                    <textFill>
+                        <Color blue="0.376" green="0.376" red="0.376" fx:id="x6" />
+                    </textFill>
+                </Label>
+                <TextField fx:id="register_Tfirstname" focusTraversable="false" prefWidth="112.0" visible="true" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="152.0" />
+                <TextField fx:id="register_Tlastname" focusTraversable="false" prefWidth="141.0" visible="true" AnchorPane.leftAnchor="161.0" AnchorPane.topAnchor="152.0" />
+                <TextField fx:id="register_Tcard" focusTraversable="false" prefWidth="257.0" visible="true" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="214.0" />
+                <TextField fx:id="register_Tusername" focusTraversable="false" prefWidth="257.0" visible="true" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="274.0" />
+                <PasswordField fx:id="register_Tpassword" focusTraversable="false" prefWidth="257.0" AnchorPane.leftAnchor="49.0" AnchorPane.topAnchor="337.0" />
+                <Button fx:id="register_ok" font="$x1" layoutX="93.0" layoutY="410.0" minHeight="-1.0" mnemonicParsing="false" onAction="#signup" prefHeight="30.0" prefWidth="65.0" text="确定" />
+                <Button fx:id="register_cancel" font="$x1" layoutX="203.0" layoutY="410.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="30.0" prefWidth="65.0" text="取消" />
+                <Line endX="-20.0" endY="0.0" startX="-120.0" stroke="$x6" strokeWidth="0.5" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="181.0" />
+                <Line endX="15.0" endY="0.0" layoutX="296.0" startX="-123.0" stroke="$x6" strokeWidth="0.5" AnchorPane.topAnchor="181.0" />
+                <Line endX="150.0" startX="-100.0" stroke="$x6" strokeWidth="0.5" AnchorPane.bottomAnchor="382.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="241.0" />
+                <Line endX="150.0" startX="-100.0" stroke="$x6" strokeWidth="0.5" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="301.0" />
+                <Line endX="150.0" startX="-100.0" stroke="$x6" strokeWidth="0.5" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="361.0" />
+                <Label id="errortext" layoutY="382.0" prefWidth="251.0" text="" AnchorPane.leftAnchor="64.0" />
+            </children>
+        </AnchorPane>
+        <Label fx:id="windowmini" layoutX="652.0" layoutY="14.0" onMouseReleased="#window_mini" prefWidth="26.0" text="一">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label fx:id="windowclose" font="$x8" layoutX="685.0" layoutY="14.0" onMouseReleased="#window_close" prefWidth="14.0" text="X" />
+    </children>
     <stylesheets>
         <URL value="@welcome.css" />
     </stylesheets>
-    <GridPane id="grid-login" fx:id="loginGrid" alignment="CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="600.0" prefWidth="800.0" visible="true">
-        <children>
-            <Text id="welcome-text" strokeType="OUTSIDE" strokeWidth="0.0" style="" text="Welcome" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                <children>
-                    <Hyperlink onAction="#switchToRegister" text="没有账号？" />
-                    <Button mnemonicParsing="false" onAction="#login" text="Login" />
-                </children>
-            </HBox>
-            <TextField fx:id="loginUsername" prefWidth="-1.0" promptText="Username" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-                <GridPane.margin>
-                    <Insets fx:id="x1" />
-                </GridPane.margin>
-            </TextField>
-            <PasswordField fx:id="loginPassword" prefWidth="200.0" promptText="Passsword" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.margin="$x1" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
-            <Text id="error-text" fx:id="errorText" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="LEFT" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-        </children>
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-    </GridPane>
-    <GridPane fx:id="registerGrid" prefHeight="400.0" prefWidth="600.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <children>
-            <Text id="register-text" strokeType="OUTSIDE" strokeWidth="0.0" text="Register" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="TOP" />
-            <Label text="一卡通号：" wrapText="false" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <Label text="姓名：" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <Label text="用户名：" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-            <Label text="密码：" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-            <Label text="确认密码：" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
-            <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <PasswordField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <PasswordField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6">
-                <children>
-                    <RadioButton mnemonicParsing="false" text="学生" />
-                    <RadioButton mnemonicParsing="false" text="教师" />
-                    <Hyperlink onAction="#switchToLogin" text="返回登录" />
-                    <Button mnemonicParsing="false" text="注册" />
-                </children>
-            </HBox>
-        </children>
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="10.0" prefWidth="253.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="519.0" minWidth="10.0" prefWidth="447.0" />
-        </columnConstraints>
-        <padding>
-            <Insets bottom="30.0" left="30.0" right="100.0" top="30.0" />
-        </padding>
-        <rowConstraints>
-            <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="86.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="86.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="86.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="86.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="86.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-    </GridPane>
 </AnchorPane>
+
