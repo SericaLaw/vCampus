@@ -1,6 +1,6 @@
 /**
  * @apiGroup StuInfo
- * @api {post} ~/stuInfo CreateStuInfo ( passed )
+ * @api {post} /stuInfo CreateStuInfo ( passed )
  * @apiParamExample {json} JSON-Request:
  *      {
  *          "campusCardID":"213160000",
@@ -25,7 +25,7 @@
 
 /**
  * @apiGroup StuInfo    
- * @api {get} ~/stuInfo/campusCardID/:id GetStuInfo ( passed )
+ * @api {get} /stuInfo/campusCardID/:id GetStuInfo ( passed )
 
  * @apiSuccessExample Success-Response:
  *     200 OK
@@ -47,7 +47,7 @@
 
 /**
  * @apiGroup StuInfo    
- * @api {patch} ~/stuInfo/campusCardID/:id ModifyStuInfo ( passed )
+ * @api {patch} /stuInfo/campusCardID/:id ModifyStuInfo ( passed )
  * @apiParamExample {json} JSON-Request:
  *      {
  *          "CampusCardID":"213160000",
@@ -66,7 +66,7 @@
 
 /**
  * @apiGroup StuInfo    
- * @api {delete} ~/stuInfo/campusCardID/:id DeleteStuInfo ( passed )
+ * @api {delete} /stuInfo/campusCardID/:id DeleteStuInfo ( passed )
  * @apiSuccessExample Success-Response:
  *     200 OK
  * @apiErrorExample Error-Response:

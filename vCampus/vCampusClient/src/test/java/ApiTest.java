@@ -259,7 +259,7 @@ public class ApiTest {
          * 在BorrowBook表里新增信息，数据库会自动修改availableCount
          * 前端负责实现展示书籍可借与否，后端availableCount < 0不处理
          */
-        BorrowBookRecord borrowBookRecord = new BorrowBookRecord("201","213170000", new Date());
+        BorrowBookRecord borrowBookRecord = new BorrowBookRecord("101","213170000", new Date());
         jsonData = JSON.toJSONString(borrowBookRecord, SerializerFeature.WriteDateUseDateFormat);
         res = api.post("/borrowBook", jsonData);
 
@@ -267,11 +267,81 @@ public class ApiTest {
          * DELETE ~/borrowBook/bookID/:bid/campusCardID/:cid 还书
          * 在BorrowBook里删除信息，数据库自动修改availableCount
          */
-        res = api.delete("/borrowBook/bookID/101/campusCardID/213170000");
+//        res = api.delete("/borrowBook/bookID/101/campusCardID/213170000");
+//
+//        res = api.delete("/borrowBook/bookID/201/campusCardID/213170000");
 
-        res = api.delete("/borrowBook/bookID/201/campusCardID/213170000");
 
+    }
 
+    @Test
+    public void testGetCourseSchedule() {
+        WebResponse login = api.post("/account/login", "{\"username\":\"LoginTest\",\"password\":\"123\"}");
+        assert login.getStatusCode().equals("200");
+        Map<String, String > resData = login.data(HashMap.class);
+        api.setAuth(resData.get("Username"),resData.get("CampusCardID"), resData.get("Password"));
+
+        api.setAuth("LoginTest", "213170000", "123");
+        WebResponse res = api.get("/course/schedule");
+
+    }
+
+    /**
+     * 直接返回所有学期的成绩信息，不做单独查询
+     */
+    @Test
+    public void testGetCourseReport() {
+        WebResponse login = api.post("/account/login", "{\"username\":\"LoginTest\",\"password\":\"123\"}");
+        assert login.getStatusCode().equals("200");
+        Map<String, String > resData = login.data(HashMap.class);
+        api.setAuth(resData.get("Username"),resData.get("CampusCardID"), resData.get("Password"));
+
+        WebResponse res = api.get("/course/report");
+    }
+
+    /**
+     * 选课系统，前端只需要做一个页面，不需要把已选课程单独拿出来！
+     */
+    @Test
+    public void testGetCourseRegister() {
+        WebResponse login = api.post("/account/login", "{\"username\":\"LoginTest\",\"password\":\"123\"}");
+        assert login.getStatusCode().equals("200");
+        Map<String, String > resData = login.data(HashMap.class);
+        api.setAuth(resData.get("Username"),resData.get("CampusCardID"), resData.get("Password"));
+
+        WebResponse res = api.get("/course/register");
+    }
+
+    /**
+     * 选课
+     * 这个api的data只要传courseID就好了；但前端必须保证不可选的课不会被传进来orz
+     * 如果选课时已经满了，则返回403
+     * TODO: 该api应该返回新的选课列表，需要写硬路由
+     */
+    @Test
+    public void testRegisterCourse() {
+        WebResponse login = api.post("/account/login", "{\"username\":\"LoginTest\",\"password\":\"123\"}");
+        assert login.getStatusCode().equals("200");
+        Map<String, String > resData = login.data(HashMap.class);
+        api.setAuth(resData.get("Username"),resData.get("CampusCardID"), resData.get("Password"));
+
+        WebResponse res = api.post("/course/register","5002");
+        CourseRegister r = res.data(CourseRegister.class);
+    }
+
+    /**
+     * 退课
+     * TODO: 该api应该返回新的选课列表，需要写硬路由
+     */
+    @Test
+    public void testQuitCourse() {
+        WebResponse login = api.post("/account/login", "{\"username\":\"LoginTest\",\"password\":\"123\"}");
+        assert login.getStatusCode().equals("200");
+        Map<String, String > resData = login.data(HashMap.class);
+        api.setAuth(resData.get("Username"),resData.get("CampusCardID"), resData.get("Password"));
+
+        WebResponse res = api.delete("/courseRecord/courseID/5002/campusCardID/213170000");
+        CourseRegister r = res.data(CourseRegister.class);
     }
     private static Logger logger = new Logger("ApiTest");
     public static void main(String[] args) {

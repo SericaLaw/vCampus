@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * @author Serica
+ * BorrowBookRecord 类
  * 对应BorrowBook表
  */
 public class BorrowBookRecord {

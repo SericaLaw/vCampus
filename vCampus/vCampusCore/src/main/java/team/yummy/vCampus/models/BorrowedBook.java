@@ -3,7 +3,9 @@ package team.yummy.vCampus.models;
 import java.util.Date;
 
 /**
- * 在借图书，用于存放关联查询的结果
+ * @author Serica
+ * 在借图书类
+ * 存放关联查询的结果，用于前端展示在借图书信息
  */
 public class BorrowedBook {
     private String bookID;
