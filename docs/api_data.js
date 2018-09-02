@@ -144,11 +144,11 @@ define({ "api": [
         }
       ]
     },
-    "error": {
+    "parameter": {
       "examples": [
         {
-          "title": "Error-Response:",
-          "content": "404 \"Account not found.\"",
+          "title": "@apiErrorExample Error-Response:",
+          "content": "@apiErrorExample Error-Response:\n    404 \"Account not found.\"",
           "type": "json"
         }
       ]
@@ -953,8 +953,17 @@ define({ "api": [
   {
     "group": "StuInfo",
     "type": "delete",
-    "url": "~/stuInfo/campusCardID/:id",
+    "url": "/stuInfo/campusCardID/:id",
     "title": "DeleteStuInfo ( passed )",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "description": "<p>删除学籍信息</p>",
+    "deprecated": {
+      "content": "现在不建议前端调用这条api"
+    },
     "success": {
       "examples": [
         {
@@ -981,13 +990,38 @@ define({ "api": [
   {
     "group": "StuInfo",
     "type": "get",
-    "url": "~/stuInfo/campusCardID/:id",
+    "url": "/stuInfo/campusCardID/:id",
     "title": "GetStuInfo ( passed )",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>获取学生信息</p>",
     "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "List_StuInfo",
+            "description": "<p>只含有一个项的StuInfo list</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "200 OK\n {\n     \"campusCardID\":\"213160000\",\n     \"studentID\":\"09016101\"\n     \"seniorHigh\":\"a\",\n     \"IDNum\":\"320121199800000000\",\n     \"birthplace\":\"Mars\",\n     \"sex\":\"male\",\n     \"department\":\"School of CS\",\n     \"major\":\"Computer Science\"\n }",
+          "content": "200 OK\n[\n    {\n        \"LectureAttendCount\":\"20\",\n        \"Phone\":\"110\",\n        \"Major\":\"计算机科学与技术\",\n        \"SeniorHigh\":\"霍格沃茨魔法学校\",\n        \"IDNum\":\"1234567\",\n        \"GPA\":\"4.81\",\n        \"EnrollmentYear\":\"2018\",\n        \"StudentID\":\"09018101\",\n        \"Birthplace\":\"临冬城\",\n        \"Email\":\"boss@microsoft.com#mailto:boss@microsoft.com#\",\n        \"SRTP\":\"100.0\",\n        \"Address\":\"贝克街221B\",\n        \"Birthdate\":\"1998-06-04 00:00:00.0\",\n        \"Department\":\"计算机科学与工程学院\",\n        \"CampusCardID\":\"213180000\",\n        \"Sex\":\"男\"\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.get(\"/stuInfo/campusCardID/213180000\");\nStuInfo stuInfoGot = res.dataList(StuInfo.class, 0);",
           "type": "json"
         }
       ]
@@ -1009,13 +1043,19 @@ define({ "api": [
   {
     "group": "StuInfo",
     "type": "patch",
-    "url": "~/stuInfo/campusCardID/:id",
+    "url": "/stuInfo/campusCardID/:id",
     "title": "ModifyStuInfo ( passed )",
+    "description": "<p>修改学生信息，该API不会返回修改后的StuInfo，若服务器告知修改成功，则前端自行对数据进行修改然后展示到界面上</p>",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
     "parameter": {
       "examples": [
         {
-          "title": "JSON-Request:",
-          "content": "{\n    \"CampusCardID\":\"213160000\",\n    \"SeniorHigh\":\"a\",\n    \"IDNum\":\"320121199800000000\",\n    \"Birthplace\":\"Mars\"\n}",
+          "title": "Code Snippets",
+          "content": "JSONObject infoToModify = new JSONObject();\ninfoToModify.put(\"Phone\", \"120\");\ninfoToModify.put(\"Sex\",\"女\");\napi.patch(\"/stuInfo/campusCardID/213180000\", infoToModify.toJSONString());",
           "type": "json"
         }
       ]
@@ -1046,8 +1086,17 @@ define({ "api": [
   {
     "group": "StuInfo",
     "type": "post",
-    "url": "~/stuInfo",
+    "url": "/stuInfo",
     "title": "CreateStuInfo ( passed )",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "description": "<p>创建学籍信息，这主要是初始化的时候用的</p>",
+    "deprecated": {
+      "content": "现在不建议前端调用这条api"
+    },
     "parameter": {
       "examples": [
         {

@@ -1,5 +1,6 @@
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,6 +21,13 @@ import static junit.framework.Assert.assertEquals;
  */
 public class ApiTest {
     Api api = new Api();
+    private Api loginAndGetAuth() {
+        WebResponse login = api.post("/account/login", "{\"username\":\"client\",\"password\":\"123\"}");
+        assert login.getStatusCode().equals("200");
+        Map<String, String > resData = login.data(HashMap.class);
+        api.setAuth(resData.get("Username"),resData.get("CampusCardID"), resData.get("Password"));
+        return api;
+    }
     @Test
     public void testLogin() {
         WebResponse res;
@@ -133,6 +141,9 @@ public class ApiTest {
 //        assertEquals(expectedRes.getMessage(), res.getMessage());
     }
 
+    /**
+     * @deprecated
+     */
     @Test
     public void testStuInfo() {
         /**
@@ -225,6 +236,29 @@ public class ApiTest {
 
     }
 
+    @Test
+    public void testGetStuInfo() {
+        api = loginAndGetAuth();
+
+        WebResponse res = api.get("/stuInfo/campusCardID/213180000");
+        StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
+
+    }
+
+    /**
+     * 该API不会返回修改后的StuInfo
+     * 若服务器告知修改成功，则前端自行对数据进行修改然后展示到界面上
+     */
+    @Test
+    public void testModifyStuInfo() {
+        api = loginAndGetAuth();
+
+        JSONObject infoToModify = new JSONObject();
+        infoToModify.put("Phone", "120");
+        infoToModify.put("Sex","女");
+
+        api.patch("/stuInfo/campusCardID/213180000", infoToModify.toJSONString());
+    }
     @Test
     public void testBook() {
         WebResponse res;

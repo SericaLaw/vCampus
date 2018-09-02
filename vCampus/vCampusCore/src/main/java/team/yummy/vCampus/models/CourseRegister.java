@@ -47,8 +47,8 @@ public class CourseRegister {
     }
 
     /**
-     * 检查courseList里状态为AVAILABLE和CONFLICT的类，
-     * 与SELECTED的course比对，更新他们的状态
+     * 检查courseList里状态为AVAILABLE和CONFLICT的项，
+     * 与状态为SELECTED的项比对，更新他们的状态
      * 每次初始化以及选课退课后需要调用该方法
      */
     public void checkConflict() {
@@ -74,6 +74,7 @@ public class CourseRegister {
             if(c.getStatus() == CourseStatusEnum.AVAILABLE || c.getStatus() == CourseStatusEnum.CONFLICT) {
                 // init
                 c.setStatus(CourseStatusEnum.AVAILABLE);
+
                 List<Schedule> schedules = c.getCourseSchedule();
                 for(Schedule s : schedules) {
                     for(int i = s.getSpanStart(); i <= s.getSpanEnd(); i++) {

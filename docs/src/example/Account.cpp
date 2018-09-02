@@ -53,7 +53,7 @@
  * @apiName UnRegisterAPI
  * @apiSuccessExample Success-Response:
  *     200 OK
- * 
+ * @apiParamExample
  * @apiErrorExample Error-Response:
  *     404 "Account not found."
  */
