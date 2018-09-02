@@ -21,5 +21,6 @@
         <jarDirectory url="file://$MODULE_DIR$/third-party-lib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="vCampusCore" />
   </component>
 </module>

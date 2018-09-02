@@ -4,7 +4,7 @@
 
 #win_close {
     -fx-cursor:hand;
-    -fx-text-fill:#a0a0a0;
+    -fx-text-fill:#d0d0d0;
 }
 
 #win_close:hover {
@@ -13,7 +13,7 @@
 
 #win_mini {
     -fx-cursor:hand;
-    -fx-text-fill:#a0a0a0;
+    -fx-text-fill:#d0d0d0;
 }
 
 #win_mini:hover {
@@ -33,13 +33,40 @@
     -fx-background-color:#eee;
 }
 
-.button{
+#test:hover{
     -fx-background-color:#eee;
     -fx-text-fill:#707070;
 }
 
-.button:hover{
+#test:focused{
+    -fx-background-color:#eee;
+    -fx-text-fill:#707070;
+}
+
+
+#Bt_StuInfo,#Bt_Course,#Bt_Dorm,#Bt_Library,#Bt_Bank,#Bt_Store,#Bt_Account,#test{
+    -fx-background-color:#eee;
+    -fx-text-fill:#707070;
+}
+
+#Bt_StuInfo:hover,#Bt_Course:hover,#Bt_Dorm:hover,#Bt_Library:hover,#Bt_Bank:hover,#Bt_Store:hover,#Bt_Account:hover{
     -fx-text-fill:#000;
-        -fx-border-color: transparent transparent transparent #47a5eb;
-        -fx-border-width:6px;
+}
+
+#Bt_StuInfo:focused,#Bt_Course:focused,#Bt_Dorm:focused,#Bt_Library:focused,#Bt_Bank:focused,#Bt_Store:focused,#Bt_Account:focused{
+    -fx-text-fill:#000;
+    -fx-border-color: transparent transparent transparent #47a5eb;
+    -fx-border-width:6px;
+}
+
+#editStuInfo,#cancelAccount,#logout{
+    -fx-background-color:#3593d9;
+}
+
+#CampusCardIDCell,#RoleCell,#FirstNameCell{
+    -fx-background-color:#87CEFA;
+}
+
+#UsernameCell,#LastNameCell{
+    -fx-background-color:#f0f9ff;
 }
