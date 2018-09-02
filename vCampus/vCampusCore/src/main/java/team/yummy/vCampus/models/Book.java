@@ -1,7 +1,9 @@
 package team.yummy.vCampus.models;
 
 /**
- * 对应Book
+ * @author Serica
+ * Book 类
+ * 对应Book表
  */
 public class Book {
     private String bookID;

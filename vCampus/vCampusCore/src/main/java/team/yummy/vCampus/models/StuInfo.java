@@ -1,5 +1,13 @@
 package team.yummy.vCampus.models;
 
+import java.util.Date;
+
+/**
+ * @author Serica
+ * StuInfo 类
+ * 对应StuInfo表
+ * TODO: 这里需要改成和数据库一致的形式
+ */
 public class StuInfo {
     private String campusCardID = null;
     private String studentID = null;
@@ -9,6 +17,14 @@ public class StuInfo {
     private String sex = null;
     private String department = null;
     private String major = null;
+    private String enrollmentYear;
+    private String email;
+    private String address;
+    private Date birthDate;
+    private String SRTP;
+    private String lectureAttendCount;
+    private String GPA;
+
     // 这个空的构造函数是给FastJSON预留的
     public StuInfo() {}
     public StuInfo(String campusCardID, String studentID, String seniorHigh, String IDNum, String  birthplace, SexEnum sex, String department, String major) {
@@ -100,5 +116,61 @@ public class StuInfo {
                     && this.IDNum.equals(another.IDNum) && this.birthplace.equals(another.birthplace);
         }
         return false;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getEnrollmentYear() {
+        return enrollmentYear;
+    }
+
+    public void setEnrollmentYear(String enrollmentYear) {
+        this.enrollmentYear = enrollmentYear;
+    }
+
+    public String getSRTP() {
+        return SRTP;
+    }
+
+    public void setSRTP(String SRTP) {
+        this.SRTP = SRTP;
+    }
+
+    public String getLectureAttendCount() {
+        return lectureAttendCount;
+    }
+
+    public void setLectureAttendCount(String lectureAttendCount) {
+        this.lectureAttendCount = lectureAttendCount;
+    }
+
+    public String getGPA() {
+        return GPA;
+    }
+
+    public void setGPA(String GPA) {
+        this.GPA = GPA;
     }
 }

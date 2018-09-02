@@ -33,35 +33,7 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "example/Account.cpp",
-    "groupTitle": "Account"
-  },
-  {
-    "group": "Account",
-    "type": "get",
-    "url": "/account/user/:id",
-    "title": "logout",
-    "name": "LogoutAPI",
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"Error\": \"User not found.\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Bank.cpp",
+    "filename": "vCampus/vCampusClient/src/test/java/Account.cpp",
     "groupTitle": "Account"
   },
   {
@@ -89,7 +61,7 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "example/Account.cpp",
+    "filename": "vCampus/vCampusClient/src/test/java/Account.cpp",
     "groupTitle": "Account"
   },
   {
@@ -125,7 +97,7 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "example/Account.cpp",
+    "filename": "vCampus/vCampusClient/src/test/java/Account.cpp",
     "groupTitle": "Account",
     "name": "PostAccount"
   },
@@ -144,398 +116,150 @@
         }
       ]
     },
-    "error": {
+    "parameter": {
       "examples": [
         {
-          "title": "Error-Response:",
-          "content": "404 \"Account not found.\"",
+          "title": "@apiErrorExample Error-Response:",
+          "content": "@apiErrorExample Error-Response:\n    404 \"Account not found.\"",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "example/Account.cpp",
+    "filename": "vCampus/vCampusClient/src/test/java/Account.cpp",
     "groupTitle": "Account"
   },
   {
-    "group": "Bank",
-    "type": "delete",
-    "url": "/bank/:CampusCardID",
-    "title": "DeleteBankAccount",
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"Error\": \"User does not exist.\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Bank.cpp",
-    "groupTitle": "Bank",
-    "name": "DeleteBankCampuscardid"
-  },
-  {
-    "group": "Bank",
-    "type": "get",
-    "url": "/bank/:CampusCardID",
-    "title": "GetBankInfo",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"CampusCardID\":\"213160000\",\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n     \"CampusCardID\":\"213160000\",\n     \"Username\":\"trial\",\n     \"Password\":\"trialpwd\",\n     \"BudgetList\":[\n         {\n             \"BudgetID\":\"123\",\n             \"Asset\":\"10000\",\n             \"Time\":\"2018-7-3 12:00:00\",\n             \"BudgetInfo\":\"\"\n         },\n         {\n             \"BudgetID\":\"189\",\n             \"Asset\":\"-1000\",\n             \"Time\":\"2018-7-4 12:00:00\",\n             \"BudgetInfo\":\"\"\n         }\n     ]\n }",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"WrongUsernameOrPassword\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"UserNotFound\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Bank.cpp",
-    "groupTitle": "Bank",
-    "name": "GetBankCampuscardid"
-  },
-  {
-    "group": "Bank",
-    "type": "patch",
-    "url": "/bank/:CampusCardID",
-    "title": "FreezeBankAccount",
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"WrongUsernameOrPassword\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"UserNotFound\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Bank.cpp",
-    "groupTitle": "Bank",
-    "name": "PatchBankCampuscardid"
-  },
-  {
-    "group": "Bank",
-    "type": "post",
-    "url": "/bank/:CampusCardID/",
-    "title": "CreateBankAccount",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"CampusCardID\":\"213160000\",\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"Bank account already created.\"\n}\nHTTP/1.1 400 Bad Request\n{\n  \"Error\": \"Wrong username or password.\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"User not found.\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Bank.cpp",
-    "groupTitle": "Bank",
-    "name": "PostBankCampuscardid"
-  },
-  {
-    "group": "Bank",
-    "type": "POST",
-    "url": "/budget/:CampusCardID",
-    "title": "Save/Withdraw/Loan",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"CampusCardID\":\"213160000\",\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\",\n    \"Asset\":\"1000\",\n    \"OperationType\":\"Save\"  \n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"WrongUsernameOrPassword\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"UserNotFound\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Bank.cpp",
-    "groupTitle": "Bank",
-    "name": "PostBudgetCampuscardid"
-  },
-  {
     "group": "Course",
-    "type": "delete",
-    "url": "/course/:CourseID",
-    "title": "DropCourse",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"CampusCardID\":\"213160000\",\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\"\n}",
-          "type": "json"
-        }
-      ]
-    },
+    "type": "get",
+    "url": "/course/register",
+    "title": "GetCourseRegister ( passed )",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>获取当前学期的选课列表</p>",
     "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "CourseRegister",
+            "description": "<p>CourseRegister对象</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
+          "content": "200 OK\n{\n    \"courseList\":[{\n        \"courseID\":\"2001\",\n        \"courseName\":\"高等数学\",\n        \"courseSchedule\":[{\n            \"spanEnd\":2,\n            \"spanStart\":1,\n            \"weekDay\":2\n         },{\n            \"spanEnd\":4,\n            \"spanStart\":3,\n            \"weekDay\":4\n         }],\n         \"courseVenue\":\"J8-103\",\n         \"credit\":\"5\",\n         \"profName\":\"牛顿\",\n         \"status\":\"SELECTED\",\n         \"stuAttendCount\":2,\n         \"stuLimitCount\":40\n     },{\n        \"courseID\":\"3001\",\n        \"courseName\":\"大学物理\",\n        \"courseSchedule\":[{\n            \"spanEnd\":4,\n            \"spanStart\":3,\n            \"weekDay\":1\n        },{\n            \"spanEnd\":7,\n            \"spanStart\":6,\n            \"weekDay\":3\n        }],\n        \"courseVenue\":\"J6-101\",\n        \"credit\":\"3\",\n        \"profName\":\"亚里士多德\",\n        \"status\":\"SELECTED\",\n        \"stuAttendCount\":2,\n        \"stuLimitCount\":40\n    },{\n        \"courseID\":\"5001\",\n        \"courseName\":\"中国古建筑鉴赏\",\n        \"courseSchedule\":[{\n            \"spanEnd\":13,\n            \"spanStart\":11,\n            \"weekDay\":1\n        },{\n            \"spanEnd\":5,\n            \"spanStart\":3,\n            \"weekDay\":3\n        }],\n            \"courseVenue\":\"J6-102\",\n            \"credit\":\"2\",\n            \"profName\":\"梁思成\",\n            \"status\":\"AVAILABLE\",\n            \"stuAttendCount\":1,\n            \"stuLimitCount\":60\n        },{\n            \"courseID\":\"5002\",\n            \"courseName\":\"果壳中的宇宙\",\n            \"courseSchedule\":[{\n                \"spanEnd\":13,\n                \"spanStart\":11,\n                \"weekDay\":4\n            }],\n            \"courseVenue\":\"J6-103\",\n            \"credit\":\"2\",\"profName\":\"霍金\",\n            \"status\":\"AVAILABLE\",\n            \"stuAttendCount\":0,\n            \"stuLimitCount\":60\n        },{\n            \"courseID\":\"5003\",\n            \"courseName\":\"时装艺术鉴赏\",\n            \"courseSchedule\":[{\n                \"spanEnd\":5,\n                \"spanStart\":3,\n                \"weekDay\":4\n            }],\n            \"courseVenue\":\"J3-203\",\n            \"credit\":\"2\",\n            \"profName\":\"哥斯拉\",\n            \"status\":\"CONFLICT\",\n            \"stuAttendCount\":0,\n            \"stuLimitCount\":60\n        }\n    ]}\n}",
           "type": "json"
         }
       ]
     },
-    "error": {
+    "parameter": {
       "examples": [
         {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"Error\": \"Course does not exist.\"\n}",
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.get(\"/course/register\");\nCourseRegister courseRegister = res.data(CourseRegister.class);",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "example/Course.cpp",
+    "filename": "vCampus/vCampusClient/src/test/java/CourseApiTest.java",
     "groupTitle": "Course",
-    "name": "DeleteCourseCourseid"
+    "name": "GetCourseRegister"
   },
   {
     "group": "Course",
     "type": "get",
-    "url": "/course/courseID/:id",
-    "title": "GetCourseInfo",
+    "url": "/course/report",
+    "title": "GetCourseReport ( passed )",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>获取成绩信息，直接返回所有学期的成绩信息，不做按学期的单独查询；默认0分为未给分的课程，不会包含在返回的列表里</p>",
     "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "List_CourseReportItem",
+            "description": "<p>装着课程表表项的list</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n {\n     \"ProfLastName\":\"李\",\n     \"ProfFirstName\":\"四\",\n     \"CourseIntro\":\"null\",\n     \"StuLimit\":\"20\",\n     \"StuList\":[\n         {\n             \"CampusCardID\":\"213160000\",\n             \"LastName\":\"张\"，\n             \"FirstName\":\"三\"\n         },\n         {\n             \"CampusCardID\":\"213160001\",\n             \"LastName\":\"王\"，\n             \"FirstName\":\"五\"\n         }\n     ] \n }",
+          "content": "200 OK\n[\n    {\n        \"Semester\":\"17-18-3\",\n        \"Credit\":\"2\",\n        \"CourseName\":\"中国古建筑鉴赏\",\n        \"ScoreType\":\"首修\",\n        \"Score\":\"90\"\n    }\n]",
           "type": "json"
         }
       ]
     },
-    "error": {
+    "parameter": {
       "examples": [
         {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"Error\": \"Course does not exist.\"\n}",
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.get(\"/course/report\");\nList<CourseReportItem> reportItems = res.dataList(CourseReportItem.class);",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "example/Course.cpp",
+    "filename": "vCampus/vCampusClient/src/test/java/CourseApiTest.java",
     "groupTitle": "Course",
-    "name": "GetCourseCourseidId"
+    "name": "GetCourseReport"
   },
   {
     "group": "Course",
-    "type": "patch",
-    "url": "/course/:CourseID",
-    "title": "ModifyCourseInfo",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"ProfCampusCardID\":\"213160000\",\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\",\n    \"CourseIntro\":\"null\",\n    \"StuLimit\":\"20\"\n}",
-          "type": "json"
-        }
-      ]
-    },
+    "type": "get",
+    "url": "/course/schedule",
+    "title": "GetCourseSchedule ( passed )",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>获取本学期课程表，暂不支持不同学期课程表的查询</p>",
     "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "List_CourseScheduleItem",
+            "description": "<p>装着课程表表项的list</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
+          "content": "200 OK\n[\n    {\n        \"SpanEnd\":\"2\",\n        \"ProfName\":\"牛顿\",\n        \"CourseID\":\"2001\",\n        \"CourseName\":\"高等数学\",\n        \"CourseVenue\":\"J8-103\",\n        \"WeekDay\":\"2\",\n        \"SpanStart\":\"1\"\n    },\n    {\n        \"SpanEnd\":\"4\",\n        \"ProfName\":\"牛顿\",\n        \"CourseID\":\"2001\",\n        \"CourseName\":\"高等数学\",\n        \"CourseVenue\":\"J8-103\",\n        \"WeekDay\":\"4\",\n        \"SpanStart\":\"3\"\n    },\n    {\n        \"SpanEnd\":\"4\",\n        \"ProfName\":\"亚里士多德\",\n        \"CourseID\":\"3001\",\n        \"CourseName\":\"大学物理\",\n        \"CourseVenue\":\"J6-101\",\n        \"WeekDay\":\"1\",\n        \"SpanStart\":\"3\"\n    },\n    {\n        \"SpanEnd\":\"7\",\n        \"ProfName\":\"亚里士多德\",\n        \"CourseID\":\"3001\",\n        \"CourseName\":\"大学物理\",\n        \"CourseVenue\":\"J6-101\",\n        \"WeekDay\":\"3\",\n        \"SpanStart\":\"6\"\n    }\n]",
           "type": "json"
         }
       ]
     },
-    "error": {
+    "parameter": {
       "examples": [
         {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"Wrong username or password.\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"Professor does not exist.\"\n}",
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.get(\"/course/schedule\");\nList<CourseScheduleItem> scheduleItems = res.dataList(CourseScheduleItem.class);",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "example/Course.cpp",
+    "filename": "vCampus/vCampusClient/src/test/java/CourseApiTest.java",
     "groupTitle": "Course",
-    "name": "PatchCourseCourseid"
-  },
-  {
-    "group": "Course",
-    "type": "post",
-    "url": "/course",
-    "title": "CreateNewCourse",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"ProfCampusCardID\":\"213160000\",\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\",\n    \"CourseIntro\":\"null\",\n    \"StuLimit\":\"20\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"Wrong username or password.\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"Professor does not exist.\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Course.cpp",
-    "groupTitle": "Course",
-    "name": "PostCourse"
-  },
-  {
-    "group": "Course",
-    "type": "post",
-    "url": "/course/:CourseID",
-    "title": "SelectCourse",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"CampusCardID\":\"213160000\",\n    \"CourseID\":\"101\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"Error\": \"Course does not exist.\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Course.cpp",
-    "groupTitle": "Course",
-    "name": "PostCourseCourseid"
-  },
-  {
-    "group": "Dorm",
-    "type": "post",
-    "url": "/dorm/:DormID/",
-    "title": "GetDormExpenditure/GetDormScoring....",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"CampusID\":\"213160000\",\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"DormID\":\"M5D633\",\n  \"CampusCardID\": \"213160000\",\n  \"DormMem\":[\n     {\n        \"CampusCardID\": \"213160000\",\n        \"FirstName\":\"张\",\n        \"LastName\": \"三\",\n         \"ExpenditureList\":[\n             {\n                 \"ID\":\"101334\",\n                 \"CommodityID\":\"732\",\n                 \"PurchaseTime\":\"2018-7-22 09:01:23\",\n                 \"Price\":\"21\"        \n             },\n             {\n                 \"ID\":\"101337\",\n                 \"CommodityID\":\"719\",\n                 \"PurchaseTime\":\"2018-7-28 09:01:23\",\n                 \"Price\":\"25\"        \n             }    \n         ]\n     },\n     {\n        \"CampusCardID\": \"213160001\",\n        \"FirstName\":\"李\",\n        \"LastName\": \"四\"\n        \"ExpenditureList\":\"\"\n     },\n     {\n        \"CampusCardID\": \"213160002\",\n        \"FirstName\":\"王\",\n        \"LastName\": \"五\"\n        \"ExpenditureList\":\"\"\n     }\n ]，\n \"ScoringList\":[\n     {\n         \"ID\":\"101334\",\n         \"ScoringDate\":\"2018-7-22 09:01:23\",\n         \"Score\":\"95\"\n     },\n     {\n         \"ID\":\"101339\",\n         \"ScoringDate\":\"2018-7-29 09:01:23\",\n         \"Score\":\"96\"\n     }\n ]\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"Wrong username or password.\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Dorm.cpp",
-    "groupTitle": "Dorm",
-    "name": "PostDormDormid"
+    "name": "GetCourseSchedule"
   },
   {
     "group": "Library",
@@ -576,7 +300,7 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "example/Library.cpp",
+    "filename": "vCampus/vCampusClient/src/test/java/Library.cpp",
     "groupTitle": "Library",
     "name": "DeleteBorrowbookBookidBidCampuscardidCid"
   },
@@ -620,7 +344,7 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "example/Library.cpp",
+    "filename": "vCampus/vCampusClient/src/test/java/Library.cpp",
     "groupTitle": "Library",
     "name": "GetBook"
   },
@@ -664,7 +388,7 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "example/Library.cpp",
+    "filename": "vCampus/vCampusClient/src/test/java/Library.cpp",
     "groupTitle": "Library",
     "name": "GetBookBooknameKeywordLike"
   },
@@ -708,7 +432,7 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "example/Library.cpp",
+    "filename": "vCampus/vCampusClient/src/test/java/Library.cpp",
     "groupTitle": "Library",
     "name": "GetBorrowbook"
   },
@@ -751,243 +475,45 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "example/Library.cpp",
+    "filename": "vCampus/vCampusClient/src/test/java/Library.cpp",
     "groupTitle": "Library",
     "name": "PostBorrowbook"
   },
   {
-    "group": "Store",
-    "type": "delete",
-    "url": "/Cart/:CommodityID",
-    "title": "RemoveFromCart",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"CommodityID\":\"10203\",\n    \"CommodityCnt\":\"1\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Store.cpp",
-    "groupTitle": "Store",
-    "name": "DeleteCartCommodityid"
-  },
-  {
-    "group": "Store",
-    "type": "delete",
-    "url": "/Purchase/:CommodityID",
-    "title": "CancelOrder",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"Username\":\"trial\",\n    \"Password\":\"pwd\",\n    \"CommodityID\":\"10203\",\n    \"CommodityCnt\":\"1\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"Wrong username or password.\"\n} \nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"Commodity does not exist.\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Store.cpp",
-    "groupTitle": "Store",
-    "name": "DeletePurchaseCommodityid"
-  },
-  {
-    "group": "Store",
-    "type": "get",
-    "url": "/Commodity",
-    "title": "ListGoods/SearchGoods",
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n {\n     \"List\":[\n         {\n             \"CommodityID\":\"1\",\n             \"CommodityProperties\":\"abcdefghijklmn\",\n             \"ProductionDate\":\"2018-8-10\",\n             \"CommodityTot\":\"100\",\n             \"Price\":\"12\"\n         },\n         {\n             \"CommodityID\":\"2\",\n             \"CommodityProperties\":\"abcdefghijklmn\",\n             \"ProductionDate\":\"2018-8-12\",\n             \"CommodityTot\":\"101\",\n             \"Price\":\"5\"\n         }        \n     ]\n }",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"Wrong username or password.\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Store.cpp",
-    "groupTitle": "Store",
-    "name": "GetCommodity"
-  },
-  {
-    "group": "Store",
-    "type": "post",
-    "url": "/Cart/:CommodityID",
-    "title": "AddToCart",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"CommodityID\":\"10203\",\n    \"CommodityCnt\":\"1\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Store.cpp",
-    "groupTitle": "Store",
-    "name": "PostCartCommodityid"
-  },
-  {
-    "group": "Store",
-    "type": "post",
-    "url": "/Commodity",
-    "title": "CreateGoods",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\",\n    \"CommodityProperties\":\"abcdefghijklmn\",\n    \"ProductionDate\":\"2018-8-10\",\n    \"CommodityTot\":\"100\",\n    \"Price\":\"12\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"Wrong username or password.\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Store.cpp",
-    "groupTitle": "Store",
-    "name": "PostCommodity"
-  },
-  {
-    "group": "Store",
-    "type": "post",
-    "url": "/Purchase/:CommodityID",
-    "title": "CreateOrder",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"Username\":\"trial\",\n    \"Password\":\"pwd\",\n    \"CommodityID\":\"10203\",\n    \"CommodityCnt\":\"1\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"Error\": \"Wrong username or password.\"\n} \nHTTP/1.1 404 Not Found\n{\n  \"Error\": \"Commodity does not exist.\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/Store.cpp",
-    "groupTitle": "Store",
-    "name": "PostPurchaseCommodityid"
-  },
-  {
-    "group": "StuInfo",
-    "type": "delete",
-    "url": "~/stuInfo/campusCardID/:id",
-    "title": "DeleteStuInfo ( passed )",
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "404  \"StuInfo not found.\"",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/StuInfo.cpp",
-    "groupTitle": "StuInfo",
-    "name": "DeleteStuinfoCampuscardidId"
-  },
-  {
     "group": "StuInfo",
     "type": "get",
-    "url": "~/stuInfo/campusCardID/:id",
+    "url": "/stuInfo/campusCardID/:id",
     "title": "GetStuInfo ( passed )",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>获取学生信息</p>",
     "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "List_StuInfo",
+            "description": "<p>只含有一个项的StuInfo list</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "200 OK\n {\n     \"campusCardID\":\"213160000\",\n     \"studentID\":\"09016101\"\n     \"seniorHigh\":\"a\",\n     \"IDNum\":\"320121199800000000\",\n     \"birthplace\":\"Mars\",\n     \"sex\":\"male\",\n     \"department\":\"School of CS\",\n     \"major\":\"Computer Science\"\n }",
+          "content": "200 OK\n[\n    {\n        \"LectureAttendCount\":\"20\",\n        \"Phone\":\"110\",\n        \"Major\":\"计算机科学与技术\",\n        \"SeniorHigh\":\"霍格沃茨魔法学校\",\n        \"IDNum\":\"1234567\",\n        \"GPA\":\"4.81\",\n        \"EnrollmentYear\":\"2018\",\n        \"StudentID\":\"09018101\",\n        \"Birthplace\":\"临冬城\",\n        \"Email\":\"boss@microsoft.com#mailto:boss@microsoft.com#\",\n        \"SRTP\":\"100.0\",\n        \"Address\":\"贝克街221B\",\n        \"Birthdate\":\"1998-06-04 00:00:00.0\",\n        \"Department\":\"计算机科学与工程学院\",\n        \"CampusCardID\":\"213180000\",\n        \"Sex\":\"男\"\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.get(\"/stuInfo/campusCardID/213180000\");\nStuInfo stuInfoGot = res.dataList(StuInfo.class, 0);",
           "type": "json"
         }
       ]
@@ -1002,20 +528,26 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "example/StuInfo.cpp",
+    "filename": "vCampus/vCampusClient/src/test/java/StuInfoApiTest.java",
     "groupTitle": "StuInfo",
     "name": "GetStuinfoCampuscardidId"
   },
   {
     "group": "StuInfo",
     "type": "patch",
-    "url": "~/stuInfo/campusCardID/:id",
+    "url": "/stuInfo/campusCardID/:id",
     "title": "ModifyStuInfo ( passed )",
+    "description": "<p>修改学生信息，该API不会返回修改后的StuInfo，若服务器告知修改成功，则前端自行对数据进行修改然后展示到界面上</p>",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
     "parameter": {
       "examples": [
         {
-          "title": "JSON-Request:",
-          "content": "{\n    \"CampusCardID\":\"213160000\",\n    \"SeniorHigh\":\"a\",\n    \"IDNum\":\"320121199800000000\",\n    \"Birthplace\":\"Mars\"\n}",
+          "title": "Code Snippets",
+          "content": "JSONObject infoToModify = new JSONObject();\ninfoToModify.put(\"Phone\", \"120\");\ninfoToModify.put(\"Sex\",\"女\");\napi.patch(\"/stuInfo/campusCardID/213180000\", infoToModify.toJSONString());",
           "type": "json"
         }
       ]
@@ -1039,45 +571,8 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "example/StuInfo.cpp",
+    "filename": "vCampus/vCampusClient/src/test/java/StuInfoApiTest.java",
     "groupTitle": "StuInfo",
     "name": "PatchStuinfoCampuscardidId"
-  },
-  {
-    "group": "StuInfo",
-    "type": "post",
-    "url": "~/stuInfo",
-    "title": "CreateStuInfo ( passed )",
-    "parameter": {
-      "examples": [
-        {
-          "title": "JSON-Request:",
-          "content": "{\n    \"campusCardID\":\"213160000\",\n    \"studentID\":\"09016101\"\n    \"seniorHigh\":\"a\",\n    \"IDNum\":\"320121199800000000\",\n    \"birthplace\":\"Mars\",\n    \"sex\":\"男\",\n    \"department\":\"School of CS\",\n    \"major\":\"Computer Science\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "201 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "403  \"StuInfo already exists.\"\n\n404  \"StuInfo not found.\"",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "example/StuInfo.cpp",
-    "groupTitle": "StuInfo",
-    "name": "PostStuinfo"
   }
 ]

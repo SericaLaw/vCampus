@@ -8,6 +8,11 @@ import java.net.URI;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * @author Serica
+ * DBHelper
+ * TODO: 防SQL注入
+ */
 public class DBHelper {
     // DB_URI  = 数据库的资源标识符
     private URI DB_URI;
@@ -129,10 +134,28 @@ public class DBHelper {
      * @return 查询结果的JSON形式数据
      */
     public String selectOne(String tableName, String key, String value) {
-        String jsonData;
+//        String jsonData;
+        String sql = "SELECT TOP 1 * FROM " + tableName + " WHERE " + key + "=" + "'" + value + "'";
+        return selectOne(sql);
+//        try {
+//            String sql = "SELECT TOP 1 * FROM " + tableName + " WHERE " + key + "=" + "'" + value + "'";
+//            // log
+//            logger.log("Executing SQL: " + sql);
+//            stmt = conn.prepareStatement(sql);
+//
+//            // 得到ResultSet
+//            ResultSet rs = stmt.executeQuery();
+//            jsonData = JSON.toJSONString(convertRsToMap(rs));
+//            return jsonData;
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+    }
+
+    public String selectOne(String sql) {
         try {
-            String sql = "SELECT TOP 1 * FROM " + tableName + " WHERE " + key + "=" + "'" + value + "'";
-            // log
+            String jsonData;
             logger.log("Executing SQL: " + sql);
             stmt = conn.prepareStatement(sql);
 
@@ -144,8 +167,14 @@ public class DBHelper {
             e.printStackTrace();
             return null;
         }
+
     }
 
+    /**
+     * 适用于查询结果只有一条的情况，如果有多条，也只会返回第一条
+     * @param rs
+     * @return
+     */
     private Map<String,String> convertRsToMap(ResultSet rs) {
         ResultSetMetaData data;
         try {

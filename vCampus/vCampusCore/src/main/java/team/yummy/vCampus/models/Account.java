@@ -1,5 +1,10 @@
 package team.yummy.vCampus.models;
 
+/**
+ * @author Serica
+ * Account 类
+ * 对应Account表
+ */
 public class Account {
     private String campusCardID;
     private String username;

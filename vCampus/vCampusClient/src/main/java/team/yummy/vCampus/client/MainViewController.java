@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 public class MainViewController extends ViewController implements Initializable {
 
     @FXML private AnchorPane main_title;
+    @FXML private AnchorPane InitPane;
     @FXML private AnchorPane StuInfoPane;
     @FXML private AnchorPane CoursePane;
     @FXML private AnchorPane DormPane;
@@ -32,14 +33,15 @@ public class MainViewController extends ViewController implements Initializable 
     private double yOffset = 0;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        AccountMagPane.setVisible(false);
+    public void initialize(URL url, ResourceBundle rb) {     //点其他栏目的时候要不initpane上的图案淡一点？
+        InitPane.setVisible(true);
         StuInfoPane.setVisible(false);
         CoursePane.setVisible(false);
         DormPane.setVisible(false);
         LibraryPane.setVisible(false);
         BankPane.setVisible(false);
         StorePane.setVisible(false);
+        AccountMagPane.setVisible(false);
     }
 
     /*public void getStuInfo(ActionEvent actionEvent) {
@@ -80,6 +82,7 @@ public class MainViewController extends ViewController implements Initializable 
         LibraryPane.setVisible(false);
         BankPane.setVisible(false);
         StorePane.setVisible(false);
+        InitPane.setVisible(false);
     }
 
     @FXML
@@ -91,6 +94,7 @@ public class MainViewController extends ViewController implements Initializable 
         BankPane.setVisible(false);
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
+        InitPane.setVisible(false);
     }
 
     @FXML
@@ -102,6 +106,7 @@ public class MainViewController extends ViewController implements Initializable 
         BankPane.setVisible(false);
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
+        InitPane.setVisible(false);
     }
     @FXML
     protected void switchDorm(ActionEvent actionEvent) {
@@ -112,6 +117,7 @@ public class MainViewController extends ViewController implements Initializable 
         BankPane.setVisible(false);
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
+        InitPane.setVisible(false);
     }
     @FXML
     protected void switchLibrary(ActionEvent actionEvent) {
@@ -122,6 +128,7 @@ public class MainViewController extends ViewController implements Initializable 
         BankPane.setVisible(false);
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
+        InitPane.setVisible(false);
     }
     @FXML
     protected void switchBank(ActionEvent actionEvent) {
@@ -132,6 +139,7 @@ public class MainViewController extends ViewController implements Initializable 
         LibraryPane.setVisible(false);
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
+        InitPane.setVisible(false);
     }
     @FXML
     protected void switchStore(ActionEvent actionEvent) {
@@ -142,5 +150,6 @@ public class MainViewController extends ViewController implements Initializable 
         LibraryPane.setVisible(false);
         BankPane.setVisible(false);
         AccountMagPane.setVisible(false);
+        InitPane.setVisible(false);
     }
 }
