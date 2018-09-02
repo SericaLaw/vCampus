@@ -45,6 +45,16 @@ git pull
 
 用Git进行多人协作的原则：每个人应明确自己的责任区，尽量避免提交时出现冲突；对自己的commit负责，先进行测试后再提交
 
+### apidoc
+
+在仓库根目录打开终端，输入命令：
+
+```bash
+apidoc -i ./vCampus/vCampusClient/src/test/java -o ./docs -t ./docs/src/template/
+```
+
+即可创建api文档。
+
 ## 资源列表
 
 ### Java Swing 教程
@@ -63,4 +73,3 @@ git pull
 ### 规范
 
 1. [数据库命名规范](https://blog.csdn.net/yu757371316/article/details/54602545)
-

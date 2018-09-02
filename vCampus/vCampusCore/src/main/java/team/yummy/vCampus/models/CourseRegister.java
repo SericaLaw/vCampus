@@ -16,7 +16,7 @@ public class CourseRegister {
 
     public String getSql(int grade, int semester, String major) {
         String sql =
-                String.format("SELECT CourseID, CourseName, ProfName, StuLimitCount, StuAttendCount, Credit, CourseVenue FROM Course WHERE (Grade = %d AND Semester = %d AND Major = '%s') OR (Grade = 0 AND Semester = %d)", grade, semester, major, semester);
+                String.format("SELECT CourseID, CourseName, ProfName, StuLimitCount, StuAttendCount, Credit, CourseVenue FROM Course WHERE (Grade = %d AND Semester = %d AND (Major = '%s' OR Major IS NULL)) OR (Grade = 0 AND Semester = %d)", grade, semester, major, semester);
         return sql;
     }
 

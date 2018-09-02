@@ -8,21 +8,19 @@ package team.yummy.vCampus.models;
 public class CourseScheduleItem {
     private String courseID;
     private String weekDay;
-    private String start;
-    private String end;
+    private String spanStart;
+    private String spanEnd;
 
     private String courseName;
     private String profName;
     private String courseVenue;
 
-    private String sql;
-
     public CourseScheduleItem() {}
-    public CourseScheduleItem(String courseID, String weekDay, String start, String end, String courseName, String profName, String courseVenue) {
+    public CourseScheduleItem(String courseID, String weekDay, String spanStart, String spanEnd, String courseName, String profName, String courseVenue) {
         this.courseID = courseID;
         this.weekDay = weekDay;
-        this.start = start;
-        this.end = end;
+        this.spanStart = spanStart;
+        this.spanEnd = spanEnd;
         this.courseName = courseName;
         this.profName = profName;
         this.courseVenue = courseVenue;
@@ -44,20 +42,20 @@ public class CourseScheduleItem {
         this.weekDay = weekDay;
     }
 
-    public String getStart() {
-        return start;
+    public String getSpanStart() {
+        return spanStart;
     }
 
-    public void setStart(String start) {
-        this.start = start;
+    public void setSpanStart(String spanStart) {
+        this.spanStart = spanStart;
     }
 
-    public String getEnd() {
-        return end;
+    public String getSpanEnd() {
+        return spanEnd;
     }
 
-    public void setEnd(String end) {
-        this.end = end;
+    public void setSpanEnd(String spanEnd) {
+        this.spanEnd = spanEnd;
     }
 
     public String getCourseName() {
@@ -93,7 +91,7 @@ public class CourseScheduleItem {
      * @return sql
      */
     public String getSql(String campusCardID) {
-        sql = String.format("SELECT CourseID, WeekDay, SpanStart, SpanEnd, CourseName, ProfName, CourseVenue From Course c, CourseSchedule cs, CourseRecord cr WHERE c.CourseID = cs.CourseID AND cs.CourseID = cr.CourseID AND cr.CampusCardID = '%s' AND cr.Semester='18-19-2'", campusCardID);
+        String sql = String.format("SELECT CourseID, WeekDay, SpanStart, SpanEnd, CourseName, ProfName, CourseVenue From Course c, CourseSchedule cs, CourseRecord cr WHERE c.CourseID = cs.CourseID AND cs.CourseID = cr.CourseID AND cr.CampusCardID = '%s' AND cr.Semester='18-19-2'", campusCardID);
         return sql;
     }
 }

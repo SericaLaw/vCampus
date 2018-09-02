@@ -12,7 +12,6 @@ public class CourseReportItem {
     private String semester;
     private String scoreType;
 
-    private String sql;
 
     public CourseReportItem() {}
     public CourseReportItem(String courseName, double credit, int score, String semester, String scoreType) {
@@ -69,7 +68,7 @@ public class CourseReportItem {
      * @return
      */
     public String getSql(String campusCardID) {
-        sql = String.format("SELECT CourseName, Semester, Credit, Score, ScoreType FROM Course c, CourseRecord cr WHERE c.CourseID = cr.CourseID AND cr.CampusCardID = '%s' AND (NOT cr.Score = '0')", campusCardID);
+        String sql = String.format("SELECT CourseName, Semester, Credit, Score, ScoreType FROM Course c, CourseRecord cr WHERE c.CourseID = cr.CourseID AND cr.CampusCardID = '%s' AND (NOT cr.Score = '0')", campusCardID);
         return sql;
     }
 }
