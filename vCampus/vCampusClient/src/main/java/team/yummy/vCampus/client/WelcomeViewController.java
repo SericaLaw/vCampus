@@ -26,7 +26,13 @@ public class WelcomeViewController extends ViewController implements Initializab
 
     @FXML public TextField login_Tusername;
     @FXML public PasswordField login_Tpassword;
-    //public Text errorText;
+    @FXML public TextField register_Tfirstname;
+    @FXML public TextField register_Tlastname;
+    @FXML public TextField register_Tcard;
+    @FXML public TextField register_Tusername;
+    @FXML public TextField register_Tpassword;
+    @FXML public Label LoginerrorText;
+    @FXML public Label RegistererrorText;
 
     @FXML private AnchorPane loginpane;
     @FXML private AnchorPane registerpane;
@@ -34,11 +40,7 @@ public class WelcomeViewController extends ViewController implements Initializab
     @FXML private Label windowclose;
     @FXML private Label windowmini;
 
-    //private String FirstName;
-    //private String LastName;
-    //private String CampusID;
-    //private String Username;
-    //private String Password;
+
 
 
     @Override
@@ -61,13 +63,14 @@ public class WelcomeViewController extends ViewController implements Initializab
     }
 
 
-    public void login(ActionEvent actionEvent) {
+    public void login(ActionEvent actionEvent)
+    {
         String username = login_Tusername.getText();
         String password = login_Tpassword.getText();
 
-        /*if(username.length() == 0 || password.length() == 0)
-            errorText.setText("用户名和密码不能为空");
-        */
+       if(username.length() == 0 || password.length() == 0)
+            LoginerrorText.setText("用户名和密码不能为空!");
+
 
         WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
         switch (res.getStatusCode()) {
@@ -88,15 +91,30 @@ public class WelcomeViewController extends ViewController implements Initializab
 
     }
 
-    public void signup(ActionEvent actionEvent) {}
+    public void signup(ActionEvent actionEvent)
+    {
+        String firstname=register_Tfirstname.getText();
+        String lastname=register_Tlastname.getText();
+        String card=register_Tcard.getText();
+        String username=register_Tusername.getText();
+        String password=register_Tpassword.getText();
 
-    public void switchToSignup(ActionEvent actionEvent) {
+        if(firstname.length() == 0 || lastname.length()==0||card.length()==0||username.length()==0||password.length() == 0)
+            RegistererrorText.setText("请完善所有信息！");
+
+
+
+    }
+
+    public void switchToSignup(ActionEvent actionEvent)
+    {
         registerpane.setVisible(true);
         loginpane.setVisible(false);
 
     }
 
-    public void switchToLogin(ActionEvent actionEvent) {
+    public void switchToLogin(ActionEvent actionEvent)
+    {
         registerpane.setVisible(false);
         loginpane.setVisible(true);
     }

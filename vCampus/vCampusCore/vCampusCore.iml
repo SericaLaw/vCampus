@@ -17,10 +17,7 @@
           <root url="file://$MODULE_DIR$/../third-party-lib" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/src/main/java" />
-          <root url="file://$MODULE_DIR$/src/test/java" />
-        </SOURCES>
+        <SOURCES />
         <jarDirectory url="file://$MODULE_DIR$/../third-party-lib" recursive="false" />
       </library>
     </orderEntry>
