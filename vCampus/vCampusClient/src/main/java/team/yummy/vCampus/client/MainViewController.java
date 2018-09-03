@@ -4,15 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-<<<<<<< HEAD
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.omg.CORBA.PRIVATE_MEMBER;
 import team.yummy.vCampus.models.StuInfo;
-=======
-import javafx.scene.control.RadioButton;
->>>>>>> 26ef94f4933b998367c9fea8cf82137eb9059880
+
 import team.yummy.vCampus.web.WebResponse;
 
 import javafx.event.ActionEvent;
@@ -221,7 +216,6 @@ public class MainViewController extends ViewController implements Initializable 
         InitPane.setVisible(false);
     }
     @FXML
-<<<<<<< HEAD
     protected void editorSave(ActionEvent actionEvent) {
         if(editorSaveStuInfo.getText().equals("编辑"))
         {
@@ -291,7 +285,6 @@ public class MainViewController extends ViewController implements Initializable 
     }
 
 
-=======
     protected void choosestudent(ActionEvent actionEvent)
     {
         register_radiominis.setPickOnBounds(false);
@@ -301,5 +294,4 @@ public class MainViewController extends ViewController implements Initializable 
     {
         register_radiostudent.setPickOnBounds(false);
     }
->>>>>>> 26ef94f4933b998367c9fea8cf82137eb9059880
 }
