@@ -7,12 +7,9 @@
 <?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
@@ -125,7 +122,7 @@
             </AnchorPane>
             <AnchorPane fx:id="StuInfoPane" disable="false" prefHeight="747.0" prefWidth="590.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
-                <Button fx:id="editStuInfo" layoutX="201.0" layoutY="379.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="编辑">
+                <Button fx:id="editorSaveStuInfo" disable="false" layoutX="201.0" layoutY="379.0" mnemonicParsing="false" onAction="#editorSave" prefHeight="20.0" prefWidth="80.0" text="编辑">
                   <font>
                     <Font size="16.0" />
                   </font>
@@ -143,14 +140,14 @@
                     </Label>
                     <Label text="SRTP" textFill="$x3" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
                     <Label text="    讲座次数" textFill="$x3" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-                    <Label text="姓名处" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2" />
-                    <Label text="Label" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                    <Label fx:id="si_Name" text="姓名处" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2" />
+                    <Label fx:id="si_GPA" text="Label" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                       <textFill>
                         <Color blue="0.922" green="0.647" red="0.278" fx:id="x4" />
                       </textFill>
                     </Label>
-                    <Label text="Label" textFill="$x4" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                    <Label text="    Label" textFill="$x4" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                    <Label fx:id="si_SRTP" text="Label" textFill="$x4" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                    <Label fx:id="si_LAC" text="    Label" textFill="$x4" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="118.0" />
@@ -172,11 +169,11 @@
                     <Label text="入学年份" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                     <Label text="学号" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
                     <Label text="专业" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                    <Label text="213160410" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                    <Label text="计算机科学与工程学院" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <Label text="2016" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <Label text="09016405" textFill="$x3" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                    <Label text="计算机科学与技术" textFill="$x3" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                    <Label fx:id="si_CampusCardID" text="" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <Label fx:id="si_Department" text="" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <Label fx:id="si_EnrollmentYear" text="" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <Label fx:id="si_StudentID" text="" textFill="$x3" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                    <Label fx:id="si_Major" text="" textFill="$x3" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="210.0" minWidth="10.0" prefWidth="126.0" />
@@ -192,11 +189,7 @@
                 </GridPane>
                 <GridPane focusTraversable="false" gridLinesVisible="false" prefHeight="272.0" prefWidth="844.0" visible="true" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="73.0">
                   <children>
-                    <Label text="身份证号" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0">
-                      <font>
-                        <Font size="18.0" />
-                      </font>
-                    </Label>
+                    <Label text="身份证号" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
                     <Label text="性别" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="0" />
                     <Label text="出生日期" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     <Label text="手机号   " GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
@@ -204,20 +197,15 @@
                     <Label text="出生地" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                     <Label text="Email" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
                     <Label text="高中学校" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
-                    <TextField prefWidth="210.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="0" />
-                    <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2" />
-                    <TextField prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
-                    <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="3" />
-                    <TextField prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
-                    <ChoiceBox prefWidth="105.0" GridPane.columnIndex="8" GridPane.rowIndex="0">
-                      <items>
-                        <FXCollections fx:factory="observableArrayList">
-                          <String fx:value="女" />
-                          <String fx:value="男" />
-                        </FXCollections>
-                      </items>
-                    </ChoiceBox>
-                    <ChoiceBox prefWidth="108.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <TextField fx:id="si_IDNum" disable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="0" />
+                    <TextField fx:id="si_Phone" disable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2" />
+                    <TextField fx:id="si_Email" disable="true" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+                    <TextField fx:id="si_Address" disable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="3" />
+                    <TextField fx:id="si_SeniorHigh" disable="true" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+                    <Label text="年" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                    <Label text="月" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                    <Label text=" 日     " GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                    <ComboBox fx:id="si_Birthyear" disable="true" prefWidth="102.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                           <String fx:value="1980" />
@@ -253,35 +241,71 @@
                           <String fx:value="2010" />
                         </FXCollections>
                       </items>
-                    </ChoiceBox>
-                    <ChoiceBox prefWidth="77.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                    </ComboBox>
+                    <ComboBox fx:id="si_Birthmonth" disable="true" prefWidth="76.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
-                          <String fx:value="1" />
-                          <String fx:value="2" />
-                          <String fx:value="3" />
-                          <String fx:value="4" />
-                          <String fx:value="5" />
-                          <String fx:value="6" />
-                          <String fx:value="7" />
-                          <String fx:value="8" />
-                          <String fx:value="9" />
+                          <String fx:value="01" />
+                          <String fx:value="02" />
+                          <String fx:value="03" />
+                          <String fx:value="04" />
+                          <String fx:value="05" />
+                          <String fx:value="06" />
+                          <String fx:value="07" />
+                          <String fx:value="08" />
+                          <String fx:value="09" />
                           <String fx:value="10" />
                           <String fx:value="11" />
                           <String fx:value="12" />
                         </FXCollections>
                       </items>
-                    </ChoiceBox>
-                    <ChoiceBox prefWidth="77.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                    </ComboBox>
+                    <ComboBox fx:id="si_Birthday" disable="true" prefWidth="76.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
-                          <String fx:value="项 1" />
-                          <String fx:value="项 2" />
-                          <String fx:value="项 3" />
+                            <String fx:value="01" />
+                            <String fx:value="02" />
+                            <String fx:value="03" />
+                            <String fx:value="04" />
+                            <String fx:value="05" />
+                            <String fx:value="06" />
+                            <String fx:value="07" />
+                            <String fx:value="08" />
+                            <String fx:value="09" />
+                            <String fx:value="10" />
+                            <String fx:value="11" />
+                            <String fx:value="12" />
+                            <String fx:value="13" />
+                            <String fx:value="14" />
+                            <String fx:value="15" />
+                            <String fx:value="16" />
+                            <String fx:value="17" />
+                            <String fx:value="18" />
+                            <String fx:value="19" />
+                            <String fx:value="20" />
+                            <String fx:value="21" />
+                            <String fx:value="22" />
+                            <String fx:value="23" />
+                            <String fx:value="24" />
+                            <String fx:value="25" />
+                            <String fx:value="26" />
+                            <String fx:value="27" />
+                            <String fx:value="28" />
+                            <String fx:value="29" />
+                            <String fx:value="30" />
+                            <String fx:value="31" />
                         </FXCollections>
                       </items>
-                    </ChoiceBox>
-                    <ChoiceBox prefWidth="208.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
+                    </ComboBox>
+                    <ComboBox fx:id="si_Sex" disable="true" prefWidth="105.0" GridPane.columnIndex="8" GridPane.rowIndex="0">
+                      <items>
+                        <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="女" />
+                          <String fx:value="男" />
+                        </FXCollections>
+                      </items>
+                    </ComboBox>
+                    <ComboBox fx:id="si_Birthplace" disable="true" prefWidth="213.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                           <String fx:value="北京市" />
@@ -320,10 +344,7 @@
                           <String fx:value="澳门特别行政区" />
                         </FXCollections>
                       </items>
-                    </ChoiceBox>
-                    <Label text="年" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                    <Label text="月" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                    <Label text=" 日     " GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                    </ComboBox>
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="126.0" />
@@ -352,6 +373,7 @@
                 <Separator focusTraversable="false" layoutX="696.0" layoutY="55.0" opacity="1.0" orientation="VERTICAL" prefHeight="65.0" visible="true" />
                 <Separator focusTraversable="false" layoutX="808.0" layoutY="55.0" opacity="1.0" orientation="VERTICAL" prefHeight="65.0" visible="true" />
                 <Separator layoutX="70.0" layoutY="421.0" prefWidth="863.0" />
+                <Label fx:id="si_errorText" layoutX="342.0" layoutY="382.0" text="" />
               </children>
             </AnchorPane>
             <AnchorPane fx:id="CoursePane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

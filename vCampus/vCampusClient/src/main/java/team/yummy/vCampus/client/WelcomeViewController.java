@@ -41,8 +41,6 @@ public class WelcomeViewController extends ViewController implements Initializab
     @FXML private Label windowmini;
 
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 

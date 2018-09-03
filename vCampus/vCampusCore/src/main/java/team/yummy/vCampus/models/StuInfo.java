@@ -24,6 +24,8 @@ public class StuInfo {
     private String SRTP;
     private String lectureAttendCount;
     private String GPA;
+    private String phone;
+
 
     // 这个空的构造函数是给FastJSON预留的
     public StuInfo() {}
@@ -172,5 +174,13 @@ public class StuInfo {
 
     public void setGPA(String GPA) {
         this.GPA = GPA;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
