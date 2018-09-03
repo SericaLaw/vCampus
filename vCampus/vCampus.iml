@@ -18,6 +18,19 @@
         <jarDirectory url="file://$MODULE_DIR$/third-party-lib" recursive="false" />
       </library>
     </orderEntry>
+<<<<<<< HEAD
     <orderEntry type="module" module-name="vCampusCore" />
+=======
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES />
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vCampusCore/src/main/java" />
+          <root url="file://$MODULE_DIR$/vCampusCore/src/test/java" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+>>>>>>> 26ef94f4933b998367c9fea8cf82137eb9059880
   </component>
 </module>
