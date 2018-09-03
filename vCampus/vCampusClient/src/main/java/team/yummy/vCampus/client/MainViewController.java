@@ -3,6 +3,7 @@ package team.yummy.vCampus.client;
 import com.alibaba.fastjson.JSON;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.RadioButton;
 import team.yummy.vCampus.web.WebResponse;
 
 import javafx.event.ActionEvent;
@@ -28,6 +29,8 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML private AnchorPane AccountMagPane;
     @FXML private Label win_close;
     @FXML private Label win_mini;
+    @FXML private RadioButton register_radiostudent;
+    @FXML private RadioButton register_radiominis;
 
     private double xOffset = 0;
     private double yOffset = 0;
@@ -151,5 +154,15 @@ public class MainViewController extends ViewController implements Initializable 
         BankPane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
+    }
+    @FXML
+    protected void choosestudent(ActionEvent actionEvent)
+    {
+        register_radiominis.setPickOnBounds(false);
+    }
+    @FXML
+    protected void chooseadminis(ActionEvent actionEvent)
+    {
+        register_radiostudent.setPickOnBounds(false);
     }
 }
