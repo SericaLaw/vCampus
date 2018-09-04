@@ -9,29 +9,35 @@
 }
 
 #title {
-    -fx-background-color:#47a5eb;
+    -fx-background-color: linear-gradient(to bottom right, #7C4DFF, #673AB7);
+
     -fx-pref-height: 60;
 }
 
 #title_left {
     -fx-background-color: #fff;
-    -fx-effect:dropshadow(one-pass-box, #bbb, 30, 0.06, 5, 10);
+    -fx-alignment: center;
+    /* -fx-effect:dropshadow(one-pass-box, #bbb, 20, 0.05, 3, 8); */
 }
 
-#title .label {
+#title_left .label {
+    -fx-font-size: 28;
+    -fx-text-fill: #707070;
+}
+#title_right .label {
     -fx-pref-height: 60;
     -fx-pref-width: 60;
     -fx-alignment: center;
     -fx-text-fill: #fff;
 }
 
-
 #title .label:hover {
     -fx-cursor: hand;
     -fx-effect: dropshadow(one-pass-box, #fff,2,0.5,0,0);
 }
-
-
+#title .label:pressed {
+    -fx-text-fill: #bbb;
+}
 
 #main_userIcon{
     -fx-cursor:hand;
@@ -44,25 +50,25 @@
 
 #main_sidebar {
     -fx-background-color:#fff;
-    -fx-pref-width: 250;
+    -fx-pref-width: 250px;
     -fx-spacing: 5;
     -fx-alignment: top-center;
-    -fx-effect:dropshadow(one-pass-box, #bbb, 30, 0.06, 5, 10);
+    -fx-effect:dropshadow(one-pass-box, #bbb, 20, 0.05, 3, 8);
 }
 
 #main_sidebar .label {
     -fx-pref-width: 250;
-    -fx-padding: 5 10;
+    -fx-padding: 10 0 0 10;
 }
 
 #main_sidebar .button {
     -fx-pref-width: 250;
+    -fx-background-color: #fff;
     -fx-pref-height: 50;
-    -fx-background-color:#fff;
-    -fx-border-width: 6;
+    -fx-padding:  0 20;
+    -fx-border-width: 0 0 0 6px;
     -fx-border-height: 50;
     -fx-border-color: transparent;
-    -fx-text-fill:#707070;
     -fx-font-size: 20;
     -fx-alignment: center-left;
 }
@@ -70,12 +76,16 @@
 #main_sidebar .button:hover,
 #main_sidebar .button:focused {
     -fx-text-fill: primary;
-    -fx-effect: innershadow(one-pass-box, primary,2,0.5,0,0);
-    -fx-border-color: transparent transparent transparent #47a5eb;
-    -fx-border-width:6px;
+    -fx-border-color: transparent transparent transparent linear-gradient(to bottom right, #7C4DFF, #673AB7);
     -fx-cursor: hand;
 }
 
+#main_sidebar .button:hover .image,
+#main_sidebar .button:focused .image{
+    -fx-effect: innershadow(one-pass-box, primary,2,0.5,0,0); 
+}
+
+/* 
 #test:hover{
     -fx-background-color:#eee;
     -fx-text-fill:#707070;
@@ -84,11 +94,7 @@
 #test:focused{
     -fx-background-color:#eee;
     -fx-text-fill:#707070;
-}
-
-
-
-
+} */
 
 #editorSaveStuInfo,#cancelAccount,#logout{
     -fx-background-color:#3593d9;
