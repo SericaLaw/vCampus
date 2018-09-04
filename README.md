@@ -66,6 +66,12 @@ apidoc -i ./vCampus/vCampusClient/src/test/java -o ./docs -t ./docs/src/template
 5. [Java FX中的数据绑定](https://docs.oracle.com/javase/8/javafx/properties-binding-tutorial/binding.htm#JFXBD107)
 6. [JavaFX Collections](https://docs.oracle.com/javase/8/javafx/collections-tutorial/collections.htm#JFXCL107)
 
+### 规范
+
+1. [数据库命名规范](https://blog.csdn.net/yu757371316/article/details/54602545)
+2. [CSS编码规范](https://codeguide.bootcss.com/#css-syntax)
+3. [CSS BEM命名规范](https://www.jianshu.com/p/287a89b364f0)
+
 ### UI设计参考
 
 1. [主程序](https://uiiiuiii.com/inspiration/161652661.html)
@@ -79,8 +85,4 @@ apidoc -i ./vCampus/vCampusClient/src/test/java -o ./docs -t ./docs/src/template
 ### Git教程
 
 1. [廖雪峰](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
-
-### 规范
-
-1. [数据库命名规范](https://blog.csdn.net/yu757371316/article/details/54602545)
 
