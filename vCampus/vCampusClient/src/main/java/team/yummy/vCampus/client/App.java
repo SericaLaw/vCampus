@@ -23,7 +23,7 @@ public class App extends Application {
         stageController.loadStage(MAIN_VIEW_NAME, MAIN_VIEW_RESOURCE);
 
         // 显示欢迎界面
-        stageController.setStage(WELCOME_VIEW_NAME);
+        stageController.setStage(MAIN_VIEW_NAME);
     }
 
 

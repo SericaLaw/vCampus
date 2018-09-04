@@ -13,107 +13,117 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="team.yummy.vCampus.client.MainViewController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" visible="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team.yummy.vCampus.client.MainViewController">
   <children>
-    <AnchorPane fx:id="main_title" minHeight="0.0" minWidth="0.0" onMouseDragged="#titledragged" onMousePressed="#titlepressed" prefHeight="53.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <children>
-        <Label layoutX="26.0" layoutY="12.0" text="VCampus" textFill="WHITE">
-          <font>
-            <Font name="Lucida Calligraphy Italic" size="21.0" />
-          </font>
-        </Label>
-        <Label fx:id="win_close" layoutX="1160.0" layoutY="10.0" onMouseReleased="#winclose" prefWidth="21.0" text="×" textFill="GREY">
-          <font>
-            <Font name="System Bold" size="27.0" />
-          </font>
-        </Label>
-        <Label fx:id="win_mini" layoutX="1125.0" layoutY="6.0" minHeight="29.0" onMouseReleased="#winmini" prefHeight="45.0" prefWidth="31.0" text="一" textFill="GREY">
-          <font>
-            <Font name="System Bold" size="17.0" />
-          </font>
-        </Label>
-      </children>
-    </AnchorPane>
-    <AnchorPane layoutX="0.0" layoutY="53.0" minHeight="0.0" minWidth="0.0" prefHeight="747.0" prefWidth="1200.0">
-      <children>
-        <AnchorPane id="main_sidebar" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="210.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-          <children>
-            <Label layoutX="16.0" layoutY="123.0" prefWidth="86.0" text="Campus">
+      <BorderPane prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <GridPane id="title">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
+                     <children>
+                    <Label fx:id="win_mini" minHeight="29.0" onMouseReleased="#winmini" prefHeight="45.0" prefWidth="31.0" text="一" textFill="GREY">
+                      <font>
+                        <Font name="System Bold" size="17.0" />
+                      </font>
+                    </Label>
+                    <Label fx:id="win_close" onMouseReleased="#winclose" prefWidth="21.0" text="×" textFill="GREY" GridPane.columnIndex="1">
+                      <font>
+                        <Font name="System Bold" size="27.0" />
+                      </font>
+                    </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+         </top>
+         <left>
+            <VBox id="main_sidebar">
+               <children>
+            <Button fx:id="test" disable="false" mnemonicParsing="false" text="欢迎" visible="true" />
+            <Label prefWidth="86.0" text="Campus">
               <font>
                 <Font name="Californian FB" size="20.0" fx:id="x1" />
               </font>
             </Label>
-            <Button fx:id="test" disable="false" mnemonicParsing="false" text="" visible="true" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="2.0" />
-            <Button fx:id="Bt_StuInfo" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" graphicTextGap="4.0" layoutY="44.0" mnemonicParsing="false" onAction="#switchStuInfo" prefHeight="33.0" prefWidth="208.0" text=" 个人信息" textFill="BLACK" AnchorPane.rightAnchor="2.0">
+            <Button fx:id="Bt_StuInfo" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" graphicTextGap="4.0" mnemonicParsing="false" onAction="#switchStuInfo" prefHeight="33.0" prefWidth="208.0" text=" 个人信息" textFill="BLACK">
               <font>
                 <Font size="19.0" fx:id="x2" />
               </font>
               <graphic>
                 <ImageView id="StuInfoIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true">
                   <image>
-                    <Image url="@images/StuInfoIcon.png" preserveRatio="true" smooth="true" />
+                    <Image preserveRatio="true" smooth="true" url="@images/StuInfoIcon.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="Bt_Course" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" layoutY="81.0" mnemonicParsing="false" onAction="#switchCourse" prefHeight="33.0" prefWidth="208.0" text=" 选课系统" textFill="BLACK" AnchorPane.rightAnchor="2.0">
+            <Button fx:id="Bt_Course" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchCourse" prefHeight="33.0" prefWidth="208.0" text=" 选课系统" textFill="BLACK">
               <graphic>
                 <ImageView id="CourseIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true">
                   <image>
-                    <Image url="@images/CourseIcon.png" preserveRatio="true" smooth="true" />
+                    <Image preserveRatio="true" smooth="true" url="@images/CourseIcon.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="Bt_Dorm" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" layoutY="160.0" mnemonicParsing="false" onAction="#switchDorm" prefHeight="33.0" prefWidth="208.0" text=" 宿舍" textFill="BLACK" AnchorPane.leftAnchor="0.0">
+            <Button fx:id="Bt_Dorm" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchDorm" prefHeight="33.0" prefWidth="208.0" text=" 宿舍" textFill="BLACK">
               <graphic>
                 <ImageView id="DormIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true">
                   <image>
-                    <Image url="@images/DormIcon.png" preserveRatio="true" smooth="true" />
+                    <Image preserveRatio="true" smooth="true" url="@images/DormIcon.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="Bt_Bank" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" layoutY="228.0" mnemonicParsing="false" onAction="#switchBank" prefHeight="33.0" prefWidth="208.0" text=" 银行" textFill="BLACK" AnchorPane.leftAnchor="0.0">
+            <Button fx:id="Bt_Bank" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchBank" prefHeight="33.0" prefWidth="208.0" text=" 银行" textFill="BLACK">
               <graphic>
                 <ImageView id="BankIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true">
                   <image>
-                    <Image url="@images/BankIcon.png" preserveRatio="true" smooth="true" />
+                    <Image preserveRatio="true" smooth="true" url="@images/BankIcon.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="Bt_Library" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" layoutY="194.0" mnemonicParsing="false" onAction="#switchLibrary" prefHeight="33.0" prefWidth="208.0" text=" 图书馆" textFill="BLACK" AnchorPane.leftAnchor="0.0">
+            <Button fx:id="Bt_Library" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchLibrary" prefHeight="33.0" prefWidth="208.0" text=" 图书馆" textFill="BLACK">
               <graphic>
                 <ImageView id="LibraryIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true">
                   <image>
-                    <Image url="@images/LibraryIcon.png" preserveRatio="true" smooth="true" />
+                    <Image preserveRatio="true" smooth="true" url="@images/LibraryIcon.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="Bt_Store" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" layoutY="262.0" mnemonicParsing="false" onAction="#switchStore" prefHeight="33.0" prefWidth="208.0" text=" 商店" textFill="BLACK" AnchorPane.leftAnchor="0.0">
+            <Button fx:id="Bt_Store" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchStore" prefHeight="33.0" prefWidth="208.0" text=" 商店" textFill="BLACK">
               <graphic>
                 <ImageView id="StoreIcon.png" fitHeight="21.0" fitWidth="21.0">
                   <image>
-                    <Image url="@images/StoreIcon.png" preserveRatio="true" smooth="true" />
+                    <Image preserveRatio="true" smooth="true" url="@images/StoreIcon.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="Bt_Account" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" layoutY="700.0" mnemonicParsing="false" onAction="#swithAccountmag" prefHeight="33.0" prefWidth="208.0" text=" 账户管理" textFill="BLACK" AnchorPane.leftAnchor="0.0">
+            <Label font="$x1" prefWidth="100.0" text="Personal" />
+            <Button fx:id="Bt_Account" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#swithAccountmag" prefHeight="33.0" prefWidth="208.0" text=" 账户管理" textFill="BLACK">
               <graphic>
                 <ImageView id="accountIcon.png" fitHeight="21.0" fitWidth="21.0">
                   <image>
-                    <Image url="@images/accountIcon.png" preserveRatio="true" smooth="true" />
+                    <Image preserveRatio="true" smooth="true" url="@images/accountIcon.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Label font="$x1" layoutX="16.0" layoutY="12.0" prefWidth="100.0" text="Personal" />
-          </children>
-        </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="747.0" prefWidth="590.0" visible="true" AnchorPane.leftAnchor="209.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               </children>
+            </VBox>
+         </left>
+         <center>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="747.0" prefWidth="590.0" visible="true" BorderPane.alignment="CENTER">
           <children>
             <AnchorPane fx:id="InitPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
@@ -481,8 +491,8 @@
             </AnchorPane>
           </children>
         </AnchorPane>
-      </children>
-    </AnchorPane>
+         </center>
+      </BorderPane>
   </children>
   <stylesheets>
     <URL value="@main.css" />
