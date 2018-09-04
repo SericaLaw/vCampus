@@ -63,6 +63,14 @@ apidoc -i ./vCampus/vCampusClient/src/test/java -o ./docs -t ./docs/src/template
 2. [Java FX API文档](https://docs.oracle.com/javase/8/javafx/api/toc.htm)
 3. [Java FX CSS Reference](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/doc-files/cssref.html)
 4. [Java FX FXML Reference](https://docs.oracle.com/javase/8/javafx/api/javafx/fxml/doc-files/introduction_to_fxml.html)
+5. [Java FX中的数据绑定](https://docs.oracle.com/javase/8/javafx/properties-binding-tutorial/binding.htm#JFXBD107)
+6. [JavaFX Collections](https://docs.oracle.com/javase/8/javafx/collections-tutorial/collections.htm#JFXCL107)
+
+### UI设计参考
+
+1. [主程序](https://uiiiuiii.com/inspiration/161652661.html)
+2. [登录界面](https://uiiiuiii.com/inspiration/161693155.html)
+3. [什么都能找到（配色、图标、素材、UI灵感…）的设计导航](http://hao.shejidaren.com/)
 
 ### Java教程
 
@@ -75,10 +83,4 @@ apidoc -i ./vCampus/vCampusClient/src/test/java -o ./docs -t ./docs/src/template
 ### 规范
 
 1. [数据库命名规范](https://blog.csdn.net/yu757371316/article/details/54602545)
-
-### UI设计参考
-
-1. [主程序](https://uiiiuiii.com/inspiration/161652661.html)
-2. [登陆界面](https://uiiiuiii.com/inspiration/161693155.html)
-3. [什么都能找到（配色、图标、素材、UI灵感…）的设计导航](http://hao.shejidaren.com/)
 
