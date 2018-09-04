@@ -59,7 +59,7 @@
     -fx-border-width:6px;
 }
 
-#editStuInfo,#cancelAccount,#logout{
+#editorSaveStuInfo,#cancelAccount,#logout{
     -fx-background-color:#3593d9;
 }
 

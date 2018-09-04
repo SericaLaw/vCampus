@@ -2,23 +2,22 @@ package team.yummy.vCampus.client;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import team.yummy.vCampus.web.WebResponse;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.event.ActionEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.control.RadioButton;
 
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -40,7 +39,9 @@ public class WelcomeViewController extends ViewController implements Initializab
     @FXML private Label windowclose;
     @FXML private Label windowmini;
 
-
+    @FXML private ToggleGroup RadioGroup;
+    @FXML private RadioButton register_choosestudent;
+    @FXML private RadioButton register_chooseadminis;
 
 
     @Override
@@ -72,7 +73,7 @@ public class WelcomeViewController extends ViewController implements Initializab
             LoginerrorText.setText("用户名和密码不能为空!");
 
 
-        WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
+         WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
         switch (res.getStatusCode()) {
             case "200":
                 setAccountJsonData(res.getJsonData());
@@ -99,10 +100,18 @@ public class WelcomeViewController extends ViewController implements Initializab
         String username=register_Tusername.getText();
         String password=register_Tpassword.getText();
 
-        if(firstname.length() == 0 || lastname.length()==0||card.length()==0||username.length()==0||password.length() == 0)
+        if(firstname.length() == 0 || lastname.length()==0||card.length()==0||username.length()==0||password.length() == 0||RadioGroup.getSelectedToggle()==null)
             RegistererrorText.setText("请完善所有信息！");
+        else
+        {
+            RegistererrorText.setText("");
+        }
 
-
+      /* if(RadioGroup.getSelectedToggle().getUserData().toString())
+       {
+           RegistererrorText.setText("mia");
+       }
+       else RegistererrorText.setText("身份为管理员");*/
 
     }
 
