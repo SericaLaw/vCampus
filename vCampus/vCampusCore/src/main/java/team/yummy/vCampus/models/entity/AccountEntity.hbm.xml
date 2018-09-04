@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="team.yummy.vCampus.models.entity.AccountEntity" table="Account" schema="&quot;.&quot;"
+           catalog="&quot;.&quot;">
+        <id name="campusCardId" column="CampusCardID"/>
+        <property name="username" column="Username"/>
+        <property name="password" column="Password"/>
+        <property name="lastName" column="LastName"/>
+        <property name="firstName" column="FirstName"/>
+        <property name="role" column="Role"/>
+    </class>
+</hibernate-mapping>
