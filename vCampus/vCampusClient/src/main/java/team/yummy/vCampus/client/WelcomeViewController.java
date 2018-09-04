@@ -1,5 +1,6 @@
 package team.yummy.vCampus.client;
 
+import com.jfoenix.controls.JFXSnackbar;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -64,13 +65,16 @@ public class WelcomeViewController extends ViewController implements Initializab
     }
 
 
-    public void login(ActionEvent actionEvent)
-    {
+    public void login(ActionEvent actionEvent) {
         String username = login_Tusername.getText();
         String password = login_Tpassword.getText();
+        JFXSnackbar bar = new JFXSnackbar(loginpane);
+
+
 
        if(username.length() == 0 || password.length() == 0)
-            LoginerrorText.setText("用户名和密码不能为空!");
+           bar.enqueue(new JFXSnackbar.SnackbarEvent("用户名密码不能为空"));
+//            LoginerrorText.setText("用户名和密码不能为空!");
 
 
          WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
@@ -100,8 +104,10 @@ public class WelcomeViewController extends ViewController implements Initializab
         String username=register_Tusername.getText();
         String password=register_Tpassword.getText();
 
+        JFXSnackbar bar = new JFXSnackbar(registerpane);
         if(firstname.length() == 0 || lastname.length()==0||card.length()==0||username.length()==0||password.length() == 0||RadioGroup.getSelectedToggle()==null)
-            RegistererrorText.setText("请完善所有信息！");
+            bar.enqueue(new JFXSnackbar.SnackbarEvent("请完善所有信息"));
+//            RegistererrorText.setText("请完善所有信息！");
         else
         {
             RegistererrorText.setText("");

@@ -9,9 +9,9 @@
 }
 
 #welcomebackground {
-    -fx-background-color:white;
-    -fx-pref-width: 800;
-    -fx-pref-height: 600;
+   -fx-background-color:white;
+   -fx-pref-width: 800;
+   -fx-pref-height: 600;
 }
 
 #title {
@@ -22,7 +22,7 @@
 #title .label {
     -fx-pref-width: 60px;
     -fx-pref-height: 60px;
-    -fx-alignment: center;
+    -fx-alignment: center;    
 }
 
 #title .label .text {
@@ -38,10 +38,11 @@
 }
 
 
-#loginpane {
-    -fx-background-color:transparent;
-    -fx-pref-width: 400;
-    -fx-pref-height: 550;
+#loginpane,
+#registerpane {
+   -fx-background-color:transparent;
+   -fx-pref-width: 400;
+   -fx-pref-height: 550;
 }
 
 #loginpane__content {
@@ -50,15 +51,71 @@
 
 }
 
+#registerpane__content {
+    -fx-spacing: 10;
+    -fx-padding: 0 80 50 50;
+}
+#registerpane__content .label {
+    -fx-pref-width: 400;
+    -fx-padding: 10 0 0 0;
+    -fx-text-fill: #673AB7;
+}
+
+#registerpane__content .jfx-text-field, 
+#registerpane__content  .jfx-password-field {
+    -jfx-focus-color: #673AB7;
+    -fx-font-size: 15px;
+    -fx-text-fill: #aaa;
+}
+
+#registerpane__radio-button-group {
+    -fx-alignment: center-right;
+    -fx-spacing: 30;
+    -fx-padding: 10 0 0 0;
+}
+
+#registerpane__radio-button-group .radio-button {    
+    -fx-text-fill: #673AB7;
+    -jfx-selected-color: #7C4DFF;
+}
+
+#registerpane__button-group {
+    -fx-padding: 10;
+    -fx-spacing: 30;
+    -fx-alignment: center-right;
+}
+
+#register_ok {
+    -fx-font-size: 20px;
+    -fx-text-fill: #fff;
+    -fx-background-color: #673AB7;
+    -jfx-button-type: RAISED;
+}
+
+#register_ok:hover {
+    -fx-cursor:hand;
+    -fx-background-color: #7C4DFF;
+}
+
+#register_cancel {
+    -fx-font-size: 20px;
+    -fx-text-fill: #757575;
+}
+
+#register_cancel:hover {
+    -fx-cursor:hand;
+    -fx-text-fill: #7C4DFF;
+}
+
 #loginpane__content .label {
     -fx-pref-width: 400;
 }
-#loginpane__content .label .text {
+#loginpane__content__title {
     -fx-font-size: 68px;
     -fx-fill: #673AB7;
 }
 
-#loginpane__content .jfx-text-field,
+#loginpane__content .jfx-text-field, 
 #loginpane__content  .jfx-password-field {
     -jfx-focus-color: #673AB7;
     -fx-font-size: 20px;
@@ -73,21 +130,18 @@
     -fx-spacing: 30px;
 }
 
-#registerpane {
-    -fx-background-color: transparent;
+#loginpane__content__error-text,
+#registerpane__content__error-text {
+    -fx-pref-width: 400px;
+    -fx-font-size: 20px;
 }
+
 
 .hyperlink {
     -fx-border-style: none;
     -fx-border-color: transparent;
     -fx-text-fill: #673AB7;
     -fx-font-size: 18px;
-}
-
-
-#login_button:hover {
-    -fx-cursor:hand;
-    -fx-background-color: #7C4DFF;
 }
 
 #login_button {
@@ -97,40 +151,56 @@
     -jfx-button-type: RAISED;
 }
 
+#login_button:hover {
+    -fx-cursor:hand;
+    -fx-background-color: #7C4DFF;
+}
+
+#login_signup {
+    -fx-font-size: 18px;
+    -fx-text-fill: #757575;
+}
+
+#login_signup:hover {
+    -fx-cursor:hand;
+    -fx-text-fill: #7C4DFF;
+}
+
 #login_Tusername {
-    -fx-border-style:none;
-    -fx-background-color:transparent;
-    -fx-font-family:"微软雅黑 Light", sans-serif;
-    -fx-text-fill:#b8b8b8;
-    -fx-font-size:20px;
-    -fx-padding:2px;
+   -fx-border-style:none;
+   -fx-background-color:transparent;
+   -fx-font-family:"微软雅黑 Light", sans-serif;
+   -fx-text-fill:#b8b8b8;
+   -fx-font-size:20px;
+   -fx-padding:2px;
 }
 #login_Tusername:hover {
-    -fx-text-fill:#4cadf8
+   -fx-text-fill:#4cadf8
 }
 #login_Tusername:focused {
-    -fx-text-fill:#4cadf8
+   -fx-text-fill:#4cadf8
 }
 #login_Tpassword {
-    -fx-border-style:none;
-    -fx-background-color:transparent;
-    -fx-font-family:"微软雅黑 Light", sans-serif;
-    -fx-text-fill:#b8b8b8;
-    -fx-font-size:20px;
-    -fx-padding:2px;
+   -fx-border-style:none;
+   -fx-background-color:transparent;
+   -fx-font-family:"微软雅黑 Light", sans-serif;
+   -fx-text-fill:#b8b8b8;
+   -fx-font-size:20px;
+   -fx-padding:2px;
 }
 #login_Tpassword:hover {
-    -fx-text-fill:#4cadf8
+   -fx-text-fill:#4cadf8
 }
 #login_Tpassword:focused {
-    -fx-text-fill:#4cadf8
+   -fx-text-fill:#4cadf8
 }
 
 #register_Lsignup {
     -fx-font-family:"Book Antiqua";
-    -fx-text-fill:#4cadf8;
+    -fx-text-fill: #673AB7;
     -fx-font-weight:bold;
-    -fx-font-size:40px;
+    -fx-font-size:48px;
+    -fx-pref-width: 400px;
 }
 
 #register_Lname {
@@ -187,37 +257,3 @@
     -fx-text-fill:grey;
 }
 
-#register_ok {
-    -fx-text-fill: #87cefa;
-    -fx-background-radius: 20px;
-    -fx-background-color: #fff;
-    -fx-border-style: solid;
-    -fx-border-color: #33b6ff;
-    -fx-border-radius: 10px;
-}
-
-#register_ok:hover {
-    -fx-text-fill: #fff;
-    -fx-font-family: 'Raleway', sans-serif;
-    -fx-cursor:hand;
-    -fx-font-size: 15px;
-    -fx-background-color: #33b6ff;
-    -fx-background-radius: 10px;
-}
-#register_cancel {
-    -fx-text-fill: #87cefa;
-    -fx-background-radius: 20px;
-    -fx-background-color: #fff;
-    -fx-border-style: solid;
-    -fx-border-color: #33b6ff;
-    -fx-border-radius: 10px;
-}
-
-#register_cancel:hover {
-    -fx-text-fill: #fff;
-    -fx-font-family: 'Raleway', sans-serif;
-    -fx-cursor:hand;
-    -fx-font-size: 15px;
-    -fx-background-color: #33b6ff;
-    -fx-background-radius: 10px;
-}
