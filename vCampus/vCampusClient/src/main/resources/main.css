@@ -84,7 +84,17 @@
 #main_sidebar .button:focused .image{
     -fx-effect: innershadow(one-pass-box, primary,2,0.5,0,0); 
 }
+/* #content__stu-info {
+    -fx-background-color: #f8f8f8;
+} */
+#content__stu-info__revise-info .jfx-text-field {
+    -jfx-focus-color: primary;
+}
 
+#content__stu-info__revise-info .jfx-text-field:disabled {
+    -jfx-focus-color: transparent;
+    -jfx-unfocus-color: transparent;
+}
 /* 
 #test:hover{
     -fx-background-color:#eee;

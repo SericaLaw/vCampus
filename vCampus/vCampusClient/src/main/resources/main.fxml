@@ -140,7 +140,7 @@
                 <Label layoutX="496.0" layoutY="374.0" prefHeight="73.0" prefWidth="86.0" text="init" />
               </children>
             </AnchorPane>
-            <AnchorPane fx:id="StuInfoPane" disable="false" prefHeight="747.0" prefWidth="590.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane id="content__stu-info" fx:id="StuInfoPane" disable="false" prefHeight="747.0" prefWidth="590.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
                 <Button fx:id="editorSaveStuInfo" disable="false" layoutX="201.0" layoutY="379.0" mnemonicParsing="false" onAction="#editorSave" prefHeight="20.0" prefWidth="80.0" text="编辑">
                   <font>
@@ -207,7 +207,7 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <GridPane focusTraversable="false" gridLinesVisible="false" prefHeight="272.0" prefWidth="844.0" visible="true" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="73.0">
+                <GridPane id="content__stu-info__revise-info" focusTraversable="false" gridLinesVisible="false" prefHeight="272.0" prefWidth="844.0" visible="true" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="73.0">
                   <children>
                     <Label text="身份证号" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
                     <Label text="性别" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="0" />
@@ -217,11 +217,10 @@
                     <Label text="出生地" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                     <Label text="Email" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
                     <Label text="高中学校" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
-                    <TextField fx:id="si_IDNum" disable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="0" />
-                    <TextField fx:id="si_Phone" disable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2" />
-                    <TextField fx:id="si_Email" disable="true" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
-                    <TextField fx:id="si_Address" disable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="3" />
-                    <TextField fx:id="si_SeniorHigh" disable="true" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+                    <JFXTextField fx:id="si_Phone" disable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2" />
+                    <JFXTextField fx:id="si_Email" disable="true" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+                    <JFXTextField fx:id="si_Address" disable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="3" />
+                    <JFXTextField fx:id="si_SeniorHigh" disable="true" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
                     <Label text="年" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     <Label text="月" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     <Label text=" 日     " GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
@@ -365,6 +364,7 @@
                         </FXCollections>
                       </items>
                     </ComboBox>
+                              <JFXTextField fx:id="si_IDNum" disable="true" GridPane.columnIndex="1" GridPane.columnSpan="5" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="126.0" />
