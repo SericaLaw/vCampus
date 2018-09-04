@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.geometry.Insets?>
@@ -13,68 +14,44 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="welcomebackground" minHeight="500.0" minWidth="360.0" prefHeight="500.0" prefWidth="720.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="team.yummy.vCampus.client.WelcomeViewController">
+<AnchorPane fx:id="welcomebackground" minHeight="500.0" minWidth="360.0" prefHeight="500.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team.yummy.vCampus.client.WelcomeViewController">
   <children>
-    <ImageView id="whale.png" layoutX="0.0" layoutY="44.0">
+    <ImageView cache="true" fitHeight="600.0" fitWidth="600.0" layoutX="-300.0" preserveRatio="true">
       <image>
-        <Image url="@images/whale.png" preserveRatio="true" smooth="true" />
+        <Image url="@images/icon.png" />
       </image>
     </ImageView>
-    <AnchorPane fx:id="loginpane" minWidth="360.0" prefHeight="500.0" prefWidth="360.0" visible="false" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane fx:id="loginpane" layoutX="360.0" layoutY="44.0" minWidth="360.0" prefHeight="500.0" prefWidth="360.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
       <children>
-        <GridPane layoutX="34.0" layoutY="100.0" prefHeight="291.0" prefWidth="292.0">
-          <children>
-            <AnchorPane prefHeight="111.0" prefWidth="315.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
-              <children>
-                <Label layoutX="14.0" layoutY="8.0" prefHeight="70.0" prefWidth="246.0" text="Welcome" textFill="#4cadf8">
-                  <font>
-                    <Font name="Book Antiqua Bold" size="40.0" />
-                  </font>
-                </Label>
-              </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
-              <children>
-                <Line endX="110.0" endY="-18.0" startX="-90.0" startY="-18.0" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="27.0" />
-                <TextField fx:id="login_Tusername" focusTraversable="false" layoutX="24.0" layoutY="24.0" prefWidth="204.0" promptText="用 户 名" visible="true" />
-              </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
-              <children>
-                <Line endX="110.0" endY="0.0" startX="-90.0" startY="0.0" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="64.0" />
-                <PasswordField fx:id="login_Tpassword" focusTraversable="false" layoutY="24.0" prefWidth="204.0" promptText="密 码" visible="true" AnchorPane.leftAnchor="24.0" />
-              </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-              <children>
+            <VBox id="loginpane__content" layoutX="34.0" layoutY="98.0" prefHeight="550.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+          <Label prefHeight="70.0" prefWidth="246.0" text="Welcome" textFill="#4cadf8">
+            <font>
+              <Font name="Book Antiqua Bold" size="40.0" />
+            </font>
+          </Label>
+                  <JFXTextField fx:id="login_Tusername" promptText="用户名" />
+                  <JFXPasswordField fx:id="login_Tpassword" promptText="密码" />
+                  <HBox id="loginpane__button-group">
+                     <children>
                 <Hyperlink id="login_signup" layoutX="-7.0" layoutY="43.0" onAction="#switchToSignup" text="注册" textFill="#3889ff" underline="true">
                   <font>
                     <Font name="System Bold" size="15.0" fx:id="x1" />
                   </font>
                 </Hyperlink>
-                <Button fx:id="login_button" font="$x1" layoutX="55.0" layoutY="40.0" mnemonicParsing="false" onAction="#login" prefHeight="33.0" prefWidth="66.0" text="登录" textFill="BLACK" />
-                <Label fx:id="LoginerrorText" layoutX="-75.0" layoutY="4.0" prefWidth="201.0" text="">
-                  <textFill>
-                    <Color blue="0.375" green="0.375" red="0.375" fx:id="x2" />
-                  </textFill>
-                </Label>
-              </children>
-            </AnchorPane>
-          </children>
-          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.0" minWidth="10.0" prefWidth="114.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="201.0" />
-          </columnConstraints>
-          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          </rowConstraints>
-        </GridPane>
+                        <JFXButton fx:id="login_button" onAction="#login" text="登录" />
+                     </children>
+                  </HBox>
+          <Label fx:id="LoginerrorText" prefWidth="201.0" text="">
+            <textFill>
+              <Color blue="0.375" green="0.375" red="0.375" fx:id="x2" />
+            </textFill>
+          </Label>
+               </children>
+            </VBox>
       </children>
     </AnchorPane>
-    <AnchorPane fx:id="registerpane" layoutY="0.0" minHeight="500.0" minWidth="367.0" prefHeight="500.0" prefWidth="360.0" visible="true" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0">
+    <AnchorPane fx:id="registerpane" layoutY="0.0" minHeight="500.0" minWidth="367.0" prefHeight="500.0" prefWidth="360.0" visible="false" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0">
       <children>
         <Label fx:id="register_Lsignup" layoutY="49.0" prefHeight="45.0" prefWidth="189.0" text="Sign up" textFill="#3385ff" AnchorPane.leftAnchor="60.0">
           <font>
@@ -127,8 +104,12 @@
         <RadioButton fx:id="register_radioadminis" focusTraversable="true" font="$x3" layoutX="197.0" layoutY="374.0" mnemonicParsing="false" opacity="1.0" selected="false" text="管理员" textFill="$x5" textOverrun="ELLIPSIS" toggleGroup="$RadioGroup" underline="false" visible="true" />
       </children>
     </AnchorPane>
-    <Label fx:id="windowmini" font="$x3" layoutX="652.0" layoutY="14.0" onMouseReleased="#window_mini" prefWidth="26.0" text="一" />
-    <Label fx:id="windowclose" font="$x8" layoutX="685.0" layoutY="14.0" onMouseReleased="#window_close" prefWidth="14.0" text="X" />
+      <HBox id="title" layoutX="680.0" layoutY="4.0">
+         <children>
+          <Label fx:id="windowmini" font="$x3" layoutX="652.0" layoutY="14.0" onMouseReleased="#window_mini" prefWidth="26.0" text="一" />
+          <Label fx:id="windowclose" font="$x8" onMouseReleased="#window_close" prefWidth="14.0" text="X" />
+         </children>
+      </HBox>
   </children>
   <stylesheets>
     <URL value="@welcome.css" />

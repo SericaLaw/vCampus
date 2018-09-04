@@ -90,7 +90,10 @@
 #content__stu-info__revise-info .jfx-text-field {
     -jfx-focus-color: primary;
 }
-
+.-jfx-date-picker {
+    -jfx-default-color: primary;
+    -jfx-overlay: true;
+}
 #content__stu-info__revise-info .jfx-text-field:disabled {
     -jfx-focus-color: transparent;
     -jfx-unfocus-color: transparent;

@@ -217,10 +217,6 @@
                     <Label text="出生地" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                     <Label text="Email" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
                     <Label text="高中学校" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
-                    <JFXTextField fx:id="si_Phone" disable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2" />
-                    <JFXTextField fx:id="si_Email" disable="true" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
-                    <JFXTextField fx:id="si_Address" disable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="3" />
-                    <JFXTextField fx:id="si_SeniorHigh" disable="true" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
                     <Label text="年" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     <Label text="月" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     <Label text=" 日     " GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
@@ -364,7 +360,11 @@
                         </FXCollections>
                       </items>
                     </ComboBox>
-                              <JFXTextField fx:id="si_IDNum" disable="true" GridPane.columnIndex="1" GridPane.columnSpan="5" />
+                      <JFXTextField fx:id="si_IDNum" disable="true" GridPane.columnIndex="1" GridPane.columnSpan="5" />
+                              <JFXTextField fx:id="si_Phone" disable="true" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2" />
+                              <JFXTextField fx:id="si_Address" disable="true" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="3" />
+                              <JFXTextField fx:id="si_Email" disable="true" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+                              <JFXTextField fx:id="si_SeniorHigh" disable="true" GridPane.columnIndex="8" GridPane.rowIndex="3" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="126.0" />
