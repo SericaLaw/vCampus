@@ -12,117 +12,137 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="team.yummy.vCampus.client.MainViewController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" visible="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team.yummy.vCampus.client.MainViewController">
   <children>
-    <AnchorPane fx:id="main_title" minHeight="0.0" minWidth="0.0" onMouseDragged="#titledragged" onMousePressed="#titlepressed" prefHeight="53.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <children>
-        <Label layoutX="26.0" layoutY="12.0" text="VCampus" textFill="WHITE">
-          <font>
-            <Font name="Lucida Calligraphy Italic" size="21.0" />
-          </font>
-        </Label>
-        <Label fx:id="win_close" layoutX="1160.0" layoutY="10.0" onMouseReleased="#winclose" prefWidth="21.0" text="×" textFill="GREY">
-          <font>
-            <Font name="System Bold" size="27.0" />
-          </font>
-        </Label>
-        <Label fx:id="win_mini" layoutX="1125.0" layoutY="6.0" minHeight="29.0" onMouseReleased="#winmini" prefHeight="45.0" prefWidth="31.0" text="一" textFill="GREY">
-          <font>
-            <Font name="System Bold" size="17.0" />
-          </font>
-        </Label>
-      </children>
-    </AnchorPane>
-    <AnchorPane layoutX="0.0" layoutY="53.0" minHeight="0.0" minWidth="0.0" prefHeight="747.0" prefWidth="1200.0">
-      <children>
-        <AnchorPane id="main_sidebar" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="210.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-          <children>
-            <Label layoutX="16.0" layoutY="123.0" prefWidth="86.0" text="Campus">
+      <BorderPane prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <GridPane id="title">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <HBox id="title_right" alignment="CENTER_RIGHT" GridPane.columnIndex="1">
+                     <children>
+                    <Label fx:id="win_mini" onMouseReleased="#winmini" text="一" textFill="GREY">
+                      <font>
+                        <Font name="System Bold" size="17.0" />
+                      </font>
+                    </Label>
+                    <Label fx:id="win_close" onMouseReleased="#winclose" text="×" textFill="GREY" GridPane.columnIndex="1">
+                      <font>
+                        <Font name="System Bold" size="27.0" />
+                      </font>
+                    </Label>
+                     </children>
+                  </HBox>
+                  <HBox id="title_left" prefHeight="60.0" prefWidth="311.0">
+                     <children>
+                        <ImageView cache="true" fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+         </top>
+         <left>
+            <VBox id="main_sidebar">
+               <children>
+            <Button fx:id="test" disable="false" mnemonicParsing="false" text="欢迎" visible="true" />
+            <Label prefWidth="86.0" text="Campus">
               <font>
                 <Font name="Californian FB" size="20.0" fx:id="x1" />
               </font>
             </Label>
-            <Button fx:id="test" disable="false" mnemonicParsing="false" text="" visible="true" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="2.0" />
-            <Button fx:id="Bt_StuInfo" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" graphicTextGap="4.0" layoutY="44.0" mnemonicParsing="false" onAction="#switchStuInfo" prefHeight="33.0" prefWidth="208.0" text=" 个人信息" textFill="BLACK" AnchorPane.rightAnchor="2.0">
+            <Button fx:id="Bt_StuInfo" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" graphicTextGap="4.0" mnemonicParsing="false" onAction="#switchStuInfo" prefHeight="33.0" prefWidth="208.0" text=" 个人信息" textFill="BLACK">
               <font>
                 <Font size="19.0" fx:id="x2" />
               </font>
               <graphic>
-                <ImageView id="StuInfoIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true">
+                <ImageView id="StuInfoIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true" styleClass="image">
                   <image>
-                    <Image url="@images/StuInfoIcon.png" preserveRatio="true" smooth="true" />
+                    <Image preserveRatio="true" smooth="true" url="@images/StuInfoIcon.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="Bt_Course" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" layoutY="81.0" mnemonicParsing="false" onAction="#switchCourse" prefHeight="33.0" prefWidth="208.0" text=" 选课系统" textFill="BLACK" AnchorPane.rightAnchor="2.0">
+            <Button fx:id="Bt_Course" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchCourse" prefHeight="33.0" prefWidth="208.0" text=" 选课系统" textFill="BLACK">
               <graphic>
-                <ImageView id="CourseIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true">
+                <ImageView id="CourseIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true" styleClass="image">
                   <image>
-                    <Image url="@images/CourseIcon.png" preserveRatio="true" smooth="true" />
+                    <Image preserveRatio="true" smooth="true" url="@images/CourseIcon.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="Bt_Dorm" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" layoutY="160.0" mnemonicParsing="false" onAction="#switchDorm" prefHeight="33.0" prefWidth="208.0" text=" 宿舍" textFill="BLACK" AnchorPane.leftAnchor="0.0">
+            <Button fx:id="Bt_Dorm" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchDorm" prefHeight="33.0" prefWidth="208.0" text=" 宿舍" textFill="BLACK">
               <graphic>
-                <ImageView id="DormIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true">
+                <ImageView id="DormIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true" styleClass="image">
                   <image>
-                    <Image url="@images/DormIcon.png" preserveRatio="true" smooth="true" />
+                    <Image preserveRatio="true" smooth="true" url="@images/DormIcon.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="Bt_Bank" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" layoutY="228.0" mnemonicParsing="false" onAction="#switchBank" prefHeight="33.0" prefWidth="208.0" text=" 银行" textFill="BLACK" AnchorPane.leftAnchor="0.0">
+            <Button fx:id="Bt_Bank" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchBank" prefHeight="33.0" prefWidth="208.0" text=" 银行" textFill="BLACK">
               <graphic>
-                <ImageView id="BankIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true">
+                <ImageView id="BankIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true" styleClass="image">
                   <image>
-                    <Image url="@images/BankIcon.png" preserveRatio="true" smooth="true" />
+                    <Image preserveRatio="true" smooth="true" url="@images/BankIcon.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="Bt_Library" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" layoutY="194.0" mnemonicParsing="false" onAction="#switchLibrary" prefHeight="33.0" prefWidth="208.0" text=" 图书馆" textFill="BLACK" AnchorPane.leftAnchor="0.0">
+            <Button fx:id="Bt_Library" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchLibrary" prefHeight="33.0" prefWidth="208.0" text=" 图书馆" textFill="BLACK">
               <graphic>
-                <ImageView id="LibraryIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true">
+                <ImageView id="LibraryIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true" styleClass="image">
                   <image>
-                    <Image url="@images/LibraryIcon.png" preserveRatio="true" smooth="true" />
+                    <Image preserveRatio="true" smooth="true" url="@images/LibraryIcon.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="Bt_Store" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" layoutY="262.0" mnemonicParsing="false" onAction="#switchStore" prefHeight="33.0" prefWidth="208.0" text=" 商店" textFill="BLACK" AnchorPane.leftAnchor="0.0">
+            <Button fx:id="Bt_Store" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchStore" prefHeight="33.0" prefWidth="208.0" text=" 商店" textFill="BLACK">
               <graphic>
-                <ImageView id="StoreIcon.png" fitHeight="21.0" fitWidth="21.0">
+                <ImageView id="StoreIcon.png" fitHeight="21.0" fitWidth="21.0" styleClass="image">
                   <image>
-                    <Image url="@images/StoreIcon.png" preserveRatio="true" smooth="true" />
+                    <Image preserveRatio="true" smooth="true" url="@images/StoreIcon.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="Bt_Account" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" layoutY="700.0" mnemonicParsing="false" onAction="#swithAccountmag" prefHeight="33.0" prefWidth="208.0" text=" 账户管理" textFill="BLACK" AnchorPane.leftAnchor="0.0">
+            <Label font="$x1" prefWidth="100.0" text="Personal" />
+            <Button fx:id="Bt_Account" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#swithAccountmag" prefHeight="33.0" prefWidth="208.0" text=" 账户管理" textFill="BLACK">
               <graphic>
-                <ImageView id="accountIcon.png" fitHeight="21.0" fitWidth="21.0">
+                <ImageView id="accountIcon.png" fitHeight="21.0" fitWidth="21.0" styleClass="image">
                   <image>
-                    <Image url="@images/accountIcon.png" preserveRatio="true" smooth="true" />
+                    <Image preserveRatio="true" smooth="true" url="@images/accountIcon.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Label font="$x1" layoutX="16.0" layoutY="12.0" prefWidth="100.0" text="Personal" />
-          </children>
-        </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="747.0" prefWidth="590.0" visible="true" AnchorPane.leftAnchor="209.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               </children>
+            </VBox>
+         </left>
+         <center>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="747.0" prefWidth="590.0" visible="true" BorderPane.alignment="CENTER">
           <children>
             <AnchorPane fx:id="InitPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
                 <Label layoutX="496.0" layoutY="374.0" prefHeight="73.0" prefWidth="86.0" text="init" />
               </children>
             </AnchorPane>
-            <AnchorPane fx:id="StuInfoPane" disable="false" prefHeight="747.0" prefWidth="590.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane id="content__stu-info" fx:id="StuInfoPane" disable="false" prefHeight="747.0" prefWidth="590.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
-                <Button fx:id="editorSaveStuInfo" disable="false" layoutX="201.0" layoutY="379.0" mnemonicParsing="false" onAction="#editorSave" prefHeight="20.0" prefWidth="80.0" text="编辑">
+                <Button fx:id="editorSaveStuInfo" layoutX="201.0" layoutY="379.0" mnemonicParsing="false" onAction="#editorSave" prefHeight="20.0" prefWidth="80.0" text="编辑">
                   <font>
                     <Font size="16.0" />
                   </font>
@@ -130,64 +150,65 @@
                     <Color blue="0.875" green="0.875" red="0.875" fx:id="x6" />
                   </textFill>
                 </Button>
-                <GridPane gridLinesVisible="false" layoutX="73.0" prefHeight="84.0" prefWidth="844.0" AnchorPane.topAnchor="45.0">
+                <GridPane id="content__stu-info__heading" alignment="CENTER" gridLinesVisible="false" hgap="10.0" layoutX="73.0" prefHeight="84.0" prefWidth="844.0" AnchorPane.topAnchor="45.0">
                   <children>
                     <Label text="图片处" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" />
-                    <Label text="绩点" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
-                      <textFill>
-                        <Color blue="0.439" green="0.439" red="0.439" fx:id="x3" />
-                      </textFill>
-                    </Label>
-                    <Label text="SRTP" textFill="$x3" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-                    <Label text="    讲座次数" textFill="$x3" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-                    <Label fx:id="si_Name" text="姓名处" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2" />
-                    <Label fx:id="si_GPA" text="Label" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                      <textFill>
-                        <Color blue="0.922" green="0.647" red="0.278" fx:id="x4" />
-                      </textFill>
-                    </Label>
-                    <Label fx:id="si_SRTP" text="Label" textFill="$x4" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                    <Label fx:id="si_LAC" text="    Label" textFill="$x4" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                    <Label id="content__stu-info__heading__name" fx:id="si_Name" text="姓名处" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2" />
+                    <Label styleClass="column-title" text="一卡通号" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
+                    <Label fx:id="si_CampusCardID" styleClass="column-content" text="Label" textFill="$x3" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+                    <Label prefHeight="22.0" prefWidth="38.0" styleClass="column-title" text="学号" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                    <Label fx:id="si_StudentID" styleClass="column-content" text="Label" textFill="$x3" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="118.0" />
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="288.0" minWidth="10.0" prefWidth="265.0" />
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.0" minWidth="10.0" prefWidth="136.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="108.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="112.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="106.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="82.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="87.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="122.0" />
                   </columnConstraints>
                   <rowConstraints>
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <GridPane id="uneditable" fx:id="uneditableInfoGrid" gridLinesVisible="false" layoutX="150.0" prefHeight="122.0" prefWidth="630.0" AnchorPane.topAnchor="194.0">
+                <GridPane id="content__stu-info__banner" fx:id="uneditableInfoGrid" gridLinesVisible="false" layoutX="80.0" layoutY="140.0" prefHeight="122.0" prefWidth="630.0">
                   <children>
-                    <Label text="一卡通号" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
-                    <Label text="院系      " GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                    <Label text="入学年份" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                    <Label text="学号" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
-                    <Label text="专业" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                    <Label fx:id="si_CampusCardID" text="" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                    <Label fx:id="si_Department" text="" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <Label fx:id="si_EnrollmentYear" text="" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <Label fx:id="si_StudentID" text="" textFill="$x3" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                    <Label fx:id="si_Major" text="" textFill="$x3" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                    <Label styleClass="column-title" text="院系      " GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+                    <Label styleClass="column-title" text="专业" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+                    <Label fx:id="si_Department" styleClass="column-content" text="Label" textFill="$x3" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                    <Label fx:id="si_Major" styleClass="column-content" text="Label" textFill="$x3" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                    <Label styleClass="column-title" text="绩点" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+                      <textFill>
+                        <Color blue="0.439" green="0.439" red="0.439" fx:id="x3" />
+                      </textFill>
+                    </Label>
+                    <Label fx:id="si_GPA" styleClass="column-content" text="Label" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                      <textFill>
+                        <Color blue="0.922" green="0.647" red="0.278" fx:id="x4" />
+                      </textFill>
+                    </Label>
+                    <Label styleClass="column-title" text="SRTP" textFill="$x3" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
+                    <Label fx:id="si_SRTP" styleClass="column-content" text="Label" textFill="$x4" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                              <Label styleClass="column-title" text="讲座" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
+                              <Label fx:id="si_LAC" styleClass="column-content" text="Label" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                    <Label styleClass="column-title" text="入学年份" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
+                    <Label fx:id="si_EnrollmentYear" styleClass="column-content" text="Label" textFill="$x3" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                   </children>
                   <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="210.0" minWidth="10.0" prefWidth="126.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="213.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="210.0" minWidth="2.0" prefWidth="101.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="305.0" minWidth="10.0" prefWidth="190.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="200.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="194.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="2.0" prefWidth="200.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="238.0" />
                   </columnConstraints>
                   <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="16.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="20.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <GridPane focusTraversable="false" gridLinesVisible="false" prefHeight="272.0" prefWidth="844.0" visible="true" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="73.0">
+                <GridPane id="content__stu-info__revise-info" focusTraversable="false" gridLinesVisible="false" prefHeight="272.0" prefWidth="844.0" visible="true" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="73.0">
                   <children>
                     <Label text="身份证号" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
                     <Label text="性别" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="0" />
@@ -197,15 +218,10 @@
                     <Label text="出生地" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                     <Label text="Email" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
                     <Label text="高中学校" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
-                    <TextField fx:id="si_IDNum" disable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="0" />
-                    <TextField fx:id="si_Phone" disable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2" />
-                    <TextField fx:id="si_Email" disable="true" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
-                    <TextField fx:id="si_Address" disable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="3" />
-                    <TextField fx:id="si_SeniorHigh" disable="true" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
                     <Label text="年" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     <Label text="月" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     <Label text=" 日     " GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-                    <ComboBox fx:id="si_Birthyear" disable="true" prefWidth="102.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <JFXComboBox fx:id="si_Birthyear" disable="true" prefWidth="102.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                           <String fx:value="1980" />
@@ -241,8 +257,8 @@
                           <String fx:value="2010" />
                         </FXCollections>
                       </items>
-                    </ComboBox>
-                    <ComboBox fx:id="si_Birthmonth" disable="true" prefWidth="76.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                    </JFXComboBox>
+                    <JFXComboBox fx:id="si_Birthmonth" disable="true" prefWidth="76.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                           <String fx:value="01" />
@@ -259,8 +275,8 @@
                           <String fx:value="12" />
                         </FXCollections>
                       </items>
-                    </ComboBox>
-                    <ComboBox fx:id="si_Birthday" disable="true" prefWidth="76.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                    </JFXComboBox>
+                    <JFXComboBox fx:id="si_Birthday" disable="true" prefWidth="76.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="01" />
@@ -296,16 +312,16 @@
                             <String fx:value="31" />
                         </FXCollections>
                       </items>
-                    </ComboBox>
-                    <ComboBox fx:id="si_Sex" disable="true" prefWidth="105.0" GridPane.columnIndex="8" GridPane.rowIndex="0">
+                    </JFXComboBox>
+                    <JFXComboBox fx:id="si_Sex" disable="true" prefWidth="105.0" GridPane.columnIndex="8" GridPane.rowIndex="0">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                           <String fx:value="女" />
                           <String fx:value="男" />
                         </FXCollections>
                       </items>
-                    </ComboBox>
-                    <ComboBox fx:id="si_Birthplace" disable="true" prefWidth="213.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
+                    </JFXComboBox>
+                    <JFXComboBox fx:id="si_Birthplace" disable="true" prefWidth="213.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                           <String fx:value="北京市" />
@@ -344,7 +360,12 @@
                           <String fx:value="澳门特别行政区" />
                         </FXCollections>
                       </items>
-                    </ComboBox>
+                    </JFXComboBox>
+                      <JFXTextField fx:id="si_IDNum" disable="true" GridPane.columnIndex="1" GridPane.columnSpan="5" />
+                              <JFXTextField fx:id="si_Phone" disable="true" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2" />
+                              <JFXTextField fx:id="si_Address" disable="true" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="3" />
+                              <JFXTextField fx:id="si_Email" disable="true" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+                              <JFXTextField fx:id="si_SeniorHigh" disable="true" GridPane.columnIndex="8" GridPane.rowIndex="3" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="126.0" />
@@ -370,8 +391,6 @@
                     <Font size="20.0" />
                   </font>
                 </Label>
-                <Separator focusTraversable="false" layoutX="696.0" layoutY="55.0" opacity="1.0" orientation="VERTICAL" prefHeight="65.0" visible="true" />
-                <Separator focusTraversable="false" layoutX="808.0" layoutY="55.0" opacity="1.0" orientation="VERTICAL" prefHeight="65.0" visible="true" />
                 <Separator layoutX="70.0" layoutY="421.0" prefWidth="863.0" />
                 <Label fx:id="si_errorText" layoutX="342.0" layoutY="382.0" text="" />
               </children>
@@ -481,8 +500,8 @@
             </AnchorPane>
           </children>
         </AnchorPane>
-      </children>
-    </AnchorPane>
+         </center>
+      </BorderPane>
   </children>
   <stylesheets>
     <URL value="@main.css" />
