@@ -74,7 +74,6 @@ public class WelcomeViewController extends ViewController implements Initializab
 
        if(username.length() == 0 || password.length() == 0)
            bar.enqueue(new JFXSnackbar.SnackbarEvent("用户名密码不能为空"));
-//            LoginerrorText.setText("用户名和密码不能为空!");
 
 
          WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
@@ -85,13 +84,13 @@ public class WelcomeViewController extends ViewController implements Initializab
                 // 切换页面
                 stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
                 break;
-            /*case "404":
-                errorText.setText("用户不存在");
+            case "404":
+                bar.enqueue(new JFXSnackbar.SnackbarEvent("用户不存在"));
                 break;
             case "403":
-                errorText.setText("密码错误");
+                bar.enqueue(new JFXSnackbar.SnackbarEvent("密码错误"));
                 break;
-                */
+
         }
 
     }

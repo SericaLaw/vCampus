@@ -112,7 +112,8 @@
 }
 #loginpane__content__title {
     -fx-font-size: 68px;
-    -fx-fill: #673AB7;
+    -fx-font-family:"Book Antiqua";
+    -fx-text-fill: #673AB7;
 }
 
 #loginpane__content .jfx-text-field, 

@@ -8,6 +8,7 @@
     divider-color: #BDBDBD;
 }
 
+
 #title {
     -fx-background-color: linear-gradient(to bottom right, #7C4DFF, #673AB7);
 
@@ -75,44 +76,76 @@
 
 #main_sidebar .button:hover,
 #main_sidebar .button:focused {
-    -fx-text-fill: primary;
+    -fx-text-fill: #673AB7;
     -fx-border-color: transparent transparent transparent linear-gradient(to bottom right, #7C4DFF, #673AB7);
     -fx-cursor: hand;
 }
 
 #main_sidebar .button:hover .image,
-#main_sidebar .button:focused .image{
-    -fx-effect: innershadow(one-pass-box, primary,2,0.5,0,0); 
+#main_sidebar .button:focused .image {
+    -fx-effect: innershadow(one-pass-box, #673AB7, 2, 0.5, 0, 0); 
 }
-/* #content__stu-info {
-    -fx-background-color: #f8f8f8;
-} */
+
+#content__stu-info__heading {
+    -fx-alignment: center;
+}
+
+#content__stu-info__heading__name {
+    -fx-font-size: 26px;
+    -fx-text-fill: #212121;
+}
+
+#content__stu-info__banner {
+    -fx-alignment: center;
+    -fx-pref-width: 800;
+    -fx-pref-height: 200;
+}
+
+#content__stu-info__heading .column-title,
+#content__stu-info__banner .column-title {
+    -fx-text-fill: #757575;
+    -fx-font-size: 16px;
+}
+
+
+#content__stu-info__heading .column-content {
+    -fx-text-fill: #7C4DFF;
+    -fx-font-size: 18px;
+}
+
+#content__stu-info__banner .column-content {
+    -fx-text-fill: #512DA8;
+    -fx-font-size: 26px;
+}
+
 #content__stu-info__revise-info .jfx-text-field {
-    -jfx-focus-color: primary;
+    -jfx-focus-color: #673AB7;
 }
 .-jfx-date-picker {
-    -jfx-default-color: primary;
+    -jfx-default-color: #673AB7;
     -jfx-overlay: true;
 }
+
 #content__stu-info__revise-info .jfx-text-field:disabled {
     -jfx-focus-color: transparent;
     -jfx-unfocus-color: transparent;
 }
-/* 
-#test:hover{
-    -fx-background-color:#eee;
-    -fx-text-fill:#707070;
+
+
+#editorSaveStuInfo,
+#cancelAccount,
+#logout {
+    -fx-background-color: #673AB7;
+    -fx-text-fill: #fff;
+    -jfx-button-type: RAISED;
 }
 
-#test:focused{
-    -fx-background-color:#eee;
-    -fx-text-fill:#707070;
-} */
-
-#editorSaveStuInfo,#cancelAccount,#logout{
-    -fx-background-color:#3593d9;
+#editorSaveStuInfo:hover,
+#cancelAccount:hover,
+#logout:hover {
+    -fx-background-color: #7C4DFF;
+    -fx-cursor: hand;
 }
-
 #CampusCardIDCell,#RoleCell,#FirstNameCell{
     -fx-background-color:#87CEFA;
 }

@@ -26,7 +26,7 @@
       <children>
             <VBox id="loginpane__content" layoutX="34.0" layoutY="98.0" prefHeight="550.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-          <Label prefHeight="70.0" prefWidth="246.0" text="Welcome" textFill="#4cadf8">
+          <Label id="loginpane__content__title" prefHeight="70.0" prefWidth="246.0" text="Welcome" textFill="#4cadf8">
             <font>
               <Font name="Book Antiqua Bold" size="40.0" />
             </font>
