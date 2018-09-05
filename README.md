@@ -6,13 +6,13 @@
 
 | 路径                     | 说明                                     |
 | ------------------------ | ---------------------------------------- |
-| `vCampusClient`            | 前端                                     |
-| `vCampusServer `           | 后端                                     |
-| `vCampusDatabase`          | 数据库                                   |
-|  `vCampusCommon`         | 项目依赖 |
-| `docs/api`               | 不存在的API文档                          |
-| `docs`                   | 开发日志、设计说明书以及其他要提交的文件 |
-| `java-app-template-demo` | 一个包含前后端的完整java程序示例         |
+| `vCampus/vCampusClient`    | 前端                                     |
+| `vCampus/vCampusServer `   | 后端                                     |
+| `vCampus/vCampusCore` | 前后端公用模块                           |
+| `vCampus/third-party-lib` | 项目依赖 |
+| `docs`               | 不存在的API文档                          |
+| `java-app-template-demo` | 一个采用MVC模式的Java示例程序 |
+| `vCampus/vCampusServer/src/main/resources/test_database.accdb` | 数据库 |
 
 ## 构想
 
@@ -24,11 +24,11 @@
 
 ## 开发环境
 
-编辑器：demo里用的是idea…要求用eclipse的话还是尽量用eclipse吧…
+编辑器：使用IntelliJ IDEA
 
-[maven](https://www.yiibai.com/maven/)相关：还木有开始考虑orz...
+[maven](https://www.yiibai.com/maven/)相关：使用maven简单配置
 
-### 关于git
+## 关于git
 
 如果你还不够熟悉git，可以查看[这个教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)。
 
@@ -45,7 +45,7 @@ git pull
 
 用Git进行多人协作的原则：每个人应明确自己的责任区，尽量避免提交时出现冲突；对自己的commit负责，先进行测试后再提交
 
-### apidoc
+## apidoc
 
 在仓库根目录打开终端，输入命令：
 
@@ -65,6 +65,8 @@ apidoc -i ./vCampus/vCampusClient/src/test/java -o ./docs -t ./docs/src/template
 4. [Java FX FXML Reference](https://docs.oracle.com/javase/8/javafx/api/javafx/fxml/doc-files/introduction_to_fxml.html)
 5. [Java FX中的数据绑定](https://docs.oracle.com/javase/8/javafx/properties-binding-tutorial/binding.htm#JFXBD107)
 6. [JavaFX Collections](https://docs.oracle.com/javase/8/javafx/collections-tutorial/collections.htm#JFXCL107)
+7. 一个不错的JavaFX Material Design库，我们的项目也将用到它：[JFoenix](https://github.com/jfoenixadmin/JFoenix)
+8. [JFoenix文档](http://www.jfoenix.com/documentation.html)
 
 ### 规范
 
