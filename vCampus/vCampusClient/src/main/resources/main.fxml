@@ -56,13 +56,13 @@
          <left>
             <VBox id="main_sidebar">
                <children>
-            <JFXButton fx:id="test" disable="false" mnemonicParsing="false" text="欢迎" visible="true" />
+            <Button fx:id="test" disable="false" mnemonicParsing="false" text="欢迎" visible="true" />
             <Label prefWidth="86.0" text="Campus">
               <font>
                 <Font name="Californian FB" size="20.0" fx:id="x1" />
               </font>
             </Label>
-            <JFXButton fx:id="Bt_StuInfo" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" graphicTextGap="4.0" mnemonicParsing="false" onAction="#switchStuInfo" prefHeight="33.0" prefWidth="208.0" text=" 个人信息" textFill="BLACK">
+            <Button fx:id="Bt_StuInfo" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" graphicTextGap="4.0" mnemonicParsing="false" onAction="#switchStuInfo" prefHeight="33.0" prefWidth="208.0" text=" 个人信息" textFill="BLACK">
               <font>
                 <Font size="19.0" fx:id="x2" />
               </font>
@@ -73,8 +73,8 @@
                   </image>
                 </ImageView>
               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="Bt_Course" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchCourse" prefHeight="33.0" prefWidth="208.0" text=" 选课系统" textFill="BLACK">
+            </Button>
+            <Button fx:id="Bt_Course" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchCourse" prefHeight="33.0" prefWidth="208.0" text=" 选课系统" textFill="BLACK">
               <graphic>
                 <ImageView id="CourseIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true" styleClass="image">
                   <image>
@@ -82,8 +82,8 @@
                   </image>
                 </ImageView>
               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="Bt_Dorm" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchDorm" prefHeight="33.0" prefWidth="208.0" text=" 宿舍" textFill="BLACK">
+            </Button>
+            <Button fx:id="Bt_Dorm" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchDorm" prefHeight="33.0" prefWidth="208.0" text=" 宿舍" textFill="BLACK">
               <graphic>
                 <ImageView id="DormIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true" styleClass="image">
                   <image>
@@ -91,8 +91,8 @@
                   </image>
                 </ImageView>
               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="Bt_Bank" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchBank" prefHeight="33.0" prefWidth="208.0" text=" 银行" textFill="BLACK">
+            </Button>
+            <Button fx:id="Bt_Bank" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchBank" prefHeight="33.0" prefWidth="208.0" text=" 银行" textFill="BLACK">
               <graphic>
                 <ImageView id="BankIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true" styleClass="image">
                   <image>
@@ -100,8 +100,8 @@
                   </image>
                 </ImageView>
               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="Bt_Library" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchLibrary" prefHeight="33.0" prefWidth="208.0" text=" 图书馆" textFill="BLACK">
+            </Button>
+            <Button fx:id="Bt_Library" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchLibrary" prefHeight="33.0" prefWidth="208.0" text=" 图书馆" textFill="BLACK">
               <graphic>
                 <ImageView id="LibraryIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true" styleClass="image">
                   <image>
@@ -109,8 +109,8 @@
                   </image>
                 </ImageView>
               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="Bt_Store" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchStore" prefHeight="33.0" prefWidth="208.0" text=" 商店" textFill="BLACK">
+            </Button>
+            <Button fx:id="Bt_Store" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchStore" prefHeight="33.0" prefWidth="208.0" text=" 商店" textFill="BLACK">
               <graphic>
                 <ImageView id="StoreIcon.png" fitHeight="21.0" fitWidth="21.0" styleClass="image">
                   <image>
@@ -118,9 +118,9 @@
                   </image>
                 </ImageView>
               </graphic>
-            </JFXButton>
+            </Button>
             <Label font="$x1" prefWidth="100.0" text="Personal" />
-            <JFXButton fx:id="Bt_Account" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#swithAccountmag" prefHeight="33.0" prefWidth="208.0" text=" 账户管理" textFill="BLACK">
+            <Button fx:id="Bt_Account" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#swithAccountmag" prefHeight="33.0" prefWidth="208.0" text=" 账户管理" textFill="BLACK">
               <graphic>
                 <ImageView id="accountIcon.png" fitHeight="21.0" fitWidth="21.0" styleClass="image">
                   <image>
@@ -128,7 +128,7 @@
                   </image>
                 </ImageView>
               </graphic>
-            </JFXButton>
+            </Button>
                </children>
             </VBox>
          </left>
@@ -142,14 +142,14 @@
             </AnchorPane>
             <AnchorPane id="content__stu-info" fx:id="StuInfoPane" disable="false" prefHeight="747.0" prefWidth="590.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
-                <JFXButton fx:id="editorSaveStuInfo" layoutX="201.0" layoutY="379.0" mnemonicParsing="false" onAction="#editorSave" prefHeight="20.0" prefWidth="80.0" text="编辑">
+                <Button fx:id="editorSaveStuInfo" layoutX="201.0" layoutY="379.0" mnemonicParsing="false" onAction="#editorSave" prefHeight="20.0" prefWidth="80.0" text="编辑">
                   <font>
                     <Font size="16.0" />
                   </font>
                   <textFill>
                     <Color blue="0.875" green="0.875" red="0.875" fx:id="x6" />
                   </textFill>
-                </JFXButton>
+                </Button>
                 <GridPane id="content__stu-info__heading" alignment="CENTER" gridLinesVisible="false" hgap="10.0" layoutX="73.0" prefHeight="84.0" prefWidth="844.0" AnchorPane.topAnchor="45.0">
                   <children>
                     <Label text="图片处" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" />
@@ -490,12 +490,12 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <JFXButton fx:id="cancelAccount" defaultButton="false" layoutX="165.0" layoutY="442.0" mnemonicParsing="false" mouseTransparent="false" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="销号" textFill="$x6" underline="false" wrapText="false">
+                <Button fx:id="cancelAccount" defaultButton="false" layoutX="165.0" layoutY="442.0" mnemonicParsing="false" mouseTransparent="false" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="销号" textFill="$x6" underline="false" wrapText="false">
                   <font>
                     <Font size="17.0" fx:id="x7" />
                   </font>
-                </JFXButton>
-                <JFXButton fx:id="logout" defaultButton="false" font="$x7" layoutX="165.0" layoutY="487.0" mnemonicParsing="false" mouseTransparent="false" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="登出" textFill="$x6" underline="false" wrapText="false" />
+                </Button>
+                <Button fx:id="logout" defaultButton="false" font="$x7" layoutX="165.0" layoutY="487.0" mnemonicParsing="false" mouseTransparent="false" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="登出" textFill="$x6" underline="false" wrapText="false" />
               </children>
             </AnchorPane>
           </children>
