@@ -36,7 +36,7 @@
                   <HBox id="loginpane__button-group">
                      <children>
                         <JFXButton id="login_signup" onAction="#switchToSignup" text="注册" />
-                        <JFXButton fx:id="login_button" onAction="#login" text="登录" />
+                        <JFXButton fx:id="login_button" onAction="#login" onKeyPressed="#presslogin" text="登录" />
                      </children>
                   </HBox>
           <Label fx:id="LoginerrorText" text="">
@@ -111,8 +111,11 @@
                   <JFXPasswordField fx:id="register_Tpassword" />
                   <HBox id="registerpane__radio-button-group" prefHeight="34.0" prefWidth="440.0">
                      <children>
-                        <JFXRadioButton fx:id="register_radiostudent" text="学生" />
-                        <JFXRadioButton fx:id="register_radioadminis" text="管理员" />
+                        <JFXRadioButton fx:id="register_radiostudent" text="学生">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="radiogroup" />
+                           </toggleGroup></JFXRadioButton>
+                        <JFXRadioButton fx:id="register_radioadminis" text="管理员" toggleGroup="$radiogroup" />
                      </children>
                   </HBox>
                   <HBox id="registerpane__button-group" prefHeight="100.0" prefWidth="200.0">
