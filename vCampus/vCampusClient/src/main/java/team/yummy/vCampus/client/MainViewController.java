@@ -28,7 +28,7 @@ import java.util.Calendar;
 
 public class MainViewController extends ViewController implements Initializable {
 
-    @FXML private AnchorPane main_title;
+    @FXML private GridPane title;
     @FXML private AnchorPane InitPane;
     @FXML private AnchorPane StuInfoPane;
     @FXML private AnchorPane CoursePane;
@@ -51,7 +51,6 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML private Label si_Department;
     @FXML private Label si_Major;
     @FXML private Label si_EnrollmentYear;
-
     @FXML private Button editorSaveStuInfo;
     @FXML private TextField si_IDNum;
     @FXML private ComboBox si_Sex;
@@ -64,6 +63,14 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML private TextField si_Address;
     @FXML private TextField si_SeniorHigh;
     @FXML private Label si_errorText;
+
+    @FXML private AnchorPane li_BorrowedPane;
+    @FXML private AnchorPane li_InquirePane;
+
+    @FXML private Label am_CampusCardID;
+    @FXML private Label am_Username;
+    @FXML private Label am_Role;
+    @FXML private Label am_Name;
 
     private double xOffset = 0;
     private double yOffset = 0;
@@ -79,10 +86,6 @@ public class MainViewController extends ViewController implements Initializable 
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
     }
-
-    /*public void getStuInfo(ActionEvent actionEvent) {
-        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
-    }*/
 
     @FXML
     protected void winclose(MouseEvent mouseEvent) {             //MouseEvent是个好东西啊！！！！
@@ -104,7 +107,7 @@ public class MainViewController extends ViewController implements Initializable 
 
     @FXML
     protected void titledragged(MouseEvent mouseEvent) {
-        Stage stage = (Stage)main_title.getScene().getWindow();
+        Stage stage = (Stage)title.getScene().getWindow();
         stage.setX(mouseEvent.getScreenX() - xOffset);
         stage.setY(mouseEvent.getScreenY() - yOffset);
     }
@@ -119,6 +122,13 @@ public class MainViewController extends ViewController implements Initializable 
         BankPane.setVisible(false);
         StorePane.setVisible(false);
         InitPane.setVisible(false);
+
+        //WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
+        //StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
+        am_CampusCardID.setText(currentAccount.getCampusCardID());
+        am_Username.setText(currentAccount.getUsername());
+        am_Role.setText(currentAccount.getRole());
+        am_Name.setText(currentAccount.getLastName()+currentAccount.getFirstName());
     }
 
     @FXML
@@ -283,6 +293,21 @@ public class MainViewController extends ViewController implements Initializable 
             editorSaveStuInfo.setText("编辑");
         }
     }
+
+    @FXML
+    protected void switchLibBorrowed(ActionEvent actionEvent) {
+        li_InquirePane.setVisible(false);
+        li_BorrowedPane.setDisable(true);
+
+    }
+
+    @FXML
+    protected void switchLibInquire(ActionEvent actionEvent) {
+        li_InquirePane.setVisible(true);
+        li_BorrowedPane.setDisable(false);
+    }
+
+
 
 
     protected void choosestudent(ActionEvent actionEvent)
