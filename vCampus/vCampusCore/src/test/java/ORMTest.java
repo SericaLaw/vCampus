@@ -4,10 +4,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import team.yummy.vCampus.models.entity.AccountEntity;
 
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ORMTest {
     Configuration config = null;
     SessionFactory sessionFactory = null;
