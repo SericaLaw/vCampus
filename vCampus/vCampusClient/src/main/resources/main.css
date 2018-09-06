@@ -161,3 +161,47 @@
 #am_CampusCardID,#am_Username,#am_Name,#am_Role{
     -fx-font-size:20px;
 }
+
+
+#content__store__wrapper,
+#content__cart__wrapper {
+    -fx-pref-width: 900;
+    -fx-padding: 25;
+    -fx-spacing: 30;
+    -fx-alignment: top-center;
+}
+
+#content__store__wrapper .title {
+    -fx-font-size: 32;
+    -fx-text-fill: #212121;
+}
+
+#content__store__wrapper .section {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+    -fx-pref-width: 800;
+}
+
+#content__store__wrapper .section .row {
+    -fx-pref-width: 800;
+    -fx-spacing: 20;
+    -fx-padding: 10;
+    -fx-alignment: center;
+}
+
+
+#content__store__wrapper .section .label {
+    -fx-text-fill: #7C4DFF;
+}
+
+
+
+#content__store__wrapper .section .label:hover,
+.img:hover,
+.jfx-button {
+    -fx-cursor: hand;
+}
+
+.img:hover {
+    -fx-effect:dropshadow(one-pass-box, #bbb, 20, 0.05, 3, 8);
+}

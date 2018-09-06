@@ -14,7 +14,7 @@
 <?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" visible="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team.yummy.vCampus.client.MainViewController">
+<StackPane fx:id="rootStackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team.yummy.vCampus.client.MainViewController">
   <children>
       <BorderPane prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -430,11 +430,50 @@
                 <Label layoutX="406.0" layoutY="305.0" text="银行" />
               </children>
             </AnchorPane>
-            <AnchorPane fx:id="StorePane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <children>
-                <Label layoutX="406.0" layoutY="305.0" text="商店" />
-              </children>
-            </AnchorPane>
+              <AnchorPane fx:id="StorePane" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                      <TabPane prefHeight="740.0" prefWidth="950.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <tabs>
+                              <Tab text="商店">
+                                  <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                          <children>
+                                              <ScrollPane layoutX="40.0" layoutY="45.0" prefHeight="701.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <content>
+                                                      <VBox id="content__store__wrapper" prefHeight="699.0" prefWidth="950.0">
+                                                          <children>
+                                                              <Label styleClass="title" text="新品上市" />
+                                                              <VBox fx:id="store_newItemBox" prefHeight="100.0" prefWidth="200.0" styleClass="section" />
+                                                              <Separator prefWidth="200.0" />
+                                                              <Label styleClass="title" text="网红热门" />
+                                                              <VBox id="#content__store__pop-items" fx:id="store_popItemBox" prefHeight="100.0" prefWidth="200.0" styleClass="section" />
+                                                              <Separator prefWidth="200.0" />
+                                                              <Label styleClass="title" text="实惠优选" />
+                                                              <VBox id="#content__store__favorable-items" fx:id="store_favItemBox" prefHeight="100.0" prefWidth="200.0" styleClass="section" />
+                                                          </children>
+                                                      </VBox>
+                                                  </content>
+                                              </ScrollPane>
+                                          </children>
+                                      </AnchorPane>
+                                  </content>
+                              </Tab>
+                              <Tab text="购物车">
+                                  <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                          <children>
+                                              <ScrollPane layoutX="62.0" layoutY="20.0" prefHeight="701.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <content>
+                                                      <VBox id="content__cart__wrapper" fx:id="store_CartBox" prefHeight="200.0" prefWidth="100.0" />
+                                                  </content>
+                                              </ScrollPane>
+                                          </children></AnchorPane>
+                                  </content>
+                              </Tab>
+                          </tabs>
+                      </TabPane>
+                  </children>
+              </AnchorPane>
             <AnchorPane fx:id="AccountMagPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
                         <Separator layoutX="477.0" layoutY="120.0" orientation="VERTICAL" prefHeight="377.0" prefWidth="0.0" />
@@ -504,4 +543,4 @@
   <stylesheets>
     <URL value="@main.css" />
   </stylesheets>
-</AnchorPane>
+</StackPane>

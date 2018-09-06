@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.omg.CORBA.PRIVATE_MEMBER;
+import team.yummy.vCampus.models.Goods;
 import team.yummy.vCampus.models.StuInfo;
 
 import team.yummy.vCampus.web.WebResponse;
@@ -18,16 +19,14 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
-import java.util.Calendar;
 
 public class MainViewController extends ViewController implements Initializable {
 
+    @FXML private StackPane rootStackPane;
     @FXML private GridPane title;
     @FXML private AnchorPane InitPane;
     @FXML private AnchorPane StuInfoPane;
@@ -72,6 +71,22 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML private Label am_Role;
     @FXML private Label am_Name;
 
+
+    /**
+     * variables for store page
+     */
+    @FXML private VBox store_newItemBox;
+    @FXML private VBox store_popItemBox;
+    @FXML private VBox store_favItemBox;
+
+    @FXML private VBox store_CartBox;
+
+    // 这里放商品列表数据
+    private List<Goods> goodList = new ArrayList<Goods>();
+    // 这里存放购物车数据
+
+    public List<Goods> goodsToBuy = new ArrayList<>();
+
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -85,6 +100,25 @@ public class MainViewController extends ViewController implements Initializable 
         BankPane.setVisible(false);
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
+
+        // 模拟服务器返回的信息
+
+        Goods good1 = new Goods("1","鞋子","123","白色", "./images/item.png");
+        Goods good2 = new Goods("2","鞋子","123", "红色","./images/item.png");
+        Goods good3 = new Goods("3","鞋子","123", "黑色","./images/item.png");
+        Goods good4 = new Goods("4","鞋子","123", "蓝色","./images/item.png");
+        Goods good5 = new Goods("5","鞋子","123", "黑色","./images/item.png");
+        Goods good6 = new Goods("6","鞋子","123", "蓝色","./images/item.png");
+
+        goodList.add(good1);
+        goodList.add(good2);
+        goodList.add(good3);
+        goodList.add(good4);
+        goodList.add(good5);
+        goodList.add(good6);
+
+        goodsToBuy.add(good1);
+        goodsToBuy.add(good2);
     }
 
     @FXML
@@ -224,6 +258,18 @@ public class MainViewController extends ViewController implements Initializable 
         BankPane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
+
+        StoreViewFactory storeViewFactory = new StoreViewFactory(rootStackPane, this);
+        List<HBox> row = storeViewFactory.createStoreRows(goodList, 3);
+        if(store_newItemBox.getChildren().size() != 0) {
+            store_newItemBox.getChildren().clear();
+            store_newItemBox.getChildren().addAll(row);
+        } else {
+            store_newItemBox.getChildren().addAll(row);
+        }
+
+        List<HBox> cartRows = storeViewFactory.createCartRows(goodsToBuy);
+        store_CartBox.getChildren().addAll(cartRows);
     }
     @FXML
     protected void editorSave(ActionEvent actionEvent) {
