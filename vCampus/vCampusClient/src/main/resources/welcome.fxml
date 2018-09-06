@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.geometry.Insets?>
@@ -13,122 +15,129 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="welcomebackground" minHeight="500.0" minWidth="360.0" prefHeight="500.0" prefWidth="720.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="team.yummy.vCampus.client.WelcomeViewController">
+<AnchorPane fx:id="welcomebackground" minHeight="500.0" minWidth="360.0" prefHeight="500.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team.yummy.vCampus.client.WelcomeViewController">
   <children>
-    <ImageView id="whale.png" layoutX="0.0" layoutY="44.0">
+    <ImageView cache="true" fitHeight="600.0" fitWidth="600.0" layoutX="-300.0" preserveRatio="true">
       <image>
-        <Image url="@images/whale.png" preserveRatio="true" smooth="true" />
+        <Image url="@images/icon.png" />
       </image>
     </ImageView>
-    <AnchorPane fx:id="loginpane" minWidth="360.0" prefHeight="500.0" prefWidth="360.0" visible="false" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane fx:id="loginpane" layoutX="360.0" layoutY="44.0" minWidth="360.0" prefHeight="500.0" prefWidth="360.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
       <children>
-        <GridPane layoutX="34.0" layoutY="100.0" prefHeight="291.0" prefWidth="292.0">
-          <children>
-            <AnchorPane prefHeight="111.0" prefWidth="315.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
-              <children>
-                <Label layoutX="14.0" layoutY="8.0" prefHeight="70.0" prefWidth="246.0" text="Welcome" textFill="#4cadf8">
-                  <font>
-                    <Font name="Book Antiqua Bold" size="40.0" />
-                  </font>
-                </Label>
-              </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
-              <children>
-                <Line endX="110.0" endY="-18.0" startX="-90.0" startY="-18.0" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="27.0" />
-                <TextField fx:id="login_Tusername" focusTraversable="false" layoutX="24.0" layoutY="24.0" prefWidth="204.0" promptText="用 户 名" visible="true" />
-              </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
-              <children>
-                <Line endX="110.0" endY="0.0" startX="-90.0" startY="0.0" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="64.0" />
-                <PasswordField fx:id="login_Tpassword" focusTraversable="false" layoutY="24.0" prefWidth="204.0" promptText="密 码" visible="true" AnchorPane.leftAnchor="24.0" />
-              </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-              <children>
-                <Hyperlink id="login_signup" layoutX="-7.0" layoutY="43.0" onAction="#switchToSignup" text="注册" textFill="#3889ff" underline="true">
-                  <font>
-                    <Font name="System Bold" size="15.0" fx:id="x1" />
-                  </font>
-                </Hyperlink>
-                <Button fx:id="login_button" font="$x1" layoutX="55.0" layoutY="40.0" mnemonicParsing="false" onAction="#login" prefHeight="33.0" prefWidth="66.0" text="登录" textFill="BLACK" />
-                <Label fx:id="LoginerrorText" layoutX="-75.0" layoutY="4.0" prefWidth="201.0" text="">
-                  <textFill>
-                    <Color blue="0.375" green="0.375" red="0.375" fx:id="x2" />
-                  </textFill>
-                </Label>
-              </children>
-            </AnchorPane>
-          </children>
-          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.0" minWidth="10.0" prefWidth="114.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="201.0" />
-          </columnConstraints>
-          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          </rowConstraints>
-        </GridPane>
+            <VBox id="loginpane__content" layoutX="34.0" layoutY="98.0" prefHeight="550.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+          <Label id="loginpane__content__title" prefHeight="70.0" prefWidth="246.0" text="Welcome" textFill="#4cadf8">
+            <font>
+              <Font name="Book Antiqua Bold" size="40.0" />
+            </font>
+          </Label>
+                  <JFXTextField fx:id="login_Tusername" promptText="用户名" />
+                  <JFXPasswordField fx:id="login_Tpassword" promptText="密码" />
+                  <HBox id="loginpane__button-group">
+                     <children>
+                        <JFXButton id="login_signup" onAction="#switchToSignup" text="注册" />
+                        <JFXButton fx:id="login_button" onAction="#login" onKeyPressed="#presslogin" text="登录" />
+                     </children>
+                  </HBox>
+          <Label fx:id="LoginerrorText" text="">
+            <textFill>
+              <Color blue="0.375" green="0.375" red="0.375" fx:id="x2" />
+            </textFill>
+          </Label>
+               </children>
+            </VBox>
       </children>
     </AnchorPane>
-    <AnchorPane fx:id="registerpane" layoutY="0.0" minHeight="500.0" minWidth="367.0" prefHeight="500.0" prefWidth="360.0" visible="true" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0">
+    <AnchorPane fx:id="registerpane" layoutX="353.0" layoutY="44.0" minHeight="500.0" minWidth="367.0" prefHeight="500.0" prefWidth="360.0" visible="false" AnchorPane.leftAnchor="353.0" AnchorPane.rightAnchor="7.0">
       <children>
-        <Label fx:id="register_Lsignup" layoutY="49.0" prefHeight="45.0" prefWidth="189.0" text="Sign up" textFill="#3385ff" AnchorPane.leftAnchor="60.0">
-          <font>
-            <Font name="System Bold" size="35.0" />
-          </font>
-        </Label>
-        <Label fx:id="register_Lname" prefWidth="176.0" text="姓                        名" textFill="#66c8ff" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="148.0" AnchorPane.topAnchor="125.0">
-          <font>
-            <Font name="Vivaldi Italic" size="16.0" />
-          </font>
-        </Label>
-        <Label fx:id="register_Lcard" prefWidth="79.00009999999747" text="一 卡 通" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="236.5" AnchorPane.topAnchor="185.0">
-          <font>
-            <Font size="15.0" fx:id="x4" />
-          </font>
-          <textFill>
-            <Color blue="0.800" green="0.514" red="0.000" fx:id="x5" />
-          </textFill>
-        </Label>
-        <Label fx:id="register_Lusername" font="$x4" prefWidth="86.00009999999747" text="用 户 名" textFill="$x5" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="225.0" AnchorPane.topAnchor="245.0" />
-        <Label fx:id="register_Lpassword" prefWidth="58.0" text="密 码" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="230.25" AnchorPane.topAnchor="305.0">
-          <font>
-            <Font size="16.0" fx:id="x8" />
-          </font>
-          <textFill>
-            <Color blue="0.376" green="0.376" red="0.376" fx:id="x6" />
-          </textFill>
-        </Label>
-        <TextField fx:id="register_Tfirstname" focusTraversable="false" prefWidth="112.0" visible="true" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="139.0" />
-        <TextField fx:id="register_Tlastname" focusTraversable="false" prefWidth="141.0" visible="true" AnchorPane.leftAnchor="161.0" AnchorPane.topAnchor="139.0" />
-        <TextField fx:id="register_Tcard" focusTraversable="false" prefWidth="257.0" visible="true" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="201.0" />
-        <TextField fx:id="register_Tusername" focusTraversable="false" prefWidth="257.0" visible="true" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="261.0" />
-        <PasswordField fx:id="register_Tpassword" focusTraversable="false" prefWidth="257.0" AnchorPane.leftAnchor="49.0" AnchorPane.topAnchor="324.0" />
-        <Button fx:id="register_ok" font="$x1" layoutX="93.0" layoutY="433.0" minHeight="-1.0" mnemonicParsing="false" onAction="#signup" prefHeight="30.0" prefWidth="65.0" text="确定" />
-        <Button fx:id="register_cancel" font="$x1" layoutX="203.0" layoutY="433.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="30.0" prefWidth="65.0" text="取消" />
-        <Line endX="-20.0" endY="0.0" startX="-120.0" stroke="$x6" strokeWidth="0.5" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="168.0" />
-        <Line endX="15.0" endY="0.0" layoutX="296.0" startX="-123.0" stroke="$x6" strokeWidth="0.5" AnchorPane.topAnchor="168.0" />
-        <Line endX="150.0" startX="-100.0" stroke="$x6" strokeWidth="0.5" AnchorPane.bottomAnchor="395.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="228.0" />
-        <Line endX="150.0" startX="-100.0" stroke="$x6" strokeWidth="0.5" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="288.0" />
-        <Line endX="150.0" startX="-100.0" stroke="$x6" strokeWidth="0.5" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="348.0" />
-        <Label fx:id="RegistererrorText" layoutY="402.0" prefWidth="251.0" text="" textFill="$x2" visible="true" AnchorPane.leftAnchor="64.0" />
-        <RadioButton fx:id="register_radiostudent" focusTraversable="true" layoutX="107.0" layoutY="374.0" mnemonicParsing="false" opacity="1.0" selected="false" text="学生" textFill="$x5" textOverrun="ELLIPSIS" underline="false" visible="true">
-          <font>
-            <Font size="14.0" fx:id="x3" />
-          </font>
-          <toggleGroup>
-            <ToggleGroup fx:id="RadioGroup" />
-          </toggleGroup>
-        </RadioButton>
-        <RadioButton fx:id="register_radioadminis" focusTraversable="true" font="$x3" layoutX="197.0" layoutY="374.0" mnemonicParsing="false" opacity="1.0" selected="false" text="管理员" textFill="$x5" textOverrun="ELLIPSIS" toggleGroup="$RadioGroup" underline="false" visible="true" />
+            <VBox id="registerpane__content" prefHeight="550.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+              <Label fx:id="register_Lsignup" prefHeight="45.0" prefWidth="189.0" text="Sign up" textFill="#3385ff">
+                <font>
+                  <Font name="System Bold" size="35.0" />
+                </font>
+              </Label>
+                  <GridPane hgap="10.0" vgap="20.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                    <Label fx:id="register_Lname" prefWidth="176.0" text="姓" textFill="#66c8ff">
+                      <font>
+                        <Font name="Vivaldi Italic" size="16.0" />
+                      </font>
+                    </Label>
+                        <Label text="名" GridPane.columnIndex="1" />
+                        <JFXTextField fx:id="register_Tfirstname" prefHeight="48.0" prefWidth="153.0" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin></JFXTextField>
+                        <JFXTextField fx:id="register_Tlastname" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                  </GridPane>
+              <Label fx:id="register_Lcard" prefWidth="79.00009999999747" text="一 卡 通">
+                <font>
+                  <Font size="15.0" fx:id="x4" />
+                </font>
+                <textFill>
+                  <Color blue="0.800" green="0.514" red="0.000" fx:id="x5" />
+                </textFill>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+              </Label>
+                  <JFXTextField fx:id="register_Tcard" />
+              <Label fx:id="register_Lusername" font="$x4" prefWidth="86.00009999999747" text="用 户 名" textFill="$x5" />
+                  <JFXTextField fx:id="register_Tusername" />
+              <Label fx:id="register_Lpassword" prefWidth="58.0" text="密 码">
+                <font>
+                  <Font size="16.0" fx:id="x8" />
+                </font>
+                <textFill>
+                  <Color blue="0.376" green="0.376" red="0.376" fx:id="x6" />
+                </textFill>
+              </Label>
+                  <JFXPasswordField fx:id="register_Tpassword" />
+                  <HBox id="registerpane__radio-button-group" prefHeight="34.0" prefWidth="440.0">
+                     <children>
+                        <JFXRadioButton fx:id="register_radiostudent" text="学生">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="radiogroup" />
+                           </toggleGroup></JFXRadioButton>
+                        <JFXRadioButton fx:id="register_radioadminis" text="管理员" toggleGroup="$radiogroup" />
+                     </children>
+                  </HBox>
+                  <HBox id="registerpane__button-group" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton id="register_cancel" fx:id="register_cancel" onAction="#switchToLogin" text="取消" />
+                        <JFXButton fx:id="register_ok" onAction="#signup" text="注册" />
+                     </children>
+                  </HBox>
+              <Label fx:id="RegistererrorText" prefWidth="251.0" text="" textFill="$x2" visible="true" />
+               </children>
+            </VBox>
       </children>
     </AnchorPane>
-    <Label fx:id="windowmini" font="$x3" layoutX="652.0" layoutY="14.0" onMouseReleased="#window_mini" prefWidth="26.0" text="一" />
-    <Label fx:id="windowclose" font="$x8" layoutX="685.0" layoutY="14.0" onMouseReleased="#window_close" prefWidth="14.0" text="X" />
+      <HBox id="title" layoutX="680.0" layoutY="4.0">
+         <children>
+          <Label fx:id="windowmini" font="$x3" layoutX="652.0" layoutY="14.0" onMouseReleased="#window_mini" prefWidth="26.0" text="一" />
+          <Label fx:id="windowclose" onMouseReleased="#window_close" prefWidth="14.0" text="X">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font></Label>
+         </children>
+      </HBox>
   </children>
   <stylesheets>
     <URL value="@welcome.css" />

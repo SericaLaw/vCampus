@@ -137,7 +137,7 @@ public class MainViewController extends ViewController implements Initializable 
         si_GPA.setText(stuInfoGot.getGPA());
         si_SRTP.setText(stuInfoGot.getSRTP());
         si_LAC.setText(stuInfoGot.getLectureAttendCount());
-        si_CampusCardID.setText(stuInfoGot.getGPA());
+        si_CampusCardID.setText(stuInfoGot.getCampusCardID());
         si_StudentID.setText(stuInfoGot.getStudentID());
         si_Department.setText(stuInfoGot.getDepartment());
         si_Major.setText(stuInfoGot.getMajor());

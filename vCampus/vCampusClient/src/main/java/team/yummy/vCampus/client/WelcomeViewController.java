@@ -1,8 +1,10 @@
 package team.yummy.vCampus.client;
 
+import com.jfoenix.controls.JFXSnackbar;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import team.yummy.vCampus.web.WebResponse;
@@ -64,13 +66,15 @@ public class WelcomeViewController extends ViewController implements Initializab
     }
 
 
-    public void login(ActionEvent actionEvent)
-    {
+    public void login(ActionEvent actionEvent) {
         String username = login_Tusername.getText();
         String password = login_Tpassword.getText();
+        JFXSnackbar bar = new JFXSnackbar(loginpane);
+
+
 
        if(username.length() == 0 || password.length() == 0)
-            LoginerrorText.setText("用户名和密码不能为空!");
+           bar.enqueue(new JFXSnackbar.SnackbarEvent("用户名密码不能为空"));
 
 
          WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
@@ -81,13 +85,44 @@ public class WelcomeViewController extends ViewController implements Initializab
                 // 切换页面
                 stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
                 break;
-            /*case "404":
-                errorText.setText("用户不存在");
+            case "404":
+                bar.enqueue(new JFXSnackbar.SnackbarEvent("用户不存在"));
                 break;
             case "403":
-                errorText.setText("密码错误");
+                bar.enqueue(new JFXSnackbar.SnackbarEvent("密码错误"));
                 break;
-                */
+
+        }
+
+    }
+
+    public void presslogin(KeyEvent keyEvent)
+    {
+        String username = login_Tusername.getText();
+        String password = login_Tpassword.getText();
+        JFXSnackbar bar = new JFXSnackbar(loginpane);
+
+
+
+        if(username.length() == 0 || password.length() == 0)
+            bar.enqueue(new JFXSnackbar.SnackbarEvent("用户名密码不能为空"));
+
+
+        WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
+        switch (res.getStatusCode()) {
+            case "200":
+                setAccountJsonData(res.getJsonData());
+                api.setAuth(currentAccount.getUsername(), currentAccount.getCampusCardID(),currentAccount.getPassword());
+                // 切换页面
+                stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
+                break;
+            case "404":
+                bar.enqueue(new JFXSnackbar.SnackbarEvent("用户不存在"));
+                break;
+            case "403":
+                bar.enqueue(new JFXSnackbar.SnackbarEvent("密码错误"));
+                break;
+
         }
 
     }
@@ -100,8 +135,10 @@ public class WelcomeViewController extends ViewController implements Initializab
         String username=register_Tusername.getText();
         String password=register_Tpassword.getText();
 
+        JFXSnackbar bar = new JFXSnackbar(registerpane);
         if(firstname.length() == 0 || lastname.length()==0||card.length()==0||username.length()==0||password.length() == 0||RadioGroup.getSelectedToggle()==null)
-            RegistererrorText.setText("请完善所有信息！");
+            bar.enqueue(new JFXSnackbar.SnackbarEvent("请完善所有信息"));
+//            RegistererrorText.setText("请完善所有信息！");
         else
         {
             RegistererrorText.setText("");
