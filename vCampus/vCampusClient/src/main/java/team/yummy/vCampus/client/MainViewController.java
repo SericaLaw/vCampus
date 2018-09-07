@@ -19,10 +19,16 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import com.jfoenix.controls.*;
 
 public class MainViewController extends ViewController implements Initializable {
 
@@ -51,16 +57,14 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML private Label si_Major;
     @FXML private Label si_EnrollmentYear;
     @FXML private Button editorSaveStuInfo;
-    @FXML private TextField si_IDNum;
-    @FXML private ComboBox si_Sex;
-    @FXML private ComboBox si_Birthyear;
-    @FXML private ComboBox si_Birthmonth;
-    @FXML private ComboBox si_Birthday;
-    @FXML private ComboBox si_Birthplace;
-    @FXML private TextField si_Phone;
-    @FXML private TextField si_Email;
-    @FXML private TextField si_Address;
-    @FXML private TextField si_SeniorHigh;
+    @FXML private JFXTextField si_IDNum;
+    @FXML private JFXComboBox si_Sex;
+    @FXML private DatePicker si_Birthdate;
+    @FXML private JFXComboBox si_Birthplace;
+    @FXML private JFXTextField si_Phone;
+    @FXML private JFXTextField si_Email;
+    @FXML private JFXTextField si_Address;
+    @FXML private JFXTextField si_SeniorHigh;
     @FXML private Label si_errorText;
 
     @FXML private AnchorPane li_BorrowedPane;
@@ -188,15 +192,13 @@ public class MainViewController extends ViewController implements Initializable 
         si_EnrollmentYear.setText(stuInfoGot.getEnrollmentYear());
         si_IDNum.setText(stuInfoGot.getIDNum());
         si_Sex.setValue(stuInfoGot.getSex());
-        Date d=stuInfoGot.getBirthDate();
-        Calendar c=Calendar.getInstance();
-        c.setTime(d);
-        String by=Integer.toString(c.get(Calendar.YEAR));
-        String bm=Integer.toString(c.get(Calendar.MONTH)+1);
-        String bd=Integer.toString(c.get(Calendar.DATE));
-        si_Birthyear.setValue(by);
-        si_Birthmonth.setValue(bm);
-        si_Birthday.setValue(bd);
+        //LocalDate d=stuInfoGot.getBirthDate();
+        Date date = stuInfoGot.getBirthDate();
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        // atZone()方法返回在指定时区从此Instant生成的ZonedDateTime。
+        LocalDate d = instant.atZone(zoneId).toLocalDate();
+        si_Birthdate.setValue(d);
         si_Birthplace.setValue(stuInfoGot.getBirthplace());
         si_Phone.setText(stuInfoGot.getPhone());
         si_Email.setText(stuInfoGot.getEmail());
@@ -277,9 +279,7 @@ public class MainViewController extends ViewController implements Initializable 
         {
             si_IDNum.setDisable(false);
             si_Sex.setDisable(false);
-            si_Birthyear.setDisable(false);
-            si_Birthmonth.setDisable(false);
-            si_Birthday.setDisable(false);
+            si_Birthdate.setDisable(false);
             si_Birthplace.setDisable(false);
             si_Phone.setDisable(false);
             si_Email.setDisable(false);
@@ -291,21 +291,23 @@ public class MainViewController extends ViewController implements Initializable 
         else {
             String IDNum=si_IDNum.getText();
             String Sex=si_Sex.getValue().toString();
-            String Birthyear=si_Birthyear.getValue().toString();
-            String Birthmonth=si_Birthmonth.getValue().toString();
-            String Birthday=si_Birthday.getValue().toString();
+            //String Birthdate=si_Birthdate.getValue().format();
+            LocalDate Birthdate=si_Birthdate.getValue();
+            ZoneId zoneId = ZoneId.systemDefault();
+            ZonedDateTime zdt = Birthdate.atStartOfDay(zoneId);
+            Date date = Date.from(zdt.toInstant());
             String Birthplace=si_Birthplace.getValue().toString();
             String Phone=si_Phone.getText();
             String Email=si_Email.getText();
             String Address=si_Address.getText();
             String SeniorHigh=si_SeniorHigh.getText();
 
-            if(IDNum.length() == 0 || Sex.length() == 0 || Birthyear.length() == 0 || Birthmonth.length() == 0 || Birthday.length() == 0 ||
-                    Birthplace.length() == 0 || Phone.length() == 0 || Phone.length() == 0 || Email.length() == 0 || Address.length() == 0 || SeniorHigh.length() == 0 )
+            while(IDNum.length() == 0 || Sex.length() == 0 || Birthplace.length() == 0 ||
+                    Phone.length() == 0 || Email.length() == 0 || Address.length() == 0 || SeniorHigh.length() == 0 )
                 si_errorText.setText("有空选项!");
 
-            SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd" );
-            String str = Birthyear+"-"+Birthmonth+"-"+Birthday;
+            /*SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd" );
+            String str = Birthdate;
             String si_birthdate="";
             try {
                 Date d = sdf.parse(str);
@@ -313,12 +315,12 @@ public class MainViewController extends ViewController implements Initializable 
             } catch (ParseException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            }
+            }*/
 
             JSONObject infoToModify = new JSONObject();
             infoToModify.put("IDNum", IDNum);
             infoToModify.put("Sex",Sex);
-            infoToModify.put("Birthdate", si_birthdate);
+            infoToModify.put("Birthdate", Birthdate);
             infoToModify.put("Birthplace",Birthplace);
             infoToModify.put("Phone", Phone);
             infoToModify.put("Email",Email);
@@ -326,11 +328,10 @@ public class MainViewController extends ViewController implements Initializable 
             infoToModify.put("SeniorHigh",SeniorHigh);
             api.patch("/stuInfo/campusCardID/"+ currentAccount.getCampusCardID(), infoToModify.toJSONString());
 
+            si_errorText.setText("");
             si_IDNum.setDisable(true);
             si_Sex.setDisable(true);
-            si_Birthyear.setDisable(true);
-            si_Birthmonth.setDisable(true);
-            si_Birthday.setDisable(true);
+            si_Birthdate.setDisable(true);
             si_Birthplace.setDisable(true);
             si_Phone.setDisable(true);
             si_Email.setDisable(true);
