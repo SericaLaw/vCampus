@@ -7,16 +7,16 @@ package team.yummy.vCampus.models;
  */
 public class CourseScheduleItem {
     private String courseID;
-    private String weekDay;
-    private String spanStart;
-    private String spanEnd;
+    private int weekDay;
+    private int spanStart;
+    private int spanEnd;
 
     private String courseName;
     private String profName;
     private String courseVenue;
 
     public CourseScheduleItem() {}
-    public CourseScheduleItem(String courseID, String weekDay, String spanStart, String spanEnd, String courseName, String profName, String courseVenue) {
+    public CourseScheduleItem(String courseID, int weekDay, int spanStart, int spanEnd, String courseName, String profName, String courseVenue) {
         this.courseID = courseID;
         this.weekDay = weekDay;
         this.spanStart = spanStart;
@@ -32,30 +32,6 @@ public class CourseScheduleItem {
 
     public void setCourseID(String courseID) {
         this.courseID = courseID;
-    }
-
-    public String getWeekDay() {
-        return weekDay;
-    }
-
-    public void setWeekDay(String weekDay) {
-        this.weekDay = weekDay;
-    }
-
-    public String getSpanStart() {
-        return spanStart;
-    }
-
-    public void setSpanStart(String spanStart) {
-        this.spanStart = spanStart;
-    }
-
-    public String getSpanEnd() {
-        return spanEnd;
-    }
-
-    public void setSpanEnd(String spanEnd) {
-        this.spanEnd = spanEnd;
     }
 
     public String getCourseName() {
@@ -93,5 +69,29 @@ public class CourseScheduleItem {
     public String getSql(String campusCardID) {
         String sql = String.format("SELECT CourseID, WeekDay, SpanStart, SpanEnd, CourseName, ProfName, CourseVenue From Course c, CourseSchedule cs, CourseRecord cr WHERE c.CourseID = cs.CourseID AND cs.CourseID = cr.CourseID AND cr.CampusCardID = '%s' AND cr.Semester='18-19-2'", campusCardID);
         return sql;
+    }
+
+    public int getWeekDay() {
+        return weekDay;
+    }
+
+    public void setWeekDay(int weekDay) {
+        this.weekDay = weekDay;
+    }
+
+    public int getSpanStart() {
+        return spanStart;
+    }
+
+    public void setSpanStart(int spanStart) {
+        this.spanStart = spanStart;
+    }
+
+    public int getSpanEnd() {
+        return spanEnd;
+    }
+
+    public void setSpanEnd(int spanEnd) {
+        this.spanEnd = spanEnd;
     }
 }

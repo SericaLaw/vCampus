@@ -5,7 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import org.omg.CORBA.PRIVATE_MEMBER;
+import team.yummy.vCampus.models.CourseScheduleItem;
 import team.yummy.vCampus.models.Goods;
 import team.yummy.vCampus.models.StuInfo;
 
@@ -77,7 +80,7 @@ public class MainViewController extends ViewController implements Initializable 
 
 
     /**
-     * variables for store page
+     * members for store page
      */
     @FXML private VBox store_newItemBox;
     @FXML private VBox store_popItemBox;
@@ -90,6 +93,13 @@ public class MainViewController extends ViewController implements Initializable 
     // 这里存放购物车数据
 
     public List<Goods> goodsToBuy = new ArrayList<>();
+
+    /**
+     * members for course schedule
+     */
+    @FXML private GridPane course_scheduleGrid;
+
+    public List<CourseScheduleItem> courseScheduleItems = new ArrayList<>();
 
     private double xOffset = 0;
     private double yOffset = 0;
@@ -123,6 +133,11 @@ public class MainViewController extends ViewController implements Initializable 
 
         goodsToBuy.add(good1);
         goodsToBuy.add(good2);
+
+        CourseScheduleItem courseScheduleItem1 = new CourseScheduleItem("1001", 1, 1, 3, "数据结构", "邓俊辉","J2-102");
+        CourseScheduleItem courseScheduleItem2 = new CourseScheduleItem("2001", 1, 12, 13, "算法", "图灵","J2-202");
+        courseScheduleItems.add(courseScheduleItem1);
+        courseScheduleItems.add(courseScheduleItem2);
     }
 
     @FXML
@@ -216,6 +231,19 @@ public class MainViewController extends ViewController implements Initializable 
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
+
+        for(CourseScheduleItem course : courseScheduleItems) {
+            JFXButton courseItem = new JFXButton(course.getCourseName()+"@"+course.getCourseVenue());
+            courseItem.setPrefHeight(200);
+            courseItem.setPrefWidth(200);
+            courseItem.setBackground(new Background(new BackgroundFill(Color.web("#512DA8"), null, null)));
+            courseItem.setTextFill(Color.web("#fff"));
+            courseItem.setFont(Font.font(14));
+//            courseItem.borderProperty().setValue(new Border(new BorderStroke(null, null, new CornerRadii(50), new BorderWidths(2))));
+//            courseItem.setBorder(new Border(new BorderStroke(Color.web("#512DA8"), BorderStrokeStyle.SOLID, new CornerRadii(50), new BorderWidths(2))));
+//            courseItem.getStyleClass().add("course-schedule-item");
+            course_scheduleGrid.add(courseItem, course.getWeekDay(), course.getSpanStart(), 1, course.getSpanEnd()-course.getSpanStart()+1);
+        }
     }
     @FXML
     protected void switchDorm(ActionEvent actionEvent) {
