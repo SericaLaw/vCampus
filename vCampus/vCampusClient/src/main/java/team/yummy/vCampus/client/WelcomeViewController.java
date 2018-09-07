@@ -1,6 +1,8 @@
 package team.yummy.vCampus.client;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.JFXRadioButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -41,9 +43,12 @@ public class WelcomeViewController extends ViewController implements Initializab
     @FXML private Label windowclose;
     @FXML private Label windowmini;
 
-    @FXML private ToggleGroup RadioGroup;
-    @FXML private RadioButton register_choosestudent;
-    @FXML private RadioButton register_chooseadminis;
+    @FXML private ToggleGroup radiogroup;
+    @FXML private JFXRadioButton register_radiostudent;
+    @FXML private JFXRadioButton register_radioadminis;
+
+    public WelcomeViewController() {
+    }
 
 
     @Override
@@ -73,26 +78,34 @@ public class WelcomeViewController extends ViewController implements Initializab
 
 
 
-       if(username.length() == 0 || password.length() == 0)
-           bar.enqueue(new JFXSnackbar.SnackbarEvent("用户名密码不能为空"));
+        if(username.length() == 0 || password.length() == 0)
+            bar.enqueue(new JFXSnackbar.SnackbarEvent("用户名密码不能为空"));
 
 
-         WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
-        switch (res.getStatusCode()) {
-            case "200":
-                setAccountJsonData(res.getJsonData());
-                api.setAuth(currentAccount.getUsername(), currentAccount.getCampusCardID(),currentAccount.getPassword());
-                // 切换页面
-                stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
-                break;
-            case "404":
-                bar.enqueue(new JFXSnackbar.SnackbarEvent("用户不存在"));
-                break;
-            case "403":
-                bar.enqueue(new JFXSnackbar.SnackbarEvent("密码错误"));
-                break;
+        else
+        {
 
+            WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
+            switch (res.getStatusCode()) {
+                case "200":
+                    setAccountJsonData(res.getJsonData());
+                    api.setAuth(currentAccount.getUsername(), currentAccount.getCampusCardID(),currentAccount.getPassword());
+                    // 切换页面
+                    stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
+                    //让后面账户登出回到这个界面时上面没有之前的账户和密码
+                    login_Tpassword.setText("");
+                    login_Tusername.setText("");
+                    break;
+                case "404":
+                    bar.enqueue(new JFXSnackbar.SnackbarEvent("用户不存在"));
+                    break;
+                case "403":
+                    bar.enqueue(new JFXSnackbar.SnackbarEvent("密码错误"));
+                    break;
+
+            }
         }
+
 
     }
 
@@ -108,21 +121,27 @@ public class WelcomeViewController extends ViewController implements Initializab
             bar.enqueue(new JFXSnackbar.SnackbarEvent("用户名密码不能为空"));
 
 
-        WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
-        switch (res.getStatusCode()) {
-            case "200":
-                setAccountJsonData(res.getJsonData());
-                api.setAuth(currentAccount.getUsername(), currentAccount.getCampusCardID(),currentAccount.getPassword());
-                // 切换页面
-                stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
-                break;
-            case "404":
-                bar.enqueue(new JFXSnackbar.SnackbarEvent("用户不存在"));
-                break;
-            case "403":
-                bar.enqueue(new JFXSnackbar.SnackbarEvent("密码错误"));
-                break;
+        else
+        {
+            WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
+            switch (res.getStatusCode()) {
+                case "200":
+                    setAccountJsonData(res.getJsonData());
+                    api.setAuth(currentAccount.getUsername(), currentAccount.getCampusCardID(),currentAccount.getPassword());
+                    // 切换页面
+                    stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
+                    //让后面账户登出回到这个界面时上面没有之前的账户和密码
+                    login_Tpassword.setText("");
+                    login_Tusername.setText("");
+                    break;
+                case "404":
+                    bar.enqueue(new JFXSnackbar.SnackbarEvent("用户不存在"));
+                    break;
+                case "403":
+                    bar.enqueue(new JFXSnackbar.SnackbarEvent("密码错误"));
+                    break;
 
+            }
         }
 
     }
@@ -136,19 +155,40 @@ public class WelcomeViewController extends ViewController implements Initializab
         String password=register_Tpassword.getText();
 
         JFXSnackbar bar = new JFXSnackbar(registerpane);
-        if(firstname.length() == 0 || lastname.length()==0||card.length()==0||username.length()==0||password.length() == 0||RadioGroup.getSelectedToggle()==null)
+        if(firstname.length() == 0 || lastname.length()==0||card.length()==0||username.length()==0||password.length() == 0||radiogroup.getSelectedToggle()==null)
             bar.enqueue(new JFXSnackbar.SnackbarEvent("请完善所有信息"));
-//            RegistererrorText.setText("请完善所有信息！");
+
         else
         {
-            RegistererrorText.setText("");
+            register_radiostudent.setUserData("student");
+            register_radioadminis.setUserData("administrator");
+            String role=radiogroup.getSelectedToggle().getUserData().toString();
+            JSONObject info = new JSONObject();
+            info.put("CampusCardID",card);
+            info.put("Username",username);
+            info.put("Password",password);
+            info.put("FirstName",firstname);
+            info.put("LastName",lastname);
+            info.put("role",role);
+            WebResponse res = api.post("/account",info.toJSONString());
+            switch (res.getStatusCode())
+            {
+                case"201":
+                    //切换到登录界面
+                    registerpane.setVisible(false);
+                    loginpane.setVisible(true);
+                    break;
+                case"403":
+                    bar.enqueue(new JFXSnackbar.SnackbarEvent("该账号已存在！"));
+                    break;
+            }
+
         }
 
-      /* if(RadioGroup.getSelectedToggle().getUserData().toString())
-       {
-           RegistererrorText.setText("mia");
-       }
-       else RegistererrorText.setText("身份为管理员");*/
+
+
+
+
 
     }
 

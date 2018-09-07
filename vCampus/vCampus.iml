@@ -18,14 +18,14 @@
         <jarDirectory url="file://$MODULE_DIR$/third-party-lib" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="vCampusCore" />
     <orderEntry type="module-library">
       <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../软件实践/jfoenix-8.0.7.jar!/" />
-        </CLASSES>
+        <CLASSES />
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vCampusCore/src/main/java" />
+          <root url="file://$MODULE_DIR$/vCampusCore/src/test/java" />
+        </SOURCES>
       </library>
     </orderEntry>
   </component>

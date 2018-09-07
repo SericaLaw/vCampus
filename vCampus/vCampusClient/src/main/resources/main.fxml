@@ -426,7 +426,84 @@
             </AnchorPane>
             <AnchorPane fx:id="BankPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
-                <Label layoutX="406.0" layoutY="305.0" text="银行" />
+                  <TabPane layoutX="-2.0" layoutY="6.0" prefHeight="740.0" prefWidth="950.0" tabClosingPolicy="UNAVAILABLE">
+                  <tabs>
+                  <Tab text="基本信息">
+                  <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <children>
+                          <GridPane layoutX="35.0" layoutY="100.0" prefHeight="179.0" prefWidth="360.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="100.0">
+                              <children>
+                              <Label text="姓名" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+                              <Separator GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+                              <Separator GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+                              <Label text="账户尾号" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <Separator GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                              <Separator GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                              <Label text="账户余额" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+                              <Separator GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                              <Separator GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                              </children>
+                              <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="139.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="512.0" minWidth="10.0" prefWidth="272.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints />
+                              </rowConstraints>
+                          </GridPane>
+                          <Separator prefWidth="200.0" />
+                          </children>
+                      </AnchorPane>
+                  </content></Tab>
+                      <Tab text="充值缴费">
+                          <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                  <children>
+                                  <GridPane layoutX="35.0" layoutY="100.0" prefHeight="233.0" prefWidth="337.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="100.0">
+                                      <children />
+                                      <children>
+                                      <Label text="姓名" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+                                      <Label text="选择操作" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                      <Button mnemonicParsing="false" text="充值" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                      <Button mnemonicParsing="false" text="缴费" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                      <Label text="充值/缴费金额" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                      <TextField prefHeight="23.0" prefWidth="121.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                      <Label text="请输入密码" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                      <TextField prefHeight="23.0" prefWidth="121.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                      </children>
+                                      <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="108.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="252.0" minWidth="10.0" prefWidth="114.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                          <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints />
+                                      </rowConstraints>
+                                  </GridPane>
+                                  <Button layoutX="184.0" layoutY="377.0" mnemonicParsing="false" text="确认" />
+                                  <Button layoutX="332.0" layoutY="377.0" mnemonicParsing="false" text="取消" />
+                                  </children></AnchorPane>
+                          </content>
+                      </Tab>
+                      <Tab text="交易记录">
+                          <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                      </Tab>
+                      <Tab text="挂失解挂">
+                          <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                      </Tab>
+                  </tabs>
+                  </TabPane>
+
               </children>
             </AnchorPane>
               <AnchorPane fx:id="StorePane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -568,12 +645,12 @@
                               </Separator>
                            </children>
                         </GridPane>
-                <Button fx:id="cancelAccount" defaultButton="false" layoutX="361.0" layoutY="556.0" mnemonicParsing="false" mouseTransparent="false" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="销号" textFill="$x6" underline="false" wrapText="false">
+                <Button fx:id="cancelAccount" defaultButton="false" layoutX="361.0" layoutY="556.0" mnemonicParsing="false" mouseTransparent="false" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="销号" textFill="$x6" underline="false" wrapText="false" onAction="#unregister" >
                   <font>
                     <Font size="17.0" fx:id="x7" />
                   </font>
                 </Button>
-                <Button fx:id="logout" defaultButton="false" font="$x7" layoutX="361.0" layoutY="601.0" mnemonicParsing="false" mouseTransparent="false" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="登出" textFill="$x6" underline="false" wrapText="false" />
+                <Button fx:id="logout" defaultButton="false" font="$x7" layoutX="361.0" layoutY="601.0" mnemonicParsing="false" mouseTransparent="false" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="登出" textFill="$x6" underline="false" wrapText="false" onAction="#logout" />
               </children>
             </AnchorPane>
           </children>

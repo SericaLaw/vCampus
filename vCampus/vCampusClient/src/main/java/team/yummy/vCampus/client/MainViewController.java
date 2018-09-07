@@ -2,8 +2,12 @@ package team.yummy.vCampus.client;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -181,7 +185,7 @@ public class MainViewController extends ViewController implements Initializable 
         am_CampusCardID.setText(currentAccount.getCampusCardID());
         am_Username.setText(currentAccount.getUsername());
         am_Role.setText(currentAccount.getRole());
-        am_Name.setText(currentAccount.getLastName()+currentAccount.getFirstName());
+        am_Name.setText(currentAccount.getFirstName()+currentAccount.getLastName());
     }
 
     @FXML
@@ -381,17 +385,58 @@ public class MainViewController extends ViewController implements Initializable 
         li_InquirePane.setVisible(true);
         li_BorrowedPane.setDisable(false);
     }
-
-
-
-
-    protected void choosestudent(ActionEvent actionEvent)
-    {
-        register_radiominis.setPickOnBounds(false);
-    }
     @FXML
-    protected void chooseadminis(ActionEvent actionEvent)
+    protected void logout(ActionEvent actionEvent)
     {
-        register_radiostudent.setPickOnBounds(false);
+        stageController.setStage(App.WELCOME_VIEW_NAME, App.MAIN_VIEW_NAME);
     }
+
+    @FXML
+    protected void unregister(ActionEvent actionEvent)
+    {
+        final JFXDialog dialog = new JFXDialog();
+        HBox hb1 = new HBox();
+        HBox hb2 = new HBox();
+        VBox vb = new VBox();
+        Label text =new Label("确定要销号吗？");
+        text.setFont(Font.font(20));
+        text.setTextFill(Color.web("black"));
+        text.setPadding(new Insets(10,0,0,180));
+        text.setPrefSize(400,200);
+        hb1.setPadding(new Insets(0,10,30,280));
+        JFXButton ok=new JFXButton("确定");
+        JFXButton cancel=new JFXButton("取消");
+        ok.setFont(Font.font(17));
+        ok.setPrefSize(80,35);
+        ok.setBackground(new Background(new BackgroundFill(Color.web("#FF4500"),null,null)));
+        ok.setTextFill(Color.web("#fff"));
+        cancel.setFont(Font.font(17));
+        cancel.setPrefSize(80,35);
+        cancel.setBackground(new Background(new BackgroundFill(Color.web("#707070"),null,null)));
+        cancel.setTextFill(Color.web("#fff"));
+        hb1.setSpacing(35);
+        hb1.getChildren().addAll(ok,cancel);
+        vb.setPrefSize(500,250);
+        hb2.getChildren().addAll(text);
+        vb.getChildren().addAll(hb2,hb1);
+        dialog.setContent(vb);
+        dialog.show(rootStackPane);
+
+        ok.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //销号的操作
+                api.delete("/account/campusCardId/"+ currentAccount.getCampusCardID());
+                stageController.setStage(App.WELCOME_VIEW_NAME, App.MAIN_VIEW_NAME);
+            }
+        });
+
+        cancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                dialog.setVisible(false);            }
+        });
+
+    }
+
 }
