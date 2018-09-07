@@ -388,7 +388,47 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML
     protected void logout(ActionEvent actionEvent)
     {
-        stageController.setStage(App.WELCOME_VIEW_NAME, App.MAIN_VIEW_NAME);
+        final JFXDialog dialog = new JFXDialog();
+        HBox hb1 = new HBox();
+        HBox hb2 = new HBox();
+        VBox vb = new VBox();
+        Label text =new Label("确定要登出吗？");
+        text.setFont(Font.font(20));
+        text.setTextFill(Color.web("black"));
+        text.setPadding(new Insets(10,0,0,180));
+        text.setPrefSize(400,200);
+        hb1.setPadding(new Insets(0,10,30,280));
+        JFXButton ok=new JFXButton("确定");
+        JFXButton cancel=new JFXButton("取消");
+        ok.setFont(Font.font(17));
+        ok.setPrefSize(80,35);
+        ok.setBackground(new Background(new BackgroundFill(Color.web("#FF4500"),null,null)));
+        ok.setTextFill(Color.web("#fff"));
+        cancel.setFont(Font.font(17));
+        cancel.setPrefSize(80,35);
+        cancel.setBackground(new Background(new BackgroundFill(Color.web("#707070"),null,null)));
+        cancel.setTextFill(Color.web("#fff"));
+        hb1.setSpacing(35);
+        hb1.getChildren().addAll(ok,cancel);
+        vb.setPrefSize(500,250);
+        hb2.getChildren().addAll(text);
+        vb.getChildren().addAll(hb2,hb1);
+        dialog.setContent(vb);
+        dialog.show(rootStackPane);
+
+        ok.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //登出的操作
+                stageController.setStage(App.WELCOME_VIEW_NAME, App.MAIN_VIEW_NAME);
+            }
+        });
+
+        cancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                dialog.setVisible(false);            }
+        });
     }
 
     @FXML

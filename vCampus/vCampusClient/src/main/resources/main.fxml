@@ -140,7 +140,7 @@
                 <Label layoutX="496.0" layoutY="374.0" prefHeight="73.0" prefWidth="86.0" text="init" />
               </children>
             </AnchorPane>
-            <AnchorPane id="content__stu-info" fx:id="StuInfoPane" disable="false" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane id="content__stu-info" fx:id="StuInfoPane" disable="false" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
                 <Button fx:id="editorSaveStuInfo" layoutX="201.0" layoutY="379.0" mnemonicParsing="false" onAction="#editorSave" prefHeight="20.0" prefWidth="80.0" text="编辑">
                   <font>
@@ -371,7 +371,7 @@
                   </TabPane>
               </children>
             </AnchorPane>
-            <AnchorPane fx:id="DormPane" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="DormPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <TreeTableView layoutX="105.0" layoutY="370.0" prefHeight="292.0" prefWidth="747.0">
                           <columns>
@@ -645,12 +645,12 @@
                               </Separator>
                            </children>
                         </GridPane>
-                <Button fx:id="cancelAccount" defaultButton="false" layoutX="361.0" layoutY="556.0" mnemonicParsing="false" mouseTransparent="false" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="销号" textFill="$x6" underline="false" wrapText="false" onAction="#unregister" >
+                <Button fx:id="cancelAccount" defaultButton="false" layoutX="361.0" layoutY="556.0" mnemonicParsing="false" mouseTransparent="false" onAction="#unregister" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="销号" textFill="$x6" underline="false" wrapText="false">
                   <font>
                     <Font size="17.0" fx:id="x7" />
                   </font>
                 </Button>
-                <Button fx:id="logout" defaultButton="false" font="$x7" layoutX="361.0" layoutY="601.0" mnemonicParsing="false" mouseTransparent="false" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="登出" textFill="$x6" underline="false" wrapText="false" onAction="#logout" />
+                <Button fx:id="logout" defaultButton="false" font="$x7" layoutX="361.0" layoutY="601.0" mnemonicParsing="false" mouseTransparent="false" onAction="#logout" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="登出" textFill="$x6" underline="false" wrapText="false" />
               </children>
             </AnchorPane>
           </children>
