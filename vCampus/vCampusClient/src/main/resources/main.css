@@ -90,7 +90,7 @@
     -fx-alignment: center;
 }
 
-#content__stu-info__heading__name {
+#content__stu-info__heading__name,#content__d__heading__DormID {
     -fx-font-size: 26px;
     -fx-text-fill: #212121;
 }
@@ -102,7 +102,8 @@
 }
 
 #content__stu-info__heading .column-title,
-#content__stu-info__banner .column-title {
+#content__stu-info__banner .column-title,
+#content__d__banner .column-title {
     -fx-text-fill: #757575;
     -fx-font-size: 16px;
 }
@@ -113,7 +114,9 @@
     -fx-font-size: 18px;
 }
 
-#content__stu-info__banner .column-content {
+#content__stu-info__banner .column-content,
+#content__d__banner .column-content
+{
     -fx-text-fill: #512DA8;
     -fx-font-size: 26px;
 }
@@ -147,6 +150,11 @@
     -fx-cursor: hand;
 }
 
+#content__d__Year,#content__d__Month,#content__d__Score,#content__d__Fare{
+    -fx-background-color:#b196f3;
+    -fx-font-size:20px;
+}
+
 #content__lib__Borrowed,#content__lib__Search,#content__lib__Inquire{
    -fx-background-color:#e9e9e9;
     -fx-font-size: 16px;
@@ -157,11 +165,6 @@
   -fx-text-fill:#fff;
   -fx-font-size: 16px;
 }
-
-#am_CampusCardID,#am_Username,#am_Name,#am_Role{
-    -fx-font-size:20px;
-}
-
 
 #content__store__wrapper,
 #content__cart__wrapper {
@@ -189,12 +192,9 @@
     -fx-alignment: center;
 }
 
-
 #content__store__wrapper .section .label {
     -fx-text-fill: #7C4DFF;
 }
-
-
 
 #content__store__wrapper .section .label:hover,
 .img:hover,
@@ -204,4 +204,8 @@
 
 .img:hover {
     -fx-effect:dropshadow(one-pass-box, #bbb, 20, 0.05, 3, 8);
+}
+
+#am_CampusCardID,#am_Username,#am_Name,#am_Role{
+    -fx-font-size:20px;
 }
