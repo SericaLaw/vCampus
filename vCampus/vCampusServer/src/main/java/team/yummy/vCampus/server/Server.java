@@ -1,7 +1,9 @@
 package team.yummy.vCampus.server;
 
 
-import team.yummy.vCampus.server.middlewares.AuthenticationMiddleware;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import team.yummy.vCampus.server.middlewares.AuthMiddleware;
 import team.yummy.vCampus.server.middlewares.Middleware;
 import team.yummy.vCampus.server.middlewares.RoutingMiddleware;
 import team.yummy.vCampus.server.middlewares.SessionMiddleware;
@@ -24,6 +26,10 @@ public class Server {
     // 中间件列表
     public ArrayList<Middleware> middlewares = new ArrayList<Middleware>();
 
+    // DbSession配置
+    public Configuration dbConfig = null;
+    public SessionFactory dbFactory = null;
+
     // 服务器端Socket
     private ServerSocket serverSocket;
 
@@ -37,8 +43,11 @@ public class Server {
     }
 
     public void configure() {
+        dbConfig = new Configuration().configure("/hibernate.cfg.xml");
+        dbFactory = dbConfig.buildSessionFactory();
+
         middlewares.add(new SessionMiddleware());
-        middlewares.add(new AuthenticationMiddleware());
+        middlewares.add(new AuthMiddleware());
         middlewares.add(new RoutingMiddleware());
     }
 

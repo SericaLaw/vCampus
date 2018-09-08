@@ -14,5 +14,14 @@
         <property name="department" column="Department"/>
         <property name="major" column="Major"/>
         <property name="idNum" column="IDNum"/>
+        <property name="address" column="Address"/>
+        <property name="birthdate" column="Birthdate"/>
+        <property name="phone" column="Phone"/>
+        <property name="enrollmentYear" column="EnrollmentYear"/>
+        <property name="lectureAttendCount" column="LectureAttendCount"/>
+        <property name="srtp" column="SRTP"/>
+        <property name="gpa" column="GPA"/>
+        <property name="email" column="Email"/>
+        <one-to-one name="accountByCampusCardId" class="team.yummy.vCampus.models.entity.AccountEntity"/>
     </class>
 </hibernate-mapping>

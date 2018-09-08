@@ -1,5 +1,8 @@
 package team.yummy.vCampus.models;
 
+import team.yummy.vCampus.models.entity.Schedule;
+import team.yummy.vCampus.models.viewmodel.CourseRegisterViewModel;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +13,7 @@ import java.util.Map;
  * 每次提交一次选课，都从服务器返回更新后的信息8
  */
 public class CourseRegister {
-    private List<CourseRegisterItem> courseList;
+    private List<CourseRegisterViewModel> courseList;
 
 
 
@@ -20,11 +23,11 @@ public class CourseRegister {
         return sql;
     }
 
-    public List<CourseRegisterItem> getCourseList() {
+    public List<CourseRegisterViewModel> getCourseList() {
         return courseList;
     }
 
-    public void setCourseList(List<CourseRegisterItem> courseList) {
+    public void setCourseList(List<CourseRegisterViewModel> courseList) {
         this.courseList = courseList;
     }
 
@@ -33,7 +36,7 @@ public class CourseRegister {
         for(Map<String, String> item : selectedCourse) {
             selectedCourseIDs.add(item.get("CourseID"));
         }
-        for(CourseRegisterItem c: courseList) {
+        for(CourseRegisterViewModel c: courseList) {
             if(selectedCourseIDs.contains(c.getCourseID()))
                 c.setStatus(CourseStatusEnum.SELECTED);
             else if(c.getStuAttendCount() == c.getStuLimitCount())
@@ -60,7 +63,7 @@ public class CourseRegister {
         }
 
         // 初始化table，已经有课的时间段设置false
-        for(CourseRegisterItem c : courseList) {
+        for(CourseRegisterViewModel c : courseList) {
             if(c.getStatus() == CourseStatusEnum.SELECTED) {
                 List<Schedule> schedules = c.getCourseSchedule();
                 for (Schedule s : schedules) {
@@ -70,7 +73,7 @@ public class CourseRegister {
             }
         }
 
-        for(CourseRegisterItem c : courseList) {
+        for(CourseRegisterViewModel c : courseList) {
             if(c.getStatus() == CourseStatusEnum.AVAILABLE || c.getStatus() == CourseStatusEnum.CONFLICT) {
                 // init
                 c.setStatus(CourseStatusEnum.AVAILABLE);

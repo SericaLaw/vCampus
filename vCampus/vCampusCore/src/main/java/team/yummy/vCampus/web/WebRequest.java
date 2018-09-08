@@ -94,10 +94,8 @@ public class WebRequest implements Serializable {
             tableName = p[1].substring(0, 1).toUpperCase() + p[1].substring(1);
         // key
         if (p.length >= 3)
-
-        // value
-
             field = p[2].substring(0, 1).toUpperCase() + p[2].substring(1);
+        // value
         if (p.length >= 4)
             value = p[3];
         // query
@@ -108,17 +106,12 @@ public class WebRequest implements Serializable {
             queryValue = p[5];
     }
 
-    public <T> T data(Class<T> clazz) {
-        String jsonData = getJsonData();
-        // 将字符串转为T类
-        T parsedData = JSON.parseObject(jsonData, clazz);
-        return parsedData;
+    public <T> T deserialize(Class<T> clazz) {
+        return JSON.parseObject(getJsonData(), clazz);
     }
 
-    public <T> List<T>  dataList(Class<T> clazz) {
-        String jsonData = getJsonData();
-        List<T> list = JSON.parseArray(jsonData, clazz);
-        return list;
+    public <T> List<T> deserializeList(Class<T> clazz) {
+        return JSON.parseArray(getJsonData(), clazz);
     }
 
     public String getSql() {

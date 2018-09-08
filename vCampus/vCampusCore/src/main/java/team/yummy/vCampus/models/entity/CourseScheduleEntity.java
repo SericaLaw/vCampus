@@ -1,0 +1,100 @@
+package team.yummy.vCampus.models.entity;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "CourseSchedule", schema = "\".\"", catalog = "\".\"")
+public class CourseScheduleEntity {
+    private Integer id;
+    private String courseId;
+    private Integer weekDay;
+    private Integer spanStart;
+    private Integer spanEnd;
+    private CourseEntity courseByCourseId;
+
+    @Id
+    @Column(name = "ID")
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "CourseID")
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
+    @Basic
+    @Column(name = "WeekDay")
+    public Integer getWeekDay() {
+        return weekDay;
+    }
+
+    public void setWeekDay(Integer weekDay) {
+        this.weekDay = weekDay;
+    }
+
+    @Basic
+    @Column(name = "SpanStart")
+    public Integer getSpanStart() {
+        return spanStart;
+    }
+
+    public void setSpanStart(Integer spanStart) {
+        this.spanStart = spanStart;
+    }
+
+    @Basic
+    @Column(name = "SpanEnd")
+    public Integer getSpanEnd() {
+        return spanEnd;
+    }
+
+    public void setSpanEnd(Integer spanEnd) {
+        this.spanEnd = spanEnd;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CourseScheduleEntity that = (CourseScheduleEntity) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (courseId != null ? !courseId.equals(that.courseId) : that.courseId != null) return false;
+        if (weekDay != null ? !weekDay.equals(that.weekDay) : that.weekDay != null) return false;
+        if (spanStart != null ? !spanStart.equals(that.spanStart) : that.spanStart != null) return false;
+        if (spanEnd != null ? !spanEnd.equals(that.spanEnd) : that.spanEnd != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (courseId != null ? courseId.hashCode() : 0);
+        result = 31 * result + (weekDay != null ? weekDay.hashCode() : 0);
+        result = 31 * result + (spanStart != null ? spanStart.hashCode() : 0);
+        result = 31 * result + (spanEnd != null ? spanEnd.hashCode() : 0);
+        return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "CourseID", referencedColumnName = "CourseID", nullable = false)
+    public CourseEntity getCourseByCourseId() {
+        return courseByCourseId;
+    }
+
+    public void setCourseByCourseId(CourseEntity courseByCourseId) {
+        this.courseByCourseId = courseByCourseId;
+    }
+}

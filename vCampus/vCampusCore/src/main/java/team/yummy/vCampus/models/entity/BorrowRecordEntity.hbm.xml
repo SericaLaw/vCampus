@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="team.yummy.vCampus.models.entity.BorrowRecordEntity" table="BorrowRecord" schema="&quot;.&quot;"
+           catalog="&quot;.&quot;">
+        <id name="id" column="ID"/>
+        <property name="campusCardId" column="CampusCardID"/>
+        <property name="borrowDate" column="BorrowDate"/>
+        <property name="expiryDate" column="ExpiryDate"/>
+        <property name="bookId" column="BookID"/>
+        <many-to-one name="accountByCampusCardId" class="team.yummy.vCampus.models.entity.AccountEntity">
+            <column name="CampusCardID"/>
+        </many-to-one>
+        <many-to-one name="bookByBookId" class="team.yummy.vCampus.models.entity.BookEntity">
+            <column name="BookID"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

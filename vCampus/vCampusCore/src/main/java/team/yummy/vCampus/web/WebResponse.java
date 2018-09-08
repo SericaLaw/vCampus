@@ -73,7 +73,7 @@ public class WebResponse implements Serializable {
 
     @Override
     public String toString() {
-        return statusCode + " --> "  + message + "\n[ JSON data = " + jsonData + " ]\n[ sessionId = " + sessionId +" ]\n";
+        return statusCode + " --> "  + message + "\n[ JSON deserialize = " + jsonData + " ]\n[ sessionId = " + sessionId +" ]\n";
     }
 
     @Override

@@ -1,21 +1,117 @@
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import team.yummy.vCampus.data.DBHelper;
 import team.yummy.vCampus.models.*;
+import team.yummy.vCampus.models.viewmodel.CourseRegisterViewModel;
+import team.yummy.vCampus.models.viewmodel.CourseReportViewModel;
+import team.yummy.vCampus.models.viewmodel.CourseScheduleViewModel;
 import team.yummy.vCampus.util.Logger;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
+
+
+/**
+ * @author Serica
+ * Account 类
+ * 对应Account表
+ */
+class Account {
+    private String campusCardID;
+    private String username;
+    private String password;
+    private String lastName;
+    private String firstName;
+    private String role;
+
+    public Account() {}
+    public Account(String campusCardID, String username, String password, String lastName, String firstName, RoleEnum role) {
+        setCampusCardID(campusCardID);
+        setUsername(username);
+        setPassword(password);
+        setLastName(lastName);
+        setFirstName(firstName);
+        setRole(role.getName());
+    }
+    public String getCampusCardID() {
+        return campusCardID;
+    }
+
+    public void setCampusCardID(String campusCardID) {
+        this.campusCardID = campusCardID;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        assert role.equals("student") || role.equals("teacher") || role.equals("admin");
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Class Account [ campusCardID = %s, username = %s, " +
+                        "password = %s, lastName = %s, firstName = %s, role = %s]",
+                campusCardID, username, password, lastName, firstName, role);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj)
+            return true;
+        if(obj instanceof Account) {
+            Account another = (Account) obj;
+            return this.campusCardID.equals(another.campusCardID) && this.firstName.equals(another.firstName)
+                    && this.lastName.equals(another.lastName) && this.username.equals(another.username)
+                    && this.password.equals(another.password) && this.role.equals(another.role);
+        }
+        return false;
+    }
+
+
+}
 
 /**
  * 以test/database下的数据库中的Account表为例
@@ -103,14 +199,6 @@ public class DBHelperTest {
         assertEquals(true, flag);
 
         /**
-         * select( tableName, count )
-         */
-        jsonData = dbHelper.select("BorrowBook", 2);
-
-        List<BorrowBookRecord> b = JSON.parseArray(jsonData, BorrowBookRecord.class);
-        logger.log(jsonData);
-
-        /**
          * select 数据库不存在的项
          */
         jsonData = dbHelper.select("BorrowBook", "BookID", "200");
@@ -172,9 +260,6 @@ public class DBHelperTest {
         // selectOne的查询结果为空时jsonData是 {}
         assertEquals(true, jsonData.equals("{}"));
 
-
-        BorrowBookRecord borrowBookRecord = new BorrowBookRecord("202","213160000", new Date());
-        jsonData = JSON.toJSONString(borrowBookRecord, SerializerFeature.WriteDateUseDateFormat);
         boolean suc = dbHelper.insert("BorrowBook", jsonData);
         if(suc)
             logger.log("suc");
@@ -199,17 +284,11 @@ public class DBHelperTest {
         logger.log(jsonData);
     }
 
-    @Test
-    public void testSelectSchedule() {
-        CourseScheduleItem courseScheduleItem = new CourseScheduleItem();
-        String jsonData = dbHelper.select(courseScheduleItem.getSql("213170000"));
-        logger.log(jsonData);
-    }
 
     @Test
     public void testSelectCourseReport() {
-        CourseReportItem courseReportItem = new CourseReportItem();
-        String jsonData = dbHelper.select(courseReportItem.getSql("213170000"));
+        CourseReportViewModel courseReportViewModel = new CourseReportViewModel();
+        String jsonData = dbHelper.select(courseReportViewModel.getSql("213170000"));
         logger.log(jsonData);
 
         jsonData=dbHelper.selectOne("SELECT StuAttendCount, StuLimitCount FROM Course WHERE CourseID = '1001'");
@@ -223,17 +302,17 @@ public class DBHelperTest {
 //        String sql = "SELECT CourseID, CourseName, ProfName, StuLimitCount, StuAttendCount, Credit, CourseVenue FROM Course WHERE (Grade = 2 AND Semester = 2 and Major = '计算机科学与技术') OR (Grade = 0 AND Semester = 2)";
         String jsonData = dbHelper.select(courseRegister.getSql(2,2,"计算机科学与技术"));
         logger.log(jsonData);
-        List<CourseRegisterItem> courseRegisterItems = JSON.parseArray(jsonData, CourseRegisterItem.class);
+        List<CourseRegisterViewModel> courseRegisterViewModels = JSON.parseArray(jsonData, CourseRegisterViewModel.class);
         // 分别得到每个课程的课程表
-        for(CourseRegisterItem c : courseRegisterItems) {
+        for(CourseRegisterViewModel c : courseRegisterViewModels) {
             jsonData = dbHelper.select(c.getSql());
 
             logger.log(jsonData);
-            List<Schedule> s = JSON.parseArray(jsonData, Schedule.class);
+            List<CourseScheduleViewModel> s = JSON.parseArray(jsonData, CourseScheduleViewModel.class);
             c.setCourseSchedule(s);
         }
         // 设置所有可选的课程
-        courseRegister.setCourseList(courseRegisterItems);
+        courseRegister.setCourseList(courseRegisterViewModels);
         // 设置课程状态为：已选，已满，可选，可选但与已选冲突；已选课程需要从对应学期课程表中获取
         String sql = String.format("SELECT CourseID From CourseRecord WHERE CampusCardID = '%s' AND Semester='18-19-2'", "213170000");
         jsonData = dbHelper.select(sql);

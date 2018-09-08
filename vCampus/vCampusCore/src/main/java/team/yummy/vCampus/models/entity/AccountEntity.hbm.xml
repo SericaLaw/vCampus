@@ -7,10 +7,29 @@
     <class name="team.yummy.vCampus.models.entity.AccountEntity" table="Account" schema="&quot;.&quot;"
            catalog="&quot;.&quot;">
         <id name="campusCardId" column="CampusCardID"/>
-        <property name="username" column="Username"/>
+        <property name="nickname" column="Nickname"/>
         <property name="password" column="Password"/>
         <property name="lastName" column="LastName"/>
         <property name="firstName" column="FirstName"/>
         <property name="role" column="Role"/>
+        <one-to-one name="stuInfoByCampusCardId" class="team.yummy.vCampus.models.entity.StuInfoEntity"/>
+        <set name="borrowRecordsByCampusCardId" inverse="true">
+            <key>
+                <column name="CampusCardID"/>
+            </key>
+            <one-to-many not-found="ignore" class="team.yummy.vCampus.models.entity.BorrowRecordEntity"/>
+        </set>
+        <set name="courseRecordsByCampusCardId" inverse="true">
+            <key>
+                <column name="CampusCardID"/>
+            </key>
+            <one-to-many not-found="ignore" class="team.yummy.vCampus.models.entity.CourseRecordEntity"/>
+        </set>
+        <set name="dormsByCampusCardId" inverse="true">
+            <key>
+                <column name="CampusCardID"/>
+            </key>
+            <one-to-many not-found="ignore" class="team.yummy.vCampus.models.entity.DormEntity"/>
+        </set>
     </class>
 </hibernate-mapping>

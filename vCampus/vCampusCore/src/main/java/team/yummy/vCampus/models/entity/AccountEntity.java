@@ -1,25 +1,30 @@
 package team.yummy.vCampus.models.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "Account", schema = "\".\"", catalog = "\".\"")
 public class AccountEntity {
-    private String username;
+    private String nickname;
     private String password;
     private String lastName;
     private String firstName;
     private String campusCardId;
     private String role;
+    private Collection<BorrowRecordEntity> borrowRecordsByCampusCardId;
+    private Collection<CourseRecordEntity> courseRecordsByCampusCardId;
+    private Collection<DormEntity> dormsByCampusCardId;
+    private StuInfoEntity stuInfoByCampusCardId;
 
     @Basic
-    @Column(name = "Username")
-    public String getUsername() {
-        return username;
+    @Column(name = "Nickname")
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     @Basic
@@ -79,7 +84,7 @@ public class AccountEntity {
 
         AccountEntity that = (AccountEntity) o;
 
-        if (username != null ? !username.equals(that.username) : that.username != null) return false;
+        if (nickname != null ? !nickname.equals(that.nickname) : that.nickname != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
@@ -91,12 +96,48 @@ public class AccountEntity {
 
     @Override
     public int hashCode() {
-        int result = username != null ? username.hashCode() : 0;
+        int result = nickname != null ? nickname.hashCode() : 0;
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (campusCardId != null ? campusCardId.hashCode() : 0);
         result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "accountByCampusCardId")
+    public Collection<BorrowRecordEntity> getBorrowRecordsByCampusCardId() {
+        return borrowRecordsByCampusCardId;
+    }
+
+    public void setBorrowRecordsByCampusCardId(Collection<BorrowRecordEntity> borrowRecordsByCampusCardId) {
+        this.borrowRecordsByCampusCardId = borrowRecordsByCampusCardId;
+    }
+
+    @OneToMany(mappedBy = "accountByCampusCardId")
+    public Collection<CourseRecordEntity> getCourseRecordsByCampusCardId() {
+        return courseRecordsByCampusCardId;
+    }
+
+    public void setCourseRecordsByCampusCardId(Collection<CourseRecordEntity> courseRecordsByCampusCardId) {
+        this.courseRecordsByCampusCardId = courseRecordsByCampusCardId;
+    }
+
+    @OneToMany(mappedBy = "accountByCampusCardId")
+    public Collection<DormEntity> getDormsByCampusCardId() {
+        return dormsByCampusCardId;
+    }
+
+    public void setDormsByCampusCardId(Collection<DormEntity> dormsByCampusCardId) {
+        this.dormsByCampusCardId = dormsByCampusCardId;
+    }
+
+    @OneToOne(mappedBy = "accountByCampusCardId")
+    public StuInfoEntity getStuInfoByCampusCardId() {
+        return stuInfoByCampusCardId;
+    }
+
+    public void setStuInfoByCampusCardId(StuInfoEntity stuInfoByCampusCardId) {
+        this.stuInfoByCampusCardId = stuInfoByCampusCardId;
     }
 }

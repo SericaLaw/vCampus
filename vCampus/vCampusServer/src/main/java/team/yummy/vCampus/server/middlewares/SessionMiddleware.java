@@ -16,8 +16,8 @@ public class SessionMiddleware implements Middleware {
         if (ctx.session == null) {
             // 创建一个新的会话
             Integer id = new Random().nextInt();
-            ctx.session = new Session(id, new Timestamp(60 * 1000));
-            ctx.server.sessions.put(id, ctx.session);
+            ctx.server.sessions.put(id, new Session(id, new Timestamp(60 * 1000)));
+            ctx.session = ctx.server.sessions.get(id);
             ctx.response.setSessionId(id);
         }
         next.invoke();

@@ -1,8 +1,10 @@
-package team.yummy.vCampus.models;
+package team.yummy.vCampus.models.viewmodel;
+
+import team.yummy.vCampus.models.CourseStatusEnum;
 
 import java.util.List;
 
-public class CourseRegisterItem {
+public class CourseRegisterViewModel {
     private String courseID;
     private String courseName;
     private String profName;
@@ -11,23 +13,17 @@ public class CourseRegisterItem {
     private int StuAttendCount;
     private int StuLimitCount;
 
-    private List<Schedule> courseSchedule;
+    private List<CourseScheduleViewModel> courseSchedule;
     private CourseStatusEnum status; // 可选，已满，冲突
 
-    public CourseRegisterItem() {}
+    public CourseRegisterViewModel() {}
 
-    public List<Schedule> getCourseSchedule() {
+    public List<CourseScheduleViewModel> getCourseSchedule() {
         return courseSchedule;
     }
 
-    public void setCourseSchedule(List<Schedule> courseSchedule) {
+    public void setCourseSchedule(List<CourseScheduleViewModel> courseSchedule) {
         this.courseSchedule = courseSchedule;
-    }
-
-
-    public String getSql() {
-        String sql = String.format("SELECT WeekDay, SpanStart, SpanEnd FROM CourseSchedule WHERE CourseID = '%s'", courseID);
-        return sql;
     }
 
     public String getCourseID() {
@@ -86,7 +82,6 @@ public class CourseRegisterItem {
         StuLimitCount = stuLimitCount;
     }
 
-
     public CourseStatusEnum getStatus() {
         return status;
     }
@@ -95,5 +90,8 @@ public class CourseRegisterItem {
         this.status = status;
     }
 
-
+//    public String getSql() {
+//        String sql = String.format("SELECT WeekDay, SpanStart, SpanEnd FROM CourseSchedule WHERE CourseID = '%s'", courseID);
+//        return sql;
+//    }
 }

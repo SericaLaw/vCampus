@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="team.yummy.vCampus.models.entity.BookEntity" table="Book" schema="&quot;.&quot;"
+           catalog="&quot;.&quot;">
+        <id name="bookId" column="BookID"/>
+        <property name="bookName" column="BookName"/>
+        <property name="writer" column="Writer"/>
+        <property name="publisher" column="Publisher"/>
+        <property name="availableCount" column="AvailableCount"/>
+        <property name="totalCount" column="TotalCount"/>
+        <set name="borrowRecordsByBookId" inverse="true">
+            <key>
+                <column name="BookID"/>
+            </key>
+            <one-to-many not-found="ignore" class="team.yummy.vCampus.models.entity.BorrowRecordEntity"/>
+        </set>
+    </class>
+</hibernate-mapping>

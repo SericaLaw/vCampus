@@ -1,4 +1,6 @@
-package team.yummy.vCampus.models;
+package team.yummy.vCampus.models.viewmodel;
+
+import team.yummy.vCampus.models.entity.AccountEntity;
 
 import java.util.Date;
 
@@ -7,7 +9,8 @@ import java.util.Date;
  * 在借图书类
  * 存放关联查询的结果，用于前端展示在借图书信息
  */
-public class BorrowedBook {
+public class BorrowRecordViewModel {
+    private String campusCardId;
     private String bookID;
     private String bookName;
     private String writer;
@@ -16,8 +19,10 @@ public class BorrowedBook {
     private Date expiryDate;
 
 
-    public BorrowedBook() {}
-    public BorrowedBook(String bookID, String bookName, String writer, String publisher, Date borrowDate, Date expiryDate) {
+    public BorrowRecordViewModel() {}
+
+    public BorrowRecordViewModel(String campusCardId, String bookID, String bookName, String writer, String publisher, Date borrowDate, Date expiryDate) {
+        this.campusCardId = campusCardId;
         this.bookID = bookID;
         this.bookName = bookName;
         this.writer = writer;
@@ -72,5 +77,13 @@ public class BorrowedBook {
 
     public void setExpiryDate(Date expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public String getCampusCardId() {
+        return campusCardId;
+    }
+
+    public void setCampusCardId(String campusCardId) {
+        this.campusCardId = campusCardId;
     }
 }

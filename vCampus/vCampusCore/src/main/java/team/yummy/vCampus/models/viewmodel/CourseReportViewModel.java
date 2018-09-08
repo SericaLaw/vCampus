@@ -1,11 +1,12 @@
-package team.yummy.vCampus.models;
+package team.yummy.vCampus.models.viewmodel;
 
 /**
  * @author Serica
  * 成绩单表项类
  * 存放关联查询的结果，用于前端展示成绩信息
  */
-public class CourseReportItem {
+public class CourseReportViewModel {
+    private String campusCardId;
     private String courseName;
     private double credit;
     private int score;
@@ -13,14 +14,20 @@ public class CourseReportItem {
     private String scoreType;
 
 
-    public CourseReportItem() {}
-    public CourseReportItem(String courseName, double credit, int score, String semester, String scoreType) {
+    public CourseReportViewModel() {}
+
+    public CourseReportViewModel(String campusCardId, String courseName, double credit, int score, String semester, String scoreType) {
+        this.campusCardId = campusCardId;
         this.courseName = courseName;
         this.credit = credit;
         this.score = score;
         this.semester = semester;
         this.scoreType = scoreType;
     }
+
+    public String getCampusCardId() { return campusCardId; }
+
+    public void setCampusCardId(String campusCardId) { this.campusCardId = campusCardId; }
 
     public String getCourseName() {
         return courseName;

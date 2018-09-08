@@ -5,12 +5,28 @@
 <hibernate-configuration>
   <session-factory>
     <property name="dialect">com.hxtt.support.hibernate.HxttAccessDialect</property>
-    <property name="connection.url">jdbc:Access:///C:\Users\Vigilans\Desktop\Projects\vCampus\vCampus\vCampusCore\src\test\resources\Database.accdb</property>
+    <property name="connection.url">jdbc:Access:///C:\Users\Vigilans\Desktop\Projects\vCampus\vCampus\vCampusServer\database\test_database.accdb</property>
     <property name="connection.driver_class">com.hxtt.sql.access.AccessDriver</property>
     <mapping class="team.yummy.vCampus.models.entity.AccountEntity"/>
     <mapping resource="team/yummy/vCampus/models/entity/AccountEntity.hbm.xml"/>
     <mapping class="team.yummy.vCampus.models.entity.StuInfoEntity"/>
     <mapping resource="team/yummy/vCampus/models/entity/StuInfoEntity.hbm.xml"/>
+    <mapping resource="team/yummy/vCampus/models/entity/BookEntity.hbm.xml"/>
+    <mapping class="team.yummy.vCampus.models.entity.BookEntity"/>
+    <mapping class="team.yummy.vCampus.models.entity.BorrowRecordEntity"/>
+    <mapping resource="team/yummy/vCampus/models/entity/BorrowRecordEntity.hbm.xml"/>
+    <mapping class="team.yummy.vCampus.models.entity.CourseEntity"/>
+    <mapping resource="team/yummy/vCampus/models/entity/CourseEntity.hbm.xml"/>
+    <mapping class="team.yummy.vCampus.models.entity.CourseRecordEntity"/>
+    <mapping resource="team/yummy/vCampus/models/entity/CourseRecordEntity.hbm.xml"/>
+    <mapping class="team.yummy.vCampus.models.entity.CourseScheduleEntity"/>
+    <mapping resource="team/yummy/vCampus/models/entity/CourseScheduleEntity.hbm.xml"/>
+    <mapping class="team.yummy.vCampus.models.entity.DormEntity"/>
+    <mapping resource="team/yummy/vCampus/models/entity/DormEntity.hbm.xml"/>
+    <mapping resource="team/yummy/vCampus/models/entity/DormScoreEntity.hbm.xml"/>
+    <mapping class="team.yummy.vCampus.models.entity.DormScoreEntity"/>
+    <mapping resource="team/yummy/vCampus/models/entity/USysApplicationLogEntity.hbm.xml"/>
+    <mapping class="team.yummy.vCampus.models.entity.USysApplicationLogEntity"/>
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 

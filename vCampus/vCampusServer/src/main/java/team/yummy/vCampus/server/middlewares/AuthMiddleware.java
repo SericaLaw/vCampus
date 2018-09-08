@@ -4,13 +4,13 @@ import team.yummy.vCampus.server.WebContext;
 import team.yummy.vCampus.util.Logger;
 import team.yummy.vCampus.web.RequestMethod;
 
-public class AuthenticationMiddleware implements Middleware {
+public class AuthMiddleware implements Middleware {
     private Logger logger = new Logger("AuthMiddleware");
     @Override
     public void run(WebContext ctx, WebContext.MiddlewareInvoker next) {
 
         logger.log(String.format(" request auth [ username = %s, password = %s ]", ctx.request.getAuthString("username"), ctx.request.getAuthString("password")));
-        logger.log(String.format(" session data [ username = %s, password = %s ]", ctx.session.getString("username"), ctx.session.getString("password")));
+        logger.log(String.format(" session deserialize [ username = %s, password = %s ]", ctx.session.getString("username"), ctx.session.getString("password")));
 
         // 登录和注册不需要鉴权
         if(ctx.request.getRoute().equals("/account/login") ||

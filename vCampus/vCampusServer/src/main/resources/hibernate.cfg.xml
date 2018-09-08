@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="dialect">com.hxtt.support.hibernate.HxttAccessDialect</property>
+    <property name="connection.url">jdbc:Access:///C:\Users\Vigilans\Desktop\Projects\vCampus\vCampus\vCampusCore\src\test\resources\Database.accdb</property>
+    <property name="connection.driver_class">com.hxtt.sql.access.AccessDriver</property>
+    <mapping class="team.yummy.vCampus.models.entity.AccountEntity"/>
+    <mapping resource="team/yummy/vCampus/models/entity/AccountEntity.hbm.xml"/>
+    <mapping class="team.yummy.vCampus.models.entity.CourseEntity"/>
+    <mapping resource="team/yummy/vCampus/models/entity/CourseEntity.hbm.xml"/>
+    <mapping class="team.yummy.vCampus.models.entity.StuInfoEntity"/>
+    <mapping resource="team/yummy/vCampus/models/entity/StuInfoEntity.hbm.xml"/>
+    <!-- <property name="connection.username"/> -->
+    <!-- <property name="connection.password"/> -->
+
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>

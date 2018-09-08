@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="team.yummy.vCampus.models.entity.CourseEntity" table="Course" schema="&quot;.&quot;"
+           catalog="&quot;.&quot;">
+        <id name="courseId" column="CourseID"/>
+        <property name="profCampusCardId" column="ProfCampusCardID"/>
+        <property name="stuLimitCount" column="StuLimitCount"/>
+        <property name="profName" column="ProfName"/>
+        <property name="courseVenue" column="CourseVenue"/>
+        <property name="stuAttendCount" column="StuAttendCount"/>
+        <property name="examVenue" column="ExamVenue"/>
+        <property name="examDate" column="ExamDate"/>
+        <property name="courseName" column="CourseName"/>
+        <property name="major" column="Major"/>
+        <property name="semester" column="Semester"/>
+        <property name="intro" column="Intro"/>
+        <property name="grade" column="Grade"/>
+        <property name="credit" column="Credit"/>
+        <set name="courseRecordsByCourseId" inverse="true">
+            <key>
+                <column name="CourseID"/>
+            </key>
+            <one-to-many not-found="ignore" class="team.yummy.vCampus.models.entity.CourseRecordEntity"/>
+        </set>
+        <set name="courseSchedulesByCourseId" inverse="true">
+            <key>
+                <column name="CourseID"/>
+            </key>
+            <one-to-many not-found="ignore" class="team.yummy.vCampus.models.entity.CourseScheduleEntity"/>
+        </set>
+    </class>
+</hibernate-mapping>

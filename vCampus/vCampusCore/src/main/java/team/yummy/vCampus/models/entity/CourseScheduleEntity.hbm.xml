@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="team.yummy.vCampus.models.entity.CourseScheduleEntity" table="CourseSchedule" schema="&quot;.&quot;"
+           catalog="&quot;.&quot;">
+        <id name="id" column="ID"/>
+        <property name="courseId" column="CourseID"/>
+        <property name="weekDay" column="WeekDay"/>
+        <property name="spanStart" column="SpanStart"/>
+        <property name="spanEnd" column="SpanEnd"/>
+        <many-to-one name="courseByCourseId" class="team.yummy.vCampus.models.entity.CourseEntity">
+            <column name="CourseID"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
