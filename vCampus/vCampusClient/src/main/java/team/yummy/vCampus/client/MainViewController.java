@@ -77,6 +77,8 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML private AnchorPane li_BorrowedPane;
     @FXML private AnchorPane li_InquirePane;
 
+    @FXML public Label content__Store__Cart__GrandTotalPrice;
+
     @FXML private Label am_CampusCardID;
     @FXML private Label am_Username;
     @FXML private Label am_Role;
@@ -90,7 +92,7 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML private VBox store_popItemBox;
     @FXML private VBox store_favItemBox;
 
-    @FXML private VBox store_CartBox;
+    @FXML public VBox store_CartBox;
 
     // 这里放商品列表数据
     private List<Goods> goodList = new ArrayList<Goods>();
@@ -479,4 +481,19 @@ public class MainViewController extends ViewController implements Initializable 
 
     }
 
+    @FXML
+    protected void cartBatchRemove(ActionEvent actionEvent) {
+        //
+    }
+
+
+    protected void choosestudent(ActionEvent actionEvent)
+    {
+        register_radiominis.setPickOnBounds(false);
+    }
+    @FXML
+    protected void chooseadminis(ActionEvent actionEvent)
+    {
+        register_radiostudent.setPickOnBounds(false);
+    }
 }

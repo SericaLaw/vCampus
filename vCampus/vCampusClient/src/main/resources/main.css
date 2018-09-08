@@ -2,7 +2,7 @@
     primary: #673AB7;
     dark-primary: #512DA8;
     light-primary: #D1C4E9;
-    primay-text: #212121;
+    primary-text: #212121;
     secondary-text: #757575;
     accent-color: #7C4DFF;
     divider-color: #BDBDBD;
@@ -217,6 +217,10 @@
 
 #content__store__wrapper .section-header .icon {
     -fx-effect: innershadow(one-pass-box, #673AB7, 3, 5, 1, 0);
+}
+
+#content__Store__Cart__Pay{
+    -fx-effect:dropshadow(one-pass-box, #bbb, 20, 0.05, 3, 8);
 }
 
 #content__course__schedule {

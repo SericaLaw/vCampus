@@ -580,11 +580,36 @@
                                   <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                           <children>
-                                              <ScrollPane layoutX="62.0" layoutY="20.0" prefHeight="701.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                              <ScrollPane layoutX="62.0" layoutY="20.0" prefHeight="482.0" prefWidth="950.0" AnchorPane.bottomAnchor="213.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <content>
                                                       <VBox id="content__cart__wrapper" fx:id="store_CartBox" prefHeight="200.0" prefWidth="100.0" />
                                                   </content>
                                               </ScrollPane>
+                                              <GridPane alignment="CENTER_LEFT" layoutY="482.0" prefHeight="65.0" prefWidth="950.0">
+                                                  <columnConstraints>
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="640.0" minWidth="10.0" prefWidth="475.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="527.0" minWidth="10.0" prefWidth="168.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="201.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="106.0" />
+                                                  </columnConstraints>
+                                                  <rowConstraints>
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  </rowConstraints>
+                                                  <children>
+                                                      <Button fx:id="content__Store__Cart__BatchRemove" mnemonicParsing="false" onAction="#cartBatchRemove" prefHeight="36.0" prefWidth="119.0" text="批量删除">
+                                                          <GridPane.margin>
+                                                              <Insets left="50.0" />
+                                                          </GridPane.margin>
+                                                      </Button>
+                                                      <Button fx:id="content__Store__Cart__Pay" mnemonicParsing="false" prefHeight="55.0" prefWidth="142.0" text="结算" GridPane.columnIndex="3">
+                                                          <effect>
+                                                              <DropShadow />
+                                                          </effect>
+                                                      </Button>
+                                                      <Label text="合计： ￥  " GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
+                                                      <Label fx:id="content__Store__Cart__GrandTotalPrice" text="0" GridPane.columnIndex="2" />
+                                                  </children>
+                                              </GridPane>
                                           </children></AnchorPane>
                                   </content>
                               </Tab>
