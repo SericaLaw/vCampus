@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.net.URL?>
@@ -13,6 +14,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
+<?import javafx.scene.shape.Line?>
 
 <StackPane fx:id="rootStackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team.yummy.vCampus.client.MainViewController">
   <children>
@@ -411,104 +413,106 @@
                         </GridPane>
                      </children>
             </AnchorPane>
-            <AnchorPane id="content__lib" fx:id="LibraryPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <children>
-              <Button id="content__lib__Inquire" fx:id="li_Inquire" mnemonicParsing="false" onAction="#switchLibInquire" prefHeight="30.0" prefWidth="120.0" text="图书查询" />
-              <Button id="content__lib__Borrowed" fx:id="li_Borrowed" layoutX="120.0" mnemonicParsing="false" onAction="#switchLibBorrowed" prefHeight="30.0" prefWidth="120.0" text="在借图书" />
-              <AnchorPane fx:id="li_InquirePane" layoutY="35.0" prefHeight="715.0" prefWidth="950.0">
-                <children>
-                <TextField layoutX="352.0" layoutY="26.0" prefHeight="30.0" prefWidth="240.0" promptText="输入书名关键字" />
-                <Button id="content__lib__Search" fx:id="li_Search" layoutX="636.0" layoutY="26.0" mnemonicParsing="false" text="搜索" />
-                </children>
-              </AnchorPane>
-              <AnchorPane fx:id="li_BorrowedPane" layoutY="35.0" prefHeight="715.0" prefWidth="950.0" visible="false" />
-              </children>
-            </AnchorPane>
-            <AnchorPane fx:id="BankPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <children>
-                  <TabPane layoutX="-2.0" layoutY="6.0" prefHeight="740.0" prefWidth="950.0" tabClosingPolicy="UNAVAILABLE">
-                  <tabs>
-                  <Tab text="基本信息">
-                  <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                          <children>
-                          <GridPane layoutX="35.0" layoutY="100.0" prefHeight="179.0" prefWidth="360.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="100.0">
-                              <children>
-                              <Label text="姓名" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-                              <Separator GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
-                              <Separator GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
-                              <Label text="账户尾号" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                              <Separator GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                              <Separator GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                              <Label text="账户余额" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
-                              <Separator GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-                              <Separator GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-                              </children>
-                              <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="139.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="512.0" minWidth="10.0" prefWidth="272.0" />
-                              </columnConstraints>
-                              <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints />
-                              </rowConstraints>
-                          </GridPane>
-                          <Separator prefWidth="200.0" />
-                          </children>
-                      </AnchorPane>
-                  </content></Tab>
-                      <Tab text="充值缴费">
-                          <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                  <children>
-                                  <GridPane layoutX="35.0" layoutY="100.0" prefHeight="233.0" prefWidth="337.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="100.0">
-                                      <children />
+              <AnchorPane id="content__lib" fx:id="LibraryPane" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onKeyPressed="#booksearch" >
+                  <children>
+                        <JFXTabPane prefHeight="740.0" prefWidth="950.0">
+                           <tabs>
+                          <Tab text="图书查询">
+                              <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="701.0" prefWidth="830.0">
                                       <children>
-                                      <Label text="姓名" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-                                      <Label text="选择操作" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                                      <Button mnemonicParsing="false" text="充值" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                                      <Button mnemonicParsing="false" text="缴费" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                                      <Label text="充值/缴费金额" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                                      <TextField prefHeight="23.0" prefWidth="121.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                      <Label text="请输入密码" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                                      <TextField prefHeight="23.0" prefWidth="121.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                      <ScrollPane prefHeight="687.0" prefWidth="950.0">
+                                          <content>
+                                              <AnchorPane prefHeight="688.0" prefWidth="907.0">
+                                                  <children>
+                                                  <VBox id="content__library__wrapper" fx:id="library_inquireBox" layoutX="-2.0" layoutY="82.0" prefHeight="605.0" prefWidth="909.0" />
+                                                      <JFXTextField fx:id="library_InquireText" layoutX="289.0" layoutY="19.0" prefHeight="30.0" prefWidth="237.0"  promptText="按书名搜索"/>
+                                                      <JFXButton fx:id="search" layoutX="574.0" layoutY="19.0" onAction="#libraryInquire" text="搜索" />
+                                                  </children>
+                                              </AnchorPane>
+                                          </content>
+                                      </ScrollPane>
                                       </children>
-                                      <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="108.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="252.0" minWidth="10.0" prefWidth="114.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                          <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints />
-                                      </rowConstraints>
-                                  </GridPane>
-                                  <Button layoutX="184.0" layoutY="377.0" mnemonicParsing="false" text="确认" />
-                                  <Button layoutX="332.0" layoutY="377.0" mnemonicParsing="false" text="取消" />
-                                  </children></AnchorPane>
-                          </content>
-                      </Tab>
-                      <Tab text="交易记录">
-                          <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
-                      </Tab>
-                      <Tab text="挂失解挂">
-                          <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
-                      </Tab>
-                  </tabs>
-                  </TabPane>
+                                  </AnchorPane>
+                              </content>
+                          </Tab>
+                          <Tab text="在借图书">
+                              <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                      <children>
+                                      <ScrollPane prefHeight="701.0" prefWidth="950.0">
+                                          <content>
+                                              <VBox fx:id="library_borrowedBox" prefHeight="700.0" prefWidth="907.0" />
+                                          </content>
+                                      </ScrollPane>
+                                      </children></AnchorPane>
+                              </content>
+                          </Tab>
+                           </tabs>
+                        </JFXTabPane>
+                  </children>
+              </AnchorPane>
 
-              </children>
-            </AnchorPane>
+              <AnchorPane fx:id="BankPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                      <GridPane layoutX="142.0" layoutY="73.0" prefHeight="82.0" prefWidth="680.0">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="70.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                          <children>
+                              <Label fx:id="bank_name" text="姓 名" />
+                              <Label fx:id="Lbank_name" text="Label" GridPane.columnIndex="1" />
+                              <Label fx:id="bank_num" text="账 户 尾 号" GridPane.columnIndex="2" />
+                              <Label fx:id="Lbank_num" text="Label" GridPane.columnIndex="3" />
+                              <Label fx:id="bank_balance" text="账 户 余 额" GridPane.columnIndex="4" />
+                              <Label fx:id="Lbank_balance" text="Label" GridPane.columnIndex="5" />
+                          </children>
+                      </GridPane>
+                      <Line endX="680.0" layoutX="224.0" layoutY="156.0" startX="-180.0" stroke="#dddbdb" />
+                      <Label fx:id="bank_info" layoutX="51.0" layoutY="45.0" text="基本信息" />
+                      <Label fx:id="bank_pay" layoutX="51.0" layoutY="182.0" text="生活缴费" />
+                      <GridPane layoutX="209.0" layoutY="189.0" prefHeight="181.0" prefWidth="483.0">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                          <children>
+                              <Label fx:id="bank_wat_elec" text="水 电 费" />
+                              <Label fx:id="bank_tuition" text="  学 费" GridPane.rowIndex="1" />
+                              <Label fx:id="Lbank_wat_elec" prefHeight="30.0" prefWidth="85.0" text="Label" GridPane.columnIndex="1" />
+                              <Label fx:id="Lbank_tuition" prefHeight="30.0" prefWidth="85.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="rmb1" text="¥" GridPane.columnIndex="2" />
+                              <Label fx:id="rmb2" text="¥" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <JFXButton fx:id="pay_button1" prefHeight="30.0" prefWidth="65.0" text="缴费" GridPane.columnIndex="3" />
+                              <JFXButton fx:id="pay_button2" prefHeight="30.0" prefWidth="65.0" text="缴费" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                          </children>
+                      </GridPane>
+                      <Line endX="680.0" layoutX="224.0" layoutY="375.0" startX="-180.0" stroke="#dddbdb" />
+                      <Label fx:id="bank_record" layoutX="51.0" layoutY="404.0" text="消费记录" />
+                      <TreeTableView layoutX="202.0" layoutY="441.0" prefHeight="220.0" prefWidth="560.0">
+                          <columns>
+                              <TreeTableColumn fx:id="money" prefWidth="265.0" text="消费金额" />
+                              <TreeTableColumn fx:id="time" minWidth="0.0" prefWidth="294.0" text="消费时间" />
+                          </columns>
+                      </TreeTableView>
+                  </children></AnchorPane>
               <AnchorPane fx:id="StorePane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <children>
-                      <TabPane prefHeight="740.0" prefWidth="950.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <JFXTabPane prefHeight="740.0" prefWidth="950.0">
                           <tabs>
                               <Tab text="商店">
                                   <content>
@@ -580,28 +584,28 @@
                                   <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                           <children>
-                                              <ScrollPane layoutX="62.0" layoutY="20.0" prefHeight="482.0" prefWidth="950.0" AnchorPane.bottomAnchor="213.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                              <ScrollPane layoutX="62.0" layoutY="20.0" minHeight="597.0" prefHeight="625.0" prefWidth="950.0" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <content>
                                                       <VBox id="content__cart__wrapper" fx:id="store_CartBox" prefHeight="200.0" prefWidth="100.0" />
                                                   </content>
                                               </ScrollPane>
-                                              <GridPane alignment="CENTER_LEFT" layoutY="482.0" prefHeight="65.0" prefWidth="950.0">
+                                              <GridPane alignment="CENTER_LEFT" layoutY="623.0" prefHeight="65.0" prefWidth="950.0">
                                                   <columnConstraints>
                                                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="640.0" minWidth="10.0" prefWidth="475.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="527.0" minWidth="10.0" prefWidth="168.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="201.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="527.0" minWidth="10.0" prefWidth="206.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="163.0" />
                                                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="106.0" />
                                                   </columnConstraints>
                                                   <rowConstraints>
                                                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                   </rowConstraints>
                                                   <children>
-                                                      <Button fx:id="content__Store__Cart__BatchRemove" mnemonicParsing="false" onAction="#cartBatchRemove" prefHeight="36.0" prefWidth="119.0" text="批量删除">
+                                                      <Button fx:id="content__Store__Cart__BatchRemove" mnemonicParsing="false" prefHeight="36.0" prefWidth="119.0" text="批量删除" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                                                           <GridPane.margin>
-                                                              <Insets left="50.0" />
+                                                              <Insets bottom="2.0" left="40.0" />
                                                           </GridPane.margin>
                                                       </Button>
-                                                      <Button fx:id="content__Store__Cart__Pay" mnemonicParsing="false" prefHeight="55.0" prefWidth="142.0" text="结算" GridPane.columnIndex="3">
+                                                      <Button fx:id="content__Store__Cart__Pay" mnemonicParsing="false" prefHeight="121.0" prefWidth="106.0" text="结算" GridPane.columnIndex="3">
                                                           <effect>
                                                               <DropShadow />
                                                           </effect>
@@ -614,7 +618,7 @@
                                   </content>
                               </Tab>
                           </tabs>
-                      </TabPane>
+                      </JFXTabPane>
                   </children>
               </AnchorPane>
             <AnchorPane fx:id="AccountMagPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

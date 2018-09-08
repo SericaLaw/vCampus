@@ -86,6 +86,8 @@
     -fx-effect: innershadow(one-pass-box, #673AB7, 2, 0.5, 0, 0); 
 }
 
+
+
 #content__stu-info__heading {
     -fx-alignment: center;
 }
@@ -150,7 +152,66 @@
     -fx-cursor: hand;
 }
 
+#content__course__schedule {
+    -fx-alignment: center;
+    -fx-max-height: 695;
+    -fx-vgap: 2;
+}
+
+.course-schedule-item {
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+}
+
 #content__d__Year,#content__d__Month,#content__d__Score,#content__d__Fare{
+    -fx-background-color:#b196f3;
+    -fx-font-size:20px;
+}
+
+#bank_info,#bank_pay,#bank_record
+{
+    -fx-text-fill:black;
+    -fx-font-size:20px
+}
+
+#bank_name,#bank_num,#bank_balance
+{
+    -fx-text-fill: #757575;
+    -fx-font-size: 17px;
+}
+
+#Lbank_name,#Lbank_num,#Lbank_balance
+{
+    -fx-text-fill: #512DA8;
+    -fx-font-size: 26px;
+}
+#bank_wat_elec,#bank_tuition
+{
+    -fx-text-fill:#757575;
+    -fx-font-size:17px;
+}
+#Lbank_wat_elec,#Lbank_tuition,#rmb1,#rmb2
+{
+    -fx-text-fill: #512DA8;
+    -fx-font-size: 22px;
+}
+
+#pay_button1,#pay_button2
+{
+    -fx-background-color: #673AB7;
+    -fx-text-fill: #fff;
+    -fx-font-size:16px;
+    -jfx-button-type: RAISED;
+}
+
+#pay_button1:hover,#pay_button2:hover
+{
+    -fx-background-color: #7C4DFF;
+    -fx-cursor: hand;
+}
+
+#time,#money
+{
     -fx-background-color:#b196f3;
     -fx-font-size:20px;
 }
@@ -223,13 +284,52 @@
     -fx-effect:dropshadow(one-pass-box, #bbb, 20, 0.05, 3, 8);
 }
 
-#content__course__schedule {
-    -fx-alignment: center;
-    -fx-max-height: 695;
-    -fx-vgap: 2;
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: WHITE;
 }
 
-.course-schedule-item {
-    -fx-border-width: 1;
-    -fx-border-radius: 5;
+.jfx-tab-pane .tab-label {
+    -fx-text-fill: BLACK;
+    -fx-font-weight: LIGHTER;
+    -fx-padding: 15 35 10 35;
+    -fx-font-size: 20;
+}
+
+.jfx-tab-pane .tab-selected-line{
+    -fx-background-color : #673AB7;
+}
+
+#content__Store__Cart__BatchRemove,#content__Store__Cart__Pay{
+    -fx-background-color: #673AB7;
+    -fx-text-fill: #fff;
+    -jfx-button-type: RAISED;
+}
+
+#content__Store__Cart__BatchRemove:hover,#content__Store__Cart__Pay:hover{
+    -fx-background-color: #7C4DFF;
+    -fx-cursor: hand;
+}
+
+#content__Store__Cart__GrandTotalPrice
+{
+    -fx-text-fill: #512DA8;
+    -fx-font-size: 26px;
+}
+
+.jfx-tab-pane .headers-region > .tab > .jfx-rippler {
+    -jfx-rippler-fill: #673AB7;
+}
+
+#search
+{
+    -fx-background-color: #673AB7;
+    -fx-text-fill: #fff;
+    -fx-font-size:16px;
+    -jfx-button-type: RAISED;
+}
+
+#search:hover
+{
+    -fx-background-color: #7C4DFF;
+    -fx-cursor: hand;
 }

@@ -9,12 +9,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.omg.CORBA.PRIVATE_MEMBER;
-import team.yummy.vCampus.models.CourseScheduleItem;
-import team.yummy.vCampus.models.Goods;
-import team.yummy.vCampus.models.StuInfo;
+import team.yummy.vCampus.models.*;
 
 import team.yummy.vCampus.web.WebResponse;
 
@@ -78,11 +77,18 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML private AnchorPane li_InquirePane;
 
     @FXML public Label content__Store__Cart__GrandTotalPrice;
+    @FXML public Button content__Store__Cart__BatchRemove;
+    @FXML public Button content__Store__Cart__Pay;
 
     @FXML private Label am_CampusCardID;
     @FXML private Label am_Username;
     @FXML private Label am_Role;
     @FXML private Label am_Name;
+
+    @FXML public VBox library_inquireBox;
+    @FXML private TextField library_InquireText;
+    @FXML protected VBox library_borrowedBox;
+    public List<BorrowedBook> borrowedbookList=new ArrayList<>();
 
 
     /**
@@ -272,6 +278,22 @@ public class MainViewController extends ViewController implements Initializable 
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
+        WebResponse res = api.get("/book");
+        List<Book> bookList = res.dataList(Book.class);
+        LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
+        List<HBox> row = libraryViewFactory.createBookRows(bookList, 3);
+        if (library_inquireBox.getChildren().size() != 0) {
+            library_inquireBox.getChildren().clear();
+            library_inquireBox.getChildren().addAll(row);
+        } else {
+            library_inquireBox.getChildren().addAll(row);
+        }
+
+        WebResponse resed = api.get("/borrowBook");
+        List<BorrowedBook> borrowedbookList=resed.dataList(BorrowedBook.class);
+        List<HBox> borrowedRows=libraryViewFactory.createBorrowedbookRows(borrowedbookList);
+        library_borrowedBox.getChildren().addAll(borrowedRows);
+
     }
     @FXML
     protected void switchBank(ActionEvent actionEvent) {
@@ -422,6 +444,15 @@ public class MainViewController extends ViewController implements Initializable 
             @Override
             public void handle(ActionEvent event) {
                 //登出的操作
+                InitPane.setVisible(true);
+                StuInfoPane.setVisible(false);
+                CoursePane.setVisible(false);
+                DormPane.setVisible(false);
+                LibraryPane.setVisible(false);
+                BankPane.setVisible(false);
+                StorePane.setVisible(false);
+                AccountMagPane.setVisible(false);
+                dialog.setVisible(false);
                 stageController.setStage(App.WELCOME_VIEW_NAME, App.MAIN_VIEW_NAME);
             }
         });
@@ -469,6 +500,15 @@ public class MainViewController extends ViewController implements Initializable 
             public void handle(ActionEvent event) {
                 //销号的操作
                 api.delete("/account/campusCardId/"+ currentAccount.getCampusCardID());
+                InitPane.setVisible(true);
+                StuInfoPane.setVisible(false);
+                CoursePane.setVisible(false);
+                DormPane.setVisible(false);
+                LibraryPane.setVisible(false);
+                BankPane.setVisible(false);
+                StorePane.setVisible(false);
+                AccountMagPane.setVisible(false);
+                dialog.setVisible(false);
                 stageController.setStage(App.WELCOME_VIEW_NAME, App.MAIN_VIEW_NAME);
             }
         });
@@ -481,11 +521,6 @@ public class MainViewController extends ViewController implements Initializable 
 
     }
 
-    @FXML
-    protected void cartBatchRemove(ActionEvent actionEvent) {
-        //
-    }
-
 
     protected void choosestudent(ActionEvent actionEvent)
     {
@@ -496,4 +531,47 @@ public class MainViewController extends ViewController implements Initializable 
     {
         register_radiostudent.setPickOnBounds(false);
     }
+
+    @FXML
+    protected void libraryInquire(ActionEvent actionEvent) {
+        String keyword = library_InquireText.getText();
+        if (keyword==null||keyword.equals("")) {
+            library_InquireText.setPromptText("请输入关键字");
+        } else {
+            WebResponse res = api.get("/book/bookName/" + keyword + "/like");
+            List<Book> bookList_keyword = res.dataList(Book.class);
+            LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
+            List<HBox> row = libraryViewFactory.createBookRows(bookList_keyword, 1);
+            if (library_inquireBox.getChildren().size() != 0) {
+                library_inquireBox.getChildren().clear();
+                library_inquireBox.getChildren().addAll(row);
+            } else {
+                library_inquireBox.getChildren().addAll(row);
+            }
+
+        }
+    }
+
+    @FXML
+    protected void booksearch(KeyEvent keyEvent)
+    {
+        String keyword = library_InquireText.getText();
+        if (keyword==null||keyword.equals("")) {
+            library_InquireText.setPromptText("请输入关键字");
+        } else {
+            WebResponse res = api.get("/book/bookName/" + keyword + "/like");
+            List<Book> bookList_keyword = res.dataList(Book.class);
+            LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
+            List<HBox> row = libraryViewFactory.createBookRows(bookList_keyword, 1);
+            if (library_inquireBox.getChildren().size() != 0) {
+                library_inquireBox.getChildren().clear();
+                library_inquireBox.getChildren().addAll(row);
+            } else {
+                library_inquireBox.getChildren().addAll(row);
+            }
+
+        }
+    }
 }
+
+
