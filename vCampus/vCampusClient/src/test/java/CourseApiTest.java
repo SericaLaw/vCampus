@@ -15,7 +15,7 @@ public class CourseApiTest extends ApiTest{
      * @apiGroup Course
      * @api {get} /course/schedule GetCourseSchedule ( passed )
      * @apiPermission student
-     * @apiDescription 获取本学期课程表，暂不支持不同学期课程表的查询
+     * @apiDescription 获取本学期课程表，暂不支持不同学期课程表的查�?
      * @apiSuccess List_CourseScheduleItem 装着课程表表项的list
      * @apiParamExample Code Snippets
      * WebResponse res = api.get("/course/schedule");
@@ -43,7 +43,7 @@ public class CourseApiTest extends ApiTest{
      *          },
      *          {
      *              "SpanEnd":"4",
-     *              "ProfName":"亚里士多德",
+     *              "ProfName":"亚里士多�?",
      *              "CourseID":"3001",
      *              "CourseName":"大学物理",
      *              "CourseVenue":"J6-101",
@@ -52,7 +52,7 @@ public class CourseApiTest extends ApiTest{
      *          },
      *          {
      *              "SpanEnd":"7",
-     *              "ProfName":"亚里士多德",
+     *              "ProfName":"亚里士多�?",
      *              "CourseID":"3001",
      *              "CourseName":"大学物理",
      *              "CourseVenue":"J6-101",
@@ -86,7 +86,7 @@ public class CourseApiTest extends ApiTest{
      *          {
      *              "Semester":"17-18-3",
      *              "Credit":"2",
-     *              "CourseName":"中国古建筑鉴赏",
+     *              "CourseName":"中国古建筑鉴�?",
      *              "ScoreType":"首修",
      *              "Score":"90"
      *          }
@@ -105,7 +105,7 @@ public class CourseApiTest extends ApiTest{
      * @apiGroup Course
      * @api {get} /course/register GetCourseRegister ( passed )
      * @apiPermission student
-     * @apiDescription 获取当前学期的选课列表
+     * @apiDescription 获取当前学期的�?�课列表
      * @apiSuccess CourseRegister CourseRegister对象
      * @apiParamExample Code Snippets
      * WebResponse res = api.get("/course/register");
@@ -145,13 +145,13 @@ public class CourseApiTest extends ApiTest{
      *              }],
      *              "courseVenue":"J6-101",
      *              "credit":"3",
-     *              "profName":"亚里士多德",
+     *              "profName":"亚里士多�?",
      *              "status":"SELECTED",
      *              "stuAttendCount":2,
      *              "stuLimitCount":40
      *          },{
      *              "courseID":"5001",
-     *              "courseName":"中国古建筑鉴赏",
+     *              "courseName":"中国古建筑鉴�?",
      *              "courseSchedule":[{
      *                  "spanEnd":13,
      *                  "spanStart":11,
@@ -163,7 +163,7 @@ public class CourseApiTest extends ApiTest{
      *              }],
      *                  "courseVenue":"J6-102",
      *                  "credit":"2",
-     *                  "profName":"梁思成",
+     *                  "profName":"梁�?�成",
      *                  "status":"AVAILABLE",
      *                  "stuAttendCount":1,
      *                  "stuLimitCount":60
@@ -190,7 +190,7 @@ public class CourseApiTest extends ApiTest{
      *                  }],
      *                  "courseVenue":"J3-203",
      *                  "credit":"2",
-     *                  "profName":"哥斯拉",
+     *                  "profName":"哥斯�?",
      *                  "status":"CONFLICT",
      *                  "stuAttendCount":0,
      *                  "stuLimitCount":60
@@ -209,9 +209,9 @@ public class CourseApiTest extends ApiTest{
 
     /**
      * 选课
-     * 这个api的data只要传courseID就好了；但前端必须保证不可选的课不会被传进来orz
-     * 如果选课时已经满了，则返回403
-     * TODO: 选了课之后，Course表不能相应增加人数
+     * 这个api的data只要传courseID就好了；但前端必须保证不可�?�的课不会被传进来orz
+     * 如果选课时已经满了，则返�?403
+     * TODO: 选了课之后，Course表不能相应增加人�?
      */
     @Test
     public void registerCourse() {
@@ -222,8 +222,8 @@ public class CourseApiTest extends ApiTest{
     }
 
     /**
-     * 退课
-     * TODO: 退课后，Course表不能相应减去人数...
+     * �?�?
+     * TODO: �?课后，Course表不能相应减去人�?...
      */
     @Test
     public void quitCourse() {
