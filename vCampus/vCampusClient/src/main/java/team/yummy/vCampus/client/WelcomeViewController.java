@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXRadioButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -111,39 +112,38 @@ public class WelcomeViewController extends ViewController implements Initializab
 
     public void presslogin(KeyEvent keyEvent)
     {
-        String username = login_Tusername.getText();
-        String password = login_Tpassword.getText();
-        JFXSnackbar bar = new JFXSnackbar(loginpane);
+        if(keyEvent.getCode() == KeyCode.ENTER) {
+            String username = login_Tusername.getText();
+            String password = login_Tpassword.getText();
+            JFXSnackbar bar = new JFXSnackbar(loginpane);
 
 
+            if (username.length() == 0 || password.length() == 0)
+                bar.enqueue(new JFXSnackbar.SnackbarEvent("用户名密码不能为空"));
 
-        if(username.length() == 0 || password.length() == 0)
-            bar.enqueue(new JFXSnackbar.SnackbarEvent("用户名密码不能为空"));
 
+            else {
+                WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
+                switch (res.getStatusCode()) {
+                    case "200":
+                        setAccountJsonData(res.getJsonData());
+                        api.setAuth(currentAccount.getUsername(), currentAccount.getCampusCardID(), currentAccount.getPassword());
+                        // 切换页面
+                        stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
+                        //让后面账户登出回到这个界面时上面没有之前的账户和密码
+                        login_Tpassword.setText("");
+                        login_Tusername.setText("");
+                        break;
+                    case "404":
+                        bar.enqueue(new JFXSnackbar.SnackbarEvent("用户不存在"));
+                        break;
+                    case "403":
+                        bar.enqueue(new JFXSnackbar.SnackbarEvent("密码错误"));
+                        break;
 
-        else
-        {
-            WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
-            switch (res.getStatusCode()) {
-                case "200":
-                    setAccountJsonData(res.getJsonData());
-                    api.setAuth(currentAccount.getUsername(), currentAccount.getCampusCardID(),currentAccount.getPassword());
-                    // 切换页面
-                    stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
-                    //让后面账户登出回到这个界面时上面没有之前的账户和密码
-                    login_Tpassword.setText("");
-                    login_Tusername.setText("");
-                    break;
-                case "404":
-                    bar.enqueue(new JFXSnackbar.SnackbarEvent("用户不存在"));
-                    break;
-                case "403":
-                    bar.enqueue(new JFXSnackbar.SnackbarEvent("密码错误"));
-                    break;
-
+                }
             }
         }
-
     }
 
     public void signup(ActionEvent actionEvent)

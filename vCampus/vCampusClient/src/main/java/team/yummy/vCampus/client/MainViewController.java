@@ -113,6 +113,27 @@ public class MainViewController extends ViewController implements Initializable 
 
     public List<CourseScheduleItem> courseScheduleItems = new ArrayList<>();
 
+    /**
+     * members for course report
+     */
+    @FXML private VBox course_reportBox;
+    @FXML private Label score_avgScore;
+    @FXML private Label score_avgGPA;
+    @FXML private Label score_totalCredit;
+
+
+    /**
+     * members for course register
+     */
+    @FXML private HBox course_registerBox;
+    @FXML private VBox register_courseNameCol;
+    @FXML private VBox course_venueCol;
+    @FXML private VBox register_scheduleCol;
+    @FXML private VBox register_statusCol;
+    @FXML private VBox register_opCol;
+    // 数据
+    public List<CourseReportItem> courseReportItems = new ArrayList<>();
+
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -244,18 +265,174 @@ public class MainViewController extends ViewController implements Initializable 
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
 
+        WebResponse res = api.get("/course/schedule");
+        courseScheduleItems = res.dataList(CourseScheduleItem.class);
+
+        String[] colors = {"#DD9708", "#56AF5A", "#E9433f", "#0EB5CA", "#512DA8"};
+        List<String> listColors = new ArrayList<String>();
+        for(String color : colors) {
+            listColors.add(color);
+        }
+
         for(CourseScheduleItem course : courseScheduleItems) {
-            JFXButton courseItem = new JFXButton(course.getCourseName()+"@"+course.getCourseVenue());
+            JFXButton courseItem = new JFXButton(course.getCourseName() + "@" + course.getCourseVenue());
             courseItem.setPrefHeight(200);
             courseItem.setPrefWidth(200);
-            courseItem.setBackground(new Background(new BackgroundFill(Color.web("#512DA8"), null, null)));
+
+            if(listColors.isEmpty()) {
+                for(String color : colors) {
+                    listColors.add(color);
+                }
+            }
+            int colorIndex = (int)(Math.random()*(listColors.size()-1));
+            String itemColor = listColors.get(colorIndex);
+            listColors.remove(colorIndex);
+            courseItem.setBackground(new Background(new BackgroundFill(Color.web(itemColor), null, null)));
             courseItem.setTextFill(Color.web("#fff"));
             courseItem.setFont(Font.font(14));
 //            courseItem.borderProperty().setValue(new Border(new BorderStroke(null, null, new CornerRadii(50), new BorderWidths(2))));
 //            courseItem.setBorder(new Border(new BorderStroke(Color.web("#512DA8"), BorderStrokeStyle.SOLID, new CornerRadii(50), new BorderWidths(2))));
 //            courseItem.getStyleClass().add("course-schedule-item");
-            course_scheduleGrid.add(courseItem, course.getWeekDay(), course.getSpanStart(), 1, course.getSpanEnd()-course.getSpanStart()+1);
+            course_scheduleGrid.add(courseItem, course.getWeekDay() * 2 - 1, course.getSpanStart(), 1, course.getSpanEnd()-course.getSpanStart()+1);
         }
+
+        /**
+         * 成绩查询
+         */
+        double totalScore = 0;
+        double totalCredit = 0;
+
+        res = api.get("/course/report");
+        courseReportItems = res.dataList(CourseReportItem.class);
+
+        for(CourseReportItem report : courseReportItems) {
+            totalScore += report.getScore();
+            totalCredit += report.getCredit();
+
+            HBox newRow = new HBox();
+            newRow.getStyleClass().add("report-item");
+
+            VBox courseInfo = new VBox();
+            courseInfo.getStyleClass().add("course-info");
+            HBox courseDetailInfo = new HBox();
+            courseDetailInfo.getStyleClass().add("course-detail");
+
+            Label courseName = new Label(report.getCourseName());
+            courseName.getStyleClass().add("course-name");
+
+            Label courseCredit = new Label("学分: " + String.valueOf(report.getCredit()));
+            Label scoreType = new Label(report.getScoreType());
+            courseDetailInfo.getChildren().addAll(courseCredit, scoreType);
+
+            courseInfo.getChildren().addAll(courseName, courseDetailInfo);
+
+            Label score = new Label(String.valueOf(report.getScore()));
+            score.getStyleClass().add("score");
+
+            newRow.getChildren().addAll(courseInfo, score);
+
+            course_reportBox.getChildren().add(newRow);
+        }
+
+        score_avgScore.setText(String.valueOf(totalScore / courseReportItems.size()));
+        score_totalCredit.setText(String.valueOf(totalCredit));
+        String gpa = String.valueOf(calculateGPA(courseReportItems));
+        if(gpa.length() > 3)
+            gpa = gpa.substring(0, 4);
+        score_avgGPA.setText(gpa);
+
+        /**
+         * 选课
+         */
+        res = api.get("/course/register");
+        CourseRegister courseRegister = res.data(CourseRegister.class);
+
+        for(CourseRegisterItem course : courseRegister.getCourseList()) {
+            VBox courseInfoCol = new VBox();
+
+            courseInfoCol.setStyle("-fx-spacing: 10");
+
+
+            Label courseName = new Label(course.getCourseName());
+            courseName.getStyleClass().add("register-item__course-name");
+
+            HBox courseDetailInfo = new HBox();
+//            courseDetailInfo.getStyleClass().add("register-item__course-detail");
+            courseDetailInfo.setStyle("-fx-alignment: center-left");
+            courseDetailInfo.setStyle("-fx-spacing: 10");
+
+            Label courseTeacher = new Label("教师：" + course.getProfName());
+            courseTeacher.setStyle("-fx-text-fill: #757575");
+            Label courseCredit = new Label("学分：" + course.getCredit());
+            courseCredit.setStyle("-fx-text-fill: #757575");
+            courseDetailInfo.getChildren().addAll(courseTeacher, courseCredit);
+            courseInfoCol.getChildren().addAll(courseName, courseDetailInfo);
+
+            courseInfoCol.getStyleClass().add("register-item");
+            register_courseNameCol.getChildren().addAll(courseInfoCol);
+
+            VBox courseVenueCol = new VBox();
+
+            Label courseVenue = new Label("@"+course.getCourseVenue());
+            courseVenue.setStyle("-fx-font-size: 18");
+            courseVenueCol.getChildren().addAll(courseVenue);
+            courseVenue.getStyleClass().add("register-item");
+            course_venueCol.getChildren().addAll(courseVenueCol);
+
+            VBox courseScheduleCol = new VBox();
+            for(Schedule s : course.getCourseSchedule()) {
+                String schedule = "";
+                schedule += "星期" + s.getWeekDay() + "（" + s.getSpanStart() + "-" + s.getSpanEnd() + "）";
+                Label courseSchedule = new Label(schedule);
+                courseScheduleCol.getChildren().addAll(courseSchedule);
+            }
+
+            courseScheduleCol.getStyleClass().add("register-item");
+            register_scheduleCol.getChildren().addAll(courseScheduleCol);
+
+            VBox courseStatusCol = new VBox();
+            Label courseStatus = new Label(String.valueOf(course.getStuAttendCount()) + " / " + String.valueOf(course.getStuLimitCount()));
+            courseStatus.setStyle("-fx-font-size: 18");
+            courseStatusCol.getChildren().addAll(courseStatus);
+            courseStatusCol.getStyleClass().add("register-item");
+            register_statusCol.getChildren().addAll(courseStatusCol);
+
+            VBox opCol = new VBox();
+            opCol.setStyle("-fx-min-width: 50");
+            opCol.setStyle("-fx-pref-width: 50");
+
+
+            JFXButton buttonOp = null;
+
+            // TODO: 按钮事件
+            if(course.getStatus() == CourseStatusEnum.AVAILABLE) {
+                buttonOp = new JFXButton("选择");
+                buttonOp.setStyle("-fx-background-color: #673AB7;-fx-text-fill: #fff;-fx-font-size: 18;");
+            }
+            else if(course.getStatus() == CourseStatusEnum.CONFLICT) {
+                buttonOp = new JFXButton("冲突");
+                buttonOp.setStyle("-fx-font-size: 18;");
+                buttonOp.setDisable(true);
+            }
+            else if(course.getStatus() == CourseStatusEnum.NOT_AVAILABLE) {
+                buttonOp = new JFXButton("已满");
+                buttonOp.setStyle("-fx-font-size: 18;");
+                buttonOp.setDisable(true);
+            }
+            else if(course.getStatus() == CourseStatusEnum.SELECTED) {
+                buttonOp = new JFXButton("退选");
+                buttonOp.setStyle("-fx-background-color: #ff2300;-fx-text-fill: #fff;-fx-font-size: 18;");
+
+            }
+            buttonOp.setButtonType(JFXButton.ButtonType.RAISED);
+            opCol.getChildren().addAll(buttonOp);
+            opCol.getStyleClass().add("register-item");
+
+            register_opCol.getChildren().addAll(opCol);
+        }
+
+
+
     }
     @FXML
     protected void switchDorm(ActionEvent actionEvent) {
@@ -571,6 +748,46 @@ public class MainViewController extends ViewController implements Initializable 
             }
 
         }
+    }
+
+    /**
+     * 计算GPA
+     * @param reportItems
+     * @return
+     */
+    double calculateGPA(List<CourseReportItem> reportItems) {
+        double GPA = 0;
+        double totalCredit = 0;
+        for(CourseReportItem report : reportItems) {
+            totalCredit += report.getCredit();
+            int score = report.getScore();
+            double credit = report.getCredit();
+            if(score >= 96)
+                GPA += 4.8 * credit;
+            else if(score >= 93)
+                GPA += 4.5 * credit;
+            else if(score >= 90)
+                GPA += 4.0 * credit;
+            else if(score >= 86)
+                GPA += 3.8 * credit;
+            else if(score >= 83)
+                GPA += 3.5 * credit;
+            else if(score >= 80)
+                GPA += 3.0 * credit;
+            else if(score >= 76)
+                GPA += 2.8 * credit;
+            else if(score >= 73)
+                GPA += 2.5 * credit;
+            else if(score >= 70)
+                GPA += 2.0 * credit;
+            else if(score >= 66)
+                GPA += 1.8 * credit;
+            else if(score >= 63)
+                GPA += 1.5 * credit;
+            else if(score >=60)
+                GPA += 1.0 * credit;
+        }
+        return GPA / totalCredit;
     }
 }
 

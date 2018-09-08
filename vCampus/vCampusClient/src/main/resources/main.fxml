@@ -306,73 +306,132 @@
                 <Label fx:id="si_errorText" layoutX="342.0" layoutY="382.0" text="" />
               </children>
             </AnchorPane>
-            <AnchorPane fx:id="CoursePane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <children>
-                  <TabPane prefHeight="740.0" prefWidth="950.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                      <tabs>
-                          <Tab text="课程表">
-                              <content>
-                                  <GridPane id="content__course__schedule" fx:id="course_scheduleGrid" alignment="CENTER">
-                                      <columnConstraints>
-                                          <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1.0" minWidth="1.0" prefWidth="1.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1.0" minWidth="1.0" prefWidth="1.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1.0" minWidth="1.0" prefWidth="1.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1.0" minWidth="1.0" prefWidth="1.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                          <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="NEVER" />
-                                          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
-                                          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
-                                          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
-                                          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
-                                          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
-                                          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
-                                          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
-                                          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
-                                          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
-                                          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
-                                          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
-                                          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
-                                      </rowConstraints>
-                                      <children>
-                                          <Label text="星期一" GridPane.columnIndex="1" />
-                                          <Label text="星期二" GridPane.columnIndex="3" />
-                                          <Label text="星期三" GridPane.columnIndex="5" />
-                                          <Label text="星期四" GridPane.columnIndex="7" />
-                                          <Label text="星期五" GridPane.columnIndex="9" />
-                                          <Label text="1" GridPane.rowIndex="1" />
-                                          <Label text="2" GridPane.rowIndex="2" />
-                                          <Label text="3" GridPane.rowIndex="3" />
-                                          <Label text="4" GridPane.rowIndex="4" />
-                                          <Label text="5" GridPane.rowIndex="5" />
-                                          <Label text="6" GridPane.rowIndex="6" />
-                                          <Label text="7" GridPane.rowIndex="7" />
-                                          <Label text="8" GridPane.rowIndex="8" />
-                                          <Label text="9" GridPane.rowIndex="9" />
-                                          <Label text="10" GridPane.rowIndex="10" />
-                                          <Label text="11" GridPane.rowIndex="11" />
-                                          <Label text="12" GridPane.rowIndex="12" />
-                                          <Label text="13" GridPane.rowIndex="13" />
-                                          <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="2" GridPane.rowSpan="14" />
-                                          <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="4" GridPane.rowSpan="14" />
-                                          <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="6" GridPane.rowSpan="14" />
-                                          <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="8" GridPane.rowSpan="14" />
-                                      </children>
-                                  </GridPane>
-                              </content>
-                          </Tab>
-                          <Tab text="Untitled Tab 2" />
-                      </tabs>
-                  </TabPane>
-              </children>
-            </AnchorPane>
+              <AnchorPane fx:id="CoursePane" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                      <JFXTabPane prefHeight="740.0" prefWidth="950.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <tabs>
+                              <Tab text="课程表">
+                                  <content>
+                                      <GridPane id="content__course__schedule" fx:id="course_scheduleGrid" alignment="CENTER">
+                                          <columnConstraints>
+                                              <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+                                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                              <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1.0" minWidth="1.0" prefWidth="1.0" />
+                                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                              <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1.0" minWidth="1.0" prefWidth="1.0" />
+                                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                              <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1.0" minWidth="1.0" prefWidth="1.0" />
+                                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                              <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1.0" minWidth="1.0" prefWidth="1.0" />
+                                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          </columnConstraints>
+                                          <rowConstraints>
+                                              <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="NEVER" />
+                                              <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                                              <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                                              <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                                              <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                                              <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                                              <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                                              <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                                              <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                                              <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                                              <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                                              <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                                              <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                                          </rowConstraints>
+                                          <children>
+                                              <Label text="星期一" GridPane.columnIndex="1" />
+                                              <Label text="星期二" GridPane.columnIndex="3" />
+                                              <Label text="星期三" GridPane.columnIndex="5" />
+                                              <Label text="星期四" GridPane.columnIndex="7" />
+                                              <Label text="星期五" GridPane.columnIndex="9" />
+                                              <Label text="1" GridPane.rowIndex="1" />
+                                              <Label text="2" GridPane.rowIndex="2" />
+                                              <Label text="3" GridPane.rowIndex="3" />
+                                              <Label text="4" GridPane.rowIndex="4" />
+                                              <Label text="5" GridPane.rowIndex="5" />
+                                              <Label text="6" GridPane.rowIndex="6" />
+                                              <Label text="7" GridPane.rowIndex="7" />
+                                              <Label text="8" GridPane.rowIndex="8" />
+                                              <Label text="9" GridPane.rowIndex="9" />
+                                              <Label text="10" GridPane.rowIndex="10" />
+                                              <Label text="11" GridPane.rowIndex="11" />
+                                              <Label text="12" GridPane.rowIndex="12" />
+                                              <Label text="13" GridPane.rowIndex="13" />
+                                              <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="2" GridPane.rowSpan="14" />
+                                              <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="4" GridPane.rowSpan="14" />
+                                              <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="6" GridPane.rowSpan="14" />
+                                              <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="8" GridPane.rowSpan="14" />
+                                          </children>
+                                      </GridPane>
+                                  </content>
+                              </Tab>
+                              <Tab text="成绩查询">
+                                  <content>
+                                      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                          <children>
+                                              <ScrollPane layoutX="46.0" layoutY="25.0" prefHeight="701.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <content>
+                                                      <VBox id="content__course__report" fx:id="course_reportBox" prefHeight="200.0" prefWidth="100.0">
+                                                          <children>
+                                                              <HBox prefHeight="100.0" prefWidth="200.0" styleClass="heading">
+                                                                  <children>
+                                                                      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="item">
+                                                                          <children>
+                                                                              <Label styleClass="column-title" text="平均分" />
+                                                                              <Label fx:id="score_avgScore" styleClass="column-content" text="Label" />
+                                                                          </children>
+                                                                      </VBox>
+                                                                      <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                                                      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="item">
+                                                                          <children>
+                                                                              <Label styleClass="column-title" text="总平均绩点" />
+                                                                              <Label fx:id="score_avgGPA" styleClass="column-content" text="Label" />
+                                                                          </children>
+                                                                      </VBox>
+                                                                      <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                                                      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="item">
+                                                                          <children>
+                                                                              <Label styleClass="column-title" text="已修学分" />
+                                                                              <Label fx:id="score_totalCredit" styleClass="column-content" text="Label" />
+                                                                          </children>
+                                                                      </VBox>
+                                                                  </children>
+                                                              </HBox>
+                                                          </children>
+                                                      </VBox>
+                                                  </content>
+                                              </ScrollPane>
+                                          </children>
+                                      </AnchorPane>
+                                  </content></Tab>
+                              <Tab text="选课">
+                                  <content>
+                                      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                          <children>
+                                              <ScrollPane id="wrapper__content__course__register" fx:id="course_registerTable" layoutX="46.0" layoutY="25.0" prefHeight="701.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <content>
+                                                      <HBox id="content__course__register" fx:id="course_registerBox" prefHeight="100.0" prefWidth="200.0">
+                                                          <children>
+                                                              <VBox id="content__course__register__name" fx:id="register_courseNameCol" prefHeight="200.0" prefWidth="100.0" />
+                                                              <VBox id="content__course__register__venue" fx:id="course_venueCol" prefHeight="200.0" prefWidth="100.0" />
+                                                              <VBox id="content__course__register__schedule" fx:id="register_scheduleCol" prefHeight="200.0" prefWidth="100.0" />
+                                                              <VBox id="content__course__register__status" fx:id="register_statusCol" prefHeight="200.0" prefWidth="100.0" />
+                                                              <VBox id="content__course__register__op" fx:id="register_opCol" prefHeight="200.0" prefWidth="100.0" />
+                                                          </children>
+                                                      </HBox>
+                                                  </content>
+                                              </ScrollPane>
+                                          </children>
+                                      </AnchorPane>
+                                  </content>
+                              </Tab>
+                          </tabs>
+                      </JFXTabPane>
+                  </children>
+              </AnchorPane>
             <AnchorPane fx:id="DormPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <TreeTableView layoutX="105.0" layoutY="370.0" prefHeight="292.0" prefWidth="747.0">

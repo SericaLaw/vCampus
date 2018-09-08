@@ -333,3 +333,106 @@
     -fx-background-color: #7C4DFF;
     -fx-cursor: hand;
 }
+
+#content__course__report {
+    -fx-pref-width: 940;
+    -fx-padding: 50 150;
+    -fx-alignment: top-center;
+}
+
+#content__course__report .heading {
+    -fx-alignment: center;
+    -fx-spacing: 20;
+    -fx-padding: 50 0;
+}
+
+#content__course__report .heading .item {
+    -fx-alignment: center;
+    -fx-pref-width: 150;
+    -fx-spacing: 10;
+}
+
+#content__course__report .heading .column-title {
+    -fx-text-fill: #757575;
+    -fx-font-size: 20;
+}
+
+#content__course__report .heading .column-content {
+    -fx-text-fill: #512DA8;
+    -fx-font-size: 36;
+}
+
+#content__course__report .report-item {
+    -fx-spacing: 150;
+    -fx-alignment: center-left;
+    -fx-padding: 20 50;
+}
+
+#content__course__report .course-info {
+    -fx-spacing: 5;
+    -fx-alignment: center-left;
+}
+
+#content__course__report .course-name {
+    -fx-font-size: 24;
+    -fx-text-fill: #212121;
+}
+
+#content__course__report .course-detail {
+    -fx-spacing: 30;
+    -fx-font-size: 18;
+    -fx-text-fill: #757575;
+}
+
+#content__course__report .score {
+    -fx-font-size: 36;
+    -fx-text-fill: #673AB7;
+}
+
+#wrapper__content__course__register {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+#content__course__register {
+    -fx-pref-width: 900;
+    -fx-alignment: center;
+    -fx-padding: 50;
+    -fx-spacing: 10;
+}
+
+#content__course__register__name {
+    -fx-pref-width: 250;
+    -fx-alignment: top-left;
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
+
+#content__course__register__venue,
+#content__course__register__schedule,
+#content__course__register__status,
+#content__course__register__op {
+    -fx-pref-width: 150;
+    -fx-alignment: top-left;
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
+
+.register-item {
+    -fx-pref-height: 100;
+    -fx-min-height: 100;
+    -fx-max-height: 100;
+    -fx-alignment: center-left;
+}
+
+.register-item__course-name {
+    -fx-font-size: 22;
+    -fx-text-fill: #673AB7;
+}
+
+.register-item__course-detail {
+    -fx-alignment: center-left;
+    -fx-spacing: 10;
+
+    -fx-text-fill: #757575;
+}
