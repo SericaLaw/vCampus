@@ -45,12 +45,12 @@ import static sun.swing.MenuItemLayoutHelper.max;
 
 public class StoreViewFactory {
     private StackPane rootStackPane;
-    private MainViewController mainViewController;
+    private MainViewController controller;
     private List<Goods> goodsSelected = new ArrayList<>();
 
     StoreViewFactory(StackPane rootStackPane, MainViewController mainViewController) {
         this.rootStackPane = rootStackPane;
-        this.mainViewController = mainViewController;
+        this.controller = mainViewController;
     }
 
     // TODO: 添加样式
@@ -185,9 +185,9 @@ public class StoreViewFactory {
                 @Override
                 public void handle(ActionEvent event) {
                     // TODO: 这里处理和购物车有关的逻辑
-                    mainViewController.goodsToBuy.add(goods);
-                    List<HBox> cartRows = createCartRows(mainViewController.goodsToBuy);
-                    mainViewController.store_CartBox.getChildren().addAll(cartRows);
+                    controller.goodsToBuy.add(goods);
+                    List<HBox> cartRows = createCartRows(controller.goodsToBuy);
+                    controller.store_CartBox.getChildren().addAll(cartRows);
                     dialog.setVisible(false);
                 }
             });
@@ -336,10 +336,10 @@ public class StoreViewFactory {
                         goodsTotalPrice.setText(Double.toString(Price * tempAmount));
                         if(goodsSelector.isSelected())
                         {
-                            Double GTPtemp=Double.valueOf(mainViewController.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
+                            Double GTPtemp=Double.valueOf(controller.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
                             Double TPtemp=Double.valueOf(goods.getPrice()).doubleValue();
                             GTPtemp=GTPtemp-TPtemp;
-                            mainViewController.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
+                            controller.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
                         }
                     }
                 }
@@ -353,10 +353,10 @@ public class StoreViewFactory {
                     goodsTotalPrice.setText(Double.toString(Price * tempAmount));
                     if(goodsSelector.isSelected())
                     {
-                        Double GTPtemp=Double.valueOf(mainViewController.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
+                        Double GTPtemp=Double.valueOf(controller.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
                         Double TPtemp=Double.valueOf(goods.getPrice()).doubleValue();
                         GTPtemp=GTPtemp+TPtemp;
-                        mainViewController.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
+                        controller.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
                     }
                 }
             });
@@ -389,13 +389,13 @@ public class StoreViewFactory {
                     if(goodsSelector.isSelected())
                     {
                         goodsSelected.remove(newRow);
-                        Double GTPtemp=Double.valueOf(mainViewController.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
+                        Double GTPtemp=Double.valueOf(controller.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
                         Double TPtemp=Double.valueOf(goodsTotalPrice.getText()).doubleValue();
                         GTPtemp=GTPtemp-TPtemp;
-                        mainViewController.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
+                        controller.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
                     }
-                    mainViewController.goodsToBuy.remove(goodsToRemove);
-                    mainViewController.store_CartBox.getChildren().remove(newRow);
+                    controller.goodsToBuy.remove(goodsToRemove);
+                    controller.store_CartBox.getChildren().remove(newRow);
                     //List<HBox> cartRows = createCartRows(mainViewController.goodsToBuy);   // 数据刷新
                     //mainViewController.store_CartBox.getChildren().addAll(cartRows);        // 界面刷新
 
@@ -412,47 +412,47 @@ public class StoreViewFactory {
                     boolean newValue=goodsSelector.isSelected();
                     if (newValue) {
                         goodsSelected.add(goods);
-                        Double GTPtemp=Double.valueOf(mainViewController.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
+                        Double GTPtemp=Double.valueOf(controller.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
                         Double TPtemp=Double.valueOf(goodsTotalPrice.getText()).doubleValue();
                         GTPtemp=GTPtemp+TPtemp;
-                        mainViewController.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
+                        controller.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
                     }
                     else {
                         goodsSelected.remove(goods);
-                        Double GTPtemp=Double.valueOf(mainViewController.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
+                        Double GTPtemp=Double.valueOf(controller.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
                         Double TPtemp=Double.valueOf(goodsTotalPrice.getText()).doubleValue();
                         GTPtemp=GTPtemp-TPtemp;
-                        mainViewController.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
+                        controller.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
                     }
                 }
             });
 
-            mainViewController.content__Store__Cart__BatchRemove.setOnAction(new EventHandler<ActionEvent>() {
+            controller.content__Store__Cart__BatchRemove.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent arg0) {
 
-                    mainViewController.goodsToBuy.removeAll(goodsSelected);
-                    mainViewController.store_CartBox.getChildren().clear();
-                    List<HBox> cartRows = createCartRows(mainViewController.goodsToBuy);
-                    mainViewController.store_CartBox.getChildren().addAll(cartRows);
+                    controller.goodsToBuy.removeAll(goodsSelected);
+                    controller.store_CartBox.getChildren().clear();
+                    List<HBox> cartRows = createCartRows(controller.goodsToBuy);
+                    controller.store_CartBox.getChildren().addAll(cartRows);
 
                     goodsSelected.clear();
-                    mainViewController.content__Store__Cart__GrandTotalPrice.setText("0");
+                    controller.content__Store__Cart__GrandTotalPrice.setText("0");
                 }
             });
 
-            mainViewController.content__Store__Cart__Pay.setOnAction(new EventHandler<ActionEvent>() {
+            controller.content__Store__Cart__Pay.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent arg0) {
 
-                    if(Double.valueOf(mainViewController.content__Store__Cart__GrandTotalPrice.getText()).doubleValue()!=0)
+                    if(Double.valueOf(controller.content__Store__Cart__GrandTotalPrice.getText()).doubleValue()!=0)
                     {
-                        mainViewController.content__Store__Cart__GrandTotalPrice.setDisable(false);
+                        controller.content__Store__Cart__GrandTotalPrice.setDisable(false);
                         final JFXDialog dialog = new JFXDialog();
                         HBox hb1 = new HBox();
                         HBox hb2 = new HBox();
                         VBox vb = new VBox();
-                        Label text =new Label("确定要支付 ￥ "+mainViewController.content__Store__Cart__GrandTotalPrice.getText()+" 吗？");
+                        Label text =new Label("确定要支付 ￥ "+controller.content__Store__Cart__GrandTotalPrice.getText()+" 吗？");
                         text.setFont(Font.font(20));
                         text.setTextFill(Color.web("black"));
                         text.setPadding(new Insets(10,0,0,130));
@@ -479,12 +479,12 @@ public class StoreViewFactory {
                         ok.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) {
-                                mainViewController.goodsToBuy.removeAll(goodsSelected);
-                                mainViewController.store_CartBox.getChildren().clear();
-                                List<HBox> cartRows = createCartRows( mainViewController.goodsToBuy);   // 数据刷新
-                                mainViewController.store_CartBox.getChildren().addAll(cartRows);        // 界面刷新
+                                controller.goodsToBuy.removeAll(goodsSelected);
+                                controller.store_CartBox.getChildren().clear();
+                                List<HBox> cartRows = createCartRows( controller.goodsToBuy);   // 数据刷新
+                                controller.store_CartBox.getChildren().addAll(cartRows);        // 界面刷新
                                 goodsSelected.clear();
-                                mainViewController.content__Store__Cart__GrandTotalPrice.setText("0");
+                                controller.content__Store__Cart__GrandTotalPrice.setText("0");
                                 dialog.setVisible(false);
                             }
                         });

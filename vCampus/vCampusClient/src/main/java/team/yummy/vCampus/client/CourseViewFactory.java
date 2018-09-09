@@ -100,7 +100,6 @@ public class CourseViewFactory {
             courseName.getStyleClass().add("register-item__course-name");
 
             HBox courseDetailInfo = new HBox();
-//            courseDetailInfo.getStyleClass().add("register-item__course-detail");
             courseDetailInfo.setStyle("-fx-alignment: center-left");
             courseDetailInfo.setStyle("-fx-spacing: 10");
 
