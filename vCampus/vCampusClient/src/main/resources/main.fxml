@@ -577,7 +577,7 @@
                                   <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                           <children>
-                                              <ScrollPane layoutX="40.0" layoutY="45.0" prefHeight="701.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                              <ScrollPane layoutX="40.0" layoutY="45.0" prefHeight="701.0" prefWidth="950.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <content>
                                                       <VBox id="content__store__wrapper" prefHeight="699.0" prefWidth="950.0">
                                                           <children>
@@ -596,7 +596,10 @@
                                                                       </ImageView>
                                                                   </children>
                                                               </HBox>
-                                                              <VBox fx:id="store_newItemBox" prefHeight="100.0" prefWidth="200.0" styleClass="section" />
+                                                              <VBox fx:id="store_newItemBox" style="-fx-background-color: transparent; -fx-border-color: transparent;" styleClass="section">
+                                                                  <opaqueInsets>
+                                                                      <Insets />
+                                                                  </opaqueInsets></VBox>
                                                               <Separator prefWidth="200.0" />
                                                               <HBox prefHeight="100.0" prefWidth="200.0" styleClass="section-header">
                                                                   <children>
@@ -613,7 +616,12 @@
                                                                       </ImageView>
                                                                   </children>
                                                               </HBox>
-                                                              <VBox id="#content__store__pop-items" fx:id="store_popItemBox" prefHeight="100.0" prefWidth="200.0" styleClass="section" />
+                                                              <VBox id="content__store__pop-items" fx:id="store_popItemBox" styleClass="section">
+                                                                  <children>
+                                                                      <HBox fx:id="testtest" prefHeight="500" styleClass="row" />
+                                                                  </children>
+                                                              </VBox>
+
                                                               <Separator prefWidth="200.0" />
                                                               <HBox prefHeight="100.0" prefWidth="200.0" styleClass="section-header">
                                                                   <children>
@@ -630,8 +638,11 @@
                                                                       </ImageView>
                                                                   </children>
                                                               </HBox>
-                                                              <VBox id="#content__store__favorable-items" fx:id="store_favItemBox" prefHeight="100.0" prefWidth="200.0" styleClass="section" />
+                                                              <VBox id="content__store__favorable-items" fx:id="store_favItemBox" prefHeight="100.0" prefWidth="200.0" styleClass="section" />
                                                           </children>
+                                                          <opaqueInsets>
+                                                              <Insets />
+                                                          </opaqueInsets>
                                                       </VBox>
                                                   </content>
                                               </ScrollPane>
@@ -643,9 +654,9 @@
                                   <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                           <children>
-                                              <ScrollPane layoutX="62.0" layoutY="20.0" minHeight="597.0" prefHeight="625.0" prefWidth="950.0" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                              <ScrollPane layoutX="62.0" layoutY="20.0" minHeight="597.0" prefHeight="625.0" prefWidth="950.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <content>
-                                                      <VBox id="content__cart__wrapper" fx:id="store_CartBox" prefHeight="200.0" prefWidth="100.0" />
+                                                      <VBox id="content__cart__wrapper" fx:id="store_CartBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" />
                                                   </content>
                                               </ScrollPane>
                                               <GridPane alignment="CENTER_LEFT" layoutY="623.0" prefHeight="65.0" prefWidth="950.0">

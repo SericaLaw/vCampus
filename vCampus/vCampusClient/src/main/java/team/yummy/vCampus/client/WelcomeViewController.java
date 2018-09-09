@@ -92,7 +92,7 @@ public class WelcomeViewController extends ViewController implements Initializab
                     setAccountJsonData(res.getJsonData());
                     api.setAuth(currentAccount.getUsername(), currentAccount.getCampusCardID(),currentAccount.getPassword());
                     // 切换页面
-                    stageController.setStage(App.ADMIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
+                    stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
                     //让后面账户登出回到这个界面时上面没有之前的账户和密码
                     login_Tpassword.setText("");
                     login_Tusername.setText("");
@@ -129,7 +129,7 @@ public class WelcomeViewController extends ViewController implements Initializab
                         setAccountJsonData(res.getJsonData());
                         api.setAuth(currentAccount.getUsername(), currentAccount.getCampusCardID(), currentAccount.getPassword());
                         // 切换页面
-                        stageController.setStage(App.ADMIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
+                        stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
                         //让后面账户登出回到这个界面时上面没有之前的账户和密码
                         login_Tpassword.setText("");
                         login_Tusername.setText("");
