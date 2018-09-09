@@ -1,4 +1,4 @@
-package team.yummy.vCampus.server.api.annotation;
+package team.yummy.vCampus.server.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Patch {
+public @interface Post {
     public String route() default "";
 }

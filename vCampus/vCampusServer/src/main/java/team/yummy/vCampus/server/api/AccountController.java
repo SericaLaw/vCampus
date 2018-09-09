@@ -1,12 +1,9 @@
 package team.yummy.vCampus.server.api;
 
-import com.alibaba.fastjson.JSON;
 import org.hibernate.Transaction;
 import team.yummy.vCampus.models.entity.AccountEntity;
 import team.yummy.vCampus.models.viewmodel.LoginViewModel;
-import team.yummy.vCampus.server.api.annotation.Post;
-
-import java.util.Map;
+import team.yummy.vCampus.server.annotation.Post;
 
 
 public class AccountController extends Controller {

@@ -1,4 +1,4 @@
-package team.yummy.vCampus.server.api.annotation;
+package team.yummy.vCampus.server.annotation;
 
 
 import java.lang.annotation.ElementType;

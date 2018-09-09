@@ -1,9 +1,7 @@
 package team.yummy.vCampus.server.middlewares;
 
-import com.alibaba.fastjson.JSON;
 import team.yummy.vCampus.data.DBHelper;
-import team.yummy.vCampus.models.*;
-import team.yummy.vCampus.models.viewmodel.CourseRegisterViewModel;
+import team.yummy.vCampus.server.api.Controller;
 import team.yummy.vCampus.server.Server;
 import team.yummy.vCampus.server.WebContext;
 import team.yummy.vCampus.server.api.*;
@@ -20,20 +18,24 @@ public class RoutingMiddleware implements Middleware {
 
             Controller controller = null;
 
-            switch (ctx.request.getTableName()) {
-                case "Account":
+            switch (ctx.request.getTableName().toLowerCase()) {
+                case "account":
                     controller = new AccountController(); break;
-                case "Course":
+                case "course":
                     controller = new CourseController(); break;
-                case "Library":
+                case "library":
                     controller = new LibraryController(); break;
+                case "stuinfo":
+                    controller = new StuInfoController(); break;
             }
 
-            // 设置Controller上下文。
-            controller.init(ctx);
+            if (controller != null) {
+                // 设置Controller上下文。
+                controller.init(ctx);
 
-            // 运行Controller，若成功，则response将不为null。
-            controller.run();
+                // 运行Controller，若成功，则response将不为null。
+                controller.run();
+            }
 
             // 如果data仍为null且状态码不为500，说明路由失败
             if (ctx.response.getStatusCode() == null && ctx.response.getStatusCode() != "500") {
