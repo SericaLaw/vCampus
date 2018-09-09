@@ -4,14 +4,23 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.effects.JFXDepthManager;
+import com.jfoenix.svg.SVGGlyph;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import org.omg.CORBA.PRIVATE_MEMBER;
 import team.yummy.vCampus.models.*;
 
@@ -36,8 +45,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import com.jfoenix.controls.*;
 
+import static javafx.animation.Interpolator.EASE_BOTH;
+
 public class MainViewController extends ViewController implements Initializable {
 
+    public HBox testtest;
     @FXML private StackPane rootStackPane;
     @FXML private GridPane title;
     @FXML private AnchorPane InitPane;
@@ -483,6 +495,55 @@ public class MainViewController extends ViewController implements Initializable 
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
     }
+
+    private String getDefaultColor(int i) {
+        String color = "#FFFFFF";
+        switch (i) {
+            case 0:
+                color = "#8F3F7E";
+                break;
+            case 1:
+                color = "#B5305F";
+                break;
+            case 2:
+                color = "#CE584A";
+                break;
+            case 3:
+                color = "#DB8D5C";
+                break;
+            case 4:
+                color = "#DA854E";
+                break;
+            case 5:
+                color = "#E9AB44";
+                break;
+            case 6:
+                color = "#FEE435";
+                break;
+            case 7:
+                color = "#99C286";
+                break;
+            case 8:
+                color = "#01A05E";
+                break;
+            case 9:
+                color = "#4A8895";
+                break;
+            case 10:
+                color = "#16669B";
+                break;
+            case 11:
+                color = "#2F65A5";
+                break;
+            case 12:
+                color = "#4E6A9C";
+                break;
+            default:
+                break;
+        }
+        return color;
+    }
+
     @FXML
     protected void switchStore(ActionEvent actionEvent) {
         StorePane.setVisible(true);
@@ -788,6 +849,17 @@ public class MainViewController extends ViewController implements Initializable 
                 GPA += 1.0 * credit;
         }
         return GPA / totalCredit;
+    }
+
+    public void switchInit(ActionEvent actionEvent) {
+        DormPane.setVisible(false);
+        StuInfoPane.setVisible(false);
+        CoursePane.setVisible(false);
+        LibraryPane.setVisible(false);
+        BankPane.setVisible(false);
+        StorePane.setVisible(false);
+        AccountMagPane.setVisible(false);
+        InitPane.setVisible(true);
     }
 }
 

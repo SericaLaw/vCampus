@@ -240,16 +240,21 @@
     -fx-text-fill: #212121;
 }
 
+#testtest {
+    -fx-pref-height: 500;
+}
+
 #content__store__wrapper .section {
-    -fx-spacing: 10;
+    -fx-spacing: 20;
     -fx-alignment: center;
-    -fx-pref-width: 800;
+    -fx-pref-width: 900;
+    -fx-pref-height: 500;
 }
 
 #content__store__wrapper .section .row {
-    -fx-pref-width: 800;
+    -fx-pref-width: 900;
     -fx-spacing: 20;
-    -fx-padding: 10;
+    /*-fx-padding: 5;*/
     -fx-alignment: center;
 }
 

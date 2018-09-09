@@ -2,6 +2,12 @@ package team.yummy.vCampus.client;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.effects.JFXDepthManager;
+import com.jfoenix.svg.SVGGlyph;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -9,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -23,11 +30,13 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import team.yummy.vCampus.models.Goods;
 
 import java.util.*;
 
 import static java.lang.Math.min;
+import static javafx.animation.Interpolator.EASE_BOTH;
 import static javafx.geometry.Pos.BASELINE_CENTER;
 import static javafx.geometry.Pos.CENTER;
 import static javafx.geometry.Pos.CENTER_LEFT;
@@ -38,6 +47,53 @@ public class StoreViewFactory {
     private StackPane rootStackPane;
     private MainViewController mainViewController;
     private List<Goods> goodsSelected = new ArrayList<>();
+    private String getDefaultColor(int i) {
+        String color = "#FFFFFF";
+        switch (i) {
+            case 0:
+                color = "#8F3F7E";
+                break;
+            case 1:
+                color = "#B5305F";
+                break;
+            case 2:
+                color = "#CE584A";
+                break;
+            case 3:
+                color = "#DB8D5C";
+                break;
+            case 4:
+                color = "#DA854E";
+                break;
+            case 5:
+                color = "#E9AB44";
+                break;
+            case 6:
+                color = "#FEE435";
+                break;
+            case 7:
+                color = "#99C286";
+                break;
+            case 8:
+                color = "#01A05E";
+                break;
+            case 9:
+                color = "#4A8895";
+                break;
+            case 10:
+                color = "#16669B";
+                break;
+            case 11:
+                color = "#2F65A5";
+                break;
+            case 12:
+                color = "#4E6A9C";
+                break;
+            default:
+                break;
+        }
+        return color;
+    }
 
     StoreViewFactory(StackPane rootStackPane, MainViewController mainViewController) {
         this.rootStackPane = rootStackPane;
@@ -47,21 +103,24 @@ public class StoreViewFactory {
     // TODO: 添加样式
     public List<HBox> createStoreRows(List<Goods> goodsList, int countPerRow) {
         List<HBox> rows = new ArrayList<>();
-        List<VBox> items = new ArrayList<>();
+        List<StackPane> items = new ArrayList<>();
 
+        int i = 0;
         for (final Goods goods : goodsList) {
-            VBox goodsCardWrapper = new VBox();
+            StackPane child = new StackPane();
+            double width = 280;
+            child.setMinWidth(width);
+            double height = 200;
+            child.setMinHeight(height);
+            JFXDepthManager.setDepth(child, 1);
+            items.add(child);
 
-            Image goodsImage = new Image(goods.getImgUrl(), 240, 160, false, true, true);
-            ImageView goodsImageContent = new ImageView(goodsImage);
-            goodsImageContent.getStyleClass().add("img");
-            Rectangle clip = new Rectangle(
-                    goodsImage.getRequestedWidth(), goodsImage.getRequestedHeight()
-            );
-            clip.setArcWidth(15);
-            clip.setArcHeight(15);
-            goodsImageContent.setClip(clip);
-
+            // create content
+            StackPane header = new StackPane();
+            header.setStyle(String.format("-fx-background-radius: 5 5 0 0; -fx-background-image: url(%s); -fx-background-position: center center;", goods.getImgUrl()));
+            VBox.setVgrow(header, Priority.ALWAYS);
+            StackPane body = new StackPane();
+            body.setPrefHeight(50);
             HBox goodsInfoContent = new HBox();
             Label goodsNameInfo = new Label(goods.getName());
             Label goodsPriceInfo = new Label("￥" + goods.getPrice());
@@ -69,22 +128,83 @@ public class StoreViewFactory {
             goodsInfoContent.setSpacing(10);
             goodsInfoContent.setAlignment(CENTER);
             goodsInfoContent.getChildren().addAll(goodsNameInfo, goodsPriceInfo);
+            body.getChildren().add(goodsInfoContent);
 
-            goodsCardWrapper.getChildren().addAll(goodsImageContent, goodsInfoContent);
+            VBox content = new VBox();
+            content.getChildren().addAll(header, body);
+            body.setStyle("-fx-background-radius: 0 0 5 5; -fx-background-color: rgb(255,255,255);");
+
+            // create button
+            JFXButton button = new JFXButton("");
+            button.setButtonType(JFXButton.ButtonType.RAISED);
+            button.setStyle("-fx-background-radius: 40;-fx-background-color: " + getDefaultColor((int) ((Math.random() * 12) % 12)));
+            button.setPrefSize(40, 40);
+
+            button.setScaleX(0);
+            button.setScaleY(0);
+            SVGGlyph glyph = new SVGGlyph(1,
+                    "test",
+                    "M804.571 530.286v-109.714q0-22.857-16-38.857t-38.857-16h-237.714v-237.714q0-22.857-16-38.857t-38.857-16h-109.714q-22.857 0-38.857 16t-16 38.857v237.714h-237.714q-22.857 0-38.857 16t-16 38.857v109.714q0 22.857 16 38.857t38.857 16h237.714v237.714q0 22.857 16 38.857t38.857 16h109.714q22.857 0 38.857-16t16-38.857v-237.714h237.714q22.857 0 38.857-16t16-38.857z",
+                    Color.WHITE);
+            glyph.setSize(20, 20);
+            button.setGraphic(glyph);
+            button.translateYProperty().bind(Bindings.createDoubleBinding(() -> {
+                return header.getBoundsInParent().getHeight() - button.getHeight() / 2;
+            }, header.boundsInParentProperty(), button.heightProperty()));
+            StackPane.setMargin(button, new Insets(0, 12, 0, 0));
+            StackPane.setAlignment(button, Pos.TOP_RIGHT);
+
+            Timeline animation = new Timeline(new KeyFrame(Duration.millis(240),
+                    new KeyValue(button.scaleXProperty(),
+                            1,
+                            EASE_BOTH),
+                    new KeyValue(button.scaleYProperty(),
+                            1,
+                            EASE_BOTH)));
+            animation.setDelay(Duration.millis(300 + 300 * i));
+            animation.play();
+            i++;
+            child.getChildren().addAll(content, button);
+            child.addEventFilter(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            JFXDepthManager.setDepth(child, 3);
+                        }
+                    }
+            );
+
+            child.addEventFilter(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            JFXDepthManager.setDepth(child, 1);
+                        }
+                    }
+            );
 
             /**
-             * Layout for goods detail model
-             */
+             //             * Layout for goods detail model
+             //             */
             final JFXDialog dialog = new JFXDialog();
+            dialog.setMinWidth(800);
+            dialog.setMinHeight(600);
+
+            // create content
+            StackPane left = new StackPane();
+            left.setMinWidth(400);
+            left.setMinHeight(300);
+            left.setStyle(String.format("-fx-background-radius: 5 5 5 5; -fx-background-image: url(%s); -fx-background-position: center center;-fx-background-size: stretch;-fx-background-repeat: stretch;", goods.getImgUrl()));
+            VBox.setVgrow(header, Priority.ALWAYS);
+            StackPane right = new StackPane();
+            right.setMinWidth(300);
+            right.setMinHeight(300);
 
             HBox cartContent = new HBox();
+            cartContent.getChildren().addAll(left, right);
+            right.setStyle("-fx-background-radius: 5 5 5 5; -fx-background-color: rgb(255,255,255,0.87);");
+
             // 右边部分
             VBox cartContentMain = new VBox();
             HBox buttonGroup = new HBox();
-
-            // 左边部分
-            Image cartGoodsImage = new Image(goods.getImgUrl(), 400, 320, true, true, true);
-            ImageView cartImage = new ImageView(cartGoodsImage);
 
             Label cartGoodsInfo = new Label(goods.getInfo());
             Label cartGoodsPrice = new Label("￥" + goods.getPrice());
@@ -99,7 +219,6 @@ public class StoreViewFactory {
 
             buttonGroup.setAlignment(Pos.CENTER_RIGHT);
             buttonGroup.setSpacing(20);
-
 
             JFXButton buttonAddToCart = new JFXButton("加入购物车");
             buttonAddToCart.setButtonType(JFXButton.ButtonType.RAISED);
@@ -121,29 +240,24 @@ public class StoreViewFactory {
             });
 
             cartContentMain.getChildren().addAll(cartGoodsName, cartGoodsInfo, buttonGroup);
-            cartContentMain.setPrefWidth(300);
             cartContentMain.setAlignment(Pos.CENTER_LEFT);
             cartContentMain.setPadding(new Insets(40, 30, 5, 40));
             cartContentMain.setSpacing(10);
-
-            cartContent.getChildren().addAll(cartImage, cartContentMain);
+            right.getChildren().addAll(cartContentMain);
 
             dialog.setContent(cartContent);
-            goodsCardWrapper.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            button.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     dialog.show(rootStackPane);
                 }
             });
-
-
-            items.add(goodsCardWrapper);
         }
 
         int size = items.size();
-        for (int i = 0; i < size / countPerRow; i++) {
+        for (i = 0; i < size / countPerRow; i++) {
             // TODO: 有些可以无视的bug
-            List<VBox> rowItems = items.subList(i * countPerRow, i * countPerRow + countPerRow);
+            List<StackPane> rowItems = items.subList(i * countPerRow, i * countPerRow + countPerRow);
             HBox newRow = new HBox();
             newRow.getChildren().addAll(rowItems);
             newRow.getStyleClass().add("row");

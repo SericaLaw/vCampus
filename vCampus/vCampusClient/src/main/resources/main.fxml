@@ -58,7 +58,7 @@
          <left>
             <VBox id="main_sidebar">
                <children>
-            <Button fx:id="test" disable="false" mnemonicParsing="false" text="欢迎" visible="true" />
+            <Button fx:id="Bt_Init" onAction="#switchInit" disable="false" mnemonicParsing="false" text="欢迎" visible="true" />
             <Label prefWidth="86.0" text="Campus">
               <font>
                 <Font name="Californian FB" size="20.0" fx:id="x1" />
@@ -139,7 +139,7 @@
           <children>
             <AnchorPane fx:id="InitPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
-                <Label layoutX="496.0" layoutY="374.0" prefHeight="73.0" prefWidth="86.0" text="init" />
+
               </children>
             </AnchorPane>
             <AnchorPane id="content__stu-info" fx:id="StuInfoPane" disable="false" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -596,7 +596,7 @@
                                                                       </ImageView>
                                                                   </children>
                                                               </HBox>
-                                                              <VBox fx:id="store_newItemBox" prefHeight="100.0" prefWidth="200.0" styleClass="section" />
+                                                              <VBox fx:id="store_newItemBox"  styleClass="section" />
                                                               <Separator prefWidth="200.0" />
                                                               <HBox prefHeight="100.0" prefWidth="200.0" styleClass="section-header">
                                                                   <children>
@@ -613,7 +613,12 @@
                                                                       </ImageView>
                                                                   </children>
                                                               </HBox>
-                                                              <VBox id="#content__store__pop-items" fx:id="store_popItemBox" prefHeight="100.0" prefWidth="200.0" styleClass="section" />
+                                                              <VBox id="content__store__pop-items" fx:id="store_popItemBox" styleClass="section">
+                                                                  <children>
+                                                                      <HBox fx:id="testtest" prefHeight="500" styleClass="row"></HBox>
+                                                                  </children>
+                                                              </VBox>
+
                                                               <Separator prefWidth="200.0" />
                                                               <HBox prefHeight="100.0" prefWidth="200.0" styleClass="section-header">
                                                                   <children>
@@ -630,7 +635,7 @@
                                                                       </ImageView>
                                                                   </children>
                                                               </HBox>
-                                                              <VBox id="#content__store__favorable-items" fx:id="store_favItemBox" prefHeight="100.0" prefWidth="200.0" styleClass="section" />
+                                                              <VBox id="content__store__favorable-items" fx:id="store_favItemBox" prefHeight="100.0" prefWidth="200.0" styleClass="section" />
                                                           </children>
                                                       </VBox>
                                                   </content>
