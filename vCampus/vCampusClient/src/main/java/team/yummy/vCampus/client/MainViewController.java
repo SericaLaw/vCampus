@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.effects.JFXDepthManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -121,6 +122,7 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML private Label score_avgGPA;
     @FXML private Label score_totalCredit;
 
+    @FXML private HBox course_reportHeading;
 
     /**
      * members for course register
@@ -264,6 +266,8 @@ public class MainViewController extends ViewController implements Initializable 
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
+
+        JFXDepthManager.setDepth(course_reportHeading, 1);
 
         WebResponse res = api.get("/course/schedule");
         courseScheduleItems = res.dataList(CourseScheduleItem.class);
@@ -430,6 +434,9 @@ public class MainViewController extends ViewController implements Initializable 
 
             register_opCol.getChildren().addAll(opCol);
         }
+
+
+
     }
     @FXML
     protected void switchDorm(ActionEvent actionEvent) {

@@ -24,10 +24,11 @@ hs_err_pid*
 # IDEA
 out/
 .idea/
-.iml
+*.iml
 target/
 
 # eclipse
 .project
 .classpath
 .settings/
+/.settings/
