@@ -230,7 +230,7 @@
 #content__store__wrapper,
 #content__cart__wrapper {
     -fx-pref-width: 900;
-    -fx-padding: 25;
+    -fx-padding: 20 20 20 17;
     -fx-spacing: 30;
     -fx-alignment: top-center;
 }

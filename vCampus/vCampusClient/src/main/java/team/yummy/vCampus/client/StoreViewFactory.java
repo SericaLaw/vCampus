@@ -17,8 +17,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.*;
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
@@ -33,7 +34,9 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import team.yummy.vCampus.models.Goods;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 import static java.lang.Math.min;
 import static javafx.animation.Interpolator.EASE_BOTH;
@@ -271,11 +274,30 @@ public class StoreViewFactory {
         List<HBox> rows = new ArrayList<>();
         for (final Goods goods : goodsToBuy) {
 
+            final JFXCheckBox goodsSelector =new JFXCheckBox();
             final HBox newRow = new HBox();
-            newRow.setSpacing(70);
-            newRow.setPadding(new Insets(20, 50, 20, 50));
+            JFXDepthManager.setDepth(newRow, 1);
+            newRow.addEventFilter(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    newRow.setStyle("-fx-background-color: #fff; -fx-background-radius: 10;  -fx-spacing: 70; -fx-padding: 20 50 20 50;-fx-cursor: hand;");
+                    JFXDepthManager.setDepth(newRow, 3);
+                }
+            });
 
-            final CheckBox goodsSelector =new CheckBox();
+//            newRow.addEventFilter(MouseEvent.MOUSE_CLICKED, (mouseEvent) -> {
+//                goodsSelector.setSelected(!goodsSelector.isSelected());
+//            });
+            newRow.addEventFilter(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    JFXDepthManager.setDepth(newRow, 1);
+                }
+            });
+            newRow.setStyle("-fx-background-color: #fff; -fx-background-radius: 10; -fx-spacing: 70; -fx-padding: 20 50 20 50;");
+//            newRow.setSpacing(70);
+//            newRow.setPadding(new Insets(20, 50, 20, 50));
+
             VBox newCol_0 = new VBox();
             newCol_0.setAlignment(CENTER);
             newCol_0.getChildren().add(goodsSelector);
@@ -374,6 +396,7 @@ public class StoreViewFactory {
             goodsInc.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent arg0) {
+//                    goodsSelector.setSelected(!goodsSelector.isSelected());
                     int tempAmount = Integer.valueOf(goodsAmount.getText()) + 1;
                     goodsAmount.setText(Integer.toString(tempAmount));
                     goodsTotalPrice.setText(Double.toString(Price * tempAmount));
@@ -431,7 +454,10 @@ public class StoreViewFactory {
             //final Goods goodsToSelect = goods;
             goodsSelector.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
+
+
                 public void handle(ActionEvent arg0) {
+//                    goodsSelector.setSelected(!goodsSelector.isSelected());
                     boolean newValue=goodsSelector.isSelected();
                     if (newValue) {
                         goodsSelected.add(goods);
@@ -514,7 +540,8 @@ public class StoreViewFactory {
                         cancel.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) {
-                                dialog.setVisible(false);            }
+                                dialog.setVisible(false);
+                            }
                         });
                     }
                 }
