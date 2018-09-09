@@ -443,6 +443,5 @@
 .register-item__course-detail {
     -fx-alignment: center-left;
     -fx-spacing: 10;
-
     -fx-text-fill: #757575;
 }

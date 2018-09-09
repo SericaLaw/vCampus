@@ -1,10 +1,10 @@
 package team.yummy.vCampus.client;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.effects.JFXDepthManager;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -13,12 +13,10 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import org.omg.CORBA.PRIVATE_MEMBER;
 import team.yummy.vCampus.models.*;
 
 import team.yummy.vCampus.web.WebResponse;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -33,61 +31,60 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import com.jfoenix.controls.*;
 
 public class MainViewController extends ViewController implements Initializable {
 
-    @FXML private StackPane rootStackPane;
-    @FXML private GridPane title;
-    @FXML private AnchorPane InitPane;
-    @FXML private AnchorPane StuInfoPane;
-    @FXML private AnchorPane CoursePane;
-    @FXML private AnchorPane DormPane;
-    @FXML private AnchorPane LibraryPane;
-    @FXML private AnchorPane BankPane;
-    @FXML private AnchorPane StorePane;
-    @FXML private AnchorPane AccountMagPane;
-    @FXML private Label win_close;
-    @FXML private Label win_mini;
-    @FXML private RadioButton register_radiostudent;
-    @FXML private RadioButton register_radiominis;
+    @FXML public Button Bt_Init;
+    @FXML public StackPane rootStackPane;
+    @FXML public GridPane title;
+    @FXML public AnchorPane InitPane;
+    @FXML public AnchorPane StuInfoPane;
+    @FXML public AnchorPane CoursePane;
+    @FXML public AnchorPane DormPane;
+    @FXML public AnchorPane LibraryPane;
+    @FXML public AnchorPane BankPane;
+    @FXML public AnchorPane StorePane;
+    @FXML public AnchorPane AccountMagPane;
+    @FXML public Label win_close;
+    @FXML public Label win_mini;
+    @FXML public RadioButton register_radiostudent;
+    @FXML public RadioButton register_radiominis;
 
-    @FXML private Label si_GPA;
-    @FXML private Label si_SRTP;
-    @FXML private Label si_LAC;
-    @FXML private Label si_Name;
-    @FXML private Label si_CampusCardID;
-    @FXML private Label si_StudentID;
-    @FXML private Label si_Department;
-    @FXML private Label si_Major;
-    @FXML private Label si_EnrollmentYear;
-    @FXML private Button editorSaveStuInfo;
-    @FXML private JFXTextField si_IDNum;
-    @FXML private JFXComboBox si_Sex;
-    @FXML private DatePicker si_Birthdate;
-    @FXML private JFXComboBox si_Birthplace;
-    @FXML private JFXTextField si_Phone;
-    @FXML private JFXTextField si_Email;
-    @FXML private JFXTextField si_Address;
-    @FXML private JFXTextField si_SeniorHigh;
-    @FXML private Label si_errorText;
+    @FXML public Label si_GPA;
+    @FXML public Label si_SRTP;
+    @FXML public Label si_LAC;
+    @FXML public Label si_Name;
+    @FXML public Label si_CampusCardID;
+    @FXML public Label si_StudentID;
+    @FXML public Label si_Department;
+    @FXML public Label si_Major;
+    @FXML public Label si_EnrollmentYear;
+    @FXML public Button editorSaveStuInfo;
+    @FXML public JFXTextField si_IDNum;
+    @FXML public JFXComboBox si_Sex;
+    @FXML public DatePicker si_Birthdate;
+    @FXML public JFXComboBox si_Birthplace;
+    @FXML public JFXTextField si_Phone;
+    @FXML public JFXTextField si_Email;
+    @FXML public JFXTextField si_Address;
+    @FXML public JFXTextField si_SeniorHigh;
+    @FXML public Label si_errorText;
 
-    @FXML private AnchorPane li_BorrowedPane;
-    @FXML private AnchorPane li_InquirePane;
+    @FXML public AnchorPane li_BorrowedPane;
+    @FXML public AnchorPane li_InquirePane;
 
     @FXML public Label content__Store__Cart__GrandTotalPrice;
     @FXML public Button content__Store__Cart__BatchRemove;
     @FXML public Button content__Store__Cart__Pay;
 
-    @FXML private Label am_CampusCardID;
-    @FXML private Label am_Username;
-    @FXML private Label am_Role;
-    @FXML private Label am_Name;
+    @FXML public Label am_CampusCardID;
+    @FXML public Label am_Username;
+    @FXML public Label am_Role;
+    @FXML public Label am_Name;
 
     @FXML public VBox library_inquireBox;
-    @FXML private TextField library_InquireText;
+    @FXML public TextField library_InquireText;
     @FXML protected VBox library_borrowedBox;
     public List<BorrowedBook> borrowedbookList=new ArrayList<>();
 
@@ -95,14 +92,14 @@ public class MainViewController extends ViewController implements Initializable 
     /**
      * members for store page
      */
-    @FXML private VBox store_newItemBox;
-    @FXML private VBox store_popItemBox;
-    @FXML private VBox store_favItemBox;
+    @FXML public VBox store_newItemBox;
+    @FXML public VBox store_popItemBox;
+    @FXML public VBox store_favItemBox;
 
     @FXML public VBox store_CartBox;
 
     // 这里放商品列表数据
-    private List<Goods> goodList = new ArrayList<Goods>();
+    public List<Goods> goodList = new ArrayList<Goods>();
     // 这里存放购物车数据
 
     public List<Goods> goodsToBuy = new ArrayList<>();
@@ -110,46 +107,38 @@ public class MainViewController extends ViewController implements Initializable 
     /**
      * members for course schedule
      */
-    @FXML private GridPane course_scheduleGrid;
+    @FXML public GridPane course_scheduleGrid;
 
     public List<CourseScheduleItem> courseScheduleItems = new ArrayList<>();
 
     /**
      * members for course report
      */
-    @FXML private VBox course_reportBox;
-    @FXML private Label score_avgScore;
-    @FXML private Label score_avgGPA;
-    @FXML private Label score_totalCredit;
+    @FXML public VBox course_reportBox;
+    @FXML public Label score_avgScore;
+    @FXML public Label score_avgGPA;
+    @FXML public Label score_totalCredit;
 
-    @FXML private HBox course_reportHeading;
+    @FXML public HBox course_reportHeading;
 
     /**
      * members for course register
      */
-    @FXML private HBox course_registerBox;
-    @FXML private VBox register_courseNameCol;
-    @FXML private VBox course_venueCol;
-    @FXML private VBox register_scheduleCol;
-    @FXML private VBox register_statusCol;
-    @FXML private VBox register_opCol;
+    @FXML public HBox course_registerBox;
+    @FXML public VBox register_courseNameCol;
+    @FXML public VBox course_venueCol;
+    @FXML public VBox register_scheduleCol;
+    @FXML public VBox register_statusCol;
+    @FXML public VBox register_opCol;
     // 数据
     public List<CourseReportItem> courseReportItems = new ArrayList<>();
 
-    private double xOffset = 0;
-    private double yOffset = 0;
+    public double xOffset = 0;
+    public double yOffset = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {     //点其他栏目的时候要不initpane上的图案淡一点？
-        InitPane.setVisible(true);
-        StuInfoPane.setVisible(false);
-        CoursePane.setVisible(false);
-        DormPane.setVisible(false);
-        LibraryPane.setVisible(false);
-        BankPane.setVisible(false);
-        StorePane.setVisible(false);
-        AccountMagPane.setVisible(false);
-
+        togglePane(InitPane);
         // 模拟服务器返回的信息
 
         Goods good1 = new Goods("1","鞋子","123","白色", "./images/item.png");
@@ -202,14 +191,7 @@ public class MainViewController extends ViewController implements Initializable 
 
     @FXML
     protected void swithAccountmag(ActionEvent actionEvent) {
-        AccountMagPane.setVisible(true);
-        StuInfoPane.setVisible(false);
-        CoursePane.setVisible(false);
-        DormPane.setVisible(false);
-        LibraryPane.setVisible(false);
-        BankPane.setVisible(false);
-        StorePane.setVisible(false);
-        InitPane.setVisible(false);
+        togglePane(AccountMagPane);
 
         //WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
         //StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
@@ -221,14 +203,8 @@ public class MainViewController extends ViewController implements Initializable 
 
     @FXML
     protected void switchStuInfo(ActionEvent actionEvent) {
-        StuInfoPane.setVisible(true);
-        CoursePane.setVisible(false);
-        DormPane.setVisible(false);
-        LibraryPane.setVisible(false);
-        BankPane.setVisible(false);
-        StorePane.setVisible(false);
-        AccountMagPane.setVisible(false);
-        InitPane.setVisible(false);
+        togglePane(StuInfoPane);
+
         WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
         StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
         si_Name.setText(currentAccount.getLastName()+currentAccount.getFirstName());
@@ -256,220 +232,61 @@ public class MainViewController extends ViewController implements Initializable 
         si_SeniorHigh.setText(stuInfoGot.getSeniorHigh());
     }
 
+
+    public static class CourseScheduleViewData {
+        private final SimpleStringProperty content = new SimpleStringProperty();
+        CourseScheduleViewData(CourseScheduleItem course) {
+            setContent(course.getCourseName() + "@" + course.getCourseVenue());
+        }
+
+        public void setContent(String content) {
+            this.content.set(content);
+        }
+        public String getContent() {
+            return content.get();
+        }
+
+        public SimpleStringProperty contentProperty() {
+            return content;
+        }
+    }
     @FXML
     protected void switchCourse(ActionEvent actionEvent) {
-        CoursePane.setVisible(true);
-        StuInfoPane.setVisible(false);
-        DormPane.setVisible(false);
-        LibraryPane.setVisible(false);
-        BankPane.setVisible(false);
-        StorePane.setVisible(false);
-        AccountMagPane.setVisible(false);
-        InitPane.setVisible(false);
-
+        togglePane(CoursePane);
         JFXDepthManager.setDepth(course_reportHeading, 1);
+
+        CourseViewFactory factory = new CourseViewFactory(this);
 
         WebResponse res = api.get("/course/schedule");
         courseScheduleItems = res.dataList(CourseScheduleItem.class);
-
-        String[] colors = {"#DD9708", "#56AF5A", "#E9433f", "#0EB5CA", "#512DA8"};
-        List<String> listColors = new ArrayList<String>();
-        for(String color : colors) {
-            listColors.add(color);
-        }
-
-        for(CourseScheduleItem course : courseScheduleItems) {
-            JFXButton courseItem = new JFXButton(course.getCourseName() + "@" + course.getCourseVenue());
-            courseItem.setPrefHeight(200);
-            courseItem.setPrefWidth(200);
-
-            if(listColors.isEmpty()) {
-                for(String color : colors) {
-                    listColors.add(color);
-                }
-            }
-            int colorIndex = (int)(Math.random()*(listColors.size()-1));
-            String itemColor = listColors.get(colorIndex);
-            listColors.remove(colorIndex);
-            courseItem.setBackground(new Background(new BackgroundFill(Color.web(itemColor), null, null)));
-            courseItem.setTextFill(Color.web("#fff"));
-            courseItem.setFont(Font.font(14));
-//            courseItem.borderProperty().setValue(new Border(new BorderStroke(null, null, new CornerRadii(50), new BorderWidths(2))));
-//            courseItem.setBorder(new Border(new BorderStroke(Color.web("#512DA8"), BorderStrokeStyle.SOLID, new CornerRadii(50), new BorderWidths(2))));
-//            courseItem.getStyleClass().add("course-schedule-item");
-            course_scheduleGrid.add(courseItem, course.getWeekDay() * 2 - 1, course.getSpanStart(), 1, course.getSpanEnd()-course.getSpanStart()+1);
-        }
+        factory.createCourseSchedule(courseScheduleItems);
 
         /**
          * 成绩查询
          */
-        double totalScore = 0;
-        double totalCredit = 0;
 
         res = api.get("/course/report");
         courseReportItems = res.dataList(CourseReportItem.class);
-
-        for(CourseReportItem report : courseReportItems) {
-            totalScore += report.getScore();
-            totalCredit += report.getCredit();
-
-            HBox newRow = new HBox();
-            newRow.getStyleClass().add("report-item");
-
-            VBox courseInfo = new VBox();
-            courseInfo.getStyleClass().add("course-info");
-            HBox courseDetailInfo = new HBox();
-            courseDetailInfo.getStyleClass().add("course-detail");
-
-            Label courseName = new Label(report.getCourseName());
-            courseName.getStyleClass().add("course-name");
-
-            Label courseCredit = new Label("学分: " + String.valueOf(report.getCredit()));
-            Label scoreType = new Label(report.getScoreType());
-            courseDetailInfo.getChildren().addAll(courseCredit, scoreType);
-
-            courseInfo.getChildren().addAll(courseName, courseDetailInfo);
-
-            Label score = new Label(String.valueOf(report.getScore()));
-            score.getStyleClass().add("score");
-
-            newRow.getChildren().addAll(courseInfo, score);
-
-            course_reportBox.getChildren().add(newRow);
-        }
-
-        score_avgScore.setText(String.valueOf(totalScore / courseReportItems.size()));
-        score_totalCredit.setText(String.valueOf(totalCredit));
-        String gpa = String.valueOf(calculateGPA(courseReportItems));
-        if(gpa.length() > 3)
-            gpa = gpa.substring(0, 4);
-        score_avgGPA.setText(gpa);
+        factory.createCourseReport(courseReportItems);
 
         /**
          * 选课
          */
         res = api.get("/course/register");
         CourseRegister courseRegister = res.data(CourseRegister.class);
-
-        for(CourseRegisterItem course : courseRegister.getCourseList()) {
-            VBox courseInfoCol = new VBox();
-
-            courseInfoCol.setStyle("-fx-spacing: 10");
-
-
-            Label courseName = new Label(course.getCourseName());
-            courseName.getStyleClass().add("register-item__course-name");
-
-            HBox courseDetailInfo = new HBox();
-//            courseDetailInfo.getStyleClass().add("register-item__course-detail");
-            courseDetailInfo.setStyle("-fx-alignment: center-left");
-            courseDetailInfo.setStyle("-fx-spacing: 10");
-
-            Label courseTeacher = new Label("教师：" + course.getProfName());
-            courseTeacher.setStyle("-fx-text-fill: #757575");
-            Label courseCredit = new Label("学分：" + course.getCredit());
-            courseCredit.setStyle("-fx-text-fill: #757575");
-            courseDetailInfo.getChildren().addAll(courseTeacher, courseCredit);
-            courseInfoCol.getChildren().addAll(courseName, courseDetailInfo);
-
-            courseInfoCol.getStyleClass().add("register-item");
-            register_courseNameCol.getChildren().addAll(courseInfoCol);
-
-            VBox courseVenueCol = new VBox();
-
-            Label courseVenue = new Label("@"+course.getCourseVenue());
-            courseVenue.setStyle("-fx-font-size: 18");
-            courseVenueCol.getChildren().addAll(courseVenue);
-            courseVenue.getStyleClass().add("register-item");
-            course_venueCol.getChildren().addAll(courseVenueCol);
-
-            VBox courseScheduleCol = new VBox();
-            for(Schedule s : course.getCourseSchedule()) {
-                String schedule = "";
-                schedule += "星期" + s.getWeekDay() + "（" + s.getSpanStart() + "-" + s.getSpanEnd() + "）";
-                Label courseSchedule = new Label(schedule);
-                courseScheduleCol.getChildren().addAll(courseSchedule);
-            }
-
-            courseScheduleCol.getStyleClass().add("register-item");
-            register_scheduleCol.getChildren().addAll(courseScheduleCol);
-
-            VBox courseStatusCol = new VBox();
-            Label courseStatus = new Label(String.valueOf(course.getStuAttendCount()) + " / " + String.valueOf(course.getStuLimitCount()));
-            courseStatus.setStyle("-fx-font-size: 18");
-            courseStatusCol.getChildren().addAll(courseStatus);
-            courseStatusCol.getStyleClass().add("register-item");
-            register_statusCol.getChildren().addAll(courseStatusCol);
-
-            VBox opCol = new VBox();
-            opCol.setStyle("-fx-min-width: 50");
-            opCol.setStyle("-fx-pref-width: 50");
-
-
-            JFXButton buttonOp = null;
-
-            // TODO: 按钮事件
-            if(course.getStatus() == CourseStatusEnum.AVAILABLE) {
-                buttonOp = new JFXButton("选择");
-                buttonOp.setStyle("-fx-background-color: #673AB7;-fx-text-fill: #fff;-fx-font-size: 18;");
-            }
-            else if(course.getStatus() == CourseStatusEnum.CONFLICT) {
-                buttonOp = new JFXButton("冲突");
-                buttonOp.setStyle("-fx-font-size: 18;");
-                buttonOp.setDisable(true);
-            }
-            else if(course.getStatus() == CourseStatusEnum.NOT_AVAILABLE) {
-                buttonOp = new JFXButton("已满");
-                buttonOp.setStyle("-fx-font-size: 18;");
-                buttonOp.setDisable(true);
-            }
-            else if(course.getStatus() == CourseStatusEnum.SELECTED) {
-                buttonOp = new JFXButton("退选");
-                buttonOp.setStyle("-fx-background-color: #ff2300;-fx-text-fill: #fff;-fx-font-size: 18;");
-
-            }
-            buttonOp.setButtonType(JFXButton.ButtonType.RAISED);
-            opCol.getChildren().addAll(buttonOp);
-            opCol.getStyleClass().add("register-item");
-
-            register_opCol.getChildren().addAll(opCol);
-        }
-
-
-
+        factory.createCourseRegister(courseRegister);
     }
     @FXML
     protected void switchDorm(ActionEvent actionEvent) {
-        DormPane.setVisible(true);
-        StuInfoPane.setVisible(false);
-        CoursePane.setVisible(false);
-        LibraryPane.setVisible(false);
-        BankPane.setVisible(false);
-        StorePane.setVisible(false);
-        AccountMagPane.setVisible(false);
-        InitPane.setVisible(false);
+        togglePane(DormPane);
     }
     @FXML
     protected void switchBank(ActionEvent actionEvent) {
-        BankPane.setVisible(true);
-        StuInfoPane.setVisible(false);
-        CoursePane.setVisible(false);
-        DormPane.setVisible(false);
-        LibraryPane.setVisible(false);
-        StorePane.setVisible(false);
-        AccountMagPane.setVisible(false);
-        InitPane.setVisible(false);
+        togglePane(BankPane);
     }
     @FXML
     protected void switchLibrary(ActionEvent actionEvent) {
-        LibraryPane.setVisible(true);
-        StuInfoPane.setVisible(false);
-        CoursePane.setVisible(false);
-        DormPane.setVisible(false);
-        BankPane.setVisible(false);
-        StorePane.setVisible(false);
-        AccountMagPane.setVisible(false);
-        InitPane.setVisible(false);
+        togglePane(LibraryPane);
         WebResponse res = api.get("/book");
         List<Book> bookList = res.dataList(Book.class);
         LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
@@ -625,15 +442,7 @@ public class MainViewController extends ViewController implements Initializable 
             @Override
             public void handle(ActionEvent event) {
                 //登出的操作
-                InitPane.setVisible(true);
-                StuInfoPane.setVisible(false);
-                CoursePane.setVisible(false);
-                DormPane.setVisible(false);
-                LibraryPane.setVisible(false);
-                BankPane.setVisible(false);
-                StorePane.setVisible(false);
-                AccountMagPane.setVisible(false);
-                dialog.setVisible(false);
+                togglePane(InitPane);
                 stageController.setStage(App.WELCOME_VIEW_NAME, App.MAIN_VIEW_NAME);
             }
         });
@@ -759,7 +568,7 @@ public class MainViewController extends ViewController implements Initializable 
      * @param reportItems
      * @return
      */
-    double calculateGPA(List<CourseReportItem> reportItems) {
+    public double calculateGPA(List<CourseReportItem> reportItems) {
         double GPA = 0;
         double totalCredit = 0;
         for(CourseReportItem report : reportItems) {
@@ -792,6 +601,22 @@ public class MainViewController extends ViewController implements Initializable 
                 GPA += 1.0 * credit;
         }
         return GPA / totalCredit;
+    }
+
+    public void switchInit(ActionEvent actionEvent) {
+        togglePane(InitPane);
+    }
+    public void togglePane(Pane paneToDisplay) {
+        StorePane.setVisible(false);
+        StuInfoPane.setVisible(false);
+        CoursePane.setVisible(false);
+        DormPane.setVisible(false);
+        LibraryPane.setVisible(false);
+        BankPane.setVisible(false);
+        AccountMagPane.setVisible(false);
+        InitPane.setVisible(false);
+
+        paneToDisplay.setVisible(true);
     }
 }
 
