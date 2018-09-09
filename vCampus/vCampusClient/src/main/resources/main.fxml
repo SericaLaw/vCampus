@@ -376,7 +376,7 @@
                                                   <content>
                                                       <VBox id="content__course__report" fx:id="course_reportBox" prefHeight="200.0" prefWidth="100.0">
                                                           <children>
-                                                              <HBox prefHeight="100.0" prefWidth="200.0" styleClass="heading">
+                                                              <HBox fx:id="course_reportHeading" styleClass="heading">
                                                                   <children>
                                                                       <VBox prefHeight="200.0" prefWidth="100.0" styleClass="item">
                                                                           <children>

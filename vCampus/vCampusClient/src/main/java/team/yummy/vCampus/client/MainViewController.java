@@ -49,7 +49,6 @@ import static javafx.animation.Interpolator.EASE_BOTH;
 
 public class MainViewController extends ViewController implements Initializable {
 
-    public HBox testtest;
     @FXML private StackPane rootStackPane;
     @FXML private GridPane title;
     @FXML private AnchorPane InitPane;
@@ -133,6 +132,8 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML private Label score_avgGPA;
     @FXML private Label score_totalCredit;
 
+    @FXML private HBox course_reportHeading;
+
 
     /**
      * members for course register
@@ -159,6 +160,8 @@ public class MainViewController extends ViewController implements Initializable 
         BankPane.setVisible(false);
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
+
+        JFXDepthManager.setDepth(course_reportHeading, 1);
 
         // 模拟服务器返回的信息
 

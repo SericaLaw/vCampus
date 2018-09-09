@@ -343,12 +343,15 @@
     -fx-pref-width: 940;
     -fx-padding: 50 150;
     -fx-alignment: top-center;
+    -fx-spacing: 20;
 }
 
 #content__course__report .heading {
     -fx-alignment: center;
     -fx-spacing: 20;
-    -fx-padding: 50 0;
+    -fx-padding: 35 30;
+    -fx-background-color: #fff;
+    -fx-background-radius: 10;
 }
 
 #content__course__report .heading .item {
@@ -370,7 +373,7 @@
 #content__course__report .report-item {
     -fx-spacing: 150;
     -fx-alignment: center-left;
-    -fx-padding: 20 50;
+    -fx-padding: 30 100;
 }
 
 #content__course__report .course-info {
@@ -385,10 +388,12 @@
 
 #content__course__report .course-detail {
     -fx-spacing: 30;
+}
+
+#content__course__report .course-detail .label {
     -fx-font-size: 18;
     -fx-text-fill: #757575;
 }
-
 #content__course__report .score {
     -fx-font-size: 36;
     -fx-text-fill: #673AB7;
