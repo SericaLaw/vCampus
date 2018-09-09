@@ -370,11 +370,11 @@
                               </Tab>
                               <Tab text="成绩查询">
                                   <content>
-                                      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;">
                                           <children>
-                                              <ScrollPane layoutX="46.0" layoutY="25.0" prefHeight="701.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                              <ScrollPane layoutX="46.0" layoutY="25.0" prefHeight="701.0" prefWidth="950.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <content>
-                                                      <VBox id="content__course__report" fx:id="course_reportBox" prefHeight="200.0" prefWidth="100.0">
+                                                      <VBox id="content__course__report" fx:id="course_reportBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: transparent;">
                                                           <children>
                                                               <HBox fx:id="course_reportHeading" styleClass="heading">
                                                                   <children>
@@ -569,7 +569,7 @@
                           </columns>
                       </TreeTableView>
                   </children></AnchorPane>
-              <AnchorPane fx:id="StorePane" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <AnchorPane fx:id="StorePane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <children>
                       <JFXTabPane prefHeight="740.0" prefWidth="950.0">
                           <tabs>
