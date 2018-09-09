@@ -7,7 +7,6 @@
     <class name="team.yummy.vCampus.models.entity.DormEntity" table="Dorm" schema="&quot;.&quot;"
            catalog="&quot;.&quot;">
         <id name="dormId" column="DormID"/>
-        <property name="campusCardId" column="CampusCardID"/>
         <property name="bedNo" column="BedNo"/>
         <many-to-one name="accountByCampusCardId" class="team.yummy.vCampus.models.entity.AccountEntity">
             <column name="CampusCardID"/>

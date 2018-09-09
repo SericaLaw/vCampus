@@ -8,27 +8,27 @@ import java.util.List;
 
 public class WebResponse implements Serializable {
     private Integer sessionId;
-    private String jsonData;
+    private String body;
     private String statusCode;
     private String message;
 
     // default response
     public WebResponse() {
-        jsonData = null;
-        statusCode = "200";
-        message = "OK";
+        body = null;
+        statusCode = null;
+        message = null;
         sessionId = null;
     }
 
-    public WebResponse(String statusCode, String jsonData) {
+    public WebResponse(String statusCode, String body) {
         this.statusCode = statusCode;
-        this.jsonData = jsonData;
+        this.body = body;
         message = "success";
     }
 
-    public WebResponse(String statusCode, String jsonData, String message) {
+    public WebResponse(String statusCode, String body, String message) {
         this.statusCode = statusCode;
-        this.jsonData = jsonData;
+        this.body = body;
         this.message = message;
     }
 
@@ -36,10 +36,10 @@ public class WebResponse implements Serializable {
 
     public void setMessage(String message) { this.message = message; }
 
-    public String getJsonData() { return jsonData; }
+    public String getBody() { return body; }
 
-    public void setJsonData(String jsonData) {
-        this.jsonData = jsonData;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public void setStatusCode(String statusCode) {
@@ -52,28 +52,28 @@ public class WebResponse implements Serializable {
 
 
     public <T> T data(Class<T> clazz) {
-        String jsonData = getJsonData();
+        String jsonData = getBody();
         // 将字符串转为T类
         T parsedData = JSON.parseObject(jsonData, clazz);
         return parsedData;
     }
 
     public <T> List<T>  dataList(Class<T> clazz) {
-        String jsonData = getJsonData();
+        String jsonData = getBody();
         // 将字符串转为 T 类
         List<T> list = JSON.parseArray(jsonData, clazz);
         return list;
     }
 
     public <T> T  dataList(Class<T> clazz, int pos) {
-        String jsonData = getJsonData();
+        String jsonData = getBody();
         List<T> list = JSON.parseArray(jsonData, clazz);
         return list.get(pos);
     }
 
     @Override
     public String toString() {
-        return statusCode + " --> "  + message + "\n[ JSON deserialize = " + jsonData + " ]\n[ sessionId = " + sessionId +" ]\n";
+        return statusCode + " --> "  + message + "\n[ JSON deserializeBody = " + body + " ]\n[ sessionId = " + sessionId +" ]\n";
     }
 
     @Override
@@ -84,7 +84,7 @@ public class WebResponse implements Serializable {
             WebResponse another = (WebResponse) obj;
             return this.message.equals(another.message) &&
                     this.statusCode.equals(another.statusCode) &&
-                    this.jsonData.equals(another.jsonData);
+                    this.body.equals(another.body);
         }
         return false;
     }

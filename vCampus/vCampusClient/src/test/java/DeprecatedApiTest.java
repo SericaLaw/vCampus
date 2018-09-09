@@ -1,3 +1,4 @@
+package team.yummy.vCampus;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -6,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
-import team.yummy.vCampus.client.api.Api;
+import team.yummy.vCampus.util.Api;
 import team.yummy.vCampus.models.*;
 import team.yummy.vCampus.util.Logger;
 import team.yummy.vCampus.web.WebResponse;
@@ -55,10 +56,10 @@ public class DeprecatedApiTest {
 
         // 404 用户不存在
         res = api.post("/account/login", "{\"username\":\"LoginTTest\",\"password\":\"123\"}");
-        expectedRes = new WebResponse("404",null, "Account not found.");
+        expectedRes = new WebResponse("404",null, "team.yummy.vCampus.test.Account not found.");
 
         assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
-        assertEquals(expectedRes.getJsonData(), res.getJsonData());
+        assertEquals(expectedRes.getBody(), res.getBody());
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
         // 403 密码错误
@@ -66,10 +67,13 @@ public class DeprecatedApiTest {
         expectedRes = new WebResponse("403", null, "Wrong password.");
 
         assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
-        assertEquals(expectedRes.getJsonData(), res.getJsonData());
+        assertEquals(expectedRes.getBody(), res.getBody());
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
 
+
+        assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
+        assertEquals(expectedRes.getBody(), res.getBody());
     }
 
     @Test
@@ -81,9 +85,6 @@ public class DeprecatedApiTest {
         newAccount = new Account("213170005", "RegisterTest","123","Bar", "Foo", RoleEnum.STUDENT);
         res = api.post("/account", JSON.toJSONString(newAccount));
         expectedRes = new WebResponse("201", null, "OK");
-
-        assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
-        assertEquals(expectedRes.getJsonData(), res.getJsonData());
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
         // 下面的登录操作可以成功，说明注册的确成功了
@@ -94,14 +95,14 @@ public class DeprecatedApiTest {
         assertEquals(true, newAccount.equals(res.data(Account.class)));
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
-        // 403 Account already exist.
+        // 403 team.yummy.vCampus.test.Account already exist.
         // TODO: username是否唯一? 应用campusCardID作为账号的标识?
         newAccount = new Account("213170012", "RegisterTest","123","Bar", "Foo", RoleEnum.STUDENT);
         res = api.post("/account", JSON.toJSONString(newAccount));
-        expectedRes = new WebResponse("403", null, "Account already exist.");
+        expectedRes = new WebResponse("403", null, "team.yummy.vCampus.test.Account already exist.");
 
         assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
-        assertEquals(expectedRes.getJsonData(), res.getJsonData());
+        assertEquals(expectedRes.getBody(), res.getBody());
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
         // 尝试在不登录的情况下伪造WebRequest请求
@@ -109,7 +110,7 @@ public class DeprecatedApiTest {
         expectedRes = new WebResponse("401", null, "Unauthorized");
 
         assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
-        assertEquals(expectedRes.getJsonData(), res.getJsonData());
+        assertEquals(expectedRes.getBody(), res.getBody());
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
         // 登录后，写入鉴权信息
@@ -120,23 +121,23 @@ public class DeprecatedApiTest {
         expectedRes = new WebResponse("200", null, "OK");
 
         assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
-        assertEquals(expectedRes.getJsonData(), res.getJsonData());
+        assertEquals(expectedRes.getBody(), res.getBody());
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
         // 下面的登录操作失败，说明注销成功了
         res = api.post("/account/login", "{\"username\":\"RegisterTest\",\"password\":\"123\"}");
-        expectedRes = new WebResponse("404",null, "Account not found.");
+        expectedRes = new WebResponse("404",null, "team.yummy.vCampus.test.Account not found.");
 
         assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
-        assertEquals(expectedRes.getJsonData(), res.getJsonData());
+        assertEquals(expectedRes.getBody(), res.getBody());
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
 //        // 测试注销一个不存在的账户
 //        res = api.delete("/account/campusCardID/213170002");
-//        expectedRes = new WebResponse("404", null, "Account not found.");
+//        expectedRes = new WebResponse("404", null, "team.yummy.vCampus.test.Account not found.");
 //
 //        assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
-//        assertEquals(expectedRes.getJsonData(), res.getJsonData());
+//        assertEquals(expectedRes.getBody(), res.getBody());
 //        assertEquals(expectedRes.getMessage(), res.getMessage());
     }
 
@@ -172,7 +173,7 @@ public class DeprecatedApiTest {
         expectedRes = new WebResponse("201", null, "OK");
 
         assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
-        assertEquals(expectedRes.getJsonData(), res.getJsonData());
+        assertEquals(expectedRes.getBody(), res.getBody());
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
         // 403 Forbidden
@@ -180,7 +181,7 @@ public class DeprecatedApiTest {
         expectedRes = new WebResponse("403", null, "StuInfo already exist.");
 
         assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
-        assertEquals(expectedRes.getJsonData(), res.getJsonData());
+        assertEquals(expectedRes.getBody(), res.getBody());
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
         // 404不做了
@@ -213,7 +214,7 @@ public class DeprecatedApiTest {
         expectedRes = new WebResponse("200", null, "OK");
 
         assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
-        assertEquals(expectedRes.getJsonData(), res.getJsonData());
+        assertEquals(expectedRes.getBody(), res.getBody());
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
         res = api.get("/stuInfo/campusCardID/213170000");
@@ -230,7 +231,7 @@ public class DeprecatedApiTest {
         expectedRes = new WebResponse("200", null, "OK");
 
         assertEquals(expectedRes.getStatusCode(), res.getStatusCode());
-        assertEquals(expectedRes.getJsonData(), res.getJsonData());
+        assertEquals(expectedRes.getBody(), res.getBody());
         assertEquals(expectedRes.getMessage(), res.getMessage());
 
     }
@@ -376,7 +377,7 @@ public class DeprecatedApiTest {
         WebResponse res = api.delete("/courseRecord/courseID/5002/campusCardID/213170000");
         CourseRegister r = res.data(CourseRegister.class);
     }
-    private static Logger logger = new Logger("DeprecatedApiTest");
+    private static Logger logger = new Logger("team.yummy.vCampus.DeprecatedApiTest");
     public static void main(String[] args) {
         Result result = JUnitCore.runClasses(DeprecatedApiTest.class);
         for(Failure failure : result.getFailures()) {

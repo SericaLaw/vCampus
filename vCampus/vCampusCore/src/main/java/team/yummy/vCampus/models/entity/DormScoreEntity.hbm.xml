@@ -7,7 +7,6 @@
     <class name="team.yummy.vCampus.models.entity.DormScoreEntity" table="DormScore" schema="&quot;.&quot;"
            catalog="&quot;.&quot;">
         <id name="id" column="ID"/>
-        <property name="dormId" column="DormID"/>
         <property name="scoringDate" column="ScoringDate"/>
         <property name="score" column="Score"/>
         <many-to-one name="dormByDormId" class="team.yummy.vCampus.models.entity.DormEntity">

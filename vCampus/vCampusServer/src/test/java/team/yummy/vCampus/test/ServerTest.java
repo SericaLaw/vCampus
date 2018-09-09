@@ -1,3 +1,5 @@
+package team.yummy.vCampus.test;
+
 import team.yummy.vCampus.util.Logger;
 import team.yummy.vCampus.server.*;
 

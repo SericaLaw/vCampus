@@ -1,3 +1,4 @@
+package team.yummy.vCampus.test;
 
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
@@ -6,22 +7,19 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import team.yummy.vCampus.data.DBHelper;
 import team.yummy.vCampus.models.*;
-import team.yummy.vCampus.models.viewmodel.CourseRegisterViewModel;
 import team.yummy.vCampus.models.viewmodel.CourseReportViewModel;
-import team.yummy.vCampus.models.viewmodel.CourseScheduleViewModel;
 import team.yummy.vCampus.util.Logger;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 
 
 /**
  * @author Serica
- * Account 类
+ * team.yummy.vCampus.test.Account 类
  * 对应Account表
  */
 class Account {
@@ -92,7 +90,7 @@ class Account {
 
     @Override
     public String toString() {
-        return String.format("Class Account [ campusCardID = %s, username = %s, " +
+        return String.format("Class team.yummy.vCampus.test.Account [ campusCardID = %s, username = %s, " +
                         "password = %s, lastName = %s, firstName = %s, role = %s]",
                 campusCardID, username, password, lastName, firstName, role);
     }
@@ -132,7 +130,7 @@ public class DBHelperTest {
     public void testSelectOne() {
         String jsonData =
                 dbHelper.selectOne(
-                        "Account",
+                        "team.yummy.vCampus.test.Account",
                         "CampusCardID",
                         "213160001"
                 );
@@ -154,7 +152,7 @@ public class DBHelperTest {
     @Test
     public void testSelect() {
         String jsonData = dbHelper.select(
-                "Account",
+                "team.yummy.vCampus.test.Account",
                 "Password",
                 "Bar"
         );
@@ -226,7 +224,7 @@ public class DBHelperTest {
 
         boolean insertSuc =
                 dbHelper.insert(
-                        "Account",
+                        "team.yummy.vCampus.test.Account",
                         JSON.toJSONString(newAccount)
                 );
 
@@ -234,7 +232,7 @@ public class DBHelperTest {
 
         String jsonData =
                 dbHelper.selectOne(
-                        "Account",
+                        "team.yummy.vCampus.test.Account",
                         "CampusCardID",
                         "213160005"
                 );
@@ -245,7 +243,7 @@ public class DBHelperTest {
 
         boolean deleteSuc =
                 dbHelper.delete(
-                        "Account",
+                        "team.yummy.vCampus.test.Account",
                         "CampusCardID",
                         "213160005"
                 );
@@ -253,7 +251,7 @@ public class DBHelperTest {
 
         jsonData =
                 dbHelper.selectOne(
-                        "Account",
+                        "team.yummy.vCampus.test.Account",
                         "CampusCardID",
                         "213160005"
                 );
@@ -295,37 +293,8 @@ public class DBHelperTest {
         logger.log(jsonData);
     }
 
-    @Test
-    public void testSelectCourseSignUpItem() {
-        // 先得到所有可选的课程
-        CourseRegister courseRegister = new CourseRegister();
-//        String sql = "SELECT CourseID, CourseName, ProfName, StuLimitCount, StuAttendCount, Credit, CourseVenue FROM Course WHERE (Grade = 2 AND Semester = 2 and Major = '计算机科学与技术') OR (Grade = 0 AND Semester = 2)";
-        String jsonData = dbHelper.select(courseRegister.getSql(2,2,"计算机科学与技术"));
-        logger.log(jsonData);
-        List<CourseRegisterViewModel> courseRegisterViewModels = JSON.parseArray(jsonData, CourseRegisterViewModel.class);
-        // 分别得到每个课程的课程表
-        for(CourseRegisterViewModel c : courseRegisterViewModels) {
-            jsonData = dbHelper.select(c.getSql());
 
-            logger.log(jsonData);
-            List<CourseScheduleViewModel> s = JSON.parseArray(jsonData, CourseScheduleViewModel.class);
-            c.setCourseSchedule(s);
-        }
-        // 设置所有可选的课程
-        courseRegister.setCourseList(courseRegisterViewModels);
-        // 设置课程状态为：已选，已满，可选，可选但与已选冲突；已选课程需要从对应学期课程表中获取
-        String sql = String.format("SELECT CourseID From CourseRecord WHERE CampusCardID = '%s' AND Semester='18-19-2'", "213170000");
-        jsonData = dbHelper.select(sql);
-        logger.log(jsonData);
-        List<Map> selectedCourse = JSON.parseArray(jsonData, Map.class);
-        courseRegister.setCourseStatus(selectedCourse);
-
-//        jsonData = JSON.toJSONString(courseRegister);
-//        CourseRegister newCourseSignUp = JSON.parseObject(jsonData, CourseRegister.class);
-
-    }
-
-    private static Logger logger = new Logger("DBHelperTest");
+    private static Logger logger = new Logger("team.yummy.vCampus.test.DBHelperTest");
     public static void main(String[] args) {
         Result result = JUnitCore.runClasses(DBHelperTest.class);
         for(Failure failure : result.getFailures()) {

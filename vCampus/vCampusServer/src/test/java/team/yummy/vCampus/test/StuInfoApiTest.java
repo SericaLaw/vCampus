@@ -1,17 +1,10 @@
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
-import team.yummy.vCampus.client.api.Api;
-import team.yummy.vCampus.models.*;
-import team.yummy.vCampus.util.Logger;
-import team.yummy.vCampus.web.WebResponse;
+package team.yummy.vCampus.test;
 
-import java.util.*;
+import com.alibaba.fastjson.JSONObject;
+import org.junit.Test;
+import team.yummy.vCampus.models.entity.StuInfoEntity;
+import team.yummy.vCampus.util.Api;
+import team.yummy.vCampus.web.WebResponse;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -53,10 +46,8 @@ public class StuInfoApiTest extends ApiTest {
      */
     @Test
     public void getStuInfo() {
-        Api api = loginAndGetAuth();
-
         WebResponse res = api.get("/stuInfo/campusCardID/213180000");
-        StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
+        StuInfoEntity stuInfoGot = res.dataList(StuInfoEntity.class, 0);
     }
 
     /**
@@ -79,8 +70,6 @@ public class StuInfoApiTest extends ApiTest {
      */
     @Test
     public void modifyStuInfo() {
-        Api api = loginAndGetAuth();
-
         JSONObject infoToModify = new JSONObject();
         infoToModify.put("Phone", "120");
         infoToModify.put("Sex","女");

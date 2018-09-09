@@ -7,8 +7,6 @@
     <class name="team.yummy.vCampus.models.entity.CourseRecordEntity" table="CourseRecord" schema="&quot;.&quot;"
            catalog="&quot;.&quot;">
         <id name="id" column="ID"/>
-        <property name="campusCardId" column="CampusCardID"/>
-        <property name="courseId" column="CourseID"/>
         <property name="score" column="Score"/>
         <property name="semester" column="Semester"/>
         <property name="scoreType" column="ScoreType"/>

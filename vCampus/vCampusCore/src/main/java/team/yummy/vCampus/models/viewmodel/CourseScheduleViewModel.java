@@ -1,5 +1,7 @@
 package team.yummy.vCampus.models.viewmodel;
 
+import java.util.stream.IntStream;
+
 /**
  * @author Serica
  * 课程表表项类
@@ -81,6 +83,10 @@ public class CourseScheduleViewModel {
 
     public void setCourseVenue(String courseVenue) {
         this.courseVenue = courseVenue;
+    }
+
+    public int[] span() {
+        return IntStream.range(this.spanStart, this.spanEnd + 1).toArray();
     }
 
 

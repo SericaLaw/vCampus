@@ -1,7 +1,5 @@
 package team.yummy.vCampus.client;
 
-import team.yummy.vCampus.client.api.Api;
-
 public class Bridge {
 
     private Bridge() {}

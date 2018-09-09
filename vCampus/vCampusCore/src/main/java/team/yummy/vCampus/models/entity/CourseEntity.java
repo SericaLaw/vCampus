@@ -18,7 +18,7 @@ public class CourseEntity {
     private Timestamp examDate;
     private String courseName;
     private String major;
-    private Integer semester;
+    private String semester;
     private String intro;
     private Integer grade;
     private BigDecimal credit;
@@ -75,6 +75,10 @@ public class CourseEntity {
         this.stuAttendCount = stuAttendCount;
     }
 
+    public void incStuAttendCount() { ++stuAttendCount; }
+
+    public void decStuAttendCount() { --stuAttendCount; }
+
     @Id
     @Column(name = "CourseID")
     public String getCourseId() {
@@ -127,11 +131,11 @@ public class CourseEntity {
 
     @Basic
     @Column(name = "Semester")
-    public Integer getSemester() {
+    public String getSemester() {
         return semester;
     }
 
-    public void setSemester(Integer semester) {
+    public void setSemester(String semester) {
         this.semester = semester;
     }
 

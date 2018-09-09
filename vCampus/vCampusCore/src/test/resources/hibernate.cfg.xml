@@ -25,8 +25,6 @@
     <mapping resource="team/yummy/vCampus/models/entity/DormEntity.hbm.xml"/>
     <mapping resource="team/yummy/vCampus/models/entity/DormScoreEntity.hbm.xml"/>
     <mapping class="team.yummy.vCampus.models.entity.DormScoreEntity"/>
-    <mapping resource="team/yummy/vCampus/models/entity/USysApplicationLogEntity.hbm.xml"/>
-    <mapping class="team.yummy.vCampus.models.entity.USysApplicationLogEntity"/>
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 

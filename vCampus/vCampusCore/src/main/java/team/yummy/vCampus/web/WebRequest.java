@@ -30,11 +30,8 @@ public class WebRequest implements Serializable {
     // 客户端Session ID
     private Integer sessionId = null;
 
-    // 客户端权限信息
-    private Hashtable<String, byte[]> auth = null;
-
     // post, patch需要使用data，使用JSON字符串
-    private String jsonData = null;
+    private String body = null;
 
     // 对应的sql命令语句，如果普通的方法无法完成则进行配置
     private String sql = null;
@@ -47,10 +44,10 @@ public class WebRequest implements Serializable {
     }
 
     // POST, PATCH
-    public WebRequest(RequestMethod type, String route, String jsonData) {
+    public WebRequest(RequestMethod type, String route, String body) {
         this.type = type;
         this.route = route;
-        this.jsonData = jsonData;
+        this.body = body;
         parse();
     }
 
@@ -70,8 +67,8 @@ public class WebRequest implements Serializable {
         return value;
     }
 
-    public String getJsonData() {
-        return jsonData;
+    public String getBody() {
+        return body;
     }
 
     public String getField() {
@@ -106,12 +103,12 @@ public class WebRequest implements Serializable {
             queryValue = p[5];
     }
 
-    public <T> T deserialize(Class<T> clazz) {
-        return JSON.parseObject(getJsonData(), clazz);
+    public <T> T deserializeBody(Class<T> clazz) {
+        return JSON.parseObject(getBody(), clazz);
     }
 
     public <T> List<T> deserializeList(Class<T> clazz) {
-        return JSON.parseArray(getJsonData(), clazz);
+        return JSON.parseArray(getBody(), clazz);
     }
 
     public String getSql() {
@@ -124,23 +121,7 @@ public class WebRequest implements Serializable {
 
     @Override
     public String toString() {
-        return type + " <-- request url: " + route + "\n[parsed]: tableName = " + tableName +", key = " + field + ", value = " + value +", query = " + query +"\n[ jsonData =  " + jsonData +" ]\n[ sessionId = " + sessionId + " ]\n";
-    }
-
-    public Hashtable<String, byte[]> getAuth() {
-        return auth;
-    }
-
-    public void setAuth(Hashtable<String, byte[]> auth) {
-        this.auth = auth;
-    }
-
-    public String getAuthString(String key) {
-        if (auth.containsKey(key)) {
-            return new String(auth.get(key));
-        } else {
-            return null;
-        }
+        return type + " <-- request url: " + route + "\n[ parsed ]: tableName = " + tableName +", key = " + field + ", value = " + value +", query = " + query +"\n[ body =  " + body +" ]\n[ sessionId = " + sessionId + " ]\n";
     }
 
     public String getQueryValue() {

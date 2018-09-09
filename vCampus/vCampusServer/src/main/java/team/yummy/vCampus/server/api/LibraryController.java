@@ -3,14 +3,14 @@ package team.yummy.vCampus.server.api;
 import com.alibaba.fastjson.JSON;
 import org.hibernate.Transaction;
 import team.yummy.vCampus.models.entity.*;
+import team.yummy.vCampus.models.viewmodel.BookViewModel;
 import team.yummy.vCampus.models.viewmodel.BorrowRecordViewModel;
 import team.yummy.vCampus.server.WebContext;
 import team.yummy.vCampus.server.api.annotation.*;
 
-import java.awt.print.Book;
 import java.sql.Timestamp;
-import java.time.Period;
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class LibraryController extends Controller {
 
@@ -27,17 +27,39 @@ public class LibraryController extends Controller {
 
     @Get(route = "book")
     public void getBookList() {
+        Transaction tx = dbSession.beginTransaction();
+        List<BookEntity> books = (List<BookEntity>)dbSession.createQuery(
+            "select book from Book book"
+        ).setFirstResult(0).setMaxResults(20).list();
+        tx.commit();
 
+        webContext.response.setBody(JSON.toJSONString(
+            books.stream().map(book -> new BookViewModel(book)).toArray()
+        ));
+    }
+
+    @Post(route = "book")
+    public void searchForBooks() {
+        String keyword = webContext.request.getBody();
+        Transaction tx = dbSession.beginTransaction();
+        List<BookEntity> books = (List<BookEntity>)dbSession.createQuery(
+            "select book from Book book where book.bookname like ?"
+        ).setParameter(0, "%" + keyword + "%").list();
+        tx.commit();
+
+        webContext.response.setBody(JSON.toJSONString(
+            books.stream().map(book -> new BookViewModel(book)).toArray()
+        ));
     }
 
     @Get(route = "borrow")
     public void getBorrowRecords() {
-        webContext.response.setJsonData(JSON.toJSONString(
+        webContext.response.setBody(JSON.toJSONString(
             account.getBorrowRecordsByCampusCardId()
                 .stream()
                 .map(record -> new BorrowRecordViewModel(
-                    record.getCampusCardId(),
-                    record.getBookId(),
+                    account.getCampusCardId(),
+                    record.getBookByBookId().getBookId(),
                     record.getBookByBookId().getBookName(),
                     record.getBookByBookId().getWriter(),
                     record.getBookByBookId().getPublisher(),
@@ -51,13 +73,13 @@ public class LibraryController extends Controller {
     @Post(route = "borrow")
     public String newBorrowRecords() {
         Transaction tx = dbSession.beginTransaction();
-        BorrowRecordEntity record = webContext.request.deserialize(BorrowRecordEntity.class);
-        if (record == null) {
+        String bookId = webContext.request.getBody();
+        if (bookId == null) {
             webContext.response.setStatusCode("400");
-            return "Incorrect json data";
+            return "Incorrect body data";
         }
 
-        BookEntity book = dbSession.load(BookEntity.class, record.getBookId());
+        BookEntity book = dbSession.load(BookEntity.class, bookId);
         if (book == null) {
             webContext.response.setStatusCode("400");
             return "No corresponding book found";
@@ -69,11 +91,15 @@ public class LibraryController extends Controller {
         }
 
         // 正式更新
-        record.setExpiryDate(record.getBorrowDate());
         book.decAvailableCount();
-
-        dbSession.save(record);
         dbSession.update(book);
+
+        BorrowRecordEntity record = new BorrowRecordEntity();
+        record.setAccountByCampusCardId(account);
+        record.setBookByBookId(book);
+        record.setBorrowDate(new Timestamp(System.currentTimeMillis()));
+        record.setExpiryDate(record.getBorrowDate());
+        dbSession.save(record);
 
         tx.commit();
         webContext.response.setStatusCode("201");

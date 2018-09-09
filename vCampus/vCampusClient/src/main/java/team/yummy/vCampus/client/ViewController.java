@@ -1,7 +1,7 @@
 package team.yummy.vCampus.client;
 
 import com.alibaba.fastjson.JSON;
-import team.yummy.vCampus.client.api.Api;
+import team.yummy.vCampus.util.Api;
 import team.yummy.vCampus.models.Account;
 
 public abstract class ViewController {

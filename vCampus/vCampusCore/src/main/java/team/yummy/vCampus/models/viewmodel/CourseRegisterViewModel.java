@@ -1,22 +1,48 @@
 package team.yummy.vCampus.models.viewmodel;
 
 import team.yummy.vCampus.models.CourseStatusEnum;
+import team.yummy.vCampus.models.entity.CourseEntity;
+import team.yummy.vCampus.models.entity.CourseScheduleEntity;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CourseRegisterViewModel {
     private String courseID;
     private String courseName;
     private String profName;
     private String courseVenue;
-    private String credit;
-    private int StuAttendCount;
-    private int StuLimitCount;
+    private BigDecimal credit;
+    private int stuAttendCount;
+    private int stuLimitCount;
 
     private List<CourseScheduleViewModel> courseSchedule;
-    private CourseStatusEnum status; // 可选，已满，冲突
+    private CourseStatusEnum status = CourseStatusEnum.AVAILABLE; // 可选，已满，冲突
 
     public CourseRegisterViewModel() {}
+
+    public CourseRegisterViewModel(CourseEntity c) {
+        this.courseID = c.getCourseId();
+        this.courseName = c.getCourseName();
+        this.profName = c.getProfName();
+        this.courseVenue = c.getCourseVenue();
+        this.credit = c.getCredit();
+        this.stuAttendCount = c.getStuAttendCount();
+        this.stuLimitCount = c.getStuLimitCount();
+        this.courseSchedule = c.getCourseSchedulesByCourseId().stream()
+            .map(s -> new CourseScheduleViewModel(
+                c.getCourseId(),
+                s.getWeekDay(),
+                s.getSpanStart(),
+                s.getSpanEnd(),
+                c.getCourseName(),
+                c.getProfName(),
+                c.getCourseVenue()
+            )).collect(Collectors.toList());
+    }
 
     public List<CourseScheduleViewModel> getCourseSchedule() {
         return courseSchedule;
@@ -46,9 +72,7 @@ public class CourseRegisterViewModel {
         return profName;
     }
 
-    public void setProfName(String profName) {
-        this.profName = profName;
-    }
+    public void setProfName(String profName) { this.profName = profName; }
 
     public String getCourseVenue() {
         return courseVenue;
@@ -58,28 +82,28 @@ public class CourseRegisterViewModel {
         this.courseVenue = courseVenue;
     }
 
-    public String getCredit() {
+    public BigDecimal getCredit() {
         return credit;
     }
 
-    public void setCredit(String credit) {
+    public void setCredit(BigDecimal credit) {
         this.credit = credit;
     }
 
     public int getStuAttendCount() {
-        return StuAttendCount;
+        return stuAttendCount;
     }
 
     public void setStuAttendCount(int stuAttendCount) {
-        StuAttendCount = stuAttendCount;
+        this.stuAttendCount = stuAttendCount;
     }
 
     public int getStuLimitCount() {
-        return StuLimitCount;
+        return stuLimitCount;
     }
 
     public void setStuLimitCount(int stuLimitCount) {
-        StuLimitCount = stuLimitCount;
+        this.stuLimitCount = stuLimitCount;
     }
 
     public CourseStatusEnum getStatus() {

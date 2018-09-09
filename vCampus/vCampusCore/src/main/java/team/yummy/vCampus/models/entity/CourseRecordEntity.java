@@ -1,38 +1,20 @@
 package team.yummy.vCampus.models.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.UUID;
 
 @Entity
 @Table(name = "CourseRecord", schema = "\".\"", catalog = "\".\"")
 public class CourseRecordEntity {
-    private String campusCardId;
-    private String courseId;
     private Integer score;
     private String semester;
     private String scoreType;
-    private String id;
+    private String id = UUID.randomUUID().toString();
     private AccountEntity accountByCampusCardId;
     private CourseEntity courseByCourseId;
-
-    @Basic
-    @Column(name = "CampusCardID")
-    public String getCampusCardId() {
-        return campusCardId;
-    }
-
-    public void setCampusCardId(String campusCardId) {
-        this.campusCardId = campusCardId;
-    }
-
-    @Basic
-    @Column(name = "CourseID")
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
 
     @Basic
     @Column(name = "Score")
@@ -65,7 +47,7 @@ public class CourseRecordEntity {
     }
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "ID", unique = true, nullable = false)
     public String getId() {
         return id;
     }
@@ -81,8 +63,6 @@ public class CourseRecordEntity {
 
         CourseRecordEntity that = (CourseRecordEntity) o;
 
-        if (campusCardId != null ? !campusCardId.equals(that.campusCardId) : that.campusCardId != null) return false;
-        if (courseId != null ? !courseId.equals(that.courseId) : that.courseId != null) return false;
         if (score != null ? !score.equals(that.score) : that.score != null) return false;
         if (semester != null ? !semester.equals(that.semester) : that.semester != null) return false;
         if (scoreType != null ? !scoreType.equals(that.scoreType) : that.scoreType != null) return false;
@@ -93,8 +73,7 @@ public class CourseRecordEntity {
 
     @Override
     public int hashCode() {
-        int result = campusCardId != null ? campusCardId.hashCode() : 0;
-        result = 31 * result + (courseId != null ? courseId.hashCode() : 0);
+        int result = 0;
         result = 31 * result + (score != null ? score.hashCode() : 0);
         result = 31 * result + (semester != null ? semester.hashCode() : 0);
         result = 31 * result + (scoreType != null ? scoreType.hashCode() : 0);
@@ -103,7 +82,7 @@ public class CourseRecordEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "CampusCardID", referencedColumnName = "CampusCardID", nullable = false)
+    @JoinColumn(name = "CampusCardID", referencedColumnName = "CampusCardID", nullable = false, insertable = false, updatable = false)
     public AccountEntity getAccountByCampusCardId() {
         return accountByCampusCardId;
     }
@@ -113,7 +92,7 @@ public class CourseRecordEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "CourseID", referencedColumnName = "CourseID", nullable = false)
+    @JoinColumn(name = "CourseID", referencedColumnName = "CourseID", nullable = false, insertable = false, updatable = false)
     public CourseEntity getCourseByCourseId() {
         return courseByCourseId;
     }

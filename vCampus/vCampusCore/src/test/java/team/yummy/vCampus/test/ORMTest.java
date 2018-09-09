@@ -1,3 +1,4 @@
+package team.yummy.vCampus.test;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,7 +31,7 @@ public class ORMTest {
         session.close();
         System.out.println(
                 "ID号：" + user.getCampusCardId() +
-                        "；用户名：" + user.getUsername() +
+                        "；用户名：" + user.getNickname() +
                         "；密码：" + user.getPassword() +
                         "；角色：" + user.getRole());
     }
@@ -39,7 +40,7 @@ public class ORMTest {
     public void b_insert() {
         AccountEntity ue = new AccountEntity();
         ue.setCampusCardId("213164320");
-        ue.setUsername("Serica");
+        ue.setNickname("Serica");
         ue.setPassword("BestSerica");
         ue.setFirstName("Luo");
         ue.setLastName("YinHong");
@@ -50,8 +51,8 @@ public class ORMTest {
     //修改
     @Test
     public void c_update() {
-        AccountEntity user = (AccountEntity) session.get(AccountEntity.class, "09016414");
-        user.setRole("Student");
+        AccountEntity user = (AccountEntity) session.get(AccountEntity.class, "213164320");
+        user.setRole("student");
         session.update(user);
         tx.commit();
         session.close();

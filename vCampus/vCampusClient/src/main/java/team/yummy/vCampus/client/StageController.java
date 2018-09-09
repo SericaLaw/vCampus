@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.*;
-import team.yummy.vCampus.client.api.Api;
+import team.yummy.vCampus.util.Api;
 
 import java.util.HashMap;
 

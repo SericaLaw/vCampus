@@ -6,21 +6,10 @@ import java.util.Collection;
 @Entity
 @Table(name = "Dorm", schema = "\".\"", catalog = "\".\"")
 public class DormEntity {
-    private String campusCardId;
     private String dormId;
     private Integer bedNo;
     private AccountEntity accountByCampusCardId;
     private Collection<DormScoreEntity> dormScoresByDormId;
-
-    @Basic
-    @Column(name = "CampusCardID")
-    public String getCampusCardId() {
-        return campusCardId;
-    }
-
-    public void setCampusCardId(String campusCardId) {
-        this.campusCardId = campusCardId;
-    }
 
     @Id
     @Column(name = "DormID")
@@ -49,7 +38,6 @@ public class DormEntity {
 
         DormEntity that = (DormEntity) o;
 
-        if (campusCardId != null ? !campusCardId.equals(that.campusCardId) : that.campusCardId != null) return false;
         if (dormId != null ? !dormId.equals(that.dormId) : that.dormId != null) return false;
         if (bedNo != null ? !bedNo.equals(that.bedNo) : that.bedNo != null) return false;
 
@@ -58,14 +46,14 @@ public class DormEntity {
 
     @Override
     public int hashCode() {
-        int result = campusCardId != null ? campusCardId.hashCode() : 0;
+        int result = 0;
         result = 31 * result + (dormId != null ? dormId.hashCode() : 0);
         result = 31 * result + (bedNo != null ? bedNo.hashCode() : 0);
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "CampusCardID", referencedColumnName = "CampusCardID", nullable = false)
+    @JoinColumn(name = "CampusCardID", referencedColumnName = "CampusCardID", nullable = false, insertable = false, updatable = false)
     public AccountEntity getAccountByCampusCardId() {
         return accountByCampusCardId;
     }

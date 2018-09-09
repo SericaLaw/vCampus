@@ -5,21 +5,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import team.yummy.vCampus.web.WebResponse;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.event.ActionEvent;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.RadioButton;
 
 
-import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -80,7 +75,7 @@ public class WelcomeViewController extends ViewController implements Initializab
          WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
         switch (res.getStatusCode()) {
             case "200":
-                setAccountJsonData(res.getJsonData());
+                setAccountJsonData(res.getBody());
                 api.setAuth(currentAccount.getUsername(), currentAccount.getCampusCardID(),currentAccount.getPassword());
                 // 切换页面
                 stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
@@ -111,7 +106,7 @@ public class WelcomeViewController extends ViewController implements Initializab
         WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
         switch (res.getStatusCode()) {
             case "200":
-                setAccountJsonData(res.getJsonData());
+                setAccountJsonData(res.getBody());
                 api.setAuth(currentAccount.getUsername(), currentAccount.getCampusCardID(),currentAccount.getPassword());
                 // 切换页面
                 stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);

@@ -7,7 +7,6 @@
     <class name="team.yummy.vCampus.models.entity.CourseScheduleEntity" table="CourseSchedule" schema="&quot;.&quot;"
            catalog="&quot;.&quot;">
         <id name="id" column="ID"/>
-        <property name="courseId" column="CourseID"/>
         <property name="weekDay" column="WeekDay"/>
         <property name="spanStart" column="SpanStart"/>
         <property name="spanEnd" column="SpanEnd"/>

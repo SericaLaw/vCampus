@@ -1,4 +1,4 @@
-package team.yummy.vCampus.client.api;
+package team.yummy.vCampus.util;
 
 import java.io.ObjectOutputStream;
 
@@ -12,8 +12,8 @@ import java.util.Map;
 
 public class Api {
     private Logger logger = new Logger("API");
-    private Hashtable<String, byte[]> auth = new Hashtable<>();
     private Integer sessionId = null;
+
     public Api() {
 
     }
@@ -57,7 +57,6 @@ public class Api {
 
     private WebResponse sendResponse(Socket socket, WebRequest request, WebResponse response) {
         // config request
-        request.setAuth(auth);
         request.setSessionId(sessionId);
         logger.log(request.toString());
         try {
@@ -85,17 +84,6 @@ public class Api {
         }
     }
 
-    public Hashtable<String, byte[]> getAuth() {
-        return auth;
-    }
-
-    // 设置鉴权信息，用户登录后只需要调用一次
-    public void setAuth(String username, String campusCardID, String password) {
-        auth.put("username", username.getBytes());
-        auth.put("campusCardID", campusCardID.getBytes());
-        auth.put("password", password.getBytes());
-    }
-
     public Integer getSessionId() {
         return sessionId;
     }
@@ -105,7 +93,7 @@ public class Api {
     }
 
     public String toString() {
-        return String.format("Api Auth [ username = %s, campusCardID = %s, password = %s ]", new String(auth.get("username")), new String(auth.get("campusCardID")), new String(auth.get("password")));
+        return String.format("Api [ sessionId = %d ]", sessionId);
     }
 }
 

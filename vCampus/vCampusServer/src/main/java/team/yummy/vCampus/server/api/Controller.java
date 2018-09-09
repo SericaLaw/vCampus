@@ -23,13 +23,10 @@ public class Controller {
 
     public Session dbSession;
 
-    public Map<String, String> requestBody;
-
     public void init(WebContext webContext) {
         this.logger = new Logger(getClass().getTypeName());
         this.webContext = webContext;
         this.dbSession = webContext.server.dbFactory.openSession();
-        this.requestBody = webContext.request.deserialize(Map.class);
     }
 
     public boolean run() {
@@ -37,7 +34,7 @@ public class Controller {
             WebRequest request = webContext.request;
 
             Class methodType = new Class[] {
-                    Get.class, Post.class, Patch.class, Delete.class
+                Get.class, Post.class, Patch.class, Delete.class
             }[request.getType().ordinal()];
 
             Method action = null;
@@ -62,13 +59,21 @@ public class Controller {
                 arguments.add(request.getQueryValue());
             }
             // 若要自定义响应码，则应在action内重写
-            // 否则，HTTP响应码将默认为200
             Object result = action.invoke(this, arguments.toArray());
             if (result != null) {
                 webContext.response.setMessage((String)result);
             }
+            if (webContext.response.getMessage() == null) {
+                webContext.response.setMessage("OK");
+            }
+            if (webContext.response.getStatusCode() == null) {
+                webContext.response.setStatusCode("200");
+            }
             return true;
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+            webContext.response.setStatusCode("500");
+            webContext.response.setMessage(e.toString());
             return false;
         } finally {
             dbSession.close();
