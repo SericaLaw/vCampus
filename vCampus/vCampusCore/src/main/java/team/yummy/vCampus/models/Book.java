@@ -1,9 +1,7 @@
 package team.yummy.vCampus.models;
 
 /**
- * @author Serica
- * Book ç±?
- * å¯¹åº”Bookè¡?
+ *
  */
 public class Book {
     private String bookID;

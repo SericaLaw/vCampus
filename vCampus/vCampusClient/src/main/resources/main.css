@@ -10,7 +10,7 @@
 
 
 #title {
-    -fx-background-color: linear-gradient(to bottom right, #7C4DFF, #673AB7);
+    -fx-background-color: linear-gradient(to bottom, #7C4DFF, #673AB7);
 
     -fx-pref-height: 60;
 }
@@ -154,7 +154,7 @@
 
 #content__course__schedule {
     -fx-alignment: center;
-    -fx-max-height: 695;
+    -fx-max-height: 690;
     -fx-vgap: 2;
 }
 
@@ -290,18 +290,18 @@
 }
 
 .jfx-tab-pane .tab-header-background {
-    -fx-background-color: WHITE;
+    -fx-background-color: #673AB7;
 }
 
 .jfx-tab-pane .tab-label {
-    -fx-text-fill: BLACK;
+    -fx-text-fill: #fff;
     -fx-font-weight: LIGHTER;
     -fx-padding: 15 35 10 35;
     -fx-font-size: 20;
 }
 
 .jfx-tab-pane .tab-selected-line{
-    -fx-background-color : #673AB7;
+    -fx-background-color : #DD9708;
 }
 
 #content__Store__Cart__BatchRemove,#content__Store__Cart__Pay{
