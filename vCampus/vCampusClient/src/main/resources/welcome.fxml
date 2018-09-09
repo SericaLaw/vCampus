@@ -52,11 +52,6 @@
                                 <JFXButton fx:id="login_button" onAction="#login" text="登录" />
                             </children>
                         </HBox>
-                        <Label fx:id="LoginerrorText" text="">
-                            <textFill>
-                                <Color blue="0.375" green="0.375" red="0.375" fx:id="x2" />
-                            </textFill>
-                        </Label>
                     </children>
                 </VBox>
             </children>
@@ -107,7 +102,6 @@
                                 <JFXButton fx:id="register_ok" onAction="#signup" text="注册" />
                             </children>
                         </HBox>
-                        <Label fx:id="RegistererrorText" prefWidth="251.0" text="" textFill="$x2" visible="true" />
                     </children>
                 </VBox>
             </children>
