@@ -430,9 +430,6 @@ public class MainViewController extends ViewController implements Initializable 
 
             register_opCol.getChildren().addAll(opCol);
         }
-
-
-
     }
     @FXML
     protected void switchDorm(ActionEvent actionEvent) {
@@ -441,6 +438,17 @@ public class MainViewController extends ViewController implements Initializable 
         CoursePane.setVisible(false);
         LibraryPane.setVisible(false);
         BankPane.setVisible(false);
+        StorePane.setVisible(false);
+        AccountMagPane.setVisible(false);
+        InitPane.setVisible(false);
+    }
+    @FXML
+    protected void switchBank(ActionEvent actionEvent) {
+        BankPane.setVisible(true);
+        StuInfoPane.setVisible(false);
+        CoursePane.setVisible(false);
+        DormPane.setVisible(false);
+        LibraryPane.setVisible(false);
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
@@ -471,17 +479,6 @@ public class MainViewController extends ViewController implements Initializable 
         List<HBox> borrowedRows=libraryViewFactory.createBorrowedbookRows(borrowedbookList);
         library_borrowedBox.getChildren().addAll(borrowedRows);
 
-    }
-    @FXML
-    protected void switchBank(ActionEvent actionEvent) {
-        BankPane.setVisible(true);
-        StuInfoPane.setVisible(false);
-        CoursePane.setVisible(false);
-        DormPane.setVisible(false);
-        LibraryPane.setVisible(false);
-        StorePane.setVisible(false);
-        AccountMagPane.setVisible(false);
-        InitPane.setVisible(false);
     }
     @FXML
     protected void switchStore(ActionEvent actionEvent) {
