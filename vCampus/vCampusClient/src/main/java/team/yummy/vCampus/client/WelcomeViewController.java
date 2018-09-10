@@ -47,6 +47,7 @@ public class WelcomeViewController extends ViewController implements Initializab
     @FXML private ToggleGroup radiogroup;
     @FXML private JFXRadioButton register_radiostudent;
     @FXML private JFXRadioButton register_radioadminis;
+    @FXML private JFXRadioButton register_radioteacher;
 
     public WelcomeViewController() {
     }
@@ -162,6 +163,7 @@ public class WelcomeViewController extends ViewController implements Initializab
         {
             register_radiostudent.setUserData("student");
             register_radioadminis.setUserData("administrator");
+            register_radioteacher.setUserData("teacher");
             String role=radiogroup.getSelectedToggle().getUserData().toString();
             JSONObject info = new JSONObject();
             info.put("CampusCardID",card);

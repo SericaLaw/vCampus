@@ -94,6 +94,7 @@
                                         <ToggleGroup fx:id="radiogroup" />
                                     </toggleGroup></JFXRadioButton>
                                 <JFXRadioButton fx:id="register_radioadminis" text="管理员" toggleGroup="$radiogroup" />
+                                <JFXRadioButton fx:id="register_radioteacher" text="教师" toggleGroup="$radiogroup" />
                             </children>
                         </HBox>
                         <HBox id="registerpane__button-group" prefHeight="100.0" prefWidth="200.0">

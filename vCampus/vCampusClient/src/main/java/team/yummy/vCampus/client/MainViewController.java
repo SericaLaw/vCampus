@@ -9,7 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -82,6 +84,12 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML public Label am_Username;
     @FXML public Label am_Role;
     @FXML public Label am_Name;
+
+    @FXML private Label Lbank_name;
+    @FXML private Label Lbank_num;
+    @FXML private Label Lbank_balance;
+    @FXML private Label Lbank_wat_elec;
+    @FXML private Label Lbank_tuition;
 
     @FXML public VBox library_inquireBox;
     @FXML public TextField library_InquireText;
@@ -281,8 +289,24 @@ public class MainViewController extends ViewController implements Initializable 
         togglePane(DormPane);
     }
     @FXML
-    protected void switchBank(ActionEvent actionEvent) {
+    protected void switchBank(ActionEvent actionEvent)
+    {
         togglePane(BankPane);
+        BankPane.setVisible(true);
+        StuInfoPane.setVisible(false);
+        CoursePane.setVisible(false);
+        DormPane.setVisible(false);
+        LibraryPane.setVisible(false);
+        StorePane.setVisible(false);
+        AccountMagPane.setVisible(false);
+        InitPane.setVisible(false);
+        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
+        // StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
+        Lbank_name.setText(currentAccount.getFirstName()+currentAccount.getLastName());
+        // Lbank_num.setText(currentAccount.get);  获取账号尾号
+        // Lbank_balance.setText(currentAccount.get);  获取账户余额
+        // Lbank_wat_elec.setText(currentAccount.get);  获取水电费
+        // Lbank_tuition.setText(currentAccount.get);  获取学费
     }
     @FXML
     protected void switchLibrary(ActionEvent actionEvent) {
@@ -356,7 +380,7 @@ public class MainViewController extends ViewController implements Initializable 
             String Address=si_Address.getText();
             String SeniorHigh=si_SeniorHigh.getText();
 
-            if(IDNum.length() == 0 || Sex.length() == 0 || Birthplace.length() == 0 ||
+            while(IDNum.length() == 0 || Sex.length() == 0 || Birthplace.length() == 0 ||
                     Phone.length() == 0 || Email.length() == 0 || Address.length() == 0 || SeniorHigh.length() == 0 )
                 si_errorText.setText("有空选项!");
 
@@ -371,29 +395,27 @@ public class MainViewController extends ViewController implements Initializable 
                 e.printStackTrace();
             }*/
 
-            else {
-                JSONObject infoToModify = new JSONObject();
-                infoToModify.put("IDNum", IDNum);
-                infoToModify.put("Sex", Sex);
-                infoToModify.put("Birthdate", Birthdate);
-                infoToModify.put("Birthplace", Birthplace);
-                infoToModify.put("Phone", Phone);
-                infoToModify.put("Email", Email);
-                infoToModify.put("Address", Address);
-                infoToModify.put("SeniorHigh", SeniorHigh);
-                api.patch("/stuInfo/campusCardID/" + currentAccount.getCampusCardID(), infoToModify.toJSONString());
+            JSONObject infoToModify = new JSONObject();
+            infoToModify.put("IDNum", IDNum);
+            infoToModify.put("Sex",Sex);
+            infoToModify.put("Birthdate", Birthdate);
+            infoToModify.put("Birthplace",Birthplace);
+            infoToModify.put("Phone", Phone);
+            infoToModify.put("Email",Email);
+            infoToModify.put("Address", Address);
+            infoToModify.put("SeniorHigh",SeniorHigh);
+            api.patch("/stuInfo/campusCardID/"+ currentAccount.getCampusCardID(), infoToModify.toJSONString());
 
-                si_errorText.setText("");
-                si_IDNum.setDisable(true);
-                si_Sex.setDisable(true);
-                si_Birthdate.setDisable(true);
-                si_Birthplace.setDisable(true);
-                si_Phone.setDisable(true);
-                si_Email.setDisable(true);
-                si_Address.setDisable(true);
-                si_SeniorHigh.setDisable(true);
-                editorSaveStuInfo.setText("编辑");
-            }
+            si_errorText.setText("");
+            si_IDNum.setDisable(true);
+            si_Sex.setDisable(true);
+            si_Birthdate.setDisable(true);
+            si_Birthplace.setDisable(true);
+            si_Phone.setDisable(true);
+            si_Email.setDisable(true);
+            si_Address.setDisable(true);
+            si_SeniorHigh.setDisable(true);
+            editorSaveStuInfo.setText("编辑");
         }
     }
 
@@ -514,16 +536,6 @@ public class MainViewController extends ViewController implements Initializable 
     }
 
 
-    protected void choosestudent(ActionEvent actionEvent)
-    {
-        register_radiominis.setPickOnBounds(false);
-    }
-    @FXML
-    protected void chooseadminis(ActionEvent actionEvent)
-    {
-        register_radiostudent.setPickOnBounds(false);
-    }
-
     @FXML
     protected void libraryInquire(ActionEvent actionEvent) {
         String keyword = library_InquireText.getText();
@@ -547,22 +559,26 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML
     protected void booksearch(KeyEvent keyEvent)
     {
-        String keyword = library_InquireText.getText();
-        if (keyword==null||keyword.equals("")) {
-            library_InquireText.setPromptText("请输入关键字");
-        } else {
-            WebResponse res = api.get("/book/bookName/" + keyword + "/like");
-            List<Book> bookList_keyword = res.dataList(Book.class);
-            LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
-            List<HBox> row = libraryViewFactory.createBookRows(bookList_keyword, 1);
-            if (library_inquireBox.getChildren().size() != 0) {
-                library_inquireBox.getChildren().clear();
-                library_inquireBox.getChildren().addAll(row);
+        if(keyEvent.getCode() == KeyCode.ENTER)
+        {
+            String keyword = library_InquireText.getText();
+            if (keyword==null||keyword.equals("")) {
+                library_InquireText.setPromptText("请输入关键字");
             } else {
-                library_inquireBox.getChildren().addAll(row);
-            }
+                WebResponse res = api.get("/book/bookName/" + keyword + "/like");
+                List<Book> bookList_keyword = res.dataList(Book.class);
+                LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
+                List<HBox> row = libraryViewFactory.createBookRows(bookList_keyword, 1);
+                if (library_inquireBox.getChildren().size() != 0) {
+                    library_inquireBox.getChildren().clear();
+                    library_inquireBox.getChildren().addAll(row);
+                } else {
+                    library_inquireBox.getChildren().addAll(row);
+                }
 
+            }
         }
+
     }
 
     /**
@@ -604,7 +620,109 @@ public class MainViewController extends ViewController implements Initializable 
         }
         return GPA / totalCredit;
     }
+    @FXML
+    protected void paywatelec(ActionEvent actionEvent)
+    {
+        final JFXDialog dialog = new JFXDialog();
+        HBox hb1 = new HBox();
+        HBox hb2 = new HBox();
+        VBox vb = new VBox();
+        Label text =new Label("请输入密码：");
+        text.setFont(Font.font(20));
+        text.setTextFill(Color.web("black"));
+        text.setPadding(new Insets(10,0,0,40));
+        text.setPrefSize(160,200);
+        JFXPasswordField password = new JFXPasswordField();
+        password.setPadding(new Insets(10,0,0,0));
+        hb1.setPadding(new Insets(0,10,30,280));
+        JFXButton ok=new JFXButton("确定");
+        JFXButton cancel=new JFXButton("取消");
+        ok.setFont(Font.font(17));
+        ok.setPrefSize(80,35);
+        ok.setBackground(new Background(new BackgroundFill(Color.web("#B15BFF"),null,null)));
+        ok.setTextFill(Color.web("#fff"));
+        cancel.setFont(Font.font(17));
+        cancel.setPrefSize(80,35);
+        cancel.setBackground(new Background(new BackgroundFill(Color.web("#707070"),null,null)));
+        cancel.setTextFill(Color.web("#fff"));
+        hb1.setSpacing(35);
+        hb1.getChildren().addAll(ok,cancel);
+        vb.setPrefSize(500,250);
+        hb2.setAlignment(Pos.CENTER);
+        hb2.getChildren().addAll(text,password);
+        vb.getChildren().addAll(hb2,hb1);
+        dialog.setContent(vb);
+        dialog.show(rootStackPane);
 
+        ok.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //支付的操作
+                // 1.比较密码输入是否正确
+                // 2.比较余额是否足够支付
+                // 3.成功支付后 欠费清零 余额减少 消费记录增加
+                dialog.setVisible(false);
+            }
+        });
+
+        cancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                dialog.setVisible(false);            }
+        });
+    }
+
+    @FXML
+    protected void paytuition(ActionEvent actionEvent)
+    {
+        final JFXDialog dialog = new JFXDialog();
+        HBox hb1 = new HBox();
+        HBox hb2 = new HBox();
+        VBox vb = new VBox();
+        Label text =new Label("请输入密码：");
+        text.setFont(Font.font(20));
+        text.setTextFill(Color.web("black"));
+        text.setPadding(new Insets(10,0,0,40));
+        text.setPrefSize(160,200);
+        JFXPasswordField password = new JFXPasswordField();
+        password.setPadding(new Insets(10,0,0,0));
+        hb1.setPadding(new Insets(0,10,30,280));
+        JFXButton ok=new JFXButton("确定");
+        JFXButton cancel=new JFXButton("取消");
+        ok.setFont(Font.font(17));
+        ok.setPrefSize(80,35);
+        ok.setBackground(new Background(new BackgroundFill(Color.web("#B15BFF"),null,null)));
+        ok.setTextFill(Color.web("#fff"));
+        cancel.setFont(Font.font(17));
+        cancel.setPrefSize(80,35);
+        cancel.setBackground(new Background(new BackgroundFill(Color.web("#707070"),null,null)));
+        cancel.setTextFill(Color.web("#fff"));
+        hb1.setSpacing(35);
+        hb1.getChildren().addAll(ok,cancel);
+        vb.setPrefSize(500,250);
+        hb2.setAlignment(Pos.CENTER);
+        hb2.getChildren().addAll(text,password);
+        vb.getChildren().addAll(hb2,hb1);
+        dialog.setContent(vb);
+        dialog.show(rootStackPane);
+
+        ok.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //支付的操作
+                // 1.比较密码输入是否正确
+                // 2.比较余额是否足够支付
+                // 3.成功支付后 欠费清零 余额减少 消费记录增加
+                dialog.setVisible(false);
+            }
+        });
+
+        cancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                dialog.setVisible(false);            }
+        });
+    }
     public void switchInit(ActionEvent actionEvent) {
         togglePane(InitPane);
     }
