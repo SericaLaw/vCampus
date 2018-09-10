@@ -211,7 +211,7 @@
                                        <children>
                                           <HBox layoutX="128.0" layoutY="38.0" prefHeight="36.0" prefWidth="247.0" spacing="50.0">
                                              <children>
-                                                <JFXButton fx:id="addBook" prefHeight="36.0" prefWidth="103.0" text="添加书籍" />
+                                                <JFXButton fx:id="addBook" onAction="#bookadd" prefHeight="36.0" prefWidth="103.0" text="添加书籍" />
                                              </children>
                                           </HBox>
                                           <HBox layoutX="503.0" layoutY="36.0" prefHeight="10.0" prefWidth="289.0" spacing="5.0">
