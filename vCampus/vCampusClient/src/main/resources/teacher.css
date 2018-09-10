@@ -1,0 +1,255 @@
+
+.root {
+    primary: #673AB7;
+    dark-primary: #512DA8;
+    light-primary: #D1C4E9;
+    primary-text: #212121;
+    secondary-text: #757575;
+    accent-color: #7C4DFF;
+    divider-color: #BDBDBD;
+}
+
+
+#title {
+    -fx-background-color: linear-gradient(to bottom, #7C4DFF, #673AB7);
+
+    -fx-pref-height: 60;
+}
+
+#title_left {
+    -fx-background-color: #fff;
+    -fx-alignment: center;
+    /* -fx-effect:dropshadow(one-pass-box, #bbb, 20, 0.05, 3, 8); */
+}
+
+#title_left .label {
+    -fx-font-size: 28;
+    -fx-text-fill: #707070;
+}
+#title_right .label {
+    -fx-pref-height: 60;
+    -fx-pref-width: 60;
+    -fx-alignment: center;
+    -fx-text-fill: #fff;
+}
+
+#title .label:hover {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(one-pass-box, #fff,2,0.5,0,0);
+}
+#title .label:pressed {
+    -fx-text-fill: #bbb;
+}
+
+#main_userIcon{
+    -fx-cursor:hand;
+    -fx-text-fill:#a0a0a0;
+}
+
+#main_usermag{
+    -fx-background-color:#eee;
+}
+
+#main_sidebar {
+    -fx-background-color:#fff;
+    -fx-pref-width: 250px;
+    -fx-spacing: 5;
+    -fx-alignment: top-center;
+    -fx-effect:dropshadow(one-pass-box, #bbb, 20, 0.05, 3, 8);
+}
+
+#main_sidebar .label {
+    -fx-pref-width: 250;
+    -fx-padding: 10 0 0 10;
+}
+
+#main_sidebar .button {
+    -fx-pref-width: 250;
+    -fx-background-color: #fff;
+    -fx-pref-height: 50;
+    -fx-padding:  0 20;
+    -fx-border-width: 0 0 0 6px;
+    -fx-border-height: 50;
+    -fx-border-color: transparent;
+    -fx-font-size: 20;
+    -fx-alignment: center-left;
+}
+
+#main_sidebar .button:hover,
+#main_sidebar .button:focused {
+    -fx-text-fill: #673AB7;
+    -fx-border-color: transparent transparent transparent linear-gradient(to bottom right, #7C4DFF, #673AB7);
+    -fx-cursor: hand;
+}
+
+#main_sidebar .button:hover .image,
+#main_sidebar .button:focused .image {
+    -fx-effect: innershadow(one-pass-box, #673AB7, 2, 0.5, 0, 0);
+}
+
+
+}
+/*.-jfx-date-picker {
+    -jfx-default-color: #673AB7;
+    -jfx-overlay: true;
+}*/
+
+#cancelAccount,
+#logout {
+    -fx-background-color: #673AB7;
+    -fx-text-fill: #fff;
+    -jfx-button-type: RAISED;
+}
+#cancelAccount:hover,
+#logout:hover {
+    -fx-background-color: #7C4DFF;
+    -fx-cursor: hand;
+}
+
+#content__course__schedule {
+    -fx-alignment: center;
+    -fx-max-height: 695;
+    -fx-vgap: 2;
+}
+
+.course-schedule-item {
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+}
+
+
+
+.img:hover {
+    -fx-effect:dropshadow(one-pass-box, #bbb, 20, 0.05, 3, 8);
+}
+
+#am_CampusCardID,#am_Username,#am_Name,#am_Role{
+    -fx-font-size:20px;
+}
+
+
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #673AB7;
+}
+
+.jfx-tab-pane .tab-label {
+    -fx-text-fill: #fff;
+    -fx-font-weight: LIGHTER;
+    -fx-padding: 15 35 10 35;
+    -fx-font-size: 20;
+}
+
+.jfx-tab-pane .tab-label:hover {
+    -fx-cursor: hand;
+}
+.jfx-tab-pane .tab-selected-line{
+    -fx-background-color : #DD9708;
+}
+
+.jfx-tab-pane .headers-region > .tab > .jfx-rippler {
+    -jfx-rippler-fill: #fff;
+}
+
+
+
+#content__course__report {
+    -fx-pref-width: 940;
+    -fx-padding: 50 150;
+    -fx-alignment: top-center;
+    -fx-spacing: 20;
+}
+
+#content__course__report .heading {
+    -fx-alignment: center;
+    -fx-spacing: 20;
+    -fx-padding: 35 30;
+    -fx-background-color: #fff;
+    -fx-background-radius: 10;
+}
+
+#content__course__report .heading .item {
+    -fx-alignment: center;
+    -fx-pref-width: 150;
+    -fx-spacing: 10;
+}
+
+#content__course__report .heading .column-title {
+    -fx-text-fill: #757575;
+    -fx-font-size: 20;
+}
+
+#content__course__report .heading .column-content {
+    -fx-text-fill: #512DA8;
+    -fx-font-size: 36;
+}
+
+#content__course__report .report-item {
+    -fx-spacing: 150;
+    -fx-alignment: center-left;
+    -fx-padding: 30 100;
+}
+
+#content__course__report .course-info {
+    -fx-spacing: 5;
+    -fx-alignment: center-left;
+}
+
+#content__course__report .course-name {
+    -fx-font-size: 24;
+    -fx-text-fill: #212121;
+}
+
+#content__course__report .course-detail {
+    -fx-spacing: 30;
+}
+
+#content__course__report .course-detail .label {
+    -fx-font-size: 18;
+    -fx-text-fill: #757575;
+}
+#content__course__report .score {
+    -fx-font-size: 36;
+    -fx-text-fill: #673AB7;
+}
+
+#wrapper__content__course__register {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+
+
+#content__course__register__venue,
+#content__course__register__schedule,
+#content__course__register__status,
+#content__course__register__op {
+    -fx-pref-width: 150;
+    -fx-alignment: top-left;
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
+
+.register-item {
+    -fx-pref-height: 100;
+    -fx-min-height: 100;
+    -fx-max-height: 100;
+    -fx-alignment: center-left;
+}
+
+.register-item__course-name {
+    -fx-font-size: 22;
+    -fx-text-fill: #673AB7;
+}
+
+.register-item__course-detail {
+    -fx-alignment: center-left;
+    -fx-spacing: 10;
+    -fx-text-fill: #757575;
+}
+
+#Tch_GradeTV-column.label{
+       -fx-background-color: #5f93e7;
+       -fx-text-fill: white ;
+       -fx-text-alignment: center ;
+       -fx-graphic-text-gap:0;
+}
