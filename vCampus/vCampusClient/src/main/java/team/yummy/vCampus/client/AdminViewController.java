@@ -310,7 +310,7 @@ public class AdminViewController extends ViewController implements Initializable
         WebResponse res = api.get("/book");
         List<BookViewModel> bookList = res.dataList(BookViewModel.class);
         AdminLibraryViewFactory adminlibraryViewFactory = new AdminLibraryViewFactory(rootStackPane,this);
-        List<HBox> row = adminlibraryViewFactory.createBookRows(bookList);
+        List<HBox> row = adminlibraryViewFactory.createFullBookRows(bookList);
         if (library_inquireBox.getChildren().size() != 0) {
             library_inquireBox.getChildren().clear();
             library_inquireBox.getChildren().addAll(row);
@@ -350,7 +350,7 @@ public class AdminViewController extends ViewController implements Initializable
             WebResponse res = api.get("/book/bookName/" + keyword + "/like");
             List<BookViewModel> bookList_keyword = res.dataList(BookViewModel.class);
             AdminLibraryViewFactory adminlibraryViewFactory = new AdminLibraryViewFactory(rootStackPane, this);
-            List<HBox> row = adminlibraryViewFactory.createBookRows(bookList_keyword);
+            List<HBox> row = adminlibraryViewFactory.createFullBookRows(bookList_keyword);
             if (library_inquireBox.getChildren().size() != 0) {
                 library_inquireBox.getChildren().clear();
                 library_inquireBox.getChildren().addAll(row);
@@ -358,6 +358,21 @@ public class AdminViewController extends ViewController implements Initializable
                 library_inquireBox.getChildren().addAll(row);
             }
 
+        }
+    }
+
+    @FXML
+    protected void bookadd(ActionEvent actionEvent) {
+        WebResponse res = api.get("/book");
+        List<Book> bookList = res.dataList(Book.class);
+        AdminLibraryViewFactory adminlibraryViewFactory = new AdminLibraryViewFactory(rootStackPane, this);
+        List<HBox> row=adminlibraryViewFactory.createEmptyBookRows();
+        row.addAll(adminlibraryViewFactory.createFullBookRows(bookList));
+        if (library_inquireBox.getChildren().size() != 0) {
+            library_inquireBox.getChildren().clear();
+            library_inquireBox.getChildren().addAll(row);
+        } else {
+            library_inquireBox.getChildren().addAll(row);
         }
     }
 }
