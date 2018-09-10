@@ -2,7 +2,7 @@
     primary: #673AB7;
     dark-primary: #512DA8;
     light-primary: #D1C4E9;
-    primay-text: #212121;
+    primary-text: #212121;
     secondary-text: #757575;
     accent-color: #7C4DFF;
     divider-color: #BDBDBD;
@@ -46,26 +46,32 @@
 }
 
 #loginpane__content {
-    -fx-spacing: 30;
+    -fx-spacing: 40;
     -fx-padding: 100 80 50 50;
 
 }
 
 #registerpane__content {
-    -fx-spacing: 10;
+    -fx-spacing: 35;
     -fx-padding: 0 80 50 50;
-}
-#registerpane__content .label {
-    -fx-pref-width: 400;
-    -fx-padding: 10 0 0 0;
-    -fx-text-fill: #673AB7;
 }
 
 #registerpane__content .jfx-text-field, 
 #registerpane__content  .jfx-password-field {
-    -jfx-focus-color: #673AB7;
     -fx-font-size: 15px;
-    -fx-text-fill: #aaa;
+}
+
+.jfx-text-field,
+.jfx-password-field {
+    -jfx-focus-color: #673AB7;
+    -fx-prompt-text-fill: #808080;
+}
+
+.jfx-text-field:focused,
+.jfx-password-field:focused,
+.jfx-text-field:hover,
+.jfx-password-field:hover {
+    -fx-text-fill: #673AB7;
 }
 
 #registerpane__radio-button-group {
@@ -116,12 +122,10 @@
     -fx-text-fill: #673AB7;
 }
 
-#loginpane__content .jfx-text-field, 
+#loginpane__content .jfx-text-field,
 #loginpane__content  .jfx-password-field {
-    -jfx-focus-color: #673AB7;
     -fx-font-size: 20px;
     -fx-padding: 5px;
-    -fx-text-fill: #aaa;
 }
 
 #loginpane__button-group {
@@ -135,14 +139,6 @@
 #registerpane__content__error-text {
     -fx-pref-width: 400px;
     -fx-font-size: 20px;
-}
-
-
-.hyperlink {
-    -fx-border-style: none;
-    -fx-border-color: transparent;
-    -fx-text-fill: #673AB7;
-    -fx-font-size: 18px;
 }
 
 #login_button {
@@ -167,35 +163,6 @@
     -fx-text-fill: #7C4DFF;
 }
 
-#login_Tusername {
-   -fx-border-style:none;
-   -fx-background-color:transparent;
-   -fx-font-family:"微软雅黑 Light", sans-serif;
-   -fx-text-fill:#b8b8b8;
-   -fx-font-size:20px;
-   -fx-padding:2px;
-}
-#login_Tusername:hover {
-   -fx-text-fill:#4cadf8
-}
-#login_Tusername:focused {
-   -fx-text-fill:#4cadf8
-}
-#login_Tpassword {
-   -fx-border-style:none;
-   -fx-background-color:transparent;
-   -fx-font-family:"微软雅黑 Light", sans-serif;
-   -fx-text-fill:#b8b8b8;
-   -fx-font-size:20px;
-   -fx-padding:2px;
-}
-#login_Tpassword:hover {
-   -fx-text-fill:#4cadf8
-}
-#login_Tpassword:focused {
-   -fx-text-fill:#4cadf8
-}
-
 #register_Lsignup {
     -fx-font-family:"Book Antiqua";
     -fx-text-fill: #673AB7;
@@ -203,58 +170,3 @@
     -fx-font-size:48px;
     -fx-pref-width: 400px;
 }
-
-#register_Lname {
-    -fx-font-family:"微软雅黑 Light";
-    -fx-text-fill:#0083cc;
-    -fx-font-size:14px;
-}
-#register_Lcard {
-    -fx-font-family:"微软雅黑 Light";
-    -fx-text-fill:#0083cc;
-    -fx-font-size:14px;
-}
-#register_Lusername {
-    -fx-font-family:"微软雅黑 Light";
-    -fx-text-fill:#0083cc;
-    -fx-font-size:14px;
-}
-#register_Lpassword {
-    -fx-font-family:"微软雅黑 Light";
-    -fx-text-fill:#0083cc;
-    -fx-font-size:14px;
-}
-#register_Tfirstname {
-    -fx-border-style:none;
-    -fx-background-color:transparent;
-    -fx-text-fill:grey;
-    -fx-font-size:18px;
-    -fx-font-family:"微软雅黑";
-}
-#register_Tlastname {
-    -fx-border-style:none;
-    -fx-background-color:transparent;
-    -fx-text-fill:grey;
-    -fx-font-size:18px;
-    -fx-font-family:"微软雅黑";
-}
-#register_Tcard {
-    -fx-border-style:none;
-    -fx-background-color:transparent;
-    -fx-text-fill:grey;
-    -fx-font-size:18px;
-    -fx-font-family:"华文新魏";
-}
-#register_Tusername {
-    -fx-border-style:none;
-    -fx-background-color:transparent;
-    -fx-text-fill:grey;
-    -fx-font-size:18px;
-    -fx-font-family:"华文新魏";
-}
-#register_Tpassword {
-    -fx-border-style:none;
-    -fx-background-color:transparent;
-    -fx-text-fill:grey;
-}
-

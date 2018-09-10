@@ -1,0 +1,102 @@
+.root {
+    primary: #673AB7;
+    dark-primary: #512DA8;
+    light-primary: #D1C4E9;
+    primary-text: #212121;
+    secondary-text: #757575;
+    accent-color: #7C4DFF;
+    divider-color: #BDBDBD;
+}
+
+
+#title {
+    -fx-background-color: linear-gradient(to bottom right, #7C4DFF, #673AB7);
+
+    -fx-pref-height: 60;
+}
+#title_left {
+    -fx-background-color: #fff;
+    -fx-alignment: center;
+    /* -fx-effect:dropshadow(one-pass-box, #bbb, 20, 0.05, 3, 8); */
+}
+#title_left .label {
+    -fx-font-size: 28;
+    -fx-text-fill: #707070;
+}
+#title_right .label {
+    -fx-pref-height: 60;
+    -fx-pref-width: 60;
+    -fx-alignment: center;
+    -fx-text-fill: #fff;
+}
+#title .label:hover {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(one-pass-box, #fff,2,0.5,0,0);
+}
+#title .label:pressed {
+    -fx-text-fill: #bbb;
+}
+
+#main_userIcon{
+    -fx-cursor:hand;
+    -fx-text-fill:#a0a0a0;
+}
+#main_usermag{
+    -fx-background-color:#eee;
+}
+#main_sidebar {
+    -fx-background-color:#fff;
+    -fx-pref-width: 250px;
+    -fx-spacing: 5;
+    -fx-alignment: top-center;
+    -fx-effect:dropshadow(one-pass-box, #bbb, 20, 0.05, 3, 8);
+}
+#main_sidebar .label {
+    -fx-pref-width: 250;
+    -fx-padding: 10 0 0 10;
+}
+#main_sidebar .button {
+    -fx-pref-width: 250;
+    -fx-background-color: #fff;
+    -fx-pref-height: 50;
+    -fx-padding:  0 20;
+    -fx-border-width: 0 0 0 6px;
+    -fx-border-height: 50;
+    -fx-border-color: transparent;
+    -fx-font-size: 20;
+    -fx-alignment: center-left;
+}
+#main_sidebar .button:hover,
+#main_sidebar .button:focused {
+    -fx-text-fill: #673AB7;
+    -fx-border-color: transparent transparent transparent linear-gradient(to bottom right, #7C4DFF, #673AB7);
+    -fx-cursor: hand;
+}
+#main_sidebar .button:hover .image,
+#main_sidebar .button:focused .image {
+    -fx-effect: innershadow(one-pass-box, #673AB7, 2, 0.5, 0, 0);
+}
+
+#addStu,#editStu,
+#addBook,#editBook,
+#addGoods,#editGoods,
+#logout
+{
+    -fx-background-color: #673AB7;
+    -fx-text-fill: #fff;
+    -jfx-button-type: RAISED;
+}
+#addStu:hover,#editStu:hover,
+#addBook:hover,#editBook:hover,
+#addGoods:hover,#editGoods:hover,
+#logout:hover {
+    -fx-background-color: #7C4DFF;
+    -fx-cursor: hand;
+}
+.jfx-text-field {
+    -jfx-focus-color: #673AB7;
+}
+.jfx-text-field:disabled {
+    -jfx-focus-color: transparent;
+    -jfx-unfocus-color: transparent;
+}
