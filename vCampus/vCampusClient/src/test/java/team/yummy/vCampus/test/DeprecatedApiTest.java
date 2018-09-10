@@ -1,4 +1,4 @@
-package team.yummy.vCampus;
+package team.yummy.vCampus.test;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -377,7 +377,7 @@ public class DeprecatedApiTest {
         WebResponse res = api.delete("/courseRecord/courseID/5002/campusCardID/213170000");
         CourseRegister r = res.data(CourseRegister.class);
     }
-    private static Logger logger = new Logger("team.yummy.vCampus.DeprecatedApiTest");
+    private static Logger logger = new Logger("team.yummy.vCampus.test.DeprecatedApiTest");
     public static void main(String[] args) {
         Result result = JUnitCore.runClasses(DeprecatedApiTest.class);
         for(Failure failure : result.getFailures()) {

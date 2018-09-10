@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import team.yummy.vCampus.models.*;
 
+import team.yummy.vCampus.models.viewmodel.BookViewModel;
 import team.yummy.vCampus.web.WebResponse;
 
 import javafx.fxml.FXML;
@@ -288,7 +289,7 @@ public class MainViewController extends ViewController implements Initializable 
     protected void switchLibrary(ActionEvent actionEvent) {
         togglePane(LibraryPane);
         WebResponse res = api.get("/book");
-        List<Book> bookList = res.dataList(Book.class);
+        List<BookViewModel> bookList = res.dataList(BookViewModel.class);
         LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
         List<HBox> row = libraryViewFactory.createBookRows(bookList, 3);
         if (library_inquireBox.getChildren().size() != 0) {
@@ -529,7 +530,7 @@ public class MainViewController extends ViewController implements Initializable 
             library_InquireText.setPromptText("请输入关键字");
         } else {
             WebResponse res = api.get("/book/bookName/" + keyword + "/like");
-            List<Book> bookList_keyword = res.dataList(Book.class);
+            List<BookViewModel> bookList_keyword = res.dataList(BookViewModel.class);
             LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
             List<HBox> row = libraryViewFactory.createBookRows(bookList_keyword, 1);
             if (library_inquireBox.getChildren().size() != 0) {
@@ -550,7 +551,7 @@ public class MainViewController extends ViewController implements Initializable 
             library_InquireText.setPromptText("请输入关键字");
         } else {
             WebResponse res = api.get("/book/bookName/" + keyword + "/like");
-            List<Book> bookList_keyword = res.dataList(Book.class);
+            List<BookViewModel> bookList_keyword = res.dataList(BookViewModel.class);
             LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
             List<HBox> row = libraryViewFactory.createBookRows(bookList_keyword, 1);
             if (library_inquireBox.getChildren().size() != 0) {

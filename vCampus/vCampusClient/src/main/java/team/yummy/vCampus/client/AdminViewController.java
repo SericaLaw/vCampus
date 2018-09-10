@@ -1,7 +1,5 @@
 package team.yummy.vCampus.client;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import javafx.event.ActionEvent;
@@ -12,12 +10,11 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import org.omg.CORBA.PRIVATE_MEMBER;
 import team.yummy.vCampus.models.*;
 
+import team.yummy.vCampus.models.viewmodel.BookViewModel;
 import team.yummy.vCampus.web.WebResponse;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -29,12 +26,7 @@ import java.net.URL;
 //import java.time.LocalDate;
 //import java.time.ZoneId;
 //import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.*;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import com.jfoenix.controls.*;
 
 public class AdminViewController extends ViewController implements Initializable {
     @FXML private StackPane rootStackPane;
@@ -316,7 +308,7 @@ public class AdminViewController extends ViewController implements Initializable
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
         WebResponse res = api.get("/book");
-        List<Book> bookList = res.dataList(Book.class);
+        List<BookViewModel> bookList = res.dataList(BookViewModel.class);
         AdminLibraryViewFactory adminlibraryViewFactory = new AdminLibraryViewFactory(rootStackPane,this);
         List<HBox> row = adminlibraryViewFactory.createBookRows(bookList);
         if (library_inquireBox.getChildren().size() != 0) {
@@ -356,7 +348,7 @@ public class AdminViewController extends ViewController implements Initializable
             library_InquireText.setPromptText("按书名搜索");
         } else {
             WebResponse res = api.get("/book/bookName/" + keyword + "/like");
-            List<Book> bookList_keyword = res.dataList(Book.class);
+            List<BookViewModel> bookList_keyword = res.dataList(BookViewModel.class);
             AdminLibraryViewFactory adminlibraryViewFactory = new AdminLibraryViewFactory(rootStackPane, this);
             List<HBox> row = adminlibraryViewFactory.createBookRows(bookList_keyword);
             if (library_inquireBox.getChildren().size() != 0) {

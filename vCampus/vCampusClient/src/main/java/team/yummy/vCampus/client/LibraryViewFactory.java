@@ -8,28 +8,22 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import team.yummy.vCampus.models.Book;
-import team.yummy.vCampus.models.BorrowBookRecord;
-import team.yummy.vCampus.models.BorrowedBook;
-import team.yummy.vCampus.web.WebRequest;
+import team.yummy.vCampus.models.viewmodel.BookViewModel;
+import team.yummy.vCampus.models.viewmodel.BorrowRecordViewModel;
 import team.yummy.vCampus.web.WebResponse;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static java.lang.Math.min;
-import static sun.swing.MenuItemLayoutHelper.max;
 
 public class LibraryViewFactory {
     private StackPane rootStackPane;
@@ -39,11 +33,11 @@ public class LibraryViewFactory {
         this.mainViewController = mainViewController;
     }
 
-    public List<HBox> createBookRows(List<Book> bookList, int countPerRow) {
+    public List<HBox> createBookRows(List<BookViewModel> bookList, int countPerRow) {
         List<HBox> rows = new ArrayList<>();
         List<VBox> items = new ArrayList<>();
 
-        for(final Book book:bookList){
+        for(final BookViewModel book:bookList){
             VBox bookCardWrapper = new VBox();
 
             Image bookImage = new Image("./images/Library.jpg", 240, 160, false, true, true);
@@ -136,8 +130,8 @@ public class LibraryViewFactory {
             buttonAddToList.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    BorrowBookRecord borrowBookRecord = new BorrowBookRecord(book.getBookID(),mainViewController.currentAccount.getCampusCardID(), new Date());
-                    String jsonData = JSON.toJSONString(borrowBookRecord, SerializerFeature.WriteDateUseDateFormat);
+                    BorrowRecordViewModel BorrowRecordViewModel = new BorrowRecordViewModel(book.getBookID(),mainViewController.currentAccount.getCampusCardId(), new Date());
+                    String jsonData = JSON.toJSONString(BorrowRecordViewModel, SerializerFeature.WriteDateUseDateFormat);
                     WebResponse res = mainViewController.api.post("/borrowBook", jsonData);
 
                     buttonAddToList.setDisable(true);
@@ -153,7 +147,7 @@ public class LibraryViewFactory {
                     mainViewController.library_borrowedBox.getChildren().addAll(borrowedRows);
 
                     WebResponse res2 = mainViewController.api.get("/book");
-                    List<Book> bookList2 = res2.dataList(Book.class);
+                    List<BookViewModel> bookList2 = res2.dataList(BookViewModel.class);
                     List<HBox> row3 = createBookRows(bookList2, 3);
 
                     mainViewController.library_inquireBox.getChildren().clear();

@@ -205,7 +205,7 @@ public class DBHelperTest {
         /**
          * 关联查询
          */
-        String sql = String.format("SELECT Publisher, ExpiryDate, BorrowDate, BookName, Writer, BookID From Book b, BorrowBook bb WHERE b.BookID = bb.BookID and bb.CampusCardID = '%s'", "213160000");
+        String sql = String.format("SELECT Publisher, ExpiryDate, BorrowDate, BookName, Writer, BookID From BookViewModel b, BorrowBook bb WHERE b.BookID = bb.BookID and bb.CampusCardID = '%s'", "213160000");
         jsonData = dbHelper.select(sql);
         logger.log(jsonData);
     }
@@ -278,7 +278,7 @@ public class DBHelperTest {
 
     @Test
     public void testSearch() {
-        String jsonData = dbHelper.search("Book", "BookName", "机器");
+        String jsonData = dbHelper.search("BookViewModel", "BookName", "机器");
         logger.log(jsonData);
     }
 

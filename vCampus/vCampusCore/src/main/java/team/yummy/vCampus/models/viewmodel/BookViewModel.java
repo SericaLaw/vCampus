@@ -1,30 +1,35 @@
 package team.yummy.vCampus.models.viewmodel;
 
-import team.yummy.vCampus.models.entity.BookEntity;
-
+/**
+ * @author Serica
+ * BookViewModel 前端展示类
+ * 对应Book表?
+ */
 public class BookViewModel {
-    private String bookId;
+    private String bookID;
     private String bookName;
     private String writer;
     private String publisher;
-    private Short availableCount;
-    private Integer totalCount;
+    private int availableCount;
+    private int totalCount;
 
-    public BookViewModel(BookEntity book) {
-        this.bookId = book.getBookId();
-        this.bookName = book.getBookName();
-        this.writer = book.getWriter();
-        this.publisher = book.getPublisher();
-        this.availableCount = book.getAvailableCount();
-        this.totalCount = book.getTotalCount();
+    public BookViewModel() {}
+
+    public BookViewModel(String bookID, String bookName, String writer, String publisher, int availableCount, int totalCount) {
+        this.bookID = bookID;
+        this.bookName = bookName;
+        this.writer = writer;
+        this.publisher = publisher;
+        this.availableCount = availableCount;
+        this.totalCount = totalCount;
     }
 
-    public String getBookId() {
-        return bookId;
+    public String getBookID() {
+        return bookID;
     }
 
-    public void setBookId(String bookId) {
-        this.bookId = bookId;
+    public void setBookID(String bookID) {
+        this.bookID = bookID;
     }
 
     public String getBookName() {
@@ -51,19 +56,19 @@ public class BookViewModel {
         this.publisher = publisher;
     }
 
-    public Short getAvailableCount() {
+    public int getAvailableCount() {
         return availableCount;
     }
 
-    public void setAvailableCount(Short availableCount) {
+    public void setAvailableCount(int availableCount) {
         this.availableCount = availableCount;
     }
 
-    public Integer getTotalCount() {
+    public int getTotalCount() {
         return totalCount;
     }
 
-    public void setTotalCount(Integer totalCount) {
+    public void setTotalCount(int totalCount) {
         this.totalCount = totalCount;
     }
 }

@@ -1,14 +1,14 @@
 package team.yummy.vCampus.client;
 
 import com.alibaba.fastjson.JSON;
+import team.yummy.vCampus.models.viewmodel.AccountViewModel;
 import team.yummy.vCampus.util.Api;
-import team.yummy.vCampus.models.Account;
 
 public abstract class ViewController {
     protected Api api;
     protected String accountJsonData;
     protected StageController stageController;
-    protected Account currentAccount;
+    protected AccountViewModel currentAccount;
 
     public ViewController() {
         api = new Api();
@@ -23,7 +23,7 @@ public abstract class ViewController {
 
     public void setAccountJsonData(String accountJsonData) {
         this.accountJsonData = accountJsonData;
-        this.currentAccount = JSON.parseObject(accountJsonData, Account.class);
+        this.currentAccount = JSON.parseObject(accountJsonData, AccountViewModel.class);
     }
 
     public Api getApi() {

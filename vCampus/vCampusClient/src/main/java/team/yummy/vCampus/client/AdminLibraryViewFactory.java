@@ -1,37 +1,24 @@
 package team.yummy.vCampus.client;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import team.yummy.vCampus.models.Book;
-import team.yummy.vCampus.models.BorrowBookRecord;
-import team.yummy.vCampus.models.BorrowedBook;
-import team.yummy.vCampus.web.WebRequest;
-import team.yummy.vCampus.web.WebResponse;
+import team.yummy.vCampus.models.viewmodel.BookViewModel;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static java.lang.Math.min;
-import static sun.swing.MenuItemLayoutHelper.max;
 
 public class AdminLibraryViewFactory {
     private StackPane rootStackPane;
@@ -42,9 +29,9 @@ public class AdminLibraryViewFactory {
         this.adminViewController = adminViewController;
     }
 
-    public List<HBox> createBookRows(List<Book> bookList) {
+    public List<HBox> createBookRows(List<BookViewModel> bookList) {
         List<HBox> rows = new ArrayList<>();
-        for(Book book:bookList){
+        for(BookViewModel book:bookList){
             HBox newRow=new HBox();
             VBox InfoCard=new VBox();
             HBox newRow_1=new HBox();
@@ -99,7 +86,7 @@ public class AdminLibraryViewFactory {
             editbook.setFont(Font.font(18));
             editbook.setAlignment(Pos.BOTTOM_RIGHT);
 
-            final Book b = book;
+            final BookViewModel b = book;
             final JFXTextField book_ID=bookID;
             final JFXTextField book_Name=bookName;
             final JFXTextField book_Writer=bookWriter;
