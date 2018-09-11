@@ -31,8 +31,6 @@ public class WelcomeViewController extends ViewController implements Initializab
     @FXML public TextField register_Tcard;
     @FXML public TextField register_Tusername;
     @FXML public TextField register_Tpassword;
-    @FXML public Label LoginerrorText;
-    @FXML public Label RegistererrorText;
 
     @FXML private AnchorPane welcomebackground;
     @FXML private AnchorPane loginpane;
@@ -73,77 +71,15 @@ public class WelcomeViewController extends ViewController implements Initializab
         stage.setIconified(true);
     }
 
-
+    @FXML
     public void login(ActionEvent actionEvent) {
-        String username = login_TcampusCardId.getText();
-        String password = login_Tpassword.getText();
-        JFXSnackbar bar = new JFXSnackbar(loginpane);
-
-
-
-        if(username.length() == 0 || password.length() == 0)
-            bar.enqueue(new JFXSnackbar.SnackbarEvent("用户名密码不能为空"));
-
-
-        else
-        {
-            LoginViewModel login = new LoginViewModel(username, password);
-            WebResponse res = api.post("/account/login", JSON.toJSONString(login));
-            switch (res.getStatusCode()) {
-                case "200":
-                    setAccountJsonData(res.getBody());
-                    // 切换页面
-                    stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
-                    //让后面账户登出回到这个界面时上面没有之前的账户和密码
-                    login_Tpassword.setText("");
-                    login_TcampusCardId.setText("");
-                    break;
-                case "404":
-                    bar.enqueue(new JFXSnackbar.SnackbarEvent("用户不存在"));
-                    break;
-                case "403":
-                    bar.enqueue(new JFXSnackbar.SnackbarEvent("密码错误"));
-                    break;
-
-            }
-        }
-
-
+        _login();
     }
 
-    public void presslogin(KeyEvent keyEvent)
-    {
+    @FXML
+    public void presslogin(KeyEvent keyEvent) {
         if(keyEvent.getCode() == KeyCode.ENTER) {
-            String username = login_TcampusCardId.getText();
-            String password = login_Tpassword.getText();
-            JFXSnackbar bar = new JFXSnackbar(loginpane);
-
-
-            if (username.length() == 0 || password.length() == 0)
-                bar.enqueue(new JFXSnackbar.SnackbarEvent("用户名密码不能为空"));
-
-
-            else {
-                LoginViewModel login = new LoginViewModel(username, password);
-                WebResponse res = api.post("/account/login", JSON.toJSONString(login));
-                switch (res.getStatusCode()) {
-                    case "200":
-                        setAccountJsonData(res.getBody());
-                        // 切换页面
-                        stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
-                        //让后面账户登出回到这个界面时上面没有之前的账户和密码
-                        login_Tpassword.setText("");
-                        login_TcampusCardId.setText("");
-                        break;
-                    case "404":
-                        bar.enqueue(new JFXSnackbar.SnackbarEvent("用户不存在"));
-                        break;
-                    case "403":
-                        bar.enqueue(new JFXSnackbar.SnackbarEvent("密码错误"));
-                        break;
-
-                }
-            }
+            _login();
         }
     }
 
@@ -162,14 +98,14 @@ public class WelcomeViewController extends ViewController implements Initializab
 
     public void signup(ActionEvent actionEvent)
     {
-        String firstname=register_Tfirstname.getText();
+        String firstName=register_Tfirstname.getText();
         String lastname=register_Tlastname.getText();
         String card=register_Tcard.getText();
         String username=register_Tusername.getText();
         String password=register_Tpassword.getText();
 
         JFXSnackbar bar = new JFXSnackbar(registerpane);
-        if(firstname.length() == 0 || lastname.length()==0||card.length()==0||username.length()==0||password.length() == 0||radiogroup.getSelectedToggle()==null)
+        if(firstName.length() == 0 || lastname.length()==0||card.length()==0||username.length()==0||password.length() == 0||radiogroup.getSelectedToggle()==null)
             bar.enqueue(new JFXSnackbar.SnackbarEvent("请完善所有信息"));
 
         else
@@ -182,7 +118,7 @@ public class WelcomeViewController extends ViewController implements Initializab
             info.put("CampusCardID",card);
             info.put("Username",username);
             info.put("Password",password);
-            info.put("FirstName",firstname);
+            info.put("FirstName",firstName);
             info.put("LastName",lastname);
             info.put("role",role);
             WebResponse res = api.post("/account",info.toJSONString());
@@ -212,5 +148,39 @@ public class WelcomeViewController extends ViewController implements Initializab
     {
         registerpane.setVisible(false);
         loginpane.setVisible(true);
+    }
+
+    private void _login() {
+        String username = login_TcampusCardId.getText();
+        String password = login_Tpassword.getText();
+        JFXSnackbar bar = new JFXSnackbar(loginpane);
+
+        if(username.length() == 0 || password.length() == 0)
+            bar.enqueue(new JFXSnackbar.SnackbarEvent("用户名密码不能为空"));
+
+
+        else
+        {
+            LoginViewModel login = new LoginViewModel(username, password);
+            WebResponse res = api.post("/account/login", JSON.toJSONString(login));
+            switch (res.getStatusCode()) {
+                case "200":
+                    setAccountJsonData(res.getBody());
+                    // 切换页面
+                    stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
+                    //让后面账户登出回到这个界面时上面没有之前的账户和密码
+                    login_Tpassword.setText("");
+                    login_TcampusCardId.setText("");
+                    break;
+                case "404":
+                    bar.enqueue(new JFXSnackbar.SnackbarEvent("用户不存在"));
+                    break;
+                case "403":
+                    bar.enqueue(new JFXSnackbar.SnackbarEvent("密码错误"));
+                    break;
+
+            }
+        }
+
     }
 }

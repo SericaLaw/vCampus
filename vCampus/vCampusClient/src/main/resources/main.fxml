@@ -45,9 +45,9 @@
                         </HBox>
                         <HBox id="title_left" prefHeight="60.0" prefWidth="311.0">
                             <children>
-                                <ImageView cache="true" fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView cache="true" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@images/icon.png" />
+                                        <Image url="@images/avater.jpg" />
                                     </image>
                                 </ImageView>
                             </children>
@@ -400,6 +400,7 @@
                                                                                 </VBox>
                                                                             </children>
                                                                         </HBox>
+                                                                        <VBox fx:id="course_reportContent"></VBox>
                                                                     </children>
                                                                 </VBox>
                                                             </content>

@@ -195,10 +195,10 @@ public class AdminViewController extends ViewController implements Initializable
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
         //WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
-        //StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
+        //StuInfo stuInfoViewModel = res.dataList(StuInfo.class, 0);
 
-        /*LocalDate d=stuInfoGot.getBirthDate();
-        Date date = stuInfoGot.getBirthDate();
+        /*LocalDate d=stuInfoViewModel.getBirthDate();
+        Date date = stuInfoViewModel.getBirthDate();
         Instant instant = date.toInstant();
         ZoneId zoneId = ZoneId.systemDefault();
         // atZone()方法返回在指定时区从此Instant生成的ZonedDateTime。
