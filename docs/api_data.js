@@ -884,7 +884,7 @@ define({ "api": [
     "group": "Store",
     "type": "post",
     "url": "/goods",
-    "title": "",
+    "title": "CreateGoods",
     "description": "<p>添加商品</p>",
     "permission": [
       {

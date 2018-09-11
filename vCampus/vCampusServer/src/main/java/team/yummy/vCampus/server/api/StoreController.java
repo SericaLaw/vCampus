@@ -113,7 +113,7 @@ public class StoreController extends Controller {
 
     /**
      * @apiGroup Store
-     * @api {post} /goods
+     * @api {post} /goods CreateGoods
      * @apiDescription 添加商品
      * @apiPermission admin
      * @apiParamExample Code Snippets
