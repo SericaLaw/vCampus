@@ -167,7 +167,12 @@ public class WelcomeViewController extends ViewController implements Initializab
                 case "200":
                     setAccountJsonData(res.getBody());
                     // 切换页面
-                    stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
+                    switch(currentAccount.getRole()) {
+                        case "student": stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME); break;
+                        case "teacher": stageController.setStage(App.TEACHER_VIEW_NAME, App.WELCOME_VIEW_NAME); break;
+                        case "admin": stageController.setStage(App.ADMIN_VIEW_NAME, App.WELCOME_VIEW_NAME); break;
+                    }
+
                     //让后面账户登出回到这个界面时上面没有之前的账户和密码
                     login_Tpassword.setText("");
                     login_TcampusCardId.setText("");
