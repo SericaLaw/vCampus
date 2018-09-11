@@ -127,4 +127,8 @@ public class LibraryController extends Controller {
             return "Entry does not exist!";
         }
     }
+
+    /**
+     * 增加图书、搜索图书、修改图书信息、删除图书可以使用默认方法
+     */
 }
