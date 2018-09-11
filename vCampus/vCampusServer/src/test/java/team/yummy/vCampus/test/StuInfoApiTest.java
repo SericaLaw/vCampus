@@ -3,6 +3,7 @@ package team.yummy.vCampus.test;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import team.yummy.vCampus.models.entity.StuInfoEntity;
+import team.yummy.vCampus.models.viewmodel.StuInfoViewModel;
 import team.yummy.vCampus.util.Api;
 import team.yummy.vCampus.web.WebResponse;
 
@@ -11,7 +12,7 @@ import static junit.framework.Assert.assertEquals;
 public class StuInfoApiTest extends ApiTest {
     /**
      * @apiGroup StuInfo
-     * @api {get} /stuInfo/campusCardID/:id GetStuInfo ( passed )
+     * @api {get} /stuInfo/campusCardID/{uid} GetStuInfoById ( passed )
      * @apiPermission student
      * @apiDescription 获取学生信息
      * @apiSuccess List_StuInfo 只含有一个项的StuInfo list
@@ -45,7 +46,7 @@ public class StuInfoApiTest extends ApiTest {
      *
      */
     @Test
-    public void getStuInfo() {
+    public void getStuInfoById() {
         WebResponse res = api.get("/stuInfo/campusCardID/213180000");
         StuInfoEntity stuInfoGot = res.dataList(StuInfoEntity.class, 0);
     }
@@ -54,7 +55,7 @@ public class StuInfoApiTest extends ApiTest {
      * @apiGroup StuInfo
      * @api {patch} /stuInfo/campusCardID/:id ModifyStuInfo ( passed )
      * @apiDescription 修改学生信息，该API不会返回修改后的StuInfo，若服务器告知修改成功，则前端自行对数据进行修改然后展示到界面上
-     * @apiPermission student
+     * @apiPermission student admin
      * @apiParamExample Code Snippets
      * JSONObject infoToModify = new JSONObject();
      * infoToModify.put("Phone", "120");
@@ -76,4 +77,10 @@ public class StuInfoApiTest extends ApiTest {
 
         api.patch("/stuInfo/campusCardID/213180000", infoToModify.toJSONString());
     }
+
+    @Test
+    public void createStuInfo() {
+
+    }
 }
+

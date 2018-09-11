@@ -37,7 +37,7 @@ public class Controller {
             for (Method method : this.getClass().getMethods()) {
                 if (method.isAnnotationPresent(methodType)) {
                     String route = (String) methodType.getMethod("route").invoke(method.getAnnotation(methodType));
-                    if (route.equals(request.getField().toLowerCase())) {
+                    if (request.getField() != null && route.equals(request.getField().toLowerCase())) {
                         action = method;
                         break;
                     }

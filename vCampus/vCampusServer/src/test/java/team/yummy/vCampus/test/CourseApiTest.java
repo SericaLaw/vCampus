@@ -64,4 +64,10 @@ public class CourseApiTest extends ApiTest{
         assert before.get("5002").getStuAttendCount() == after.get("5002").getStuAttendCount();
         assert after.get("5002").getStuAttendCount() == eventual.get("5002").getStuAttendCount();
     }
+
+    @Test
+    public void getCourse() {
+        WebResponse res = api.get("/course");
+        List<CourseRegisterViewModel> courseRegisterViewModels = res.dataList(CourseRegisterViewModel.class);
+    }
 }
