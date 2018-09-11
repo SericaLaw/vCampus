@@ -10,6 +10,7 @@ import java.util.UUID;
 
 public class GoodsViewModel {
     private String goodsID = UUID.randomUUID().toString();
+    private String info;
     private String goodsName;
     private double price;
     private String imgUrl;
@@ -62,5 +63,13 @@ public class GoodsViewModel {
 
     public void setTag(int tag){
         this.tag = tag;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 }

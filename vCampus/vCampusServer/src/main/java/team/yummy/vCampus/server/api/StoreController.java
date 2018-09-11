@@ -6,12 +6,12 @@ public class StoreController extends Controller {
 
     /**
      * @apiGroup Store
-     * @api {get} /store/goods GetGoodsList
+     * @api {get} /goods GetGoodsList
      * @apiPermission all
      * @apiDescription 获取商品列表
      * @apiSuccess List_GoodsViewModel List of GoodsViewModel
      * @apiParamExample Code Snippets
-     * WebResponse res = api.get("/store/goods");
+     * WebResponse res = api.get("/goods");
      * List<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);
      * @apiSuccessExample Success-Response:
      *      200 OK
