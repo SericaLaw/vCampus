@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import team.yummy.vCampus.models.viewmodel.AccountViewModel;
 import team.yummy.vCampus.models.viewmodel.LoginViewModel;
 import team.yummy.vCampus.web.WebResponse;
 
@@ -18,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.scene.control.RadioButton;
 
 
 import java.net.URL;
@@ -26,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class WelcomeViewController extends ViewController implements Initializable {
 
-    @FXML public TextField login_Tusername;
+    @FXML public TextField login_TcampusCardId;
     @FXML public PasswordField login_Tpassword;
     @FXML public TextField register_Tfirstname;
     @FXML public TextField register_Tlastname;
@@ -77,7 +75,7 @@ public class WelcomeViewController extends ViewController implements Initializab
 
 
     public void login(ActionEvent actionEvent) {
-        String username = login_Tusername.getText();
+        String username = login_TcampusCardId.getText();
         String password = login_Tpassword.getText();
         JFXSnackbar bar = new JFXSnackbar(loginpane);
 
@@ -98,7 +96,7 @@ public class WelcomeViewController extends ViewController implements Initializab
                     stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
                     //让后面账户登出回到这个界面时上面没有之前的账户和密码
                     login_Tpassword.setText("");
-                    login_Tusername.setText("");
+                    login_TcampusCardId.setText("");
                     break;
                 case "404":
                     bar.enqueue(new JFXSnackbar.SnackbarEvent("用户不存在"));
@@ -116,7 +114,7 @@ public class WelcomeViewController extends ViewController implements Initializab
     public void presslogin(KeyEvent keyEvent)
     {
         if(keyEvent.getCode() == KeyCode.ENTER) {
-            String username = login_Tusername.getText();
+            String username = login_TcampusCardId.getText();
             String password = login_Tpassword.getText();
             JFXSnackbar bar = new JFXSnackbar(loginpane);
 
@@ -135,7 +133,7 @@ public class WelcomeViewController extends ViewController implements Initializab
                         stageController.setStage(App.MAIN_VIEW_NAME, App.WELCOME_VIEW_NAME);
                         //让后面账户登出回到这个界面时上面没有之前的账户和密码
                         login_Tpassword.setText("");
-                        login_Tusername.setText("");
+                        login_TcampusCardId.setText("");
                         break;
                     case "404":
                         bar.enqueue(new JFXSnackbar.SnackbarEvent("用户不存在"));

@@ -41,7 +41,7 @@ import com.jfoenix.controls.*;
 
 public class MainViewController extends ViewController implements Initializable {
 
-    @FXML public Button Bt_Init;
+    @FXML public Button Bt_Init, Bt_StuInfo, Bt_Course, Bt_Dorm, Bt_Bank, Bt_Store, Bt_Account, Bt_Library;
     @FXML public StackPane rootStackPane;
     @FXML public GridPane title;
     @FXML public AnchorPane InitPane;
@@ -150,7 +150,7 @@ public class MainViewController extends ViewController implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {     //点其他栏目的时候要不initpane上的图案淡一点？
-        togglePane(InitPane);
+        togglePane(InitPane, Bt_Init);
         // 模拟服务器返回的信息
 
         Goods good1 = new Goods("1","鞋子","123","白色", "./images/item.png");
@@ -202,11 +202,9 @@ public class MainViewController extends ViewController implements Initializable 
     }
 
     @FXML
-    protected void swithAccountmag(ActionEvent actionEvent) {
-        togglePane(AccountMagPane);
+    protected void switchAccountMng(ActionEvent actionEvent) {
+        togglePane(AccountMagPane, Bt_Account);
 
-        //WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
-        //StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
         am_CampusCardID.setText(currentAccount.getCampusCardId());
         am_Nickname.setText(currentAccount.getNickname());
         am_Role.setText(currentAccount.getRole());
@@ -215,7 +213,7 @@ public class MainViewController extends ViewController implements Initializable 
 
     @FXML
     protected void switchStuInfo(ActionEvent actionEvent) {
-        togglePane(StuInfoPane);
+        togglePane(StuInfoPane, Bt_StuInfo);
 
         WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
         StuInfoViewModel stuInfoGot = res.dataList(StuInfoViewModel.class, 0);
@@ -264,7 +262,7 @@ public class MainViewController extends ViewController implements Initializable 
     }
     @FXML
     protected void switchCourse(ActionEvent actionEvent) {
-        togglePane(CoursePane);
+        togglePane(CoursePane, Bt_Course);
         JFXDepthManager.setDepth(course_reportHeading, 1);
 
         CourseViewFactory factory = new CourseViewFactory(this);
@@ -290,12 +288,12 @@ public class MainViewController extends ViewController implements Initializable 
     }
     @FXML
     protected void switchDorm(ActionEvent actionEvent) {
-        togglePane(DormPane);
+        togglePane(DormPane, Bt_Dorm);
     }
     @FXML
     protected void switchBank(ActionEvent actionEvent)
     {
-        togglePane(BankPane);
+        togglePane(BankPane, Bt_Bank);
         BankPane.setVisible(true);
         StuInfoPane.setVisible(false);
         CoursePane.setVisible(false);
@@ -314,7 +312,7 @@ public class MainViewController extends ViewController implements Initializable 
     }
     @FXML
     protected void switchLibrary(ActionEvent actionEvent) {
-        togglePane(LibraryPane);
+        togglePane(LibraryPane, Bt_Library);
         WebResponse res = api.get("/library/book");
         List<BookViewModel> bookList = res.dataList(BookViewModel.class);
         LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
@@ -334,14 +332,7 @@ public class MainViewController extends ViewController implements Initializable 
     }
     @FXML
     protected void switchStore(ActionEvent actionEvent) {
-        StorePane.setVisible(true);
-        StuInfoPane.setVisible(false);
-        CoursePane.setVisible(false);
-        DormPane.setVisible(false);
-        LibraryPane.setVisible(false);
-        BankPane.setVisible(false);
-        AccountMagPane.setVisible(false);
-        InitPane.setVisible(false);
+        togglePane(StorePane, Bt_Store);
 
         StoreViewFactory storeViewFactory = new StoreViewFactory(rootStackPane, this);
         List<HBox> row = storeViewFactory.createStoreRows(goodList, 3);
@@ -423,18 +414,18 @@ public class MainViewController extends ViewController implements Initializable 
         }
     }
 
-    @FXML
-    protected void switchLibBorrowed(ActionEvent actionEvent) {
-        li_InquirePane.setVisible(false);
-        li_BorrowedPane.setDisable(true);
-
-    }
-
-    @FXML
-    protected void switchLibInquire(ActionEvent actionEvent) {
-        li_InquirePane.setVisible(true);
-        li_BorrowedPane.setDisable(false);
-    }
+//    @FXML
+//    protected void switchLibBorrowed(ActionEvent actionEvent) {
+//        li_InquirePane.setVisible(false);
+//        li_BorrowedPane.setDisable(true);
+//
+//    }
+//
+//    @FXML
+//    protected void switchLibInquire(ActionEvent actionEvent) {
+//        li_InquirePane.setVisible(true);
+//        li_BorrowedPane.setDisable(false);
+//    }
     @FXML
     protected void logout(ActionEvent actionEvent)
     {
@@ -470,7 +461,7 @@ public class MainViewController extends ViewController implements Initializable 
             @Override
             public void handle(ActionEvent event) {
                 //登出的操作
-                togglePane(InitPane);
+                togglePane(InitPane, Bt_Init);
                 stageController.setStage(App.WELCOME_VIEW_NAME, App.MAIN_VIEW_NAME);
             }
         });
@@ -729,9 +720,9 @@ public class MainViewController extends ViewController implements Initializable 
         });
     }
     public void switchInit(ActionEvent actionEvent) {
-        togglePane(InitPane);
+        togglePane(InitPane, Bt_Init);
     }
-    public void togglePane(Pane paneToDisplay) {
+    public void togglePane(Pane paneToDisplay, Button button) {
         StorePane.setVisible(false);
         StuInfoPane.setVisible(false);
         CoursePane.setVisible(false);
@@ -741,8 +732,85 @@ public class MainViewController extends ViewController implements Initializable 
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
 
+        // 暂时性代码
+        Bt_Init.setStyle("-fx-pref-width: 250;\n" +
+                "    -fx-background-color: #fff;\n" +
+                "    -fx-pref-height: 50;\n" +
+                "    -fx-padding:  0 20;\n" +
+                "    -fx-border-width: 0 0 0 6px;\n" +
+                "    -fx-border-height: 50;\n" +
+                "    -fx-border-color: transparent;\n" +
+                "    -fx-font-size: 20;\n" +
+                "    -fx-alignment: center-left;");
+        Bt_StuInfo.setStyle("-fx-pref-width: 250;\n" +
+                "    -fx-background-color: #fff;\n" +
+                "    -fx-pref-height: 50;\n" +
+                "    -fx-padding:  0 20;\n" +
+                "    -fx-border-width: 0 0 0 6px;\n" +
+                "    -fx-border-height: 50;\n" +
+                "    -fx-border-color: transparent;\n" +
+                "    -fx-font-size: 20;\n" +
+                "    -fx-alignment: center-left;");
+        Bt_Course.setStyle("-fx-pref-width: 250;\n" +
+                "    -fx-background-color: #fff;\n" +
+                "    -fx-pref-height: 50;\n" +
+                "    -fx-padding:  0 20;\n" +
+                "    -fx-border-width: 0 0 0 6px;\n" +
+                "    -fx-border-height: 50;\n" +
+                "    -fx-border-color: transparent;\n" +
+                "    -fx-font-size: 20;\n" +
+                "    -fx-alignment: center-left;");
+        Bt_Library.setStyle("-fx-pref-width: 250;\n" +
+                "    -fx-background-color: #fff;\n" +
+                "    -fx-pref-height: 50;\n" +
+                "    -fx-padding:  0 20;\n" +
+                "    -fx-border-width: 0 0 0 6px;\n" +
+                "    -fx-border-height: 50;\n" +
+                "    -fx-border-color: transparent;\n" +
+                "    -fx-font-size: 20;\n" +
+                "    -fx-alignment: center-left;");
+        Bt_Bank.setStyle("-fx-pref-width: 250;\n" +
+                "    -fx-background-color: #fff;\n" +
+                "    -fx-pref-height: 50;\n" +
+                "    -fx-padding:  0 20;\n" +
+                "    -fx-border-width: 0 0 0 6px;\n" +
+                "    -fx-border-height: 50;\n" +
+                "    -fx-border-color: transparent;\n" +
+                "    -fx-font-size: 20;\n" +
+                "    -fx-alignment: center-left;");
+        Bt_Dorm.setStyle("-fx-pref-width: 250;\n" +
+                "    -fx-background-color: #fff;\n" +
+                "    -fx-pref-height: 50;\n" +
+                "    -fx-padding:  0 20;\n" +
+                "    -fx-border-width: 0 0 0 6px;\n" +
+                "    -fx-border-height: 50;\n" +
+                "    -fx-border-color: transparent;\n" +
+                "    -fx-font-size: 20;\n" +
+                "    -fx-alignment: center-left;");
+        Bt_Store.setStyle("-fx-pref-width: 250;\n" +
+                "    -fx-background-color: #fff;\n" +
+                "    -fx-pref-height: 50;\n" +
+                "    -fx-padding:  0 20;\n" +
+                "    -fx-border-width: 0 0 0 6px;\n" +
+                "    -fx-border-height: 50;\n" +
+                "    -fx-border-color: transparent;\n" +
+                "    -fx-font-size: 20;\n" +
+                "    -fx-alignment: center-left;");
+        Bt_Account.setStyle("-fx-pref-width: 250;\n" +
+                "    -fx-background-color: #fff;\n" +
+                "    -fx-pref-height: 50;\n" +
+                "    -fx-padding:  0 20;\n" +
+                "    -fx-border-width: 0 0 0 6px;\n" +
+                "    -fx-border-height: 50;\n" +
+                "    -fx-border-color: transparent;\n" +
+                "    -fx-font-size: 20;\n" +
+                "    -fx-alignment: center-left;");
+
+        button.setStyle("-fx-text-fill: #673AB7; -fx-border-color: transparent transparent transparent linear-gradient(to bottom right, #7C4DFF, #673AB7);");
+
         paneToDisplay.setVisible(true);
     }
+
 }
 
 

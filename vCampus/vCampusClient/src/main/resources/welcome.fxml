@@ -44,7 +44,7 @@
                                 <Font name="Book Antiqua Bold" size="40.0" />
                             </font>
                         </Label>
-                        <JFXTextField fx:id="login_Tusername" labelFloat="true" promptText="用户名" />
+                        <JFXTextField fx:id="login_TcampusCardId" labelFloat="true" promptText="一卡通号" />
                         <JFXPasswordField fx:id="login_Tpassword" labelFloat="true" promptText="密码" />
                         <HBox id="loginpane__button-group">
                             <children>
@@ -60,7 +60,7 @@
             <children>
                 <VBox id="registerpane__content" prefHeight="550.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Label fx:id="register_Lsignup" prefHeight="45.0" prefWidth="189.0" text="Sign up" textFill="#3385ff">
+                        <Label id="register_Lsignup" prefHeight="45.0" prefWidth="189.0" text="Sign up" textFill="#3385ff">
                             <font>
                                 <Font name="System Bold" size="35.0" />
                             </font>
@@ -85,7 +85,7 @@
                             </VBox.margin>
                         </GridPane>
                         <JFXTextField fx:id="register_Tcard" labelFloat="true" promptText="一卡通" />
-                        <JFXTextField fx:id="register_Tusername" labelFloat="true" promptText="用户名" />
+                        <JFXTextField fx:id="register_Tusername" labelFloat="true" promptText="昵称" />
                         <JFXPasswordField fx:id="register_Tpassword" labelFloat="true" promptText="密码" />
                         <HBox id="registerpane__radio-button-group" prefHeight="34.0" prefWidth="440.0">
                             <children>

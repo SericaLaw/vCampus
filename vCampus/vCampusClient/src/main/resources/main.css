@@ -204,14 +204,13 @@
     -jfx-button-type: RAISED;
 }
 
-#pay_button1:hover,#pay_button2:hover
-{
+#pay_button1:hover,
+#pay_button2:hover {
     -fx-background-color: #7C4DFF;
     -fx-cursor: hand;
 }
 
-#time,#money
-{
+#time, #money {
     -fx-background-color:#b196f3;
     -fx-font-size:20px;
 }
@@ -229,8 +228,8 @@
 
 #content__store__wrapper,
 #content__cart__wrapper {
-    -fx-pref-width: 900;
-    -fx-padding: 25;
+    -fx-pref-width: 920;
+    -fx-padding: 30 0;
     -fx-spacing: 30;
     -fx-alignment: top-center;
 }
@@ -238,16 +237,17 @@
 #content__store__wrapper .title {
     -fx-font-size: 32;
     -fx-text-fill: #212121;
+    -fx-padding: 5;
 }
 
 #content__store__wrapper .section {
     -fx-spacing: 10;
     -fx-alignment: center;
-    -fx-pref-width: 800;
+    -fx-pref-width: 920;
 }
 
 #content__store__wrapper .section .row {
-    -fx-pref-width: 800;
+    -fx-pref-width: 920;
     -fx-spacing: 20;
     -fx-padding: 10;
     -fx-alignment: center;
@@ -280,7 +280,7 @@
     -fx-effect: innershadow(one-pass-box, #673AB7, 3, 5, 1, 0);
 }
 
-#content__Store__Cart__Pay{
+#content__Store__Cart__Pay {
     -fx-effect:dropshadow(one-pass-box, #bbb, 20, 0.05, 3, 8);
 }
 
@@ -298,12 +298,18 @@
 .jfx-tab-pane .tab-label:hover {
     -fx-cursor: hand;
 }
-.jfx-tab-pane .tab-selected-line{
+
+.jfx-tab-pane .tab-selected-line {
     -fx-background-color : #DD9708;
 }
 
 .jfx-tab-pane .headers-region > .tab > .jfx-rippler {
     -jfx-rippler-fill: #fff;
+}
+
+.jfx-tab-pane .headers-region > .tab-selected-line {
+    -fx-pref-width: 1px !important;
+    -fx-pref-height: 3px;
 }
 
 #content__Store__Cart__BatchRemove,#content__Store__Cart__Pay{
