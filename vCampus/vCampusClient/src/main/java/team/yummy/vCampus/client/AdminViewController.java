@@ -53,6 +53,15 @@ public class AdminViewController extends ViewController implements Initializable
     @FXML public VBox library_inquireBox;
     @FXML private TextField library_InquireText;
 
+    @FXML private GridPane stuinfopane;
+    @FXML private JFXButton editStu;
+    @FXML private JFXTextField si_name;
+    @FXML private JFXTextField si_enrollmentyear;
+    @FXML private JFXTextField si_campuscardID;
+    @FXML private JFXTextField si_studentID;
+    @FXML private JFXTextField si_department;
+    @FXML private JFXTextField si_major;
+    @FXML private Label stuinfo_errortext;
 
     /**
      * members for store page
@@ -373,6 +382,68 @@ public class AdminViewController extends ViewController implements Initializable
             library_inquireBox.getChildren().addAll(row);
         } else {
             library_inquireBox.getChildren().addAll(row);
+        }
+    }
+
+    @FXML
+    protected void addstudent(ActionEvent actionEvent)
+    {
+        editStu.setVisible(true);
+        stuinfopane.setVisible(true);
+        si_name.setText("");
+        si_enrollmentyear.setText("");
+        si_campuscardID.setText("");
+        si_studentID.setText("");
+        si_department.setText("");
+        si_major.setText("");
+        si_name.setDisable(false);
+        si_enrollmentyear.setDisable(false);
+        si_campuscardID.setDisable(false);
+        si_studentID.setDisable(false);
+        si_department.setDisable(false);
+        si_major.setDisable(false);
+        editStu.setText("保存信息");
+    }
+
+    @FXML
+    private void editstudent(ActionEvent actionEvent)
+    {
+        if(editStu.getText().equals("编辑信息"))
+        {
+            si_name.setDisable(false);
+            si_enrollmentyear.setDisable(false);
+            si_campuscardID.setDisable(false);
+            si_studentID.setDisable(false);
+            si_department.setDisable(false);
+            si_major.setDisable(false);
+            editStu.setText("保存信息");
+        }
+        else
+        {
+            String name = si_name.getText();
+            String enrollmentyear = si_enrollmentyear.getText();
+            String campuscardID = si_campuscardID. getText();
+            String studentID = si_studentID.getText();
+            String department = si_department.getText();
+            String major = si_major.getText();
+            if(name.length()==0||enrollmentyear.length()==0||campuscardID.length()==0||
+                    studentID.length()==0||department.length()==0||major.length()==0)
+                stuinfo_errortext.setText("请完善学生信息！");
+
+            else
+            {
+                // 和后端信息交互
+
+                stuinfo_errortext.setText("");
+                si_name.setDisable(true);
+                si_enrollmentyear.setDisable(true);
+                si_campuscardID.setDisable(true);
+                si_studentID.setDisable(true);
+                si_department.setDisable(true);
+                si_major.setDisable(true);
+                editStu.setText("编辑信息");
+            }
+
         }
     }
 }

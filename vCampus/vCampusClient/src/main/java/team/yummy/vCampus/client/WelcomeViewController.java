@@ -36,6 +36,7 @@ public class WelcomeViewController extends ViewController implements Initializab
     @FXML public Label LoginerrorText;
     @FXML public Label RegistererrorText;
 
+    @FXML private AnchorPane welcomebackground;
     @FXML private AnchorPane loginpane;
     @FXML private AnchorPane registerpane;
 
@@ -45,6 +46,11 @@ public class WelcomeViewController extends ViewController implements Initializab
     @FXML private ToggleGroup radiogroup;
     @FXML private JFXRadioButton register_radiostudent;
     @FXML private JFXRadioButton register_radioadminis;
+    @FXML private JFXRadioButton register_radioteacher;
+
+
+    public double xOffset = 0;
+    public double yOffset = 0;
 
     public WelcomeViewController() {
     }
@@ -143,6 +149,19 @@ public class WelcomeViewController extends ViewController implements Initializab
         }
     }
 
+    @FXML
+    protected void titlepressed(MouseEvent mouseEvent) {
+        xOffset = mouseEvent.getSceneX();
+        yOffset = mouseEvent.getSceneY();
+    }
+
+    @FXML
+    protected void titledragged(MouseEvent mouseEvent) {
+        Stage stage = (Stage)welcomebackground.getScene().getWindow();
+        stage.setX(mouseEvent.getScreenX() - xOffset);
+        stage.setY(mouseEvent.getScreenY() - yOffset);
+    }
+
     public void signup(ActionEvent actionEvent)
     {
         String firstname=register_Tfirstname.getText();
@@ -159,6 +178,7 @@ public class WelcomeViewController extends ViewController implements Initializab
         {
             register_radiostudent.setUserData("student");
             register_radioadminis.setUserData("administrator");
+            register_radioteacher.setUserData("teacher");
             String role=radiogroup.getSelectedToggle().getUserData().toString();
             JSONObject info = new JSONObject();
             info.put("CampusCardID",card);

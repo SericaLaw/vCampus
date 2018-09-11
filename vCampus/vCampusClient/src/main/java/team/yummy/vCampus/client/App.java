@@ -11,7 +11,8 @@ public class App extends Application {
     public final static String WELCOME_VIEW_RESOURCE = "./welcome.fxml";
     public final static String ADMIN_VIEW_NAME = "AdminView";
     public final static String ADMIN_VIEW_RESOURCE = "./admin.fxml";
-
+    public final static String TEACHER_VIEW_NAME = "TeacherView";
+    public final static String TEACHER_VIEW_RESOURCE = "./teacher.fxml";
     @Override
     public void start(Stage primaryStage) {
 
@@ -24,6 +25,7 @@ public class App extends Application {
         stageController.loadStage(WELCOME_VIEW_NAME, WELCOME_VIEW_RESOURCE);
         stageController.loadStage(MAIN_VIEW_NAME, MAIN_VIEW_RESOURCE);
         stageController.loadStage(ADMIN_VIEW_NAME, ADMIN_VIEW_RESOURCE);
+        stageController.loadStage(TEACHER_VIEW_NAME, TEACHER_VIEW_RESOURCE);
 
         // 显示欢迎界面
         stageController.setStage(WELCOME_VIEW_NAME);

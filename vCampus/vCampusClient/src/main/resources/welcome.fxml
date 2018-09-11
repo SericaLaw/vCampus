@@ -28,7 +28,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="welcomebackground" minHeight="500.0" minWidth="360.0" prefHeight="500.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team.yummy.vCampus.client.WelcomeViewController">
+<AnchorPane fx:id="welcomebackground" onMouseDragged="#titledragged" onMousePressed="#titlepressed" minHeight="500.0" minWidth="360.0" prefHeight="500.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team.yummy.vCampus.client.WelcomeViewController">
     <children>
         <ImageView cache="true" fitHeight="600.0" fitWidth="600.0" layoutX="-300.0" preserveRatio="true">
             <image>
@@ -94,6 +94,7 @@
                                         <ToggleGroup fx:id="radiogroup" />
                                     </toggleGroup></JFXRadioButton>
                                 <JFXRadioButton fx:id="register_radioadminis" text="管理员" toggleGroup="$radiogroup" />
+                                <JFXRadioButton fx:id="register_radioteacher" text="教师" toggleGroup="$radiogroup" />
                             </children>
                         </HBox>
                         <HBox id="registerpane__button-group" prefHeight="100.0" prefWidth="200.0">
