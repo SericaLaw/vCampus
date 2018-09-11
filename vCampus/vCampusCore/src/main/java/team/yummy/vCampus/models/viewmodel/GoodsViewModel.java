@@ -1,5 +1,7 @@
 package team.yummy.vCampus.models.viewmodel;
 
+import team.yummy.vCampus.models.entity.GoodsEntity;
+import java.lang.reflect.Field;
 import java.util.UUID;
 
 /**
@@ -11,6 +13,7 @@ import java.util.UUID;
  public class GoodsViewModel{
     private String goodsId = UUID.randomUUID().toString();
     private String goodsName;
+    private String info;
     private double price;
     private String imgUrl;
     private int tag;
@@ -78,7 +81,6 @@ import java.util.UUID;
     public void setTag(int tag){
         this.tag = tag;
     }
-<<<<<<< HEAD
 
     public String getInfo() {
         return info;
@@ -88,6 +90,4 @@ import java.util.UUID;
         this.info = info;
     }
 }
-=======
-}
->>>>>>> 06f336aec3b4055dab734b74d00ef92f4f74c502
+
