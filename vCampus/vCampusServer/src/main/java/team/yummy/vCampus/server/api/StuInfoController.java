@@ -21,6 +21,7 @@ public class StuInfoController extends Controller {
     @Post(route = "gpa")
     public void calcGPA() {
         double gpa = 0;
+        int credits = 0;
         for (CourseRecordEntity record : account.getCourseRecordsByCampusCardId()) {
             double grade = 0;
             if (record.getScore() >= 60) {
@@ -35,8 +36,9 @@ public class StuInfoController extends Controller {
                 grade += (record.getScore() - 50) / 10;
             }
             gpa += grade * record.getCourseByCourseId().getCredit().doubleValue();
+            credits +=  record.getCourseByCourseId().getCredit().doubleValue();
         }
-        gpa /= account.getCourseRecordsByCampusCardId().size();
+        gpa /= credits;
 
         dbSession.beginTransaction();
         account.getStuInfoByCampusCardId().setGpa(gpa);
