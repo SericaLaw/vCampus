@@ -253,28 +253,10 @@
                                                     <children>
                                                         <HBox layoutX="128.0" layoutY="38.0" prefHeight="36.0" prefWidth="247.0" spacing="50.0">
                                                             <children>
-                                                                <JFXButton fx:id="addGoods" prefHeight="36.0" prefWidth="103.0" text="添加商品" />
-                                                                <JFXButton fx:id="editGoods" prefHeight="36.0" prefWidth="103.0" text="编辑信息" />
+                                                                <JFXButton fx:id="addGoods" onAction="#goodsadd" prefHeight="36.0" prefWidth="103.0" text="添加商品" />
                                                             </children>
                                                         </HBox>
-                                                        <HBox layoutX="503.0" layoutY="36.0" prefHeight="10.0" prefWidth="289.0" spacing="5.0">
-                                                            <children>
-                                                                <JFXTextField fx:id="11" focusColor="#673ab7" layoutX="551.0" layoutY="42.0" prefHeight="29.0" prefWidth="237.0">
-                                                                    <font>
-                                                                        <Font size="16.0" />
-                                                                    </font>
-                                                                </JFXTextField>
-                                                                <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="574.0" layoutY="19.0">
-                                                                    <graphic>
-                                                                        <ImageView fitHeight="23.0" fitWidth="23.0">
-                                                                            <image>
-                                                                                <Image url="@images/search.png" />
-                                                                            </image>
-                                                                        </ImageView>
-                                                                    </graphic>
-                                                                </JFXButton>
-                                                            </children>
-                                                        </HBox>
+                                                        <VBox fx:id="store_newItemBox" layoutY="110.0" prefHeight="631.0" prefWidth="909.0" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
