@@ -162,12 +162,13 @@
                                                     <children>
                                                         <ScrollPane prefHeight="688.0" prefWidth="950.0">
                                                             <content>
-                                                                <TableView fx:id="Tch_GradeTV" prefHeight="688.0" prefWidth="600.0">
+                                                                <TableView fx:id="Tch_GradeTV" prefHeight="688.0" prefWidth="762.0">
                                                                     <columns>
                                                                         <TableColumn fx:id="campusIDcardCol" prefWidth="165.0" text="一卡通号" />
                                                                         <TableColumn fx:id="studentnameCol" prefWidth="149.0" text="学生姓名" />
-                                                                        <TableColumn fx:id="termCol" prefWidth="130.0" text="学期" />
-                                                                        <TableColumn fx:id="gradeCol" prefWidth="155.0" text="成绩" />
+                                                                        <TableColumn fx:id="subjectCol" prefWidth="169.0" text="课程" />
+                                                                        <TableColumn fx:id="termCol" prefWidth="133.0" text="学期" />
+                                                                        <TableColumn fx:id="gradeCol" prefWidth="146.0" text="成绩" />
                                                                     </columns>
                                                                 </TableView>
                                                             </content>

@@ -207,6 +207,13 @@ public class LibraryViewFactory {
                     List<BorrowRecordViewModel> borrowedbookList = resed.dataList(BorrowRecordViewModel.class);
                     List<HBox> borrowedRows=createBorrowedbookRows(borrowedbookList);
                     mainViewController.library_borrowedBox.getChildren().addAll(borrowedRows);
+
+                    mainViewController.library_inquireBox.getChildren().clear();
+                    WebResponse resedd = mainViewController.api.get("library/book");
+                    List<BookViewModel> bookList = resedd.dataList(BookViewModel.class);
+                    List<HBox> Rows=createBookRows(bookList,3);
+                    mainViewController.library_inquireBox.getChildren().addAll(Rows);
+
                 }
             });
 
