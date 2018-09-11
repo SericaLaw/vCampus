@@ -14,6 +14,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Server {
@@ -55,6 +57,23 @@ public class Server {
 
     public void run() {
         logger.log("服务器即将启动，等待客户端的连接...");
+
+        // 为Session添加定时清除任务
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                for (HashMap.Entry entry : sessions.entrySet()) {
+                    if (((Session) entry.getValue()).hasExpired()) {
+                        sessions.remove(entry.getKey());
+                    }
+                }
+            }
+        };
+        Timer timer = new Timer();
+        long delay = 0;
+        long intervalPeriod = 120 * 1000;
+        // schedules the task to be run in an interval
+        timer.scheduleAtFixedRate(task, delay, intervalPeriod);
 
         // 循环监听等待客户端的连接
         while(true) {

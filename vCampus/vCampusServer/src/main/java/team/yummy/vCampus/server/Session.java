@@ -2,6 +2,7 @@ package team.yummy.vCampus.server;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Hashtable;
 import java.util.Random;
@@ -29,6 +30,11 @@ public class Session {
         this.id = id;
         this.timeout = timeout;
         this.lastActive = new Timestamp(System.currentTimeMillis());
+    }
+
+    public boolean hasExpired() {
+        return new Timestamp(lastActive.getTime() + timeout.getTime())
+                .before(new Timestamp(System.currentTimeMillis()));
     }
 
     public Integer getSessionId() {

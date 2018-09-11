@@ -3,6 +3,7 @@ package team.yummy.vCampus.server.api;
 import team.yummy.vCampus.server.annotation.*;
 
 public class StoreController extends Controller {
+
     /**
      * @apiGroup Store
      * @api {get} /store/goods GetGoodsList
@@ -16,7 +17,6 @@ public class StoreController extends Controller {
      *      200 OK
      *      ......
      */
-
     @Get(route = "goods")
     public void getGoodsList() {
 
