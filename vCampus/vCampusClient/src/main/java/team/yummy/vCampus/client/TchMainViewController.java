@@ -113,8 +113,8 @@ public class TchMainViewController extends ViewController implements  Initializa
 
 //        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
 //        StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
-        am_CampusCardID.setText(currentAccount.getCampusCardID());
-        am_Username.setText(currentAccount.getUsername());
+        am_CampusCardID.setText(currentAccount.getCampusCardId());
+        am_Username.setText(currentAccount.getNickname());
         am_Role.setText(currentAccount.getRole());
         am_Name.setText(currentAccount.getFirstName()+currentAccount.getLastName());
     }

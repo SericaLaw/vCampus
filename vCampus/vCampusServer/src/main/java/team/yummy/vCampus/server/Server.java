@@ -43,7 +43,9 @@ public class Server {
     }
 
     public void configure() {
+        String url = "jdbc:Access:///" + System.getProperty("user.dir") + "\\vCampusServer\\database\\test_database.accdb";
         dbConfig = new Configuration().configure("/hibernate.cfg.xml");
+        dbConfig.setProperty("hibernate.connection.url", url);
         dbFactory = dbConfig.buildSessionFactory();
 
         middlewares.add(new SessionMiddleware());

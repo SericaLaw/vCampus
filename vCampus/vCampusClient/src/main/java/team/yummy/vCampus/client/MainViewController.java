@@ -28,6 +28,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.awt.print.Book;
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -303,7 +304,7 @@ public class MainViewController extends ViewController implements Initializable 
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
-        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
+        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
         // StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
         Lbank_name.setText(currentAccount.getFirstName()+currentAccount.getLastName());
         // Lbank_num.setText(currentAccount.get);  获取账号尾号
@@ -407,7 +408,7 @@ public class MainViewController extends ViewController implements Initializable 
             infoToModify.put("Email",Email);
             infoToModify.put("Address", Address);
             infoToModify.put("SeniorHigh",SeniorHigh);
-            api.patch("/stuInfo/campusCardID/"+ currentAccount.getCampusCardID(), infoToModify.toJSONString());
+            api.patch("/stuInfo/campusCardID/"+ currentAccount.getCampusCardId(), infoToModify.toJSONString());
 
             si_errorText.setText("");
             si_IDNum.setDisable(true);
@@ -569,7 +570,7 @@ public class MainViewController extends ViewController implements Initializable 
                 library_InquireText.setPromptText("请输入关键字");
             } else {
                 WebResponse res = api.post("/library/book", keyword);
-                List<Book> bookList_keyword = res.dataList(Book.class);
+                List<BookViewModel> bookList_keyword = res.dataList(BookViewModel.class);
                 LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
                 List<HBox> row = libraryViewFactory.createBookRows(bookList_keyword, 1);
                 if (library_inquireBox.getChildren().size() != 0) {
