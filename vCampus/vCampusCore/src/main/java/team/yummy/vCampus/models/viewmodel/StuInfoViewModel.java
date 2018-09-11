@@ -1,8 +1,10 @@
 package team.yummy.vCampus.models.viewmodel;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import team.yummy.vCampus.models.entity.AccountEntity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class StuInfoViewModel {
 
@@ -15,6 +17,7 @@ public class StuInfoViewModel {
     private String major = "N/A";
     private String idNum = "N/A";
     private String address = "N/A";
+    @JSONField(format = "yyyy-mm-dd")
     private Timestamp birthdate = new Timestamp(0);
     private String phone = "N/A";
     private Integer enrollmentYear = 1970;

@@ -1,8 +1,10 @@
 package team.yummy.vCampus.test;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import team.yummy.vCampus.models.entity.StuInfoEntity;
+import team.yummy.vCampus.models.viewmodel.AccountViewModel;
 import team.yummy.vCampus.models.viewmodel.StuInfoViewModel;
 import team.yummy.vCampus.util.Api;
 import team.yummy.vCampus.web.WebResponse;
@@ -12,7 +14,7 @@ import static junit.framework.Assert.assertEquals;
 public class StuInfoApiTest extends ApiTest {
     /**
      * @apiGroup StuInfo
-     * @api {get} /stuInfo/campusCardID/{uid} GetStuInfoById ( passed )
+     * @api {get} /stuInfo/campusCardID/{uid} GetStuInfoById
      * @apiPermission student
      * @apiDescription 获取学生信息
      * @apiSuccess List_StuInfo 只含有一个项的StuInfo list
@@ -78,9 +80,59 @@ public class StuInfoApiTest extends ApiTest {
         api.patch("/stuInfo/campusCardID/213180000", infoToModify.toJSONString());
     }
 
+    /**
+     * @apiGroup StuInfo
+     * @api {post} /account createAccount
+     * @api {post} /stuInfo createStuInfo
+     * @apiDescription 创建账号和学生信息，注意账号的campusCardId和StuInfo表关联，所以必须先创建账号，有初始化的密码和昵称。
+     * @apiPermission admin
+     * @apiParamExample Code Snippets
+     * AccountViewModel newAccount = new AccountViewModel();
+     * newAccount.setCampusCardId("213190000");
+     * newAccount.setFirstName("新");
+     * newAccount.setLastName("生");
+     * newAccount.setRole("student");
+     * newAccount.setNickname("昵称");
+     * newAccount.setPassword("09019000");
+     *
+     * StuInfoViewModel newStudent = new StuInfoViewModel();
+     * newStudent.setEnrollmentYear(new Integer(2019));
+     * newStudent.setCampusCardId("213190000");
+     * newStudent.setStudentId("09019000");
+     * newStudent.setDepartment("计算机科学与工程学院");
+     * newStudent.setMajor("计算机科学与技术");
+     *
+     * WebResponse res = api.post("/account", JSON.toJSONString(newAccount));
+     * if(res.getStatusCode().equals("201"))
+     *    api.post("/stuInfo", JSON.toJSONString(newStudent));
+     *
+     * @apiSuccessExample Success-Response:
+     *     201 OK
+     *
+     * @apiErrorExample Error-Response:
+     *     403 "StuInfo already exists."
+     *
+     */
     @Test
-    public void createStuInfo() {
+    public void createAccountAndStuInfo() {
+        AccountViewModel newAccount = new AccountViewModel();
+        newAccount.setCampusCardId("213190000");
+        newAccount.setFirstName("新");
+        newAccount.setLastName("生");
+        newAccount.setRole("student");
+        newAccount.setNickname("昵称");
+        newAccount.setPassword("09019000");
 
+        StuInfoViewModel newStudent = new StuInfoViewModel();
+        newStudent.setEnrollmentYear(new Integer(2019));
+        newStudent.setCampusCardId("213190000");
+        newStudent.setStudentId("09019000");
+        newStudent.setDepartment("计算机科学与工程学院");
+        newStudent.setMajor("计算机科学与技术");
+
+        WebResponse res = api.post("/account", JSON.toJSONString(newAccount));
+        if(res.getStatusCode().equals("201"))
+            api.post("/stuInfo", JSON.toJSONString(newStudent));
     }
 }
 

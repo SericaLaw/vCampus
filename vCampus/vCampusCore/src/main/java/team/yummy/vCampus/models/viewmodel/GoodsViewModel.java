@@ -1,8 +1,6 @@
 package team.yummy.vCampus.models.viewmodel;
 
-import team.yummy.vCampus.models.entity.GoodsEntity;
-
-import java.lang.reflect.Field;
+import java.util.UUID;
 
 /**
  * @author Dailin
@@ -11,11 +9,13 @@ import java.lang.reflect.Field;
  */
 
  public class GoodsViewModel{
-    private String goodsId;
+    private String goodsId = UUID.randomUUID().toString();
     private String goodsName;
     private double price;
     private String imgUrl;
     private int tag;
+
+    public GoodsViewModel() {}
 
     public GoodsViewModel(String goodsId, String goodsName, double price, String imgUrl, int tag){
         this.goodsId = goodsId;
@@ -66,11 +66,11 @@ import java.lang.reflect.Field;
     public String getImgUrl(){
         return this.imgUrl;
     }
-    
+
     public void setImgUrl(String imgUrl){
         this.imgUrl = imgUrl;
     }
-    
+
     public int getTag(){
         return this.tag;
     }
@@ -78,7 +78,4 @@ import java.lang.reflect.Field;
     public void setTag(int tag){
         this.tag = tag;
     }
-    
-
-
- }
+}

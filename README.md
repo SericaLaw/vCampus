@@ -54,7 +54,7 @@ git pull
 在仓库根目录打开终端，输入命令：
 
 ```bash
-apidoc -i ./vCampus/vCampusClient/src/test/java -o ./docs -t ./docs/src/template/
+apidoc -i ./vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api -o ./docs -t ./docs/src/template/
 ```
 
 即可创建api文档。

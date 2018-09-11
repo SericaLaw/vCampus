@@ -65,7 +65,6 @@ public class StoreController extends Controller {
      * @api {post} /store/cart AddToCart
      * @apiPermission student
      * @apiDescription 添加至购物车(cart record没有该商品)
-     * @apiSuccess
      * @apiParamExample Code Snippets
      * WebResponse res = api.post("/store/cart", goodsId);
      *
@@ -93,7 +92,6 @@ public class StoreController extends Controller {
      * @api {post} /store/purchase Purchase
      * @apiPermission student
      * @apiDescription 支付 删除CartRecord表相应购物车数据；Bank表里余额需要修改
-     * @apiSuccess
      * @apiParamExample Code Snippets
      * WebResponse res = api.post("/store/purchase", JSON.toJSONString(List<String>, String.class));
      *
@@ -144,9 +142,12 @@ public class StoreController extends Controller {
      * @api {patch} /store/cart ModifyCart
      * @apiPermission student
      * @apiDescription 增加商品数量(cart record已有该商品)
-     * @apiSuccess
      * @apiParamExample Code Snippets
+<<<<<<< HEAD
      * WebResponse res = api.patch("/store/cart", "{"uuid":uuid, "count":count}");
+=======
+     * WebResponse res = api.patch("/store/cart", "{"uid":uid, "count":"count"}");
+>>>>>>> 32eade46167b4f10c72e5bcb7133527268b07afd
      *
      * @apiSuccessExample Success-Response:
      *      200 OK
@@ -190,4 +191,28 @@ public class StoreController extends Controller {
     /**
      * 管理员增删改查商品可使用默认方法
      */
+
+    /**
+     * @apiGroup Store
+     * @api {post} /goods CreateGoods
+     * @apiDescription 添加商品
+     * @apiPermission admin
+     * @apiParamExample Code Snippets
+     * GoodsViewModel newGoods = new GoodsViewModel();
+     * newGoods.setGoodsName("iPhone 100");
+     * newGoods.setImgUrl("./images/item.png");
+     * newGoods.setPrice(10000.);
+     * newGoods.setTag(1);
+     *
+     * WebResponse res = api.post("/goods", JSON.toJSONString(newGoods));
+     *
+     * @apiSuccessExample Success-Response:
+     *     201 OK
+     *
+     * @apiErrorExample Error-Response:
+     *     403 "Goods already exists."
+     *
+     */
+
+
 }

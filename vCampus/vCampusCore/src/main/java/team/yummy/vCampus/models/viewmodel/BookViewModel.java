@@ -2,13 +2,15 @@ package team.yummy.vCampus.models.viewmodel;
 
 import team.yummy.vCampus.models.entity.BookEntity;
 
+import java.util.UUID;
+
 /**
  * @author Serica
  * BookViewModel 前端展示类
  * 对应Book表?
  */
 public class BookViewModel {
-    private String bookId;
+    private String bookId = UUID.randomUUID().toString();
     private String bookName;
     private String writer;
     private String publisher;
