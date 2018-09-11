@@ -6,9 +6,32 @@ import team.yummy.vCampus.models.entity.AccountEntity;
 import team.yummy.vCampus.models.viewmodel.*;
 import team.yummy.vCampus.server.annotation.Post;
 
-
 public class AccountController extends Controller {
 
+    /**
+     * @apiGroup Account
+     * @api {get} /account/login Login
+     * @apiPermission all
+     * @apiDescription 登录
+     * @apiSuccess AccountViewModel AccountViewModel
+     * @apiParamExample Code Snippets
+     * LoginViewModel login = new LoginViewModel(username, password);
+     * WebResponse res = api.post("/account/login", JSON.toJSONString(login));
+     * @apiSuccessExample Success-Response:
+     *     200 OK
+     *     {
+     *         "CampusCardID": "213180000",
+     *         "Username": "client",
+     *         "Password": "123",
+     *         "FirstName":"Foo",
+     *         "LastName": "Bar",
+     *         "Role": "student"
+     *     }
+     * @apiErrorExample Error-Response:
+     *     403 "Wrong password."
+     *     404 "Account not found."
+     *
+     */
     @Post(route = "login")
     public void login() {
         LoginViewModel login = webContext.request.deserializeBody(LoginViewModel.class);
@@ -31,4 +54,27 @@ public class AccountController extends Controller {
         }
     }
 
+    /**
+     * @apiGroup Account
+     * @api {post} /account CreateAccount
+     * @apiDescription 创建账号和学生信息，注意账号的campusCardId和StuInfo表关联，所以必须先创建账号，有初始化的密码和昵称。
+     * @apiPermission admin
+     * @apiParamExample Code Snippets
+     * AccountViewModel newAccount = new AccountViewModel();
+     * newAccount.setCampusCardId("213190000");
+     * newAccount.setFirstName("新");
+     * newAccount.setLastName("生");
+     * newAccount.setRole("student");
+     * newAccount.setNickname("昵称");
+     * newAccount.setPassword("09019000");
+     *
+     * WebResponse res = api.post("/account", JSON.toJSONString(newAccount));
+     *
+     * @apiSuccessExample Success-Response:
+     *     201 OK
+     *
+     * @apiErrorExample Error-Response:
+     *     403 "Account already exists."
+     *
+     */
 }

@@ -65,8 +65,53 @@ public class CourseApiTest extends ApiTest{
         assert after.get("5002").getStuAttendCount() == eventual.get("5002").getStuAttendCount();
     }
 
+    /**
+     * @apiGroup Course
+     * @api {get} /course GetCourseList
+     * @apiPermission admin
+     * @apiDescription 获取课程列表
+     * @apiSuccess List_CourseRegisterViewModel List of CourseRegisterViewModel
+     * @apiParamExample Code Snippets
+     * WebResponse res = api.get("/course");
+     * List<CourseRegisterViewModel> courseRegisterViewModels = res.dataList(CourseRegisterViewModel.class);
+     * @apiSuccessExample Success-Response:
+     *      200 OK
+     *      [{
+     *          "CourseName":"JAVA程序设计",
+     *          "Semester":"2",
+     *          "CourseVenue":"J2-203",
+     *          "Grade":"3",
+     *          "StuLimitCount":"3",
+     *          "ExamDate":"2019-01-20 00:00:00.0",
+     *          "CourseID":"1001",
+     *          "Credit":"2",
+     *          "Major":"计算机科学与技术",
+     *          "ProfName":"沈傲东",
+     *          "Intro":"大佬的课不得不听啊",
+     *          "ExamVenue":"J4-302",
+     *          "StuAttendCount":"1",
+     *          "ProfCampusCardID":"1001"
+     *         },{
+     *          "CourseName":"高等数学",
+     *          "Semester":"2",
+     *          "CourseVenue":"J8-103",
+     *          "Grade":"1",
+     *          "StuLimitCount":"3",
+     *          "ExamDate":"2019-01-18 00:00:00.0",
+     *          "CourseID":"2001",
+     *          "Credit":"5",
+     *          "ProfName":"牛顿",
+     *          "Intro":"同上",
+     *          "ExamVenue":"J4-104",
+     *          "StuAttendCount":"2",
+     *          "ProfCampusCardID":"2001"
+     *       }]
+     * @apiErrorExample Error-Response:
+     *     404 "Course not found."
+     *
+     */
     @Test
-    public void getCourse() {
+    public void getCourseList() {
         WebResponse res = api.get("/course");
         List<CourseRegisterViewModel> courseRegisterViewModels = res.dataList(CourseRegisterViewModel.class);
     }

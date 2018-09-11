@@ -56,7 +56,11 @@ public class DBHelper {
             sql = sql.substring(0, sql.length() - 2); // 去除多余的逗号
             sql += ") VALUES (";
             for (Map.Entry<String, String> entry : mapData.entrySet()) {
-                dataValue = entry.getValue();
+                Object o = entry.getValue();
+                if (!(o instanceof String))
+                    o = o.toString();
+                dataValue =  (String) o;
+
                 sql += "'" + dataValue + "', ";
             }
             sql = sql.substring(0, sql.length() - 2); // 去除多余的逗号

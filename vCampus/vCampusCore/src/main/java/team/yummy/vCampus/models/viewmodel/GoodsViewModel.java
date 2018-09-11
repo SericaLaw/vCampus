@@ -1,19 +1,22 @@
 package team.yummy.vCampus.models.viewmodel;
 
+import java.util.UUID;
+
 /**
  * @author Dailin
  * 商店表项类
  * 存放关联查询的结果，用于前端展示商店首页商品信息
  */
 
- public class GoodsViewModel{
-    private int goodsID;
+public class GoodsViewModel {
+    private String goodsID = UUID.randomUUID().toString();
     private String goodsName;
     private double price;
     private String imgUrl;
     private int tag;
 
-    public GoodsViewModel(int goodsID, String goodsName,double price,String imgUrl,int tag){
+    public GoodsViewModel() {}
+    public GoodsViewModel(String goodsID, String goodsName, double price, String imgUrl, int tag) {
         this.goodsID = goodsID;
         this.goodsName = goodsName;
         this.price = price;
@@ -21,11 +24,11 @@ package team.yummy.vCampus.models.viewmodel;
         this.tag = tag;
     }
 
-    public int getGoodsID(){
+    public String getGoodsID(){
         return this.goodsID;
     }
 
-    public void setGoodsID(int goodsID){
+    public void setGoodsID(String goodsID){
         this.goodsID = goodsID;
     }
 
@@ -48,11 +51,11 @@ package team.yummy.vCampus.models.viewmodel;
     public String getImgUrl(){
         return this.imgUrl;
     }
-    
+
     public void setImgUrl(String imgUrl){
         this.imgUrl = imgUrl;
     }
-    
+
     public int getTag(){
         return this.tag;
     }
@@ -60,7 +63,4 @@ package team.yummy.vCampus.models.viewmodel;
     public void setTag(int tag){
         this.tag = tag;
     }
-    
-
-
- }
+}

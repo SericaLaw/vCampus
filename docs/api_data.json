@@ -1,24 +1,39 @@
 [
   {
     "group": "Account",
-    "type": "post",
+    "type": "get",
     "url": "/account/login",
-    "title": "Login ( passed )",
-    "name": "LoginAPI",
+    "title": "Login",
+    "permission": [
+      {
+        "name": "all"
+      }
+    ],
+    "description": "<p>登录</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "AccountViewModel",
+            "description": "<p>AccountViewModel</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n{\n    \"CampusCardID\": \"213180000\",\n    \"Username\": \"client\",\n    \"Password\": \"123\",\n    \"FirstName\":\"Foo\",\n    \"LastName\": \"Bar\",\n    \"Role\": \"student\"\n}",
+          "type": "json"
+        }
+      ]
+    },
     "parameter": {
       "examples": [
         {
-          "title": "JSON-Request:",
-          "content": "{\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "200 OK\n{\n  \"CampusCardID\": \"213180000\",\n  \"Username\": \"client\",\n  \"Password\": \"123\",\n  \"FirstName\":\"Foo\",\n  \"LastName\": \"Bar\",\n  \"Role\": \"student\"\n}",
+          "title": "Code Snippets",
+          "content": "LoginViewModel login = new LoginViewModel(username, password);\nWebResponse res = api.post(\"/account/login\", JSON.toJSONString(login));",
           "type": "json"
         }
       ]
@@ -27,53 +42,32 @@
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "403 \"Wrong password.\"\n\n404 \"Account not found.\"",
+          "content": "403 \"Wrong password.\"\n404 \"Account not found.\"",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "vCampus/vCampusClient/src/test/java/Account.cpp",
-    "groupTitle": "Account"
-  },
-  {
-    "group": "Account",
-    "type": "get",
-    "url": "/account/user/:id",
-    "title": "Logout",
-    "name": "LogoutAPI",
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "404 \"Account not found.\"",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "vCampus/vCampusClient/src/test/java/Account.cpp",
-    "groupTitle": "Account"
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/AccountController.java",
+    "groupTitle": "Account",
+    "name": "GetAccountLogin"
   },
   {
     "group": "Account",
     "type": "post",
     "url": "/account",
-    "title": "Register ( passed )",
+    "title": "CreateAccount",
+    "description": "<p>创建账号和学生信息，注意账号的campusCardId和StuInfo表关联，所以必须先创建账号，有初始化的密码和昵称。</p>",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
     "parameter": {
       "examples": [
         {
-          "title": "JSON-Request:",
-          "content": "{\n    \"CampusCardID\":\"213160000\",\n    \"Username\":\"trial\",\n    \"Password\":\"trialpwd\",\n    \"FirstName\":\"trialfirstname\",\n    \"LastName\":\"triallastname\",\n    \"role\":\"student\"\n}",
+          "title": "Code Snippets",
+          "content": "AccountViewModel newAccount = new AccountViewModel();\nnewAccount.setCampusCardId(\"213190000\");\nnewAccount.setFirstName(\"新\");\nnewAccount.setLastName(\"生\");\nnewAccount.setRole(\"student\");\nnewAccount.setNickname(\"昵称\");\nnewAccount.setPassword(\"09019000\");\n\nWebResponse res = api.post(\"/account\", JSON.toJSONString(newAccount));",
           "type": "json"
         }
       ]
@@ -97,21 +91,36 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "vCampus/vCampusClient/src/test/java/Account.cpp",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/AccountController.java",
     "groupTitle": "Account",
     "name": "PostAccount"
   },
   {
-    "group": "Account",
-    "type": "delete",
-    "url": "/account/campusCardID/:id",
-    "title": "UnRegister ( passed )",
-    "name": "UnRegisterAPI",
+    "group": "Bank",
+    "type": "get",
+    "url": "/bank/info",
+    "title": "GetBankInfo",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>获取银行信息</p>",
     "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "List_BankInfoViewModel",
+            "description": "<p>List of BankInfoViewModel</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "200 OK",
+          "content": "200 OK\n......",
           "type": "json"
         }
       ]
@@ -119,21 +128,124 @@
     "parameter": {
       "examples": [
         {
-          "title": "@apiErrorExample Error-Response:",
-          "content": "@apiErrorExample Error-Response:\n    404 \"Account not found.\"",
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.get(\"/bank/info\");\nList<BankInfoViewModel> bankInfoList = res.dataList(BankInfoViewModel.class);",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "vCampus/vCampusClient/src/test/java/Account.cpp",
-    "groupTitle": "Account"
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/BankController.java",
+    "groupTitle": "Bank",
+    "name": "GetBankInfo"
+  },
+  {
+    "group": "Course",
+    "type": "delete",
+    "url": "/course/register/{courseId}",
+    "title": "RegisterCourse",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>退课</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "200",
+            "description": "<p>-&gt; OK</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": ":",
+            "description": "<p>400 -&gt; Already empty 403 -&gt; Please view course list first 404 -&gt; Course not selected</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.delete(\"/course/register/{courseId}\");",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/CourseController.java",
+    "groupTitle": "Course",
+    "name": "DeleteCourseRegisterCourseid"
+  },
+  {
+    "group": "Course",
+    "type": "get",
+    "url": "/course",
+    "title": "GetCourseList",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "description": "<p>获取课程列表</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "List_CourseRegisterViewModel",
+            "description": "<p>List of CourseRegisterViewModel</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n[{\n    \"CourseName\":\"JAVA程序设计\",\n    \"Semester\":\"2\",\n    \"CourseVenue\":\"J2-203\",\n    \"Grade\":\"3\",\n    \"StuLimitCount\":\"3\",\n    \"ExamDate\":\"2019-01-20 00:00:00.0\",\n    \"CourseID\":\"1001\",\n    \"Credit\":\"2\",\n    \"Major\":\"计算机科学与技术\",\n    \"ProfName\":\"沈傲东\",\n    \"Intro\":\"大佬的课不得不听啊\",\n    \"ExamVenue\":\"J4-302\",\n    \"StuAttendCount\":\"1\",\n    \"ProfCampusCardID\":\"1001\"\n   },{\n    \"CourseName\":\"高等数学\",\n    \"Semester\":\"2\",\n    \"CourseVenue\":\"J8-103\",\n    \"Grade\":\"1\",\n    \"StuLimitCount\":\"3\",\n    \"ExamDate\":\"2019-01-18 00:00:00.0\",\n    \"CourseID\":\"2001\",\n    \"Credit\":\"5\",\n    \"ProfName\":\"牛顿\",\n    \"Intro\":\"同上\",\n    \"ExamVenue\":\"J4-104\",\n    \"StuAttendCount\":\"2\",\n    \"ProfCampusCardID\":\"2001\"\n }]",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.get(\"/course\");\nList<CourseRegisterViewModel> courseRegisterViewModels = res.dataList(CourseRegisterViewModel.class);",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "404 \"Course not found.\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/CourseController.java",
+    "groupTitle": "Course",
+    "name": "GetCourse"
   },
   {
     "group": "Course",
     "type": "get",
     "url": "/course/register",
-    "title": "GetCourseRegister ( passed )",
+    "title": "GetCourseRegister",
     "permission": [
       {
         "name": "student"
@@ -146,8 +258,8 @@
           {
             "group": "Success 200",
             "optional": false,
-            "field": "CourseRegister",
-            "description": "<p>CourseRegister对象</p>"
+            "field": "CourseRegisterViewModel",
+            "description": "<p>CourseRegisterViewModel对象</p>"
           }
         ]
       },
@@ -163,13 +275,13 @@
       "examples": [
         {
           "title": "Code Snippets",
-          "content": "WebResponse res = api.get(\"/course/register\");\nCourseRegister courseRegister = res.data(CourseRegister.class);",
+          "content": "WebResponse res = api.get(\"/course/register\");\nCourseRegisterViewModel courseRegister = res.data(CourseRegisterViewModel.class);",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "vCampus/vCampusClient/src/test/java/CourseApiTest.java",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/CourseController.java",
     "groupTitle": "Course",
     "name": "GetCourseRegister"
   },
@@ -177,7 +289,7 @@
     "group": "Course",
     "type": "get",
     "url": "/course/report",
-    "title": "GetCourseReport ( passed )",
+    "title": "GetCourseReport",
     "permission": [
       {
         "name": "student"
@@ -190,7 +302,7 @@
           {
             "group": "Success 200",
             "optional": false,
-            "field": "List_CourseReportItem",
+            "field": "List_CourseReportViewModel",
             "description": "<p>装着课程表表项的list</p>"
           }
         ]
@@ -198,7 +310,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "200 OK\n[\n    {\n        \"Semester\":\"17-18-3\",\n        \"Credit\":\"2\",\n        \"CourseName\":\"中国古建筑鉴赏\",\n        \"ScoreType\":\"首修\",\n        \"Score\":\"90\"\n    }\n]",
+          "content": "200 OK\n[\n    {\n        \"Semester\":\"17-18-3\",\n        \"Credit\":2,\n        \"CourseName\":\"中国古建筑鉴赏\",\n        \"ScoreType\":\"首修\",\n        \"Score\":90\n    }\n]",
           "type": "json"
         }
       ]
@@ -207,13 +319,13 @@
       "examples": [
         {
           "title": "Code Snippets",
-          "content": "WebResponse res = api.get(\"/course/report\");\nList<CourseReportItem> reportItems = res.dataList(CourseReportItem.class);",
+          "content": "WebResponse res = api.get(\"/course/report\");\nList<CourseReportViewModel> reportItems = res.dataList(CourseReportViewModel.class);",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "vCampus/vCampusClient/src/test/java/CourseApiTest.java",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/CourseController.java",
     "groupTitle": "Course",
     "name": "GetCourseReport"
   },
@@ -221,7 +333,7 @@
     "group": "Course",
     "type": "get",
     "url": "/course/schedule",
-    "title": "GetCourseSchedule ( passed )",
+    "title": "GetCourseSchedule",
     "permission": [
       {
         "name": "student"
@@ -234,7 +346,7 @@
           {
             "group": "Success 200",
             "optional": false,
-            "field": "List_CourseScheduleItem",
+            "field": "List_CourseScheduleViewModel",
             "description": "<p>装着课程表表项的list</p>"
           }
         ]
@@ -242,7 +354,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "200 OK\n[\n    {\n        \"SpanEnd\":\"2\",\n        \"ProfName\":\"牛顿\",\n        \"CourseID\":\"2001\",\n        \"CourseName\":\"高等数学\",\n        \"CourseVenue\":\"J8-103\",\n        \"WeekDay\":\"2\",\n        \"SpanStart\":\"1\"\n    },\n    {\n        \"SpanEnd\":\"4\",\n        \"ProfName\":\"牛顿\",\n        \"CourseID\":\"2001\",\n        \"CourseName\":\"高等数学\",\n        \"CourseVenue\":\"J8-103\",\n        \"WeekDay\":\"4\",\n        \"SpanStart\":\"3\"\n    },\n    {\n        \"SpanEnd\":\"4\",\n        \"ProfName\":\"亚里士多德\",\n        \"CourseID\":\"3001\",\n        \"CourseName\":\"大学物理\",\n        \"CourseVenue\":\"J6-101\",\n        \"WeekDay\":\"1\",\n        \"SpanStart\":\"3\"\n    },\n    {\n        \"SpanEnd\":\"7\",\n        \"ProfName\":\"亚里士多德\",\n        \"CourseID\":\"3001\",\n        \"CourseName\":\"大学物理\",\n        \"CourseVenue\":\"J6-101\",\n        \"WeekDay\":\"3\",\n        \"SpanStart\":\"6\"\n    }\n]",
+          "content": "200 OK\n[\n    {\n        \"SpanEnd\":2,\n        \"ProfName\":\"牛顿\",\n        \"CourseID\":\"2001\",\n        \"CourseName\":\"高等数学\",\n        \"CourseVenue\":\"J8-103\",\n        \"WeekDay\":2,\n        \"SpanStart\":1\n    },\n    {\n        \"SpanEnd\":4,\n        \"ProfName\":\"牛顿\",\n        \"CourseID\":\"2001\",\n        \"CourseName\":\"高等数学\",\n        \"CourseVenue\":\"J8-103\",\n        \"WeekDay\":4,\n        \"SpanStart\":3\n    },\n    {\n        \"SpanEnd\":4,\n        \"ProfName\":\"亚里士多德\",\n        \"CourseID\":\"3001\",\n        \"CourseName\":\"大学物理\",\n        \"CourseVenue\":\"J6-101\",\n        \"WeekDay\":1,\n        \"SpanStart\":3\n    },\n    {\n        \"SpanEnd\":7,\n        \"ProfName\":\"亚里士多德\",\n        \"CourseID\":\"3001\",\n        \"CourseName\":\"大学物理\",\n        \"CourseVenue\":\"J6-101\",\n        \"WeekDay\":3,\n        \"SpanStart\":6\n    }\n]",
           "type": "json"
         }
       ]
@@ -251,85 +363,91 @@
       "examples": [
         {
           "title": "Code Snippets",
-          "content": "WebResponse res = api.get(\"/course/schedule\");\nList<CourseScheduleItem> scheduleItems = res.dataList(CourseScheduleItem.class);",
+          "content": "WebResponse res = api.get(\"/course/schedule\");\nList<CourseScheduleViewModel> scheduleItems = res.dataList(CourseScheduleViewModel.class);",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "vCampus/vCampusClient/src/test/java/CourseApiTest.java",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/CourseController.java",
     "groupTitle": "Course",
     "name": "GetCourseSchedule"
   },
   {
-    "group": "Library",
-    "type": "delete",
-    "url": "/borrowBook/bookID/:bid/campusCardID/:cid",
-    "title": "ReturnBook ( passed )",
+    "group": "Course",
+    "type": "post",
+    "url": "/course/register",
+    "title": "RegisterCourse",
     "permission": [
       {
         "name": "student"
       }
     ],
-    "description": "<p>还书</p>",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request Code Snippets",
-          "content": "res = api.delete(\"/borrowBook/bookID/101/campusCardID/213170000\");",
-          "type": "json"
-        }
-      ]
-    },
+    "description": "<p>选课</p>",
     "success": {
-      "examples": [
-        {
-          "title": "Success-Response",
-          "content": "200 OK",
-          "type": "json"
-        }
-      ]
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "200",
+            "description": "<p>-&gt; OK</p>"
+          }
+        ]
+      }
     },
     "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "403",
+            "description": "<p>-&gt; Course is full 403 -&gt; Please view course list first 403 -&gt; Course Conflict</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
       "examples": [
         {
-          "title": "Error-Response",
-          "content": "404 BorrowBook Not Found",
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.post(\"/course/register\", courseId);",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "vCampus/vCampusClient/src/test/java/Library.cpp",
-    "groupTitle": "Library",
-    "name": "DeleteBorrowbookBookidBidCampuscardidCid"
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/CourseController.java",
+    "groupTitle": "Course",
+    "name": "PostCourseRegister"
   },
   {
-    "group": "Library",
+    "group": "Dorm",
     "type": "get",
-    "url": "/book",
-    "title": "GetBookList ( passed )",
+    "url": "/dorm/info",
+    "title": "GetDormInfo",
     "permission": [
       {
-        "name": "student"
+        "name": "all"
       }
     ],
-    "description": "<p>获得图书数据表中前20条信息，用以展示图书馆书目信息，查询结果为空则返回&quot;[]&quot;</p>",
+    "description": "<p>获取宿舍信息</p>",
     "success": {
       "fields": {
         "Success 200": [
           {
             "group": "Success 200",
             "optional": false,
-            "field": "List_Book",
-            "description": "<p>book list</p>"
+            "field": "List_DormInfoViewModel",
+            "description": "<p>List of DormInfoViewModel</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Success-Response",
-          "content": "200 OK\n[   \n    {\n        \"Publisher\":\"清华大学出版社\",\n        \"BookID\":\"101\",\n        \"BookName\":\"数据结构\",\n        \"TotalCount\":\"5\",\n        \"Writer\":\"邓俊辉\",\n        \"AvailableCount\":\"4\"\n    },\n    {\n        \"Publisher\":\"清华大学出版社\",\n        \"BookID\":\"102\",\"BookName\":\"机器学习\",\n        \"TotalCount\":\"4\",\n        \"Writer\":\"周志华\",\n        \"AvailableCount\":\"2\"\n    }\n]",
+          "title": "Success-Response:",
+          "content": "200 OK\n......",
           "type": "json"
         }
       ]
@@ -337,121 +455,33 @@
     "parameter": {
       "examples": [
         {
-          "title": "Request Code Snippets",
-          "content": "res = api.get(\"/book\");",
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.get(\"/dorm/info\");\nList<DormInfoViewModel> dormInfoList = res.dataList(DormInfoViewModel.class);",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "vCampus/vCampusClient/src/test/java/Library.cpp",
-    "groupTitle": "Library",
-    "name": "GetBook"
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/DormController.java",
+    "groupTitle": "Dorm",
+    "name": "GetDormInfo"
   },
   {
     "group": "Library",
-    "type": "get",
-    "url": "/book/bookName/:keyword/like",
-    "title": "SearchBook ( passed )",
+    "type": "delete",
+    "url": "/library/borrow",
+    "title": "DeleteBorrowRecords",
+    "description": "<p>还书</p>",
     "permission": [
       {
         "name": "student"
       }
     ],
-    "description": "<p>模糊搜索图书，传入书名关键词keyword</p>",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "optional": false,
-            "field": "List_Book",
-            "description": "<p>book list</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response",
-          "content": "200 OK\n[\n    {\n        \"Publisher\":\"清华大学出版社\",\n        \"BookID\":\"102\",\n        \"BookName\":\"机器学习\",\n        \"TotalCount\":\"4\",\n        \"Writer\":\"周志华\",\n        \"AvailableCount\":\"2\"\n    }\n]",
-          "type": "json"
-        }
-      ]
-    },
     "parameter": {
       "examples": [
         {
-          "title": "Request Code Snippets",
-          "content": "res = api.get(\"/book/bookName/机器/like\");",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "vCampus/vCampusClient/src/test/java/Library.cpp",
-    "groupTitle": "Library",
-    "name": "GetBookBooknameKeywordLike"
-  },
-  {
-    "group": "Library",
-    "type": "get",
-    "url": "/borrowBook",
-    "title": "GetBorrowedBook ( passed )",
-    "permission": [
-      {
-        "name": "student"
-      }
-    ],
-    "description": "<p>获取在借图书列表</p>",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "optional": false,
-            "field": "List_BorroedBook",
-            "description": "<p>在借图书list</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response",
-          "content": "200 OK\n[\n    {\n        \"Publisher\":\"清华大学出版社\",\n        \"BookID\":\"102\",\n        \"BorrowDate\":\"2018-09-01 14:26:34.0\",\n        \"ExpiryDate\":\"2018-10-01 14:26:34.0\",\n        \"BookName\":\"机器学习\",\"Writer\":\"周志华\"\n    },\n    {\n        \"Publisher\":\"南海出版公司\",\n        \"BookID\":\"103\",\n        \"BorrowDate\":\"2018-09-01 14:26:44.0\",\n        \"ExpiryDate\":\"2018-10-01 14:26:44.0\",\n        \"BookName\":\"白夜行\",\n        \"Writer\":\"东野圭吾\"\n    }\n]",
-          "type": "json"
-        }
-      ]
-    },
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request Code Snippets",
-          "content": "res = api.get(\"/borrowBook\");",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "vCampus/vCampusClient/src/test/java/Library.cpp",
-    "groupTitle": "Library",
-    "name": "GetBorrowbook"
-  },
-  {
-    "group": "Library",
-    "type": "post",
-    "url": "/borrowBook",
-    "title": "BorrowBook ( passed )",
-    "permission": [
-      {
-        "name": "student"
-      }
-    ],
-    "description": "<p>借书：注意后端不会判断书籍能否借阅（即availableCount是否大于0），提交请求前前端必须进行验证，不能借阅的书不得出请求</p>",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request Code Snippets",
-          "content": "BorrowBookRecord borrowBookRecord = new BorrowBookRecord(\"101\",\"213170000\", new Date());\njsonData = JSON.toJSONString(borrowBookRecord, SerializerFeature.WriteDateUseDateFormat);\nres = api.post(\"/borrowBook\", jsonData);",
+          "title": "Code Snippets",
+          "content": "\nWebResponse res = api.delete(\"/library/borrow/\" + borrowRecordViewModel.getId());",
           "type": "json"
         }
       ]
@@ -460,7 +490,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "200 OK",
+          "content": "200 \"Entry Successfully deleted\"",
           "type": "json"
         }
       ]
@@ -468,22 +498,504 @@
     "error": {
       "examples": [
         {
-          "title": "Error-Response",
-          "content": "404 BorrowBook Not Found",
+          "title": "Error-Response:",
+          "content": "404 \"Entry does not exist!\"",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "vCampus/vCampusClient/src/test/java/Library.cpp",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/LibraryController.java",
     "groupTitle": "Library",
-    "name": "PostBorrowbook"
+    "name": "DeleteLibraryBorrow"
+  },
+  {
+    "group": "Library",
+    "type": "get",
+    "url": "/library/book",
+    "title": "GetBookList",
+    "description": "<p>获取图书列表</p>",
+    "permission": [
+      {
+        "name": "student admin"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "\nWebResponse res = api.get(\"/library/book\");\nList<BookViewModel> bookList = res.dataList(BookViewModel.class);",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n......",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "404 \"Book not found.\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/LibraryController.java",
+    "groupTitle": "Library",
+    "name": "GetLibraryBook"
+  },
+  {
+    "group": "Library",
+    "type": "get",
+    "url": "/library/borrow",
+    "title": "GetBorrowRecords",
+    "description": "<p>获取图书列表</p>",
+    "permission": [
+      {
+        "name": "student admin"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "\nWebResponse res = api.get(\"/library/book\");\nList<BookViewModel> bookList = res.dataList(BookViewModel.class);",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n......",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "404 \"Book not found.\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/LibraryController.java",
+    "groupTitle": "Library",
+    "name": "GetLibraryBorrow"
+  },
+  {
+    "group": "Library",
+    "type": "post",
+    "url": "/book",
+    "title": "CreateBook",
+    "description": "<p>添加图书</p>",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "BookViewModel newBook = new BookViewModel();\nnewBook.setAvailableCount(5);\nnewBook.setBookId(\"404\");\nnewBook.setBookName(\"C++从入门到入土\");\nnewBook.setPublisher(\"东南大学出版社\");\nnewBook.setTotalCount(5);\nnewBook.setWriter(\"叶神\");\n\napi.post(\"/book\", JSON.toJSONString(newBook));",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "201 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "403 \"Book already exists.\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/LibraryController.java",
+    "groupTitle": "Library",
+    "name": "PostBook"
+  },
+  {
+    "group": "Library",
+    "type": "post",
+    "url": "/library/book",
+    "title": "NewBorrowRecords",
+    "description": "<p>借书</p>",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "\nWebResponse res = api.post(\"/library/borrow\", bookViewModel.getBookId());",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "201 \"Successfully created\"\n......",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "400 \"Incorrect body data\";\n400 \"No corresponding book found\"\n400 \"No available book now\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/LibraryController.java",
+    "groupTitle": "Library",
+    "name": "PostLibraryBook"
+  },
+  {
+    "group": "Library",
+    "type": "post",
+    "url": "/library/book",
+    "title": "SearchForBooks",
+    "description": "<p>按书名搜索图书</p>",
+    "permission": [
+      {
+        "name": "student admin"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "\nWebResponse res = api.post(\"/library/book\", keyword);\nList<BookViewModel> bookList = res.dataList(BookViewModel.class);",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n......",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "404 \"Book not found.\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/LibraryController.java",
+    "groupTitle": "Library",
+    "name": "PostLibraryBook"
+  },
+  {
+    "group": "Store",
+    "type": "delete",
+    "url": "/store/cart/{uid}",
+    "title": "DeleteCartGoods",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>删除购物车商品</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.delete(\"/store/cart/{uid}\");",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n......",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StoreController.java",
+    "groupTitle": "Store",
+    "name": "DeleteStoreCartUid"
+  },
+  {
+    "group": "Store",
+    "type": "get",
+    "url": "/store/cart",
+    "title": "GetCartList",
+    "permission": [
+      {
+        "name": "student teacher"
+      }
+    ],
+    "description": "<p>获取购物车列表</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "List_CartRecordViewModel",
+            "description": "<p>List of CartRecordViewModel</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n......",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.get(\"/store/cart\");\nList<CartRecordViewModel> cartList = res.dataList(CartRecordViewModel.class);",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StoreController.java",
+    "groupTitle": "Store",
+    "name": "GetStoreCart"
+  },
+  {
+    "group": "Store",
+    "type": "get",
+    "url": "/store/goods",
+    "title": "GetGoodsList",
+    "permission": [
+      {
+        "name": "all"
+      }
+    ],
+    "description": "<p>获取商品列表</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "List_GoodsViewModel",
+            "description": "<p>List of GoodsViewModel</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n......",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.get(\"/store/goods\");\nList<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StoreController.java",
+    "groupTitle": "Store",
+    "name": "GetStoreGoods"
+  },
+  {
+    "group": "Store",
+    "type": "patch",
+    "url": "/store/cart",
+    "title": "ModifyCart",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>增加商品数量(cart record已有该商品)</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.patch(\"/store/cart\", \"{\"uid\":uid, \"count\":\"count\"}\");",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n......",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StoreController.java",
+    "groupTitle": "Store",
+    "name": "PatchStoreCart"
+  },
+  {
+    "group": "Store",
+    "type": "post",
+    "url": "/goods",
+    "title": "",
+    "description": "<p>添加商品</p>",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "GoodsViewModel newGoods = new GoodsViewModel();\nnewGoods.setGoodsName(\"iPhone 100\");\nnewGoods.setImgUrl(\"./images/item.png\");\nnewGoods.setPrice(10000.);\nnewGoods.setTag(1);\n\nWebResponse res = api.post(\"/goods\", JSON.toJSONString(newGoods));",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "201 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "403 \"Goods already exists.\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StoreController.java",
+    "groupTitle": "Store",
+    "name": "PostGoods"
+  },
+  {
+    "group": "Store",
+    "type": "post",
+    "url": "/store/cart",
+    "title": "AddToCart",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>添加至购物车(cart record没有该商品)</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.post(\"/store/cart\", goodsId);",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n......",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StoreController.java",
+    "groupTitle": "Store",
+    "name": "PostStoreCart"
+  },
+  {
+    "group": "Store",
+    "type": "post",
+    "url": "/store/purchase",
+    "title": "Purchase",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>支付 删除CartRecord表相应购物车数据；Bank表里余额需要修改</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.post(\"/store/purchase\", JSON.toJSONString(List<CartRecordViewModel>, CartRecordViewModel.class));",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n......",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StoreController.java",
+    "groupTitle": "Store",
+    "name": "PostStorePurchase"
   },
   {
     "group": "StuInfo",
     "type": "get",
-    "url": "/stuInfo/campusCardID/:id",
-    "title": "GetStuInfo ( passed )",
+    "url": "/stuInfo/campusCardID/{uid}",
+    "title": "GetStuInfoById",
     "permission": [
       {
         "name": "student"
@@ -528,19 +1040,19 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "vCampus/vCampusClient/src/test/java/StuInfoApiTest.java",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StuInfoController.java",
     "groupTitle": "StuInfo",
-    "name": "GetStuinfoCampuscardidId"
+    "name": "GetStuinfoCampuscardidUid"
   },
   {
     "group": "StuInfo",
     "type": "patch",
     "url": "/stuInfo/campusCardID/:id",
-    "title": "ModifyStuInfo ( passed )",
+    "title": "ModifyStuInfo",
     "description": "<p>修改学生信息，该API不会返回修改后的StuInfo，若服务器告知修改成功，则前端自行对数据进行修改然后展示到界面上</p>",
     "permission": [
       {
-        "name": "student"
+        "name": "student admin"
       }
     ],
     "parameter": {
@@ -571,8 +1083,51 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "vCampus/vCampusClient/src/test/java/StuInfoApiTest.java",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StuInfoController.java",
     "groupTitle": "StuInfo",
     "name": "PatchStuinfoCampuscardidId"
+  },
+  {
+    "group": "StuInfo",
+    "type": "post",
+    "url": "/stuInfo",
+    "title": "CreateStuInfo",
+    "description": "<p>创建账号和学生信息，注意账号的campusCardId和StuInfo表关联，所以必须先创建账号，有初始化的密码和昵称。</p>",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "AccountViewModel newAccount = new AccountViewModel();\nnewAccount.setCampusCardId(\"213190000\");\nnewAccount.setFirstName(\"新\");\nnewAccount.setLastName(\"生\");\nnewAccount.setRole(\"student\");\nnewAccount.setNickname(\"昵称\");\nnewAccount.setPassword(\"09019000\");\n\nStuInfoViewModel newStudent = new StuInfoViewModel();\nnewStudent.setEnrollmentYear(new Integer(2019));\nnewStudent.setCampusCardId(\"213190000\");\nnewStudent.setStudentId(\"09019000\");\nnewStudent.setDepartment(\"计算机科学与工程学院\");\nnewStudent.setMajor(\"计算机科学与技术\");\n\nWebResponse res = api.post(\"/account\", JSON.toJSONString(newAccount));\nif(res.getStatusCode().equals(\"201\"))\n   api.post(\"/stuInfo\", JSON.toJSONString(newStudent));",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "201 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "403 \"StuInfo already exists.\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StuInfoController.java",
+    "groupTitle": "StuInfo",
+    "name": "PostStuinfo"
   }
 ]
