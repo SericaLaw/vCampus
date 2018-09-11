@@ -40,7 +40,7 @@ public class LibraryViewFactory {
         for(final BookViewModel book:bookList){
             VBox bookCardWrapper = new VBox();
 
-            Image bookImage = new Image("./images/Library.jpg", 240, 160, false, true, true);
+            Image bookImage = new Image("./images/Library.jpg", 240, 160, true, true, true);
             ImageView bookImageContent = new ImageView(bookImage);
             Rectangle clip = new Rectangle(
                     bookImage.getRequestedWidth(), bookImage.getRequestedHeight()
