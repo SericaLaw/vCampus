@@ -143,11 +143,7 @@ public class StoreController extends Controller {
      * @apiPermission student
      * @apiDescription 增加商品数量(cart record已有该商品)
      * @apiParamExample Code Snippets
-<<<<<<< HEAD
      * WebResponse res = api.patch("/store/cart", "{"uuid":uuid, "count":count}");
-=======
-     * WebResponse res = api.patch("/store/cart", "{"uid":uid, "count":"count"}");
->>>>>>> 32eade46167b4f10c72e5bcb7133527268b07afd
      *
      * @apiSuccessExample Success-Response:
      *      200 OK

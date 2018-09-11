@@ -1,5 +1,8 @@
 package team.yummy.vCampus.models.viewmodel;
 
+import team.yummy.vCampus.models.entity.GoodsEntity;
+
+import java.lang.reflect.Field;
 import java.util.UUID;
 
 /**
