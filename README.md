@@ -1,6 +1,6 @@
 # vCampus
 
-一个没有用任何框架的原始app，前端采用[Java FX](https://docs.oracle.com/javase/8/javase-clienttechnologies.htm)编程，后端目前纯Java手撸，使用Java Socket进行前后端通信，使用Access数据库。
+~~一个没有用任何框架的原始app（屈服，真香）~~使用Hibernate ORM的Java App，前端采用[Java FX](https://docs.oracle.com/javase/8/javase-clienttechnologies.htm)编程，后端~~目前纯Java手撸~~是不会使用Spring的，不会使用Spring的。使用Java Socket进行前后端通信，使用Access数据库。
 
 按照项目要求，目录结构如下组织：
 
@@ -9,10 +9,14 @@
 | `vCampus/vCampusClient`    | 前端                                     |
 | `vCampus/vCampusServer `   | 后端                                     |
 | `vCampus/vCampusCore` | 前后端公用模块                           |
+|`vCampus/vCampusCore/data`|DBHelper工具类|
+|`vCampus/vCampusCore/models`|entity和viewmodel|
+|`vCampus/vCampusCore/util`|Api类和Logger工具类|
+|`vCampus/vCampusCore/web`|基于Socket封装的前后端通信工具类|
 | `vCampus/third-party-lib` | 项目依赖 |
 | `docs`               | 不存在的API文档                          |
 | `java-app-template-demo` | 一个采用MVC模式的Java示例程序 |
-| `vCampus/vCampusServer/src/main/resources/test_database.accdb` | 数据库 |
+| `vCampus/vCampusServer/database` | 数据库 |
 
 ## 构想
 
