@@ -1,4 +1,6 @@
 package team.yummy.vCampus.models.viewmodel;
+import team.yummy.vCampus.models.entity.CartRecordEntity;
+
 import java.sql.Timestamp;
 
 /**
@@ -9,21 +11,23 @@ import java.sql.Timestamp;
 
 
 public class CartRecordViewModel {
-    private int cartRecordID;
-    private String campusCardID;
-    private int goodsID;
+    private String cartRecordId;
+    private String campusCardId;
+    private String goodsId;
     private String goodsName;
-    private double price;
+    private Double price;
     private String info;
     private String imgUrl;
-    private int goodsCount;
+    private Integer goodsCount;
     private Boolean isSelected;
     private Timestamp createdTime;
 
-    public CartRecordViewModel(int cartRecordID, String campusCardID,int goodsID, String goodsName,double price,String info,String imgUrl,int goodsCount, Boolean isSelected, Timestamp createdTime){
-        this.cartRecordID = cartRecordID;
-        this.campusCardID = campusCardID;
-        this.goodsID = goodsID;
+    public CartRecordViewModel() {}
+
+    public CartRecordViewModel(String cartRecordId, String campusCardId, String goodsId, String goodsName, Double price, String info, String imgUrl, Integer goodsCount, Boolean isSelected, Timestamp createdTime){
+        this.cartRecordId = cartRecordId;
+        this.campusCardId = campusCardId;
+        this.goodsId = goodsId;
         this.goodsName = goodsName;
         this.price = price;
         this.info = info;
@@ -33,28 +37,40 @@ public class CartRecordViewModel {
         this.createdTime = createdTime;   
     }
 
-    public int getCartRecordID(){
-        return this.cartRecordID;
+    public CartRecordViewModel(CartRecordEntity record) {
+        this.cartRecordId = record.getCartRecordId();
+        this.campusCardId = record.getAccountByCampusCardId().getCampusCardId();
+        this.goodsId = record.getGoodsByGoodsId().getGoodsId();
+        this.goodsName = record.getGoodsByGoodsId().getGoodsName();
+        this.price = record.getGoodsByGoodsId().getPrice();
+        this.info = record.getGoodsByGoodsId().getInfo();
+        this.imgUrl = record.getGoodsByGoodsId().getImgUrl();
+        this.isSelected = record.getIsSel();
+        this.createdTime = record.getCreatedTime();
     }
 
-    public void setCartRecordID(int cartRecordID){
-        this.cartRecordID = cartRecordID;
+    public String getCartRecordID(){
+        return this.cartRecordId;
     }
 
-    public String getCampusCardID() { 
-        return this.campusCardID; 
+    public void setCartRecordID(String cartRecordID){
+        this.cartRecordId = cartRecordID;
+    }
+
+    public String getCampusCardId() {
+        return this.campusCardId;
     }
 
     public void setCampusCardId(String campusCardID) { 
-        this.campusCardID = campusCardID; 
+        this.campusCardId = campusCardID;
     }
 
-    public int getGoodsID() { 
-        return this.goodsID; 
+    public String getGoodsId() {
+        return this.goodsId;
     }
 
-    public void setGoodsID(int goodsID) { 
-        this.goodsID = goodsID; 
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
     }
 
     public String getGoodsName(){

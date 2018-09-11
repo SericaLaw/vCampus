@@ -2,6 +2,7 @@ package team.yummy.vCampus.models.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Dorm", schema = "\".\"", catalog = "\".\"")
@@ -35,25 +36,18 @@ public class DormEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         DormEntity that = (DormEntity) o;
-
-        if (dormId != null ? !dormId.equals(that.dormId) : that.dormId != null) return false;
-        if (bedNo != null ? !bedNo.equals(that.bedNo) : that.bedNo != null) return false;
-
-        return true;
+        return Objects.equals(dormId, that.dormId) &&
+                Objects.equals(bedNo, that.bedNo);
     }
 
     @Override
     public int hashCode() {
-        int result = 0;
-        result = 31 * result + (dormId != null ? dormId.hashCode() : 0);
-        result = 31 * result + (bedNo != null ? bedNo.hashCode() : 0);
-        return result;
+        return Objects.hash(dormId, bedNo);
     }
 
     @ManyToOne
-    @JoinColumn(name = "CampusCardID", referencedColumnName = "CampusCardID", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "CampusCardID", referencedColumnName = "CampusCardID", nullable = false)
     public AccountEntity getAccountByCampusCardId() {
         return accountByCampusCardId;
     }

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE hibernate-mapping PUBLIC
-    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
     <class name="team.yummy.vCampus.models.entity.AccountEntity" table="Account" schema="&quot;.&quot;"
@@ -13,11 +13,18 @@
         <property name="firstName" column="FirstName"/>
         <property name="role" column="Role"/>
         <one-to-one name="stuInfoByCampusCardId" class="team.yummy.vCampus.models.entity.StuInfoEntity"/>
+        <one-to-one name="bankAccountByCampusCardId" class="team.yummy.vCampus.models.entity.BankAccountEntity"/>
         <set name="borrowRecordsByCampusCardId" inverse="true">
             <key>
                 <column name="CampusCardID"/>
             </key>
             <one-to-many not-found="ignore" class="team.yummy.vCampus.models.entity.BorrowRecordEntity"/>
+        </set>
+        <set name="cartRecordsByCampusCardId" inverse="true">
+            <key>
+                <column name="CampusCardID"/>
+            </key>
+            <one-to-many not-found="ignore" class="team.yummy.vCampus.models.entity.CartRecordEntity"/>
         </set>
         <set name="courseRecordsByCampusCardId" inverse="true">
             <key>
