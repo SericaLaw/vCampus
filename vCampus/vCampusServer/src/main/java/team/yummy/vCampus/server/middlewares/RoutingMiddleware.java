@@ -53,6 +53,19 @@ public class RoutingMiddleware implements Middleware {
                 DBHelper dbhelper = new DBHelper(url);
                 switch (ctx.request.getType()) {
                 case GET: {
+                    // 范围查询，仅返回前20条记录
+                    if (ctx.request.getField() == null) {
+                        String jsonData = dbhelper.select(ctx.request.getTableName(), 20);
+                        if (jsonData == null) {
+                            ctx.response.setStatusCode("404");
+                            ctx.response.setMessage("Table not found");
+                        } else {
+                            ctx.response.setStatusCode("200");
+                            ctx.response.setBody(jsonData);
+                            ctx.response.setMessage("OK");
+                        }
+                        break;
+                    }
                     // 精准查询 ~/stuInfo/campusCardID/213170000，注意这里返回的全是数组形式的JSON数据！
                     String jsonData = dbhelper.select(
                         ctx.request.getTableName(),

@@ -36,7 +36,7 @@ public class StuInfoController extends Controller {
                 grade += (record.getScore() - 50) / 10;
             }
             gpa += grade * record.getCourseByCourseId().getCredit().doubleValue();
-            credits +=  record.getCourseByCourseId().getCredit().doubleValue();
+            credits += record.getCourseByCourseId().getCredit().doubleValue();
         }
         gpa /= credits;
 
