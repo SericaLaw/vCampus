@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.junit.Test;
 import team.yummy.vCampus.models.CourseStatusEnum;
 import team.yummy.vCampus.models.Semester;
 import team.yummy.vCampus.models.entity.*;
@@ -401,6 +402,23 @@ public class CourseController extends Controller {
 
     /**
      * @apiGroup Course
+     * @api {patch} /course/record ModifyCourseRecord
+     * @apiPermission teacher
+     * @apiDescription 登记或改变学生成绩
+     * @apiParamExample Code Snippets
+     * WebResponse res = api.patch("/course/record", "{"id":"uuid", "score":"the score"}");
+     * List<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);
+     * @apiSuccessExample Success-Response:
+     *      200 OK
+     */
+
+    @Patch(route = "record")
+    public void modifyCourseRecord() {
+
+    }
+
+    /**
+     * @apiGroup Course
      * @api {get} /course GetCourseList
      * @apiPermission admin
      * @apiDescription 获取课程列表
@@ -439,9 +457,11 @@ public class CourseController extends Controller {
      *          "ExamVenue":"J4-104",
      *          "StuAttendCount":"2",
      *          "ProfCampusCardID":"2001"
-     *       }]
+     *      }]
      * @apiErrorExample Error-Response:
      *     404 "Course not found."
      *
      */
+
+
 }

@@ -13,7 +13,6 @@ public class CourseReportViewModel {
     private String semester;
     private String scoreType;
 
-
     public CourseReportViewModel() {}
 
     public CourseReportViewModel(String campusCardId, String courseName, double credit, int score, String semester, String scoreType) {
