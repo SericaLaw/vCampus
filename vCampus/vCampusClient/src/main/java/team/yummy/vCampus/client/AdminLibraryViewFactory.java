@@ -1,8 +1,10 @@
 package team.yummy.vCampus.client;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.deploy.panel.ExceptionListDialog;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -57,7 +59,7 @@ public class AdminLibraryViewFactory {
             JFXTextField bookTotalCount = new JFXTextField(Integer.toString(book.getTotalCount()));
             newRow_5.getChildren().addAll(title_TotalCount,bookTotalCount);
             Label title_AvailableCount=new Label("剩余量： ");
-            Label bookAvailableCount=new Label(Integer.toString(book.getAvailableCount()));
+            JFXTextField bookAvailableCount=new JFXTextField(Integer.toString(book.getAvailableCount()));
             newRow_6.getChildren().addAll(title_AvailableCount,bookAvailableCount);
 
 
@@ -86,11 +88,13 @@ public class AdminLibraryViewFactory {
             editBook.setFont(Font.font(18));
             editBook.setAlignment(Pos.BOTTOM_RIGHT);
 
-            final BookViewModel b = book;
+            //final BookViewModel b = book;
             final JFXTextField book_ID=bookID;
             final JFXTextField book_Name=bookName;
             final JFXTextField book_Writer=bookWriter;
             final JFXTextField book_Publisher=bookPublisher;
+            final JFXTextField book_TotalCount=bookTotalCount;
+            final JFXTextField book_AvailableCount=bookAvailableCount;
             final Label error_Text=errorText;
             editBook.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -101,25 +105,29 @@ public class AdminLibraryViewFactory {
                         book_Name.setDisable(false);
                         book_Writer.setDisable(false);
                         book_Publisher.setDisable(false);
+                        book_TotalCount.setDisable(false);
+                        book_AvailableCount.setDisable(false);
                     }
                     else {
                         String ID=book_ID.getText();
                         String Name=book_Name.getText();
                         String Writer=book_Writer.getText();
                         String Publisher=book_Publisher.getText();
+                        String TotalCount=book_TotalCount.getText();
+                        String AvailableCount=book_AvailableCount.getText();
 
-                        if (ID.length() == 0 || Name.length() == 0 || Writer.length() == 0 ||
-                                Publisher.length() == 0)
+                        if (ID.length() == 0 || Name.length() == 0 || Writer.length() == 0 || Publisher.length() == 0
+                                || TotalCount.length()==0 || AvailableCount.length()==0)
                             error_Text.setText("有空选项!");
 
                         else {
-                            JSONObject infoToModify = new JSONObject();
-                            infoToModify.put("BookID", ID);
-                            infoToModify.put("BookName", Name);
-                            infoToModify.put("Writer", Writer);
-                            infoToModify.put("Publisher", Publisher);
-                            // TODO
-                            adminViewController.api.patch("/book" + adminViewController.currentAccount.getCampusCardId(), infoToModify.toJSONString());
+//                            JSONObject infoToModify = new JSONObject();
+//                            infoToModify.put("BookID", ID);
+//                            infoToModify.put("BookName", Name);
+//                            infoToModify.put("Writer", Writer);
+//                            infoToModify.put("Publisher", Publisher);
+//                            // TODO
+//                            adminViewController.api.patch("/book" + adminViewController.currentAccount.getCampusCardId(), infoToModify.toJSONString());
 
                             error_Text.setText("");
                             book_ID.setDisable(true);
@@ -156,7 +164,6 @@ public class AdminLibraryViewFactory {
         return rows;
     }
 
-
     public List<HBox> createEmptyBookRows() {
         List<HBox> rows = new ArrayList<>();
         HBox newRow = new HBox();
@@ -184,7 +191,7 @@ public class AdminLibraryViewFactory {
         JFXTextField bookTotalCount = new JFXTextField();
         newRow_5.getChildren().addAll(title_TotalCount, bookTotalCount);
         Label title_AvailableCount = new Label("剩余量： ");
-        Label bookAvailableCount = new Label();
+        JFXTextField bookAvailableCount = new JFXTextField();
         newRow_6.getChildren().addAll(title_AvailableCount, bookAvailableCount);
 
 
@@ -194,7 +201,7 @@ public class AdminLibraryViewFactory {
         bookWriter.setDisable(false);
         bookPublisher.setDisable(false);
         bookTotalCount.setDisable(false);
-        bookAvailableCount.setDisable(true);
+        bookAvailableCount.setDisable(false);
 
         final JFXButton editBook = new JFXButton("保存");
         Image bookImage = new Image("./images/Library.jpg", 240, 160, false, true, true);
@@ -211,7 +218,6 @@ public class AdminLibraryViewFactory {
         editBook.setTextFill(Color.web("#FFF"));
         editBook.setFont(Font.font(18));
         editBook.setAlignment(Pos.BOTTOM_RIGHT);
-
 
         BUTTONBOX.getChildren().add(editBook);
         BUTTONBOX.setAlignment(Pos.BOTTOM_RIGHT);
@@ -237,12 +243,11 @@ public class AdminLibraryViewFactory {
         final JFXTextField book_Writer = bookWriter;
         final JFXTextField book_Publisher = bookPublisher;
         final JFXTextField book_TotalCount = bookTotalCount;
-        final Label book_AvailableCount = bookAvailableCount;
+        final JFXTextField book_AvailableCount = bookAvailableCount;
         final Label error_Text = errorText;
         editBook.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                book_AvailableCount.setText(book_TotalCount.getText());
                 String ID = book_ID.getText();
                 String Name = book_Name.getText();
                 String Writer = book_Writer.getText();
@@ -250,19 +255,20 @@ public class AdminLibraryViewFactory {
                 String TotalCount=book_TotalCount.getText();
                 String AvailableCount = book_AvailableCount.getText();
 
-                if (ID.length() == 0 || Name.length() == 0 || Writer.length() == 0 || Publisher.length() == 0 || AvailableCount.length()==0)
+                if (ID.length() == 0 || Name.length() == 0 || Writer.length() == 0 || Publisher.length() == 0
+                        || TotalCount.length() == 0 || AvailableCount.length() == 0 )
                     error_Text.setText("有空选项!");
                 else {
-                    JSONObject infoToModify = new JSONObject();
-                    infoToModify.put("BookID", ID);
-                    infoToModify.put("BookName", Name);
-                    infoToModify.put("Writer", Writer);
-                    infoToModify.put("Publisher", Publisher);
-                    infoToModify.put("TotalCount", TotalCount);
-                    infoToModify.put("AvailableCount", AvailableCount);
 
-                    // TODO
-                    adminViewController.api.patch("/book" + adminViewController.currentAccount.getCampusCardId(), infoToModify.toJSONString());
+                    BookViewModel newBook = new BookViewModel();
+                    newBook.setBookId(ID);
+                    newBook.setBookName(Name);
+                    newBook.setWriter(Writer);
+                    newBook.setPublisher(Publisher);
+                    newBook.setTotalCount(Integer.valueOf(TotalCount));
+                    newBook.setAvailableCount(Integer.valueOf(AvailableCount));
+
+                    adminViewController.api.post("/book", JSON.toJSONString(newBook));
 
                     error_Text.setText("");
                     book_ID.setDisable(true);
@@ -270,6 +276,7 @@ public class AdminLibraryViewFactory {
                     book_Writer.setDisable(true);
                     book_Publisher.setDisable(true);
                     book_TotalCount.setDisable(true);
+                    book_AvailableCount.setDisable(true);
                     editBook.setText("编辑");
                 }
             }
@@ -277,7 +284,6 @@ public class AdminLibraryViewFactory {
 
         return rows;
     }
-
 }
 
 
