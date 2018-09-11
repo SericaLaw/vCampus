@@ -44,6 +44,11 @@ public class Controller {
                 }
             }
 
+            // 路由失败
+            if (action == null) {
+                return false;
+            }
+
             ArrayList<String> arguments = new ArrayList<String>();
             if (request.getValue() != null) {
                 arguments.add(request.getValue());

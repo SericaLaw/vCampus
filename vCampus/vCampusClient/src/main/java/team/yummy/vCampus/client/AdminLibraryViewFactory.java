@@ -29,7 +29,7 @@ public class AdminLibraryViewFactory {
         this.adminViewController = adminViewController;
     }
 
-    public List<HBox> createBookRows(List<BookViewModel> bookList) {
+    public List<HBox> createFullBookRows(List<BookViewModel> bookList) {
         List<HBox> rows = new ArrayList<>();
         for(BookViewModel book:bookList){
             HBox newRow=new HBox();
@@ -41,7 +41,7 @@ public class AdminLibraryViewFactory {
             HBox newRow_5=new HBox();
             HBox newRow_6=new HBox();
             Label title_ID=new Label("ID: ");
-            JFXTextField bookID = new JFXTextField(book.getBookID());
+            JFXTextField bookID = new JFXTextField(book.getBookId());
             newRow_1.getChildren().addAll(title_ID,bookID);
             Label title_Name1=new Label("书名: 《");
             JFXTextField bookName = new JFXTextField(book.getBookName());
@@ -118,7 +118,8 @@ public class AdminLibraryViewFactory {
                             infoToModify.put("BookName", Name);
                             infoToModify.put("Writer", Writer);
                             infoToModify.put("Publisher", Publisher);
-                            adminViewController.api.patch("/book" + adminViewController.currentAccount.getCampusCardID(), infoToModify.toJSONString());
+                            // TODO
+                            adminViewController.api.patch("/book" + adminViewController.currentAccount.getCampusCardId(), infoToModify.toJSONString());
 
                             error_Text.setText("");
                             book_ID.setDisable(true);
@@ -260,7 +261,8 @@ public class AdminLibraryViewFactory {
                     infoToModify.put("TotalCount", TotalCount);
                     infoToModify.put("AvailableCount", AvailableCount);
 
-                    adminViewController.api.patch("/book" + adminViewController.currentAccount.getCampusCardID(), infoToModify.toJSONString());
+                    // TODO
+                    adminViewController.api.patch("/book" + adminViewController.currentAccount.getCampusCardId(), infoToModify.toJSONString());
 
                     error_Text.setText("");
                     book_ID.setDisable(true);

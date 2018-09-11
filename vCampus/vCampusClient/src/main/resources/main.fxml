@@ -714,7 +714,7 @@
                               <Label text="姓名" textFill="#707070" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP" />
                               <Label text="权限" textFill="#707070" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP" />
                               <Label fx:id="am_CampusCardID" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                              <Label fx:id="am_Username" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <Label fx:id="am_Nickname" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                               <Label fx:id="am_Name" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                               <Label fx:id="am_Role" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                               <ImageView fitHeight="40.0" fitWidth="40.0" GridPane.halignment="CENTER">

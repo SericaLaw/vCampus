@@ -267,7 +267,7 @@
     -fx-effect:dropshadow(one-pass-box, #bbb, 20, 0.05, 3, 8);
 }
 
-#am_CampusCardID,#am_Username,#am_Name,#am_Role{
+#am_CampusCardID,#am_Nickname,#am_Name,#am_Role{
     -fx-font-size:20px;
 }
 

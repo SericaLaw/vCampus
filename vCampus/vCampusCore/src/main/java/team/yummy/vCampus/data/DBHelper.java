@@ -14,12 +14,7 @@ import java.util.*;
  * TODO: 防SQL注入
  */
 public class DBHelper {
-    // DB_URI  = 数据库的资源标识符
-    private URI DB_URI;
-    // DB_PATH = 项目所在系统中的绝对路径
-    private String DB_PATH;
-    // 数据库URL：最终传入DriverManager.getConnection方法的URL
-    private String DB_URL;
+    private String url = null;
     private Connection conn = null;
     private PreparedStatement stmt = null;
     private Logger logger = new Logger("DBHelper");
@@ -28,17 +23,13 @@ public class DBHelper {
      * 构造函数，用于配置数据库路径
      * 每次创建一个DBHelper实例时，都会打印相关日志信息
      */
-    public DBHelper(URI uri) {
-        // 获取项目路径
-        DB_URI = uri;
-        // TODO:在下面配置数据库路径，DB_PATH = 项目所在系统中的绝对路径 + DB_DIR
-        DB_PATH = new File(DB_URI).getAbsolutePath().replace('\\', '/');
-        DB_URL = "jdbc:Access:///" + DB_PATH;
+    public DBHelper(String url) {
+        this.url = url;
         try {
             // 连接数据库
             Class.forName("com.hxtt.sql.access.AccessDriver");
-            logger.log("... Connecting to Database: " + DB_URL);
-            this.conn = DriverManager.getConnection(DB_URL, "", "");
+            logger.log("... Connecting to Database: " + url);
+            this.conn = DriverManager.getConnection(url, "", "");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -348,6 +339,14 @@ public class DBHelper {
     public static void main(String[] args) {
 
 
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
 

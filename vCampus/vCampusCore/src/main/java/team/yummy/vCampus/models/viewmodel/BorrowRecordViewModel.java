@@ -1,7 +1,5 @@
 package team.yummy.vCampus.models.viewmodel;
 
-import team.yummy.vCampus.models.entity.AccountEntity;
-
 import java.util.Date;
 
 /**
@@ -10,8 +8,9 @@ import java.util.Date;
  * 存放关联查询的结果，用于前端展示在借图书信息
  */
 public class BorrowRecordViewModel {
+    private String Id;
     private String campusCardId;
-    private String bookID;
+    private String bookId;
     private String bookName;
     private String writer;
     private String publisher;
@@ -21,9 +20,15 @@ public class BorrowRecordViewModel {
 
     public BorrowRecordViewModel() {}
 
-    public BorrowRecordViewModel(String campusCardId, String bookID, String bookName, String writer, String publisher, Date borrowDate, Date expiryDate) {
+    public BorrowRecordViewModel(String bookId, String campusCardId) {
+        this.bookId = bookId;
         this.campusCardId = campusCardId;
-        this.bookID = bookID;
+    }
+
+    public BorrowRecordViewModel(String Id, String campusCardId, String bookId, String bookName, String writer, String publisher, Date borrowDate, Date expiryDate) {
+        this.Id = Id;
+        this.campusCardId = campusCardId;
+        this.bookId = bookId;
         this.bookName = bookName;
         this.writer = writer;
         this.publisher = publisher;
@@ -31,12 +36,12 @@ public class BorrowRecordViewModel {
         this.expiryDate = expiryDate;
     }
 
-    public String getBookID() {
-        return bookID;
+    public String getBookId() {
+        return bookId;
     }
 
-    public void setBookID(String bookID) {
-        this.bookID = bookID;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
     public String getBookName() {
@@ -85,5 +90,13 @@ public class BorrowRecordViewModel {
 
     public void setCampusCardId(String campusCardId) {
         this.campusCardId = campusCardId;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
     }
 }

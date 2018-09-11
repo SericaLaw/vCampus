@@ -1,5 +1,6 @@
 package team.yummy.vCampus.client;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXRadioButton;
@@ -8,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import team.yummy.vCampus.models.viewmodel.AccountViewModel;
+import team.yummy.vCampus.models.viewmodel.LoginViewModel;
 import team.yummy.vCampus.web.WebResponse;
 
 import javafx.fxml.FXML;
@@ -80,8 +83,8 @@ public class WelcomeViewController extends ViewController implements Initializab
 
         else
         {
-
-            WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
+            LoginViewModel login = new LoginViewModel(username, password);
+            WebResponse res = api.post("/account/login", JSON.toJSONString(login));
             switch (res.getStatusCode()) {
                 case "200":
                     setAccountJsonData(res.getBody());
@@ -117,7 +120,8 @@ public class WelcomeViewController extends ViewController implements Initializab
 
 
             else {
-                WebResponse res = api.post("/account/login", String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password));
+                LoginViewModel login = new LoginViewModel(username, password);
+                WebResponse res = api.post("/account/login", JSON.toJSONString(login));
                 switch (res.getStatusCode()) {
                     case "200":
                         setAccountJsonData(res.getBody());

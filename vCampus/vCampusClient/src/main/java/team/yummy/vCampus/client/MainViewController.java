@@ -15,7 +15,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import team.yummy.vCampus.models.*;
 
-import team.yummy.vCampus.models.viewmodel.BookViewModel;
+import team.yummy.vCampus.models.entity.BorrowRecordEntity;
+import team.yummy.vCampus.models.entity.StuInfoEntity;
+import team.yummy.vCampus.models.viewmodel.*;
 import team.yummy.vCampus.web.WebResponse;
 
 import javafx.fxml.FXML;
@@ -80,14 +82,14 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML public Button content__Store__Cart__Pay;
 
     @FXML public Label am_CampusCardID;
-    @FXML public Label am_Username;
+    @FXML public Label am_Nickname;
     @FXML public Label am_Role;
     @FXML public Label am_Name;
 
     @FXML public VBox library_inquireBox;
     @FXML public TextField library_InquireText;
     @FXML protected VBox library_borrowedBox;
-    public List<BorrowedBook> borrowedbookList=new ArrayList<>();
+    public List<BorrowRecordViewModel> borrowedbookList=new ArrayList<>();
 
 
     /**
@@ -110,7 +112,7 @@ public class MainViewController extends ViewController implements Initializable 
      */
     @FXML public GridPane course_scheduleGrid;
 
-    public List<CourseScheduleItem> courseScheduleItems = new ArrayList<>();
+    public List<CourseScheduleViewModel> CourseScheduleViewModels = new ArrayList<>();
 
     /**
      * members for course report
@@ -132,7 +134,7 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML public VBox register_statusCol;
     @FXML public VBox register_opCol;
     // 数据
-    public List<CourseReportItem> courseReportItems = new ArrayList<>();
+    public List<CourseReportViewModel> CourseReportViewModels = new ArrayList<>();
 
     public double xOffset = 0;
     public double yOffset = 0;
@@ -159,10 +161,10 @@ public class MainViewController extends ViewController implements Initializable 
         goodsToBuy.add(good1);
         goodsToBuy.add(good2);
 
-        CourseScheduleItem courseScheduleItem1 = new CourseScheduleItem("1001", 1, 1, 3, "数据结构", "邓俊辉","J2-102");
-        CourseScheduleItem courseScheduleItem2 = new CourseScheduleItem("2001", 1, 12, 13, "算法", "图灵","J2-202");
-        courseScheduleItems.add(courseScheduleItem1);
-        courseScheduleItems.add(courseScheduleItem2);
+        CourseScheduleViewModel CourseScheduleViewModel1 = new CourseScheduleViewModel("1001", 1, 1, 3, "数据结构", "邓俊辉","J2-102");
+        CourseScheduleViewModel CourseScheduleViewModel2 = new CourseScheduleViewModel("2001", 1, 12, 13, "算法", "图灵","J2-202");
+        CourseScheduleViewModels.add(CourseScheduleViewModel1);
+        CourseScheduleViewModels.add(CourseScheduleViewModel2);
     }
 
     @FXML
@@ -196,8 +198,8 @@ public class MainViewController extends ViewController implements Initializable 
 
         //WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
         //StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
-        am_CampusCardID.setText(currentAccount.getCampusCardID());
-        am_Username.setText(currentAccount.getUsername());
+        am_CampusCardID.setText(currentAccount.getCampusCardId());
+        am_Nickname.setText(currentAccount.getNickname());
         am_Role.setText(currentAccount.getRole());
         am_Name.setText(currentAccount.getFirstName()+currentAccount.getLastName());
     }
@@ -206,21 +208,21 @@ public class MainViewController extends ViewController implements Initializable 
     protected void switchStuInfo(ActionEvent actionEvent) {
         togglePane(StuInfoPane);
 
-        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
-        StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
+        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
+        StuInfoViewModel stuInfoGot = res.dataList(StuInfoViewModel.class, 0);
         si_Name.setText(currentAccount.getLastName()+currentAccount.getFirstName());
-        si_GPA.setText(stuInfoGot.getGPA());
-        si_SRTP.setText(stuInfoGot.getSRTP());
-        si_LAC.setText(stuInfoGot.getLectureAttendCount());
-        si_CampusCardID.setText(stuInfoGot.getCampusCardID());
-        si_StudentID.setText(stuInfoGot.getStudentID());
+        si_GPA.setText(stuInfoGot.getGpa().toString());
+        si_SRTP.setText(stuInfoGot.getSrtp().toString());
+        si_LAC.setText(stuInfoGot.getLectureAttendCount().toString());
+        si_CampusCardID.setText(stuInfoGot.getCampusCardId());
+        si_StudentID.setText(stuInfoGot.getStudentId());
         si_Department.setText(stuInfoGot.getDepartment());
         si_Major.setText(stuInfoGot.getMajor());
-        si_EnrollmentYear.setText(stuInfoGot.getEnrollmentYear());
-        si_IDNum.setText(stuInfoGot.getIDNum());
+        si_EnrollmentYear.setText(stuInfoGot.getEnrollmentYear().toString());
+        si_IDNum.setText(stuInfoGot.getIdNum());
         si_Sex.setValue(stuInfoGot.getSex());
         //LocalDate d=stuInfoGot.getBirthDate();
-        Date date = stuInfoGot.getBirthDate();
+        Date date = stuInfoGot.getBirthdate();
         Instant instant = date.toInstant();
         ZoneId zoneId = ZoneId.systemDefault();
         // atZone()方法返回在指定时区从此Instant生成的ZonedDateTime。
@@ -236,7 +238,7 @@ public class MainViewController extends ViewController implements Initializable 
 
     public static class CourseScheduleViewData {
         private final SimpleStringProperty content = new SimpleStringProperty();
-        CourseScheduleViewData(CourseScheduleItem course) {
+        CourseScheduleViewData(CourseScheduleViewModel course) {
             setContent(course.getCourseName() + "@" + course.getCourseVenue());
         }
 
@@ -259,22 +261,22 @@ public class MainViewController extends ViewController implements Initializable 
         CourseViewFactory factory = new CourseViewFactory(this);
 
         WebResponse res = api.get("/course/schedule");
-        courseScheduleItems = res.dataList(CourseScheduleItem.class);
-        factory.createCourseSchedule(courseScheduleItems);
+        CourseScheduleViewModels = res.dataList(CourseScheduleViewModel.class);
+        factory.createCourseSchedule(CourseScheduleViewModels);
 
         /**
          * 成绩查询
          */
 
         res = api.get("/course/report");
-        courseReportItems = res.dataList(CourseReportItem.class);
-        factory.createCourseReport(courseReportItems);
+        CourseReportViewModels = res.dataList(CourseReportViewModel.class);
+        factory.createCourseReport(CourseReportViewModels);
 
         /**
          * 选课
          */
         res = api.get("/course/register");
-        CourseRegister courseRegister = res.data(CourseRegister.class);
+        List<CourseRegisterViewModel> courseRegister = res.dataList(CourseRegisterViewModel.class);
         factory.createCourseRegister(courseRegister);
     }
     @FXML
@@ -288,7 +290,7 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML
     protected void switchLibrary(ActionEvent actionEvent) {
         togglePane(LibraryPane);
-        WebResponse res = api.get("/book");
+        WebResponse res = api.get("/library/book");
         List<BookViewModel> bookList = res.dataList(BookViewModel.class);
         LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
         List<HBox> row = libraryViewFactory.createBookRows(bookList, 3);
@@ -299,8 +301,8 @@ public class MainViewController extends ViewController implements Initializable 
             library_inquireBox.getChildren().addAll(row);
         }
 
-        WebResponse resed = api.get("/borrowBook");
-        List<BorrowedBook> borrowedbookList=resed.dataList(BorrowedBook.class);
+        WebResponse resed = api.get("/library/borrow");
+        List<BorrowRecordViewModel> borrowedbookList=resed.dataList(BorrowRecordViewModel.class);
         List<HBox> borrowedRows=libraryViewFactory.createBorrowedbookRows(borrowedbookList);
         library_borrowedBox.getChildren().addAll(borrowedRows);
 
@@ -382,7 +384,7 @@ public class MainViewController extends ViewController implements Initializable 
                 infoToModify.put("Email", Email);
                 infoToModify.put("Address", Address);
                 infoToModify.put("SeniorHigh", SeniorHigh);
-                api.patch("/stuInfo/campusCardID/" + currentAccount.getCampusCardID(), infoToModify.toJSONString());
+                api.patch("/stuInfo/campusCardID/" + currentAccount.getCampusCardId(), infoToModify.toJSONString());
 
                 si_errorText.setText("");
                 si_IDNum.setDisable(true);
@@ -492,7 +494,7 @@ public class MainViewController extends ViewController implements Initializable 
             @Override
             public void handle(ActionEvent event) {
                 //销号的操作
-                api.delete("/account/campusCardId/"+ currentAccount.getCampusCardID());
+                api.delete("/account/campusCardId/"+ currentAccount.getCampusCardId());
                 InitPane.setVisible(true);
                 StuInfoPane.setVisible(false);
                 CoursePane.setVisible(false);
@@ -531,7 +533,7 @@ public class MainViewController extends ViewController implements Initializable 
         if (keyword==null||keyword.equals("")) {
             library_InquireText.setPromptText("请输入关键字");
         } else {
-            WebResponse res = api.get("/book/bookName/" + keyword + "/like");
+            WebResponse res = api.post("/library/book", keyword);
             List<BookViewModel> bookList_keyword = res.dataList(BookViewModel.class);
             LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
             List<HBox> row = libraryViewFactory.createBookRows(bookList_keyword, 1);
@@ -552,7 +554,7 @@ public class MainViewController extends ViewController implements Initializable 
         if (keyword==null||keyword.equals("")) {
             library_InquireText.setPromptText("请输入关键字");
         } else {
-            WebResponse res = api.get("/book/bookName/" + keyword + "/like");
+            WebResponse res = api.post("/library/book", keyword);
             List<BookViewModel> bookList_keyword = res.dataList(BookViewModel.class);
             LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
             List<HBox> row = libraryViewFactory.createBookRows(bookList_keyword, 1);
@@ -566,45 +568,45 @@ public class MainViewController extends ViewController implements Initializable 
         }
     }
 
-    /**
-     * 计算GPA
-     * @param reportItems
-     * @return
-     */
-    public double calculateGPA(List<CourseReportItem> reportItems) {
-        double GPA = 0;
-        double totalCredit = 0;
-        for(CourseReportItem report : reportItems) {
-            totalCredit += report.getCredit();
-            int score = report.getScore();
-            double credit = report.getCredit();
-            if(score >= 96)
-                GPA += 4.8 * credit;
-            else if(score >= 93)
-                GPA += 4.5 * credit;
-            else if(score >= 90)
-                GPA += 4.0 * credit;
-            else if(score >= 86)
-                GPA += 3.8 * credit;
-            else if(score >= 83)
-                GPA += 3.5 * credit;
-            else if(score >= 80)
-                GPA += 3.0 * credit;
-            else if(score >= 76)
-                GPA += 2.8 * credit;
-            else if(score >= 73)
-                GPA += 2.5 * credit;
-            else if(score >= 70)
-                GPA += 2.0 * credit;
-            else if(score >= 66)
-                GPA += 1.8 * credit;
-            else if(score >= 63)
-                GPA += 1.5 * credit;
-            else if(score >=60)
-                GPA += 1.0 * credit;
-        }
-        return GPA / totalCredit;
-    }
+//    /**
+//     * 计算GPA
+//     * @param reportItems
+//     * @return
+//     */
+//    public double calculateGPA(List<CourseReportViewModel> reportItems) {
+//        double GPA = 0;
+//        double totalCredit = 0;
+//        for(CourseReportViewModel report : reportItems) {
+//            totalCredit += report.getCredit();
+//            int score = report.getScore();
+//            double credit = report.getCredit();
+//            if(score >= 96)
+//                GPA += 4.8 * credit;
+//            else if(score >= 93)
+//                GPA += 4.5 * credit;
+//            else if(score >= 90)
+//                GPA += 4.0 * credit;
+//            else if(score >= 86)
+//                GPA += 3.8 * credit;
+//            else if(score >= 83)
+//                GPA += 3.5 * credit;
+//            else if(score >= 80)
+//                GPA += 3.0 * credit;
+//            else if(score >= 76)
+//                GPA += 2.8 * credit;
+//            else if(score >= 73)
+//                GPA += 2.5 * credit;
+//            else if(score >= 70)
+//                GPA += 2.0 * credit;
+//            else if(score >= 66)
+//                GPA += 1.8 * credit;
+//            else if(score >= 63)
+//                GPA += 1.5 * credit;
+//            else if(score >=60)
+//                GPA += 1.0 * credit;
+//        }
+//        return GPA / totalCredit;
+//    }
 
     public void switchInit(ActionEvent actionEvent) {
         togglePane(InitPane);

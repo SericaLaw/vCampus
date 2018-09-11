@@ -243,4 +243,5 @@ public class StuInfoEntity {
     public void setAccountByCampusCardId(AccountEntity accountByCampusCardId) {
         this.accountByCampusCardId = accountByCampusCardId;
     }
+    
 }

@@ -1,5 +1,7 @@
 package team.yummy.vCampus.models.viewmodel;
 
+import team.yummy.vCampus.models.entity.AccountEntity;
+
 public class AccountViewModel {
     private String nickname;
     private String password;
@@ -7,6 +9,17 @@ public class AccountViewModel {
     private String firstName;
     private String campusCardId;
     private String role;
+
+    public AccountViewModel() {}
+
+    public AccountViewModel(AccountEntity account) {
+        this.campusCardId = account.getCampusCardId();
+        this.password = account.getPassword();
+        this.nickname = account.getNickname();
+        this.firstName = account.getFirstName();
+        this.lastName = account.getLastName();
+        this.role = account.getRole();
+    }
 
     public String getNickname() {
         return nickname;

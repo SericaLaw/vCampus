@@ -1,5 +1,7 @@
 package team.yummy.vCampus.server.middlewares;
 
+import org.dom4j.Document;
+import org.dom4j.io.SAXReader;
 import team.yummy.vCampus.data.DBHelper;
 import team.yummy.vCampus.server.api.Controller;
 import team.yummy.vCampus.server.Server;
@@ -7,6 +9,7 @@ import team.yummy.vCampus.server.WebContext;
 import team.yummy.vCampus.server.api.*;
 import team.yummy.vCampus.util.Logger;
 
+import java.io.File;
 import java.net.URI;
 
 public class RoutingMiddleware implements Middleware {
@@ -37,19 +40,24 @@ public class RoutingMiddleware implements Middleware {
                 controller.run();
             }
 
+
+
             // 如果data仍为null且状态码不为500，说明路由失败
             if (ctx.response.getStatusCode() == null && ctx.response.getStatusCode() != "500") {
                 // 使用Method的默认方法处理
-                URI db_uri = Server.class.getClassLoader().getResource("test_database.accdb").toURI();
-                ctx.logger.log("Database dir: " + db_uri.toString());
-                DBHelper dbhelper = new DBHelper(db_uri);
+                SAXReader reader = new SAXReader();
+                String cfg_path = Server.class.getClassLoader().getResource("hibernate.cfg.xml").getPath().substring(1);
+                File cfg_file = new File(cfg_path);
+                Document config = reader.read(cfg_file);
+                String url = config.selectSingleNode("//property[@name='connection.url']").getStringValue();
+                DBHelper dbhelper = new DBHelper(url);
                 switch (ctx.request.getType()) {
                 case GET: {
                     // 精准查询 ~/stuInfo/campusCardID/213170000，注意这里返回的全是数组形式的JSON数据！
                     String jsonData = dbhelper.select(
-                            ctx.request.getTableName(),
-                            ctx.request.getField(),
-                            ctx.request.getValue()
+                        ctx.request.getTableName(),
+                        ctx.request.getField(),
+                        ctx.request.getValue()
                     );
                     if (jsonData == null) {
                         // get不到东西并不是错误，只是因为数据库里没有记录
@@ -60,13 +68,14 @@ public class RoutingMiddleware implements Middleware {
                         ctx.response.setBody(jsonData);
                         ctx.response.setMessage("OK");
                     }
+                    break;
                 }
                 case PATCH: {
                     boolean success = dbhelper.update(
-                            ctx.request.getTableName(),
-                            ctx.request.getField(),
-                            ctx.request.getValue(),
-                            ctx.request.getBody()
+                        ctx.request.getTableName(),
+                        ctx.request.getField(),
+                        ctx.request.getValue(),
+                        ctx.request.getBody()
                     );
                     if (success) {
                         ctx.response.setStatusCode("200");
@@ -79,8 +88,8 @@ public class RoutingMiddleware implements Middleware {
                 }
                 case POST: {
                     boolean insertSuc = dbhelper.insert(
-                            ctx.request.getTableName(),
-                            ctx.request.getBody()
+                        ctx.request.getTableName(),
+                        ctx.request.getBody()
                     );
                     if (insertSuc) {
                         // 创建成功，201
@@ -91,6 +100,7 @@ public class RoutingMiddleware implements Middleware {
                         ctx.response.setStatusCode("403");
                         ctx.response.setMessage(ctx.request.getTableName() + " already exist.");
                     }
+                    break;
                 }
                 case DELETE: {
                     // DELETE ~stuInfo/campusCardID/:id
@@ -105,6 +115,7 @@ public class RoutingMiddleware implements Middleware {
                         ctx.response.setStatusCode("404");
                         ctx.response.setMessage(ctx.request.getTableName() + " not found.");
                     }
+                    break;
                 }
                 }
             }

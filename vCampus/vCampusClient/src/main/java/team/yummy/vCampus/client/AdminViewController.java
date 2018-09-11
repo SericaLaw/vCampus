@@ -172,7 +172,7 @@ public class AdminViewController extends ViewController implements Initializable
         StorePane.setVisible(false);
         InitPane.setVisible(false);
 
-        am_Username.setText(currentAccount.getUsername());
+        am_Username.setText(currentAccount.getNickname());
         am_Role.setText(currentAccount.getRole());
     }
 
@@ -307,7 +307,7 @@ public class AdminViewController extends ViewController implements Initializable
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
-        WebResponse res = api.get("/book");
+        WebResponse res = api.get("/library/book");
         List<BookViewModel> bookList = res.dataList(BookViewModel.class);
         AdminLibraryViewFactory adminlibraryViewFactory = new AdminLibraryViewFactory(rootStackPane,this);
         List<HBox> row = adminlibraryViewFactory.createFullBookRows(bookList);
@@ -347,7 +347,7 @@ public class AdminViewController extends ViewController implements Initializable
         if (keyword==null||keyword.equals("")) {
             library_InquireText.setPromptText("按书名搜索");
         } else {
-            WebResponse res = api.get("/book/bookName/" + keyword + "/like");
+            WebResponse res = api.post("/library/book", keyword);
             List<BookViewModel> bookList_keyword = res.dataList(BookViewModel.class);
             AdminLibraryViewFactory adminlibraryViewFactory = new AdminLibraryViewFactory(rootStackPane, this);
             List<HBox> row = adminlibraryViewFactory.createFullBookRows(bookList_keyword);
@@ -363,8 +363,8 @@ public class AdminViewController extends ViewController implements Initializable
 
     @FXML
     protected void bookadd(ActionEvent actionEvent) {
-        WebResponse res = api.get("/book");
-        List<Book> bookList = res.dataList(Book.class);
+        WebResponse res = api.get("/library/book");
+        List<BookViewModel> bookList = res.dataList(BookViewModel.class);
         AdminLibraryViewFactory adminlibraryViewFactory = new AdminLibraryViewFactory(rootStackPane, this);
         List<HBox> row=adminlibraryViewFactory.createEmptyBookRows();
         row.addAll(adminlibraryViewFactory.createFullBookRows(bookList));

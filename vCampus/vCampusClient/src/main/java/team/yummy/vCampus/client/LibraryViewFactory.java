@@ -50,7 +50,7 @@ public class LibraryViewFactory {
             bookImageContent.setClip(clip);
 
             HBox bookInfoContent = new HBox();
-            Label bookIDInfo = new Label( book.getBookID());
+            Label bookIDInfo = new Label( book.getBookId());
             Label bookNameInfo = new Label(book.getBookName());
 
 
@@ -76,7 +76,7 @@ public class LibraryViewFactory {
             Image cartbookImage = new Image("./images/Library.jpg", 400, 320, true, true, true);
             ImageView cartImage = new ImageView(cartbookImage);
 
-            Label cartbookID = new Label("ID:" +book.getBookID());
+            Label cartbookID = new Label("ID:" +book.getBookId());
             Label cartbookName = new Label(book.getBookName());
             Label cartbookWriter=new Label(book.getWriter()+"著");
             Label cartPublisher=new Label(book.getPublisher());
@@ -130,23 +130,17 @@ public class LibraryViewFactory {
             buttonAddToList.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    BorrowRecordViewModel BorrowRecordViewModel = new BorrowRecordViewModel(book.getBookID(),mainViewController.currentAccount.getCampusCardId(), new Date());
-                    String jsonData = JSON.toJSONString(BorrowRecordViewModel, SerializerFeature.WriteDateUseDateFormat);
-                    WebResponse res = mainViewController.api.post("/borrowBook", jsonData);
-
-                    buttonAddToList.setDisable(true);
-                    buttonAddToList.setText("已借");
+                    WebResponse res = mainViewController.api.post("/library/borrow", book.getBookId());
 
                     dialog.setVisible(false);
 
-
-                    WebResponse resed = mainViewController.api.get("/borrowBook");
-                    List<BorrowedBook> borrowedbookList=resed.dataList(BorrowedBook.class);
+                    WebResponse resed = mainViewController.api.get("/library/borrow");
+                    List<BorrowRecordViewModel> borrowedbookList = resed.dataList(BorrowRecordViewModel.class);
                     List<HBox> borrowedRows=createBorrowedbookRows(borrowedbookList);
                     mainViewController.library_borrowedBox.getChildren().clear();
                     mainViewController.library_borrowedBox.getChildren().addAll(borrowedRows);
 
-                    WebResponse res2 = mainViewController.api.get("/book");
+                    WebResponse res2 = mainViewController.api.get("/library/book");
                     List<BookViewModel> bookList2 = res2.dataList(BookViewModel.class);
                     List<HBox> row3 = createBookRows(bookList2, 3);
 
@@ -170,12 +164,12 @@ public class LibraryViewFactory {
         return rows;
     }
 
-    public List<HBox> createBorrowedbookRows(List<BorrowedBook> borrowedbookList){
+    public List<HBox> createBorrowedbookRows(List<BorrowRecordViewModel> borrowedbookList){
         List<HBox> rows = new ArrayList<>();
-        for(BorrowedBook borrowedbook:borrowedbookList){
+        for(BorrowRecordViewModel borrowedbook : borrowedbookList) {
             HBox newRow=new HBox();
             VBox InfoCard=new VBox();
-            Label borrowedbookID = new Label("ID:" +borrowedbook.getBookID());
+            Label borrowedbookID = new Label("ID:" +borrowedbook.getBookId());
             Label borrowedbookName = new Label("《 "+borrowedbook.getBookName()+" 》");
             Label borrowedbookWriter=new Label(borrowedbook.getWriter()+"著");
             Label borrowedbookPublisher=new Label(borrowedbook.getPublisher());
@@ -202,15 +196,15 @@ public class LibraryViewFactory {
             buttonreturn.setFont(Font.font(18));
             buttonreturn.setAlignment(Pos.BOTTOM_RIGHT);
 
-            final BorrowedBook b = borrowedbook;
+            final BorrowRecordViewModel b = borrowedbook;
             buttonreturn.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    WebResponse res = mainViewController.api.delete("/borrowBook/bookID/"+b.getBookID()+"/campusCardID/"+mainViewController.currentAccount.getCampusCardID());
+                    WebResponse res = mainViewController.api.delete("/library/borrow/"+ b.getId());
 
                     mainViewController.library_borrowedBox.getChildren().clear();
-                    WebResponse resed = mainViewController.api.get("/borrowBook");
-                    List<BorrowedBook> borrowedbookList=resed.dataList(BorrowedBook.class);
+                    WebResponse resed = mainViewController.api.get("/library/borrow");
+                    List<BorrowRecordViewModel> borrowedbookList = resed.dataList(BorrowRecordViewModel.class);
                     List<HBox> borrowedRows=createBorrowedbookRows(borrowedbookList);
                     mainViewController.library_borrowedBox.getChildren().addAll(borrowedRows);
                 }

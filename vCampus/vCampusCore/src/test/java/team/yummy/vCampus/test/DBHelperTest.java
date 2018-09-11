@@ -116,15 +116,7 @@ class Account {
  * 21316XXXX用于DBHelper测试
  */
 public class DBHelperTest {
-    DBHelper dbHelper;
-
-    {
-        try {
-            dbHelper = new DBHelper(getClass().getClassLoader().getResource("test_database.accdb").toURI());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-    }
+    DBHelper dbHelper = new DBHelper("jdbc:Access:///" + getClass().getClassLoader().getResource("test_database.accdb").getPath());
 
     @Test
     public void testSelectOne() {
