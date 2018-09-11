@@ -37,6 +37,10 @@ public class CartRecordViewModel {
         return this.cartRecordID;
     }
 
+    public void setCartRecordID(int cartRecordID){
+        this.cartRecordID = cartRecordID;
+    }
+
     public String getCampusCardID() { 
         return this.campusCardID; 
     }
