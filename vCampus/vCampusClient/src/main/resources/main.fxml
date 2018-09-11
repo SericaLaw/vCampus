@@ -45,9 +45,9 @@
                         </HBox>
                         <HBox id="title_left" prefHeight="60.0" prefWidth="311.0">
                             <children>
-                                <ImageView cache="true" fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView cache="true" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@images/icon.png" />
+                                        <Image url="@images/avater.jpg" />
                                     </image>
                                 </ImageView>
                             </children>
@@ -122,7 +122,7 @@
                             </graphic>
                         </Button>
                         <Label font="$x1" prefWidth="100.0" text="Personal" />
-                        <Button fx:id="Bt_Account" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#swithAccountmag" prefHeight="33.0" prefWidth="208.0" text=" 账户管理" textFill="BLACK">
+                        <Button fx:id="Bt_Account" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" font="$x2" mnemonicParsing="false" onAction="#switchAccountMng" prefHeight="33.0" prefWidth="208.0" text=" 账户管理" textFill="BLACK">
                             <graphic>
                                 <ImageView id="accountIcon.png" fitHeight="21.0" fitWidth="21.0" styleClass="image">
                                     <image>
@@ -400,6 +400,7 @@
                                                                                 </VBox>
                                                                             </children>
                                                                         </HBox>
+                                                                        <VBox fx:id="course_reportContent"></VBox>
                                                                     </children>
                                                                 </VBox>
                                                             </content>
@@ -714,7 +715,7 @@
                                         <Label text="姓名" textFill="#707070" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP" />
                                         <Label text="权限" textFill="#707070" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP" />
                                         <Label fx:id="am_CampusCardID" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                        <Label fx:id="am_Username" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                        <Label fx:id="am_Nickname" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                                         <Label fx:id="am_Name" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                                         <Label fx:id="am_Role" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                                         <ImageView fitHeight="40.0" fitWidth="40.0" GridPane.halignment="CENTER">

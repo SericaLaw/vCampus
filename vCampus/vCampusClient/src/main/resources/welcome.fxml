@@ -1,38 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXPasswordField?>
-<?import com.jfoenix.controls.JFXRadioButton?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="welcomebackground" onMouseDragged="#titledragged" onMousePressed="#titlepressed" minHeight="500.0" minWidth="360.0" prefHeight="500.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team.yummy.vCampus.client.WelcomeViewController">
     <children>
-        <ImageView cache="true" fitHeight="600.0" fitWidth="600.0" layoutX="-300.0" preserveRatio="true">
+        <ImageView cache="true" fitHeight="400.0" fitWidth="400.0" layoutX="0" layoutY="100" preserveRatio="true">
             <image>
-                <Image url="@images/icon.png" />
+                <Image url="@images/icon_new.png" />
             </image>
         </ImageView>
         <AnchorPane fx:id="loginpane" layoutX="360.0" layoutY="44.0" minWidth="360.0" onKeyPressed="#presslogin" prefHeight="500.0" prefWidth="360.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
@@ -44,7 +24,7 @@
                                 <Font name="Book Antiqua Bold" size="40.0" />
                             </font>
                         </Label>
-                        <JFXTextField fx:id="login_Tusername" labelFloat="true" promptText="用户名" />
+                        <JFXTextField fx:id="login_TcampusCardId" labelFloat="true" promptText="一卡通号" />
                         <JFXPasswordField fx:id="login_Tpassword" labelFloat="true" promptText="密码" />
                         <HBox id="loginpane__button-group">
                             <children>
@@ -60,7 +40,7 @@
             <children>
                 <VBox id="registerpane__content" prefHeight="550.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Label fx:id="register_Lsignup" prefHeight="45.0" prefWidth="189.0" text="Sign up" textFill="#3385ff">
+                        <Label id="register_Lsignup" prefHeight="45.0" prefWidth="189.0" text="Sign up" textFill="#3385ff">
                             <font>
                                 <Font name="System Bold" size="35.0" />
                             </font>
@@ -85,7 +65,7 @@
                             </VBox.margin>
                         </GridPane>
                         <JFXTextField fx:id="register_Tcard" labelFloat="true" promptText="一卡通" />
-                        <JFXTextField fx:id="register_Tusername" labelFloat="true" promptText="用户名" />
+                        <JFXTextField fx:id="register_Tusername" labelFloat="true" promptText="昵称" />
                         <JFXPasswordField fx:id="register_Tpassword" labelFloat="true" promptText="密码" />
                         <HBox id="registerpane__radio-button-group" prefHeight="34.0" prefWidth="440.0">
                             <children>

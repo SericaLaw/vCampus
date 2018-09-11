@@ -2,6 +2,7 @@ package team.yummy.vCampus.client;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -92,6 +93,20 @@ public class AdminViewController extends ViewController implements Initializable
         LibraryPane.setVisible(false);
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
+
+        Goods good1 = new Goods("1","鞋子","123","白色", "./images/item.png");
+        Goods good2 = new Goods("2","鞋子","123", "红色","./images/item.png");
+        Goods good3 = new Goods("3","鞋子","123", "黑色","./images/item.png");
+        Goods good4 = new Goods("4","鞋子","123", "蓝色","./images/item.png");
+        Goods good5 = new Goods("5","鞋子","123", "黑色","./images/item.png");
+        Goods good6 = new Goods("6","鞋子","123", "蓝色","./images/item.png");
+
+        goodList.add(good1);
+        goodList.add(good2);
+        goodList.add(good3);
+        goodList.add(good4);
+        goodList.add(good5);
+        goodList.add(good6);
     }
 
     @FXML
@@ -194,10 +209,10 @@ public class AdminViewController extends ViewController implements Initializable
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
         //WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
-        //StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
+        //StuInfo stuInfoViewModel = res.dataList(StuInfo.class, 0);
 
-        /*LocalDate d=stuInfoGot.getBirthDate();
-        Date date = stuInfoGot.getBirthDate();
+        /*LocalDate d=stuInfoViewModel.getBirthDate();
+        Date date = stuInfoViewModel.getBirthDate();
         Instant instant = date.toInstant();
         ZoneId zoneId = ZoneId.systemDefault();
         // atZone()方法返回在指定时区从此Instant生成的ZonedDateTime。
@@ -338,14 +353,14 @@ public class AdminViewController extends ViewController implements Initializable
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
 
-        /*StoreViewFactory storeViewFactory = new StoreViewFactory(rootStackPane, this);
-        List<HBox> row = storeViewFactory.createStoreRows(goodList, 3);
+        AdminStoreViewFactory adminstoreViewFactory = new AdminStoreViewFactory(rootStackPane, this);
+        List<HBox> row = adminstoreViewFactory.createFullGoodsRows(goodList);
         if(store_newItemBox.getChildren().size() != 0) {
             store_newItemBox.getChildren().clear();
             store_newItemBox.getChildren().addAll(row);
         } else {
             store_newItemBox.getChildren().addAll(row);
-        }*/
+        }
     }
 
 
@@ -382,6 +397,21 @@ public class AdminViewController extends ViewController implements Initializable
             library_inquireBox.getChildren().addAll(row);
         } else {
             library_inquireBox.getChildren().addAll(row);
+        }
+    }
+
+    @FXML
+    protected void goodsadd(ActionEvent actionEvent) {
+        //WebResponse res = api.get("/goods");
+        //List<Goods> goodsList = res.dataList(Goods.class);
+        AdminStoreViewFactory adminstoreViewFactory = new AdminStoreViewFactory(rootStackPane, this);
+        List<HBox> row=adminstoreViewFactory.createEmptyGoodsRows();
+        row.addAll(adminstoreViewFactory.createFullGoodsRows(goodList));
+        if (store_newItemBox.getChildren().size() != 0) {
+            store_newItemBox.getChildren().clear();
+            store_newItemBox.getChildren().addAll(row);
+        } else {
+            store_newItemBox.getChildren().addAll(row);
         }
     }
 

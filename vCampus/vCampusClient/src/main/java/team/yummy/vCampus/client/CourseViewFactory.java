@@ -1,6 +1,7 @@
 package team.yummy.vCampus.client;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -13,6 +14,7 @@ import team.yummy.vCampus.models.entity.CourseScheduleEntity;
 import team.yummy.vCampus.models.viewmodel.CourseRegisterViewModel;
 import team.yummy.vCampus.models.viewmodel.CourseReportViewModel;
 import team.yummy.vCampus.models.viewmodel.CourseScheduleViewModel;
+import team.yummy.vCampus.web.WebResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ public class CourseViewFactory {
         }
 
         for (CourseScheduleViewModel course : items) {
-            MainViewController.CourseScheduleViewData data = new MainViewController.CourseScheduleViewData(course);
+            CourseScheduleViewData data = new CourseScheduleViewData(course);
             JFXButton courseItem = new JFXButton();
             courseItem.textProperty().bindBidirectional(data.contentProperty());
             courseItem.setPrefHeight(200);
@@ -54,6 +56,7 @@ public class CourseViewFactory {
     }
 
     public void createCourseReport(List<CourseReportViewModel> items) {
+        controller.course_reportContent.getChildren().clear();
         double totalScore = 0;
         double totalCredit = 0;
         for(CourseReportViewModel report : items) {
@@ -81,18 +84,22 @@ public class CourseViewFactory {
             score.getStyleClass().add("score");
 
             newRow.getChildren().addAll(courseInfo, score);
-            controller.course_reportBox.getChildren().add(newRow);
+            controller.course_reportContent.getChildren().add(newRow);
         }
 
         controller.score_avgScore.setText(String.valueOf(totalScore / items.size()));
         controller.score_totalCredit.setText(String.valueOf(totalCredit));
-        String gpa = String.valueOf(4.8);
-        if(gpa.length() > 3)
-            gpa = gpa.substring(0, 4);
-        controller.score_avgGPA.setText(gpa);
+
+        controller.score_avgGPA.setText(String.valueOf(controller.stuInfoViewModel.getGpa()));
     }
 
     public void createCourseRegister(List<CourseRegisterViewModel> courses) {
+        controller.register_courseNameCol.getChildren().clear();
+        controller.course_venueCol.getChildren().clear();
+        controller.register_scheduleCol.getChildren().clear();
+        controller.register_statusCol.getChildren().clear();
+        controller.register_opCol.getChildren().clear();
+
         for(CourseRegisterViewModel course : courses) {
             VBox courseInfoCol = new VBox();
 
@@ -174,6 +181,24 @@ public class CourseViewFactory {
             opCol.getStyleClass().add("register-item");
 
             controller.register_opCol.getChildren().addAll(opCol);
+        }
+    }
+
+    public static class CourseScheduleViewData {
+        private final SimpleStringProperty content = new SimpleStringProperty();
+        CourseScheduleViewData(CourseScheduleViewModel course) {
+            setContent(course.getCourseName() + "@" + course.getCourseVenue());
+        }
+
+        public void setContent(String content) {
+            this.content.set(content);
+        }
+        public String getContent() {
+            return content.get();
+        }
+
+        public SimpleStringProperty contentProperty() {
+            return content;
         }
     }
 }

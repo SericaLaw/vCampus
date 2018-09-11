@@ -45,11 +45,12 @@ public class RoutingMiddleware implements Middleware {
             // 如果data仍为null且状态码不为500，说明路由失败
             if (ctx.response.getStatusCode() == null && ctx.response.getStatusCode() != "500") {
                 // 使用Method的默认方法处理
-                SAXReader reader = new SAXReader();
-                String cfg_path = Server.class.getClassLoader().getResource("hibernate.cfg.xml").getPath().substring(1);
-                File cfg_file = new File(cfg_path);
-                Document config = reader.read(cfg_file);
-                String url = config.selectSingleNode("//property[@name='connection.url']").getStringValue();
+//                SAXReader reader = new SAXReader();
+//                String cfg_path = Server.class.getClassLoader().getResource("hibernate.cfg.xml").getPath().substring(1);
+//                File cfg_file = new File(cfg_path);
+//                Document config = reader.read(cfg_file);
+//                String url = config.selectSingleNode("//property[@name='connection.url']").getStringValue();
+                String url = ctx.server.dbConfig.getProperty("hibernate.connection.url");
                 DBHelper dbhelper = new DBHelper(url);
                 switch (ctx.request.getType()) {
                 case GET: {

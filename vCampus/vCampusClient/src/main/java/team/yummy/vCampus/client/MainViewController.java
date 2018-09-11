@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.effects.JFXDepthManager;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -17,8 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import team.yummy.vCampus.models.*;
 
-import team.yummy.vCampus.models.entity.BorrowRecordEntity;
-import team.yummy.vCampus.models.entity.StuInfoEntity;
 import team.yummy.vCampus.models.viewmodel.*;
 import team.yummy.vCampus.web.WebResponse;
 
@@ -40,7 +37,7 @@ import com.jfoenix.controls.*;
 
 public class MainViewController extends ViewController implements Initializable {
 
-    @FXML public Button Bt_Init;
+    @FXML public Button Bt_Init, Bt_StuInfo, Bt_Course, Bt_Dorm, Bt_Bank, Bt_Store, Bt_Account, Bt_Library;
     @FXML public StackPane rootStackPane;
     @FXML public GridPane title;
     @FXML public AnchorPane InitPane;
@@ -53,8 +50,10 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML public AnchorPane AccountMagPane;
     @FXML public Label win_close;
     @FXML public Label win_mini;
-    @FXML public RadioButton register_radiostudent;
-    @FXML public RadioButton register_radiominis;
+
+    /**
+     * members for stu info page
+     */
 
     @FXML public Label si_GPA;
     @FXML public Label si_SRTP;
@@ -76,8 +75,8 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML public JFXTextField si_SeniorHigh;
     @FXML public Label si_errorText;
 
-    @FXML public AnchorPane li_BorrowedPane;
-    @FXML public AnchorPane li_InquirePane;
+    StuInfoViewModel stuInfoViewModel;
+
 
     @FXML public Label content__Store__Cart__GrandTotalPrice;
     @FXML public Button content__Store__Cart__BatchRemove;
@@ -100,6 +99,7 @@ public class MainViewController extends ViewController implements Initializable 
     public List<BorrowRecordViewModel> borrowedbookList=new ArrayList<>();
 
 
+
     /**
      * members for store page
      */
@@ -112,7 +112,6 @@ public class MainViewController extends ViewController implements Initializable 
     // 这里放商品列表数据
     public List<Goods> goodList = new ArrayList<Goods>();
     // 这里存放购物车数据
-
     public List<Goods> goodsToBuy = new ArrayList<>();
 
     /**
@@ -120,16 +119,16 @@ public class MainViewController extends ViewController implements Initializable 
      */
     @FXML public GridPane course_scheduleGrid;
 
-    public List<CourseScheduleViewModel> CourseScheduleViewModels = new ArrayList<>();
+    public List<CourseScheduleViewModel> courseScheduleViewModels = new ArrayList<>();
 
     /**
      * members for course report
      */
     @FXML public VBox course_reportBox;
+    @FXML public VBox course_reportContent;
     @FXML public Label score_avgScore;
     @FXML public Label score_avgGPA;
     @FXML public Label score_totalCredit;
-
     @FXML public HBox course_reportHeading;
 
     /**
@@ -142,14 +141,16 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML public VBox register_statusCol;
     @FXML public VBox register_opCol;
     // 数据
-    public List<CourseReportViewModel> CourseReportViewModels = new ArrayList<>();
+    public List<CourseReportViewModel> courseReportViewModels = new ArrayList<>();
 
     public double xOffset = 0;
     public double yOffset = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {     //点其他栏目的时候要不initpane上的图案淡一点？
-        togglePane(InitPane);
+        togglePane(InitPane, Bt_Init);
+
+
         // 模拟服务器返回的信息
 
         Goods good1 = new Goods("1","鞋子","123","白色", "./images/item.png");
@@ -171,8 +172,8 @@ public class MainViewController extends ViewController implements Initializable 
 
         CourseScheduleViewModel CourseScheduleViewModel1 = new CourseScheduleViewModel("1001", 1, 1, 3, "数据结构", "邓俊辉","J2-102");
         CourseScheduleViewModel CourseScheduleViewModel2 = new CourseScheduleViewModel("2001", 1, 12, 13, "算法", "图灵","J2-202");
-        CourseScheduleViewModels.add(CourseScheduleViewModel1);
-        CourseScheduleViewModels.add(CourseScheduleViewModel2);
+        courseScheduleViewModels.add(CourseScheduleViewModel1);
+        courseScheduleViewModels.add(CourseScheduleViewModel2);
     }
 
     @FXML
@@ -201,11 +202,9 @@ public class MainViewController extends ViewController implements Initializable 
     }
 
     @FXML
-    protected void swithAccountmag(ActionEvent actionEvent) {
-        togglePane(AccountMagPane);
+    protected void switchAccountMng(ActionEvent actionEvent) {
+        togglePane(AccountMagPane, Bt_Account);
 
-        //WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
-        //StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
         am_CampusCardID.setText(currentAccount.getCampusCardId());
         am_Nickname.setText(currentAccount.getNickname());
         am_Role.setText(currentAccount.getRole());
@@ -214,71 +213,59 @@ public class MainViewController extends ViewController implements Initializable 
 
     @FXML
     protected void switchStuInfo(ActionEvent actionEvent) {
-        togglePane(StuInfoPane);
+        togglePane(StuInfoPane, Bt_StuInfo);
 
         WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
-        StuInfoViewModel stuInfoGot = res.dataList(StuInfoViewModel.class, 0);
+        stuInfoViewModel = res.dataList(StuInfoViewModel.class, 0);
+
         si_Name.setText(currentAccount.getLastName()+currentAccount.getFirstName());
-        si_GPA.setText(stuInfoGot.getGpa().toString());
-        si_SRTP.setText(stuInfoGot.getSrtp().toString());
-        si_LAC.setText(stuInfoGot.getLectureAttendCount().toString());
-        si_CampusCardID.setText(stuInfoGot.getCampusCardId());
-        si_StudentID.setText(stuInfoGot.getStudentId());
-        si_Department.setText(stuInfoGot.getDepartment());
-        si_Major.setText(stuInfoGot.getMajor());
-        si_EnrollmentYear.setText(stuInfoGot.getEnrollmentYear().toString());
-        si_IDNum.setText(stuInfoGot.getIdNum());
-        si_Sex.setValue(stuInfoGot.getSex());
-        //LocalDate d=stuInfoGot.getBirthDate();
-        Date date = stuInfoGot.getBirthdate();
+        si_GPA.setText(stuInfoViewModel.getGpa().toString());
+        si_SRTP.setText(stuInfoViewModel.getSrtp().toString());
+        si_LAC.setText(stuInfoViewModel.getLectureAttendCount().toString());
+        si_CampusCardID.setText(stuInfoViewModel.getCampusCardId());
+        si_StudentID.setText(stuInfoViewModel.getStudentId());
+        si_Department.setText(stuInfoViewModel.getDepartment());
+        si_Major.setText(stuInfoViewModel.getMajor());
+        si_EnrollmentYear.setText(stuInfoViewModel.getEnrollmentYear().toString());
+        si_IDNum.setText(stuInfoViewModel.getIdNum());
+        si_Sex.setValue(stuInfoViewModel.getSex());
+        //LocalDate d=stuInfoViewModel.getBirthDate();
+        Date date = stuInfoViewModel.getBirthdate();
         Instant instant = date.toInstant();
         ZoneId zoneId = ZoneId.systemDefault();
         // atZone()方法返回在指定时区从此Instant生成的ZonedDateTime。
         LocalDate d = instant.atZone(zoneId).toLocalDate();
         si_Birthdate.setValue(d);
-        si_Birthplace.setValue(stuInfoGot.getBirthplace());
-        si_Phone.setText(stuInfoGot.getPhone());
-        si_Email.setText(stuInfoGot.getEmail());
-        si_Address.setText(stuInfoGot.getAddress());
-        si_SeniorHigh.setText(stuInfoGot.getSeniorHigh());
+        si_Birthplace.setValue(stuInfoViewModel.getBirthplace());
+        si_Phone.setText(stuInfoViewModel.getPhone());
+        si_Email.setText(stuInfoViewModel.getEmail());
+        si_Address.setText(stuInfoViewModel.getAddress());
+        si_SeniorHigh.setText(stuInfoViewModel.getSeniorHigh());
     }
 
 
-    public static class CourseScheduleViewData {
-        private final SimpleStringProperty content = new SimpleStringProperty();
-        CourseScheduleViewData(CourseScheduleViewModel course) {
-            setContent(course.getCourseName() + "@" + course.getCourseVenue());
-        }
 
-        public void setContent(String content) {
-            this.content.set(content);
-        }
-        public String getContent() {
-            return content.get();
-        }
-
-        public SimpleStringProperty contentProperty() {
-            return content;
-        }
-    }
     @FXML
     protected void switchCourse(ActionEvent actionEvent) {
-        togglePane(CoursePane);
+        togglePane(CoursePane, Bt_Course);
+        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
+        stuInfoViewModel = res.dataList(StuInfoViewModel.class, 0);
+
         JFXDepthManager.setDepth(course_reportHeading, 1);
 
         CourseViewFactory factory = new CourseViewFactory(this);
 
-        WebResponse res = api.get("/course/schedule");
-        CourseScheduleViewModels = res.dataList(CourseScheduleViewModel.class);
-        factory.createCourseSchedule(CourseScheduleViewModels);
+        res = api.get("/course/schedule");
+        courseScheduleViewModels = res.dataList(CourseScheduleViewModel.class);
+        factory.createCourseSchedule(courseScheduleViewModels);
 
         /**
          * 成绩查询
          */
 
         res = api.get("/course/report");
-        CourseReportViewModels = res.dataList(CourseReportViewModel.class);
-        factory.createCourseReport(CourseReportViewModels);
+        courseReportViewModels = res.dataList(CourseReportViewModel.class);
+        factory.createCourseReport(courseReportViewModels);
 
         /**
          * 选课
@@ -289,12 +276,12 @@ public class MainViewController extends ViewController implements Initializable 
     }
     @FXML
     protected void switchDorm(ActionEvent actionEvent) {
-        togglePane(DormPane);
+        togglePane(DormPane, Bt_Dorm);
     }
     @FXML
     protected void switchBank(ActionEvent actionEvent)
     {
-        togglePane(BankPane);
+        togglePane(BankPane, Bt_Bank);
         BankPane.setVisible(true);
         StuInfoPane.setVisible(false);
         CoursePane.setVisible(false);
@@ -303,8 +290,8 @@ public class MainViewController extends ViewController implements Initializable 
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
-        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
-        // StuInfo stuInfoGot = res.dataList(StuInfo.class, 0);
+        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
+        // StuInfo stuInfoViewModel = res.dataList(StuInfo.class, 0);
         Lbank_name.setText(currentAccount.getFirstName()+currentAccount.getLastName());
         // Lbank_num.setText(currentAccount.get);  获取账号尾号
         // Lbank_balance.setText(currentAccount.get);  获取账户余额
@@ -313,7 +300,7 @@ public class MainViewController extends ViewController implements Initializable 
     }
     @FXML
     protected void switchLibrary(ActionEvent actionEvent) {
-        togglePane(LibraryPane);
+        togglePane(LibraryPane, Bt_Library);
         WebResponse res = api.get("/library/book");
         List<BookViewModel> bookList = res.dataList(BookViewModel.class);
         LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
@@ -325,22 +312,15 @@ public class MainViewController extends ViewController implements Initializable 
             library_inquireBox.getChildren().addAll(row);
         }
 
-        WebResponse resed = api.get("/library/borrow");
-        List<BorrowRecordViewModel> borrowedbookList=resed.dataList(BorrowRecordViewModel.class);
-        List<HBox> borrowedRows=libraryViewFactory.createBorrowedbookRows(borrowedbookList);
+        res = api.get("/library/borrow");
+        List<BorrowRecordViewModel> borrowedBookList = res.dataList(BorrowRecordViewModel.class);
+        List<HBox> borrowedRows = libraryViewFactory.createBorrowedbookRows(borrowedBookList);
         library_borrowedBox.getChildren().addAll(borrowedRows);
 
     }
     @FXML
     protected void switchStore(ActionEvent actionEvent) {
-        StorePane.setVisible(true);
-        StuInfoPane.setVisible(false);
-        CoursePane.setVisible(false);
-        DormPane.setVisible(false);
-        LibraryPane.setVisible(false);
-        BankPane.setVisible(false);
-        AccountMagPane.setVisible(false);
-        InitPane.setVisible(false);
+        togglePane(StorePane, Bt_Store);
 
         StoreViewFactory storeViewFactory = new StoreViewFactory(rootStackPane, this);
         List<HBox> row = storeViewFactory.createStoreRows(goodList, 3);
@@ -407,7 +387,7 @@ public class MainViewController extends ViewController implements Initializable 
             infoToModify.put("Email",Email);
             infoToModify.put("Address", Address);
             infoToModify.put("SeniorHigh",SeniorHigh);
-            api.patch("/stuInfo/campusCardID/"+ currentAccount.getCampusCardID(), infoToModify.toJSONString());
+            api.patch("/stuInfo/campusCardID/"+ currentAccount.getCampusCardId(), infoToModify.toJSONString());
 
             si_errorText.setText("");
             si_IDNum.setDisable(true);
@@ -422,18 +402,7 @@ public class MainViewController extends ViewController implements Initializable 
         }
     }
 
-    @FXML
-    protected void switchLibBorrowed(ActionEvent actionEvent) {
-        li_InquirePane.setVisible(false);
-        li_BorrowedPane.setDisable(true);
 
-    }
-
-    @FXML
-    protected void switchLibInquire(ActionEvent actionEvent) {
-        li_InquirePane.setVisible(true);
-        li_BorrowedPane.setDisable(false);
-    }
     @FXML
     protected void logout(ActionEvent actionEvent)
     {
@@ -469,7 +438,7 @@ public class MainViewController extends ViewController implements Initializable 
             @Override
             public void handle(ActionEvent event) {
                 //登出的操作
-                togglePane(InitPane);
+                togglePane(InitPane, Bt_Init);
                 stageController.setStage(App.WELCOME_VIEW_NAME, App.MAIN_VIEW_NAME);
             }
         });
@@ -569,7 +538,7 @@ public class MainViewController extends ViewController implements Initializable 
                 library_InquireText.setPromptText("请输入关键字");
             } else {
                 WebResponse res = api.post("/library/book", keyword);
-                List<Book> bookList_keyword = res.dataList(Book.class);
+                List<BookViewModel> bookList_keyword = res.dataList(BookViewModel.class);
                 LibraryViewFactory libraryViewFactory = new LibraryViewFactory(rootStackPane, this);
                 List<HBox> row = libraryViewFactory.createBookRows(bookList_keyword, 1);
                 if (library_inquireBox.getChildren().size() != 0) {
@@ -584,45 +553,6 @@ public class MainViewController extends ViewController implements Initializable 
 
     }
 
-    // /**
-    //  * 计算GPA
-    //  * @param reportItems
-    //  * @return
-    //  */
-    // public double calculateGPA(List<CourseReportItem> reportItems) {
-    //     double GPA = 0;
-    //     double totalCredit = 0;
-    //     for(CourseReportItem report : reportItems) {
-    //         totalCredit += report.getCredit();
-    //         int score = report.getScore();
-    //         double credit = report.getCredit();
-    //         if(score >= 96)
-    //             GPA += 4.8 * credit;
-    //         else if(score >= 93)
-    //             GPA += 4.5 * credit;
-    //         else if(score >= 90)
-    //             GPA += 4.0 * credit;
-    //         else if(score >= 86)
-    //             GPA += 3.8 * credit;
-    //         else if(score >= 83)
-    //             GPA += 3.5 * credit;
-    //         else if(score >= 80)
-    //             GPA += 3.0 * credit;
-    //         else if(score >= 76)
-    //             GPA += 2.8 * credit;
-    //         else if(score >= 73)
-    //             GPA += 2.5 * credit;
-    //         else if(score >= 70)
-    //             GPA += 2.0 * credit;
-    //         else if(score >= 66)
-    //             GPA += 1.8 * credit;
-    //         else if(score >= 63)
-    //             GPA += 1.5 * credit;
-    //         else if(score >=60)
-    //             GPA += 1.0 * credit;
-    //     }
-    //     return GPA / totalCredit;
-    // }
 
     @FXML
     protected void paywatelec(ActionEvent actionEvent)
@@ -728,9 +658,9 @@ public class MainViewController extends ViewController implements Initializable 
         });
     }
     public void switchInit(ActionEvent actionEvent) {
-        togglePane(InitPane);
+        togglePane(InitPane, Bt_Init);
     }
-    public void togglePane(Pane paneToDisplay) {
+    public void togglePane(Pane paneToDisplay, Button button) {
         StorePane.setVisible(false);
         StuInfoPane.setVisible(false);
         CoursePane.setVisible(false);
@@ -740,8 +670,33 @@ public class MainViewController extends ViewController implements Initializable 
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
 
+        String defaultStyle = "-fx-pref-width: 250;\n" +
+                "    -fx-background-color: #fff;\n" +
+                "    -fx-pref-height: 50;\n" +
+                "    -fx-padding:  0 20;\n" +
+                "    -fx-border-width: 0 0 0 6px;\n" +
+                "    -fx-border-height: 50;\n" +
+                "    -fx-border-color: transparent;\n" +
+                "    -fx-font-size: 20;\n" +
+                "    -fx-alignment: center-left;";
+
+        String focusedStyle = "-fx-text-fill: #673AB7; -fx-border-color: transparent transparent transparent linear-gradient(to bottom right, #7C4DFF, #673AB7);";
+
+        // 暂时性代码
+        Bt_Init.setStyle(defaultStyle);
+        Bt_StuInfo.setStyle(defaultStyle);
+        Bt_Course.setStyle(defaultStyle);
+        Bt_Library.setStyle(defaultStyle);
+        Bt_Bank.setStyle(defaultStyle);
+        Bt_Dorm.setStyle(defaultStyle);
+        Bt_Store.setStyle(defaultStyle);
+        Bt_Account.setStyle(defaultStyle);
+
+        button.setStyle(focusedStyle);
+
         paneToDisplay.setVisible(true);
     }
+
 }
 
 

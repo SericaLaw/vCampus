@@ -96,4 +96,3 @@ public class Api {
         return String.format("Api [ sessionId = %d ]", sessionId);
     }
 }
-

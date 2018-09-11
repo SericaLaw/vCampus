@@ -45,4 +45,10 @@ public class StuInfoController extends Controller {
         dbSession.save(account.getStuInfoByCampusCardId());
         dbSession.getTransaction().commit();
     }
+
+
+    /**
+     * 搜索学生信息、修改学生信息、添加学生可使用默认方法
+     * 唔，当然会遇到权限问题
+     */
 }
