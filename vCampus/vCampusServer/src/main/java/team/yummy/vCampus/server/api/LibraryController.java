@@ -15,17 +15,6 @@ import java.util.List;
 
 public class LibraryController extends Controller {
 
-    AccountEntity account;
-
-    @Override
-    public void init(WebContext webContext) {
-        super.init(webContext);
-        Transaction tx = dbSession.beginTransaction();
-        account = dbSession.get(AccountEntity.class, webContext.session.getString("campusCardId"));
-        tx.commit();
-    }
-
-
     @Get(route = "book")
     public void getBookList() {
         Transaction tx = dbSession.beginTransaction();

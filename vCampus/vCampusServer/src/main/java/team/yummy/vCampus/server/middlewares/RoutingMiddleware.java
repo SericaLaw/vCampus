@@ -42,8 +42,8 @@ public class RoutingMiddleware implements Middleware {
 
 
 
-            // 如果data仍为null且状态码不为500，说明路由失败
-            if (ctx.response.getBody() == null && !ctx.response.getStatusCode().equals("500")) {
+            // 如果状态码没有设置过，则路由失败
+            if (ctx.response.getStatusCode() == null) {
                 // 使用Method的默认方法处理
 //                SAXReader reader = new SAXReader();
 //                String cfg_path = Server.class.getClassLoader().getResource("hibernate.cfg.xml").getPath().substring(1);

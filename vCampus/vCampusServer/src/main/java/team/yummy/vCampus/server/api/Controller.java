@@ -1,6 +1,8 @@
 package team.yummy.vCampus.server.api;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import team.yummy.vCampus.models.entity.AccountEntity;
 import team.yummy.vCampus.server.WebContext;
 import team.yummy.vCampus.server.annotation.*;
 import team.yummy.vCampus.util.Logger;
@@ -19,10 +21,18 @@ public class Controller {
 
     public Session dbSession;
 
+    public AccountEntity account;
+
     public void init(WebContext webContext) {
         this.logger = new Logger(getClass().getTypeName());
         this.webContext = webContext;
         this.dbSession = webContext.server.dbFactory.openSession();
+        String campusCardId = webContext.session.getString("campusCardId");
+        if (campusCardId != null) {
+            Transaction tx = dbSession.beginTransaction();
+            account = dbSession.get(AccountEntity.class, campusCardId);
+            tx.commit();
+        }
     }
 
     public boolean run() {

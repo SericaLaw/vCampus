@@ -8,39 +8,39 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="welcomebackground" onMouseDragged="#titledragged" onMousePressed="#titlepressed" minHeight="500.0" minWidth="360.0" prefHeight="500.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team.yummy.vCampus.client.WelcomeViewController">
+<AnchorPane fx:cartRecordId="welcomebackground" onMouseDragged="#titledragged" onMousePressed="#titlepressed" minHeight="500.0" minWidth="360.0" prefHeight="500.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team.yummy.vCampus.client.WelcomeViewController">
     <children>
         <ImageView cache="true" fitHeight="400.0" fitWidth="400.0" layoutX="0" layoutY="100" preserveRatio="true">
             <image>
                 <Image url="@images/icon_new.png" />
             </image>
         </ImageView>
-        <AnchorPane fx:id="loginpane" layoutX="360.0" layoutY="44.0" minWidth="360.0" onKeyPressed="#presslogin" prefHeight="500.0" prefWidth="360.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
+        <AnchorPane fx:cartRecordId="loginpane" layoutX="360.0" layoutY="44.0" minWidth="360.0" onKeyPressed="#presslogin" prefHeight="500.0" prefWidth="360.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
             <children>
-                <VBox id="loginpane__content" layoutX="34.0" layoutY="98.0" prefHeight="550.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <VBox cartRecordId="loginpane__content" layoutX="34.0" layoutY="98.0" prefHeight="550.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Label id="loginpane__content__title" prefHeight="70.0" prefWidth="246.0" text="Welcome" textFill="#4cadf8">
+                        <Label cartRecordId="loginpane__content__title" prefHeight="70.0" prefWidth="246.0" text="Welcome" textFill="#4cadf8">
                             <font>
                                 <Font name="Book Antiqua Bold" size="40.0" />
                             </font>
                         </Label>
-                        <JFXTextField fx:id="login_TcampusCardId" labelFloat="true" promptText="一卡通号" />
-                        <JFXPasswordField fx:id="login_Tpassword" labelFloat="true" promptText="密码" />
-                        <HBox id="loginpane__button-group">
+                        <JFXTextField fx:cartRecordId="login_TcampusCardId" labelFloat="true" promptText="一卡通号" />
+                        <JFXPasswordField fx:cartRecordId="login_Tpassword" labelFloat="true" promptText="密码" />
+                        <HBox cartRecordId="loginpane__button-group">
                             <children>
-                                <JFXButton id="login_signup" onAction="#switchToSignup" text="注册" />
-                                <JFXButton fx:id="login_button" onAction="#login" text="登录" />
+                                <JFXButton cartRecordId="login_signup" onAction="#switchToSignup" text="注册" />
+                                <JFXButton fx:cartRecordId="login_button" onAction="#login" text="登录" />
                             </children>
                         </HBox>
                     </children>
                 </VBox>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="registerpane" layoutX="353.0" layoutY="44.0" minHeight="500.0" minWidth="367.0" prefHeight="500.0" prefWidth="360.0" visible="false" AnchorPane.leftAnchor="353.0" AnchorPane.rightAnchor="7.0">
+        <AnchorPane fx:cartRecordId="registerpane" layoutX="353.0" layoutY="44.0" minHeight="500.0" minWidth="367.0" prefHeight="500.0" prefWidth="360.0" visible="false" AnchorPane.leftAnchor="353.0" AnchorPane.rightAnchor="7.0">
             <children>
-                <VBox id="registerpane__content" prefHeight="550.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <VBox cartRecordId="registerpane__content" prefHeight="550.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Label id="register_Lsignup" prefHeight="45.0" prefWidth="189.0" text="Sign up" textFill="#3385ff">
+                        <Label cartRecordId="register_Lsignup" prefHeight="45.0" prefWidth="189.0" text="Sign up" textFill="#3385ff">
                             <font>
                                 <Font name="System Bold" size="35.0" />
                             </font>
@@ -54,43 +54,43 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <JFXTextField fx:id="register_Tfirstname" labelFloat="true" prefHeight="48.0" prefWidth="153.0" promptText="姓">
+                                <JFXTextField fx:cartRecordId="register_Tfirstname" labelFloat="true" prefHeight="48.0" prefWidth="153.0" promptText="姓">
                                     <GridPane.margin>
                                         <Insets />
                                     </GridPane.margin></JFXTextField>
-                                <JFXTextField fx:id="register_Tlastname" labelFloat="true" promptText="名" GridPane.columnIndex="1" />
+                                <JFXTextField fx:cartRecordId="register_Tlastname" labelFloat="true" promptText="名" GridPane.columnIndex="1" />
                             </children>
                             <VBox.margin>
                                 <Insets bottom="10.0" />
                             </VBox.margin>
                         </GridPane>
-                        <JFXTextField fx:id="register_Tcard" labelFloat="true" promptText="一卡通" />
-                        <JFXTextField fx:id="register_Tusername" labelFloat="true" promptText="昵称" />
-                        <JFXPasswordField fx:id="register_Tpassword" labelFloat="true" promptText="密码" />
-                        <HBox id="registerpane__radio-button-group" prefHeight="34.0" prefWidth="440.0">
+                        <JFXTextField fx:cartRecordId="register_Tcard" labelFloat="true" promptText="一卡通" />
+                        <JFXTextField fx:cartRecordId="register_Tusername" labelFloat="true" promptText="昵称" />
+                        <JFXPasswordField fx:cartRecordId="register_Tpassword" labelFloat="true" promptText="密码" />
+                        <HBox cartRecordId="registerpane__radio-button-group" prefHeight="34.0" prefWidth="440.0">
                             <children>
-                                <JFXRadioButton id="register_radiostudent" fx:id="register_radiostudent" text="学生">
+                                <JFXRadioButton cartRecordId="register_radiostudent" fx:cartRecordId="register_radiostudent" text="学生">
                                     <toggleGroup>
-                                        <ToggleGroup fx:id="radiogroup" />
+                                        <ToggleGroup fx:cartRecordId="radiogroup" />
                                     </toggleGroup></JFXRadioButton>
-                                <JFXRadioButton fx:id="register_radioadminis" text="管理员" toggleGroup="$radiogroup" />
-                                <JFXRadioButton fx:id="register_radioteacher" text="教师" toggleGroup="$radiogroup" />
+                                <JFXRadioButton fx:cartRecordId="register_radioadminis" text="管理员" toggleGroup="$radiogroup" />
+                                <JFXRadioButton fx:cartRecordId="register_radioteacher" text="教师" toggleGroup="$radiogroup" />
                             </children>
                         </HBox>
-                        <HBox id="registerpane__button-group" prefHeight="100.0" prefWidth="200.0">
+                        <HBox cartRecordId="registerpane__button-group" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <JFXButton id="register_cancel" fx:id="register_cancel" onAction="#switchToLogin" text="取消" />
-                                <JFXButton fx:id="register_ok" onAction="#signup" text="注册" />
+                                <JFXButton cartRecordId="register_cancel" fx:cartRecordId="register_cancel" onAction="#switchToLogin" text="取消" />
+                                <JFXButton fx:cartRecordId="register_ok" onAction="#signup" text="注册" />
                             </children>
                         </HBox>
                     </children>
                 </VBox>
             </children>
         </AnchorPane>
-        <HBox id="title" layoutX="680.0" layoutY="4.0">
+        <HBox cartRecordId="title" layoutX="680.0" layoutY="4.0">
             <children>
-                <Label fx:id="windowmini" layoutX="652.0" layoutY="14.0" onMouseReleased="#window_mini" prefWidth="26.0" text="一" />
-                <Label fx:id="windowclose" onMouseReleased="#window_close" prefWidth="14.0" text="X">
+                <Label fx:cartRecordId="windowmini" layoutX="652.0" layoutY="14.0" onMouseReleased="#window_mini" prefWidth="26.0" text="一" />
+                <Label fx:cartRecordId="windowclose" onMouseReleased="#window_close" prefWidth="14.0" text="X">
                     <font>
                         <Font name="System Bold" size="27.0" />
                     </font></Label>

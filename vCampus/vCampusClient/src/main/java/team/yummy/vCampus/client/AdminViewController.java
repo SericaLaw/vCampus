@@ -208,7 +208,7 @@ public class AdminViewController extends ViewController implements Initializable
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
-        //WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
+        //WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
         //StuInfo stuInfoViewModel = res.dataList(StuInfo.class, 0);
 
         /*LocalDate d=stuInfoViewModel.getBirthDate();

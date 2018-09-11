@@ -16,11 +16,11 @@
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.shape.Line?>
 
-<StackPane fx:id="rootStackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team.yummy.vCampus.client.TchMainViewController">
+<StackPane fx:cartRecordId="rootStackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team.yummy.vCampus.client.TchMainViewController">
     <children>
         <BorderPane prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
-                <GridPane fx:id="title" onMouseDragged="#titledragged" onMousePressed="#titlepressed">
+                <GridPane fx:cartRecordId="title" onMouseDragged="#titledragged" onMousePressed="#titlepressed">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -29,21 +29,21 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <HBox id="title_right" alignment="CENTER_RIGHT" onMouseDragged="#titledragged" onMousePressed="#titlepressed" GridPane.columnIndex="1">
+                        <HBox cartRecordId="title_right" alignment="CENTER_RIGHT" onMouseDragged="#titledragged" onMousePressed="#titlepressed" GridPane.columnIndex="1">
                             <children>
-                                <Label fx:id="win_mini" onMouseReleased="#winmini" text="一" textFill="GREY">
+                                <Label fx:cartRecordId="win_mini" onMouseReleased="#winmini" text="一" textFill="GREY">
                                     <font>
                                         <Font name="System Bold" size="17.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="win_close" onMouseReleased="#winclose" text="×" textFill="GREY" GridPane.columnIndex="1">
+                                <Label fx:cartRecordId="win_close" onMouseReleased="#winclose" text="×" textFill="GREY" GridPane.columnIndex="1">
                                     <font>
                                         <Font name="System Bold" size="27.0" />
                                     </font>
                                 </Label>
                             </children>
                         </HBox>
-                        <HBox id="title_left" prefHeight="60.0" prefWidth="311.0">
+                        <HBox cartRecordId="title_left" prefHeight="60.0" prefWidth="311.0">
                             <children>
                                 <ImageView cache="true" fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -56,17 +56,17 @@
                 </GridPane>
             </top>
             <left>
-                <VBox id="main_sidebar">
+                <VBox cartRecordId="main_sidebar">
                     <children>
-                        <Button fx:id="test" disable="false" mnemonicParsing="false" text="欢迎" visible="true" />
+                        <Button fx:cartRecordId="test" disable="false" mnemonicParsing="false" text="欢迎" visible="true" />
                         <Label prefWidth="86.0" text="Campus">
                             <font>
-                                <Font name="Californian FB" size="20.0" fx:id="x1" />
+                                <Font name="Californian FB" size="20.0" fx:cartRecordId="x1" />
                             </font>
                         </Label>
-                        <Button fx:id="Bt_Course" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" mnemonicParsing="false" onAction="#switchCourse" prefHeight="33.0" prefWidth="208.0" text=" 教学系统" textFill="BLACK">
+                        <Button fx:cartRecordId="Bt_Course" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" mnemonicParsing="false" onAction="#switchCourse" prefHeight="33.0" prefWidth="208.0" text=" 教学系统" textFill="BLACK">
                             <graphic>
-                                <ImageView id="CourseIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true" styleClass="image">
+                                <ImageView cartRecordId="CourseIcon.png" fitHeight="21.0" fitWidth="21.0" mouseTransparent="true" styleClass="image">
                                     <image>
                                         <Image preserveRatio="true" smooth="true" url="@images/CourseIcon.png" />
                                     </image>
@@ -74,9 +74,9 @@
                             </graphic>
                         </Button>
                         <Label font="$x1" prefWidth="100.0" text="Personal" />
-                        <Button fx:id="Bt_Account" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" mnemonicParsing="false" onAction="#switchAccountmag" prefHeight="33.0" prefWidth="208.0" text=" 账户管理" textFill="BLACK">
+                        <Button fx:cartRecordId="Bt_Account" alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="true" mnemonicParsing="false" onAction="#switchAccountmag" prefHeight="33.0" prefWidth="208.0" text=" 账户管理" textFill="BLACK">
                             <graphic>
-                                <ImageView id="accountIcon.png" fitHeight="21.0" fitWidth="21.0" styleClass="image">
+                                <ImageView cartRecordId="accountIcon.png" fitHeight="21.0" fitWidth="21.0" styleClass="image">
                                     <image>
                                         <Image preserveRatio="true" smooth="true" url="@images/accountIcon.png" />
                                     </image>
@@ -89,18 +89,18 @@
             <center>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="566.0" prefWidth="950.0" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane fx:id="InitPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:cartRecordId="InitPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <Label layoutX="496.0" layoutY="374.0" prefHeight="73.0" prefWidth="86.0" text="init" />
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="CoursePane" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:cartRecordId="CoursePane" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <JFXTabPane prefHeight="740.0" prefWidth="950.0" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <tabs>
                                         <Tab text="课程表">
                                             <content>
-                                                <GridPane id="content__course__schedule" fx:id="course_scheduleGrid" alignment="CENTER">
+                                                <GridPane cartRecordId="content__course__schedule" fx:cartRecordId="course_scheduleGrid" alignment="CENTER">
                                                     <columnConstraints>
                                                         <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
                                                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -162,12 +162,12 @@
                                                     <children>
                                                         <ScrollPane prefHeight="688.0" prefWidth="950.0">
                                                             <content>
-                                                                <TableView fx:id="Tch_GradeTV" prefHeight="688.0" prefWidth="600.0">
+                                                                <TableView fx:cartRecordId="Tch_GradeTV" prefHeight="688.0" prefWidth="600.0">
                                                                     <columns>
-                                                                        <TableColumn fx:id="campusIDcardCol" prefWidth="165.0" text="一卡通号" />
-                                                                        <TableColumn fx:id="studentnameCol" prefWidth="149.0" text="学生姓名" />
-                                                                        <TableColumn fx:id="termCol" prefWidth="130.0" text="学期" />
-                                                                        <TableColumn fx:id="gradeCol" prefWidth="155.0" text="成绩" />
+                                                                        <TableColumn fx:cartRecordId="campusIDcardCol" prefWidth="165.0" text="一卡通号" />
+                                                                        <TableColumn fx:cartRecordId="studentnameCol" prefWidth="149.0" text="学生姓名" />
+                                                                        <TableColumn fx:cartRecordId="termCol" prefWidth="130.0" text="学期" />
+                                                                        <TableColumn fx:cartRecordId="gradeCol" prefWidth="155.0" text="成绩" />
                                                                     </columns>
                                                                 </TableView>
                                                             </content>
@@ -179,7 +179,7 @@
                                 </JFXTabPane>
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="AccountMagPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:cartRecordId="AccountMagPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <Separator layoutX="477.0" layoutY="120.0" orientation="VERTICAL" prefHeight="377.0" prefWidth="0.0" />
                                 <GridPane layoutX="232.0" layoutY="148.0" prefHeight="334.0" prefWidth="486.0">
@@ -201,10 +201,10 @@
                                         <Label text="用户名" textFill="#707070" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                                         <Label text="姓名" textFill="#707070" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP" />
                                         <Label text="权限" textFill="#707070" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP" />
-                                        <Label fx:id="am_CampusCardID" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                        <Label fx:id="am_Username" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                        <Label fx:id="am_Name" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-                                        <Label fx:id="am_Role" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                                        <Label fx:cartRecordId="am_CampusCardID" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                        <Label fx:cartRecordId="am_Username" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                        <Label fx:cartRecordId="am_Name" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                                        <Label fx:cartRecordId="am_Role" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                                         <ImageView fitHeight="40.0" fitWidth="40.0" GridPane.halignment="CENTER">
                                             <image>
                                                 <Image url="@images/am_CampusCardID.png" />
@@ -232,12 +232,12 @@
                                         </Separator>
                                     </children>
                                 </GridPane>
-                                <Button fx:id="cancelAccount" defaultButton="false" layoutX="361.0" layoutY="556.0" mnemonicParsing="false" mouseTransparent="false" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="销号" textFill="$x6" underline="false" wrapText="false">
+                                <Button fx:cartRecordId="cancelAccount" defaultButton="false" layoutX="361.0" layoutY="556.0" mnemonicParsing="false" mouseTransparent="false" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="销号" textFill="$x6" underline="false" wrapText="false">
                                     <font>
-                                        <Font size="17.0" fx:id="x7" />
+                                        <Font size="17.0" fx:cartRecordId="x7" />
                                     </font>
                                 </Button>
-                                <Button fx:id="logout" defaultButton="false" font="$x7" layoutX="361.0" layoutY="601.0" mnemonicParsing="false" mouseTransparent="false" onAction="#logout" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="登出" textFill="$x6" underline="false" wrapText="false" />
+                                <Button fx:cartRecordId="logout" defaultButton="false" font="$x7" layoutX="361.0" layoutY="601.0" mnemonicParsing="false" mouseTransparent="false" onAction="#logout" pickOnBounds="false" prefHeight="33.0" prefWidth="228.0" text="登出" textFill="$x6" underline="false" wrapText="false" />
                             </children>
                         </AnchorPane>
                     </children>

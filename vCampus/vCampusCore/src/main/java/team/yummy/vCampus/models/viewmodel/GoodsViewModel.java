@@ -1,5 +1,9 @@
 package team.yummy.vCampus.models.viewmodel;
 
+import team.yummy.vCampus.models.entity.GoodsEntity;
+
+import java.lang.reflect.Field;
+
 /**
  * @author Dailin
  * 商店表项类
@@ -7,26 +11,40 @@ package team.yummy.vCampus.models.viewmodel;
  */
 
  public class GoodsViewModel{
-    private int goodsID;
+    private String goodsId;
     private String goodsName;
     private double price;
     private String imgUrl;
     private int tag;
 
-    public GoodsViewModel(int goodsID, String goodsName,double price,String imgUrl,int tag){
-        this.goodsID = goodsID;
+    public GoodsViewModel(String goodsId, String goodsName, double price, String imgUrl, int tag){
+        this.goodsId = goodsId;
         this.goodsName = goodsName;
         this.price = price;
         this.imgUrl = imgUrl;
         this.tag = tag;
     }
 
-    public int getGoodsID(){
-        return this.goodsID;
+    public GoodsViewModel(GoodsEntity entity) {
+        for (Field field : this.getClass().getFields()) {
+            try {
+                field.set(this, entity.getClass().getMethod(
+                    "get"
+                    + Character.toUpperCase(field.getName().charAt(0))
+                    + field.getName().substring(1)
+                ).invoke(entity));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    public void setGoodsID(int goodsID){
-        this.goodsID = goodsID;
+    public String getGoodsId(){
+        return this.goodsId;
+    }
+
+    public void setGoodsId(String goodsId){
+        this.goodsId = goodsId;
     }
 
     public String getGoodsName(){

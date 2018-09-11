@@ -21,16 +21,6 @@ import java.util.stream.Collectors;
 
 public class CourseController extends Controller {
 
-    AccountEntity account;
-
-    @Override
-    public void init(WebContext webContext) {
-        super.init(webContext);
-        Transaction tx = dbSession.beginTransaction();
-        account = dbSession.get(AccountEntity.class, webContext.session.getString("campusCardId"));
-        tx.commit();
-    }
-
     /**
      * @apiGroup Course
      * @api {get} /course/schedule GetCourseSchedule

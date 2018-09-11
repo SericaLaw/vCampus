@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="team.yummy.vCampus.models.entity.CartRecordEntity" table="CartRecord" schema="&quot;.&quot;"
+           catalog="&quot;.&quot;">
+        <id name="cartRecordId" column="CartRecordID"/>
+        <property name="createdTime" column="CreatedTime"/>
+        <property name="goodsCnt" column="GoodsCnt"/>
+        <property name="isSel" column="IsSel"/>
+        <property name="isPurchased" column="IsPurchased"/>
+        <many-to-one name="accountByCampusCardId" class="team.yummy.vCampus.models.entity.AccountEntity">
+            <column name="CampusCardID"/>
+        </many-to-one>
+        <many-to-one name="goodsByGoodsId" class="team.yummy.vCampus.models.entity.GoodsEntity">
+            <column name="GoodsID" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -111,7 +111,7 @@ public class TchMainViewController extends ViewController implements  Initializa
         CoursePane.setVisible(false);
         InitPane.setVisible(false);
 
-//        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
+//        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
 //        StuInfo stuInfoViewModel = res.dataList(StuInfo.class, 0);
         am_CampusCardID.setText(currentAccount.getCampusCardId());
         am_Username.setText(currentAccount.getNickname());
