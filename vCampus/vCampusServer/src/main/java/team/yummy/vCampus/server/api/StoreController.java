@@ -12,32 +12,34 @@ import java.util.*;
 
 public class StoreController extends Controller {
 
-//    /**
-//     * @apiGroup Store
-//     * @api {get} /store/goods GetGoodsList
-//     * @apiPermission all
-//     * @apiDescription 获取商品列表
-//     * @apiSuccess List_GoodsViewModel List of GoodsViewModel
-//     * @apiParamExample Code Snippets
-//     * WebResponse res = api.get("/store/goods");
-//     * List<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);
-//     * @apiSuccessExample Success-Response:
-//     *      200 OK
-//     *      ......
-//     */
-//    @Get(route = "goods")
-//    public void getGoodsList() {
-//        Transaction tx = dbSession.beginTransaction();
-//        List<GoodsEntity> goodsList = (List<GoodsEntity>)dbSession.createQuery(
-//            "select goods from GoodsEntity goods"
-//        ).setFirstResult(0).setMaxResults(20).list();
-//        tx.commit();
-//
-//        webContext.response.setBody(JSON.toJSONString(
-//            goodsList.stream().map(goods -> new GoodsViewModel(goods)).toArray()
-//        ));
-//    }
-
+    /**
+     * @apiGroup Store
+     * @api {get} /goods GetGoodsList
+     * @apiPermission all
+     * @apiDescription 获取商品列表
+     * @apiSuccess List_GoodsViewModel List of GoodsViewModel
+     * @apiParamExample Code Snippets
+     * WebResponse res = api.get("/goods");
+     * List<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);
+     * @apiSuccessExample Success-Response:
+     *      200 OK
+     *      [{
+     *          "Price":"1000.0",
+     *          "Tag":"1",
+     *          "Info":"An oooooold thinkpad version.",
+     *          "ImgUrl":"http://nonexistent.com",
+     *          "GoodsID":"c14eb7df-0624-421a-8c3f-d1b8b016c5db",
+     *          "GoodsName":"Thinkpad T61"
+     *        },{
+     *          "Price":"100000.0",
+     *          "Tag":"2",
+     *          "Info":"Quite tough.",
+     *          "ImgUrl":"http://nonexistent.com",
+     *          "GoodsID":"dafa0250-e44b-42aa-8cfb-a5f5a9078d8f",
+     *          "GoodsName":"Thinkpad X1 Carbon"
+     *      }]
+     */
+    
     /**
      * @apiGroup Store
      * @api {get} /store/cart GetCartList
@@ -66,6 +68,7 @@ public class StoreController extends Controller {
      * @apiPermission student
      * @apiDescription 添加至购物车(cart record没有该商品)
      * @apiParamExample Code Snippets
+     * String goodsId = goodsViewModel.getGoodsId();
      * WebResponse res = api.post("/store/cart", goodsId);
      *
      * @apiSuccessExample Success-Response:
@@ -93,7 +96,12 @@ public class StoreController extends Controller {
      * @apiPermission student
      * @apiDescription 支付 删除CartRecord表相应购物车数据；Bank表里余额需要修改
      * @apiParamExample Code Snippets
-     * WebResponse res = api.post("/store/purchase", JSON.toJSONString(List<String>, String.class));
+     * String uuid1 = cartRecordViewModel1.getCartRecordID();
+     * String uuid2 = cartRecordViewModel2.getCartRecordID();
+     * List<String> purchases = new ArrayList<>();
+     * purchases.add(uuid1);
+     * purchases.add(uuid2);
+     * WebResponse res = api.post("/store/purchase", JSON.toJSONString(purchases, String.class));
      *
      * @apiSuccessExample Success-Response:
      *      200 OK
@@ -143,7 +151,9 @@ public class StoreController extends Controller {
      * @apiPermission student
      * @apiDescription 增加商品数量(cart record已有该商品)
      * @apiParamExample Code Snippets
-     * WebResponse res = api.patch("/store/cart", "{"uuid":uuid, "count":count}");
+     * String uuid = cartRecordViewModel.getCartRecordID();
+     * int count = cartRecordViewModel.getGoodsCount();
+     * WebResponse res = api.patch("/store/cart", String.format("{\"uuid\": %s, \"count\":%d}", uuid, count);
      *
      * @apiSuccessExample Success-Response:
      *      200 OK
@@ -167,7 +177,9 @@ public class StoreController extends Controller {
      * @apiPermission student
      * @apiDescription 删除购物车商品
      * @apiParamExample Code Snippets
-     * WebResponse res = api.post("/store/clear", "["uuid1", "uuid2"]");
+     * String uuid1 = cartRecordViewModel1.getCartRecordID();
+     * String uuid2 = cartRecordViewModel2.getCartRecordID();
+     * WebResponse res = api.post("/store/clear", String.format("[%s, %s]", uuid1, uuid2);
      * @apiSuccessExample Success-Response:
      *      200 OK
      *      ......

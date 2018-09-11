@@ -213,7 +213,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "200 OK\n[{\n    \"CourseName\":\"JAVA程序设计\",\n    \"Semester\":\"2\",\n    \"CourseVenue\":\"J2-203\",\n    \"Grade\":\"3\",\n    \"StuLimitCount\":\"3\",\n    \"ExamDate\":\"2019-01-20 00:00:00.0\",\n    \"CourseID\":\"1001\",\n    \"Credit\":\"2\",\n    \"Major\":\"计算机科学与技术\",\n    \"ProfName\":\"沈傲东\",\n    \"Intro\":\"大佬的课不得不听啊\",\n    \"ExamVenue\":\"J4-302\",\n    \"StuAttendCount\":\"1\",\n    \"ProfCampusCardID\":\"1001\"\n   },{\n    \"CourseName\":\"高等数学\",\n    \"Semester\":\"2\",\n    \"CourseVenue\":\"J8-103\",\n    \"Grade\":\"1\",\n    \"StuLimitCount\":\"3\",\n    \"ExamDate\":\"2019-01-18 00:00:00.0\",\n    \"CourseID\":\"2001\",\n    \"Credit\":\"5\",\n    \"ProfName\":\"牛顿\",\n    \"Intro\":\"同上\",\n    \"ExamVenue\":\"J4-104\",\n    \"StuAttendCount\":\"2\",\n    \"ProfCampusCardID\":\"2001\"\n }]",
+          "content": "200 OK\n[{\n    \"CourseName\":\"JAVA程序设计\",\n    \"Semester\":\"2\",\n    \"CourseVenue\":\"J2-203\",\n    \"Grade\":\"3\",\n    \"StuLimitCount\":\"3\",\n    \"ExamDate\":\"2019-01-20 00:00:00.0\",\n    \"CourseID\":\"1001\",\n    \"Credit\":\"2\",\n    \"Major\":\"计算机科学与技术\",\n    \"ProfName\":\"沈傲东\",\n    \"Intro\":\"大佬的课不得不听啊\",\n    \"ExamVenue\":\"J4-302\",\n    \"StuAttendCount\":\"1\",\n    \"ProfCampusCardID\":\"1001\"\n   },{\n    \"CourseName\":\"高等数学\",\n    \"Semester\":\"2\",\n    \"CourseVenue\":\"J8-103\",\n    \"Grade\":\"1\",\n    \"StuLimitCount\":\"3\",\n    \"ExamDate\":\"2019-01-18 00:00:00.0\",\n    \"CourseID\":\"2001\",\n    \"Credit\":\"5\",\n    \"ProfName\":\"牛顿\",\n    \"Intro\":\"同上\",\n    \"ExamVenue\":\"J4-104\",\n    \"StuAttendCount\":\"2\",\n    \"ProfCampusCardID\":\"2001\"\n}]",
           "type": "json"
         }
       ]
@@ -372,6 +372,40 @@ define({ "api": [
     "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/CourseController.java",
     "groupTitle": "Course",
     "name": "GetCourseSchedule"
+  },
+  {
+    "group": "Course",
+    "type": "patch",
+    "url": "/course/record",
+    "title": "ModifyCourseRecord",
+    "permission": [
+      {
+        "name": "teacher"
+      }
+    ],
+    "description": "<p>登记或改变学生成绩</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.patch(\"/course/record\", \"{\"id\":\"uuid\", \"score\":\"the score\"}\");\nList<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/CourseController.java",
+    "groupTitle": "Course",
+    "name": "PatchCourseRecord"
   },
   {
     "group": "Course",
@@ -726,29 +760,39 @@ define({ "api": [
   },
   {
     "group": "Store",
-    "type": "delete",
-    "url": "/store/cart/{uid}",
-    "title": "DeleteCartGoods",
+    "type": "get",
+    "url": "/goods",
+    "title": "GetGoodsList",
     "permission": [
       {
-        "name": "student"
+        "name": "all"
       }
     ],
-    "description": "<p>删除购物车商品</p>",
-    "parameter": {
+    "description": "<p>获取商品列表</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "List_GoodsViewModel",
+            "description": "<p>List of GoodsViewModel</p>"
+          }
+        ]
+      },
       "examples": [
         {
-          "title": "Code Snippets",
-          "content": "WebResponse res = api.delete(\"/store/cart/{uid}\");",
+          "title": "Success-Response:",
+          "content": "200 OK\n[{\n    \"Price\":\"1000.0\",\n    \"Tag\":\"1\",\n    \"Info\":\"An oooooold thinkpad version.\",\n    \"ImgUrl\":\"http://nonexistent.com\",\n    \"GoodsID\":\"c14eb7df-0624-421a-8c3f-d1b8b016c5db\",\n    \"GoodsName\":\"Thinkpad T61\"\n  },{\n    \"Price\":\"100000.0\",\n    \"Tag\":\"2\",\n    \"Info\":\"Quite tough.\",\n    \"ImgUrl\":\"http://nonexistent.com\",\n    \"GoodsID\":\"dafa0250-e44b-42aa-8cfb-a5f5a9078d8f\",\n    \"GoodsName\":\"Thinkpad X1 Carbon\"\n}]",
           "type": "json"
         }
       ]
     },
-    "success": {
+    "parameter": {
       "examples": [
         {
-          "title": "Success-Response:",
-          "content": "200 OK\n......",
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.get(\"/goods\");\nList<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);",
           "type": "json"
         }
       ]
@@ -756,7 +800,7 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StoreController.java",
     "groupTitle": "Store",
-    "name": "DeleteStoreCartUid"
+    "name": "GetGoods"
   },
   {
     "group": "Store",
@@ -804,50 +848,6 @@ define({ "api": [
   },
   {
     "group": "Store",
-    "type": "get",
-    "url": "/store/goods",
-    "title": "GetGoodsList",
-    "permission": [
-      {
-        "name": "all"
-      }
-    ],
-    "description": "<p>获取商品列表</p>",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "optional": false,
-            "field": "List_GoodsViewModel",
-            "description": "<p>List of GoodsViewModel</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "200 OK\n......",
-          "type": "json"
-        }
-      ]
-    },
-    "parameter": {
-      "examples": [
-        {
-          "title": "Code Snippets",
-          "content": "WebResponse res = api.get(\"/store/goods\");\nList<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StoreController.java",
-    "groupTitle": "Store",
-    "name": "GetStoreGoods"
-  },
-  {
-    "group": "Store",
     "type": "patch",
     "url": "/store/cart",
     "title": "ModifyCart",
@@ -861,7 +861,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Code Snippets",
-          "content": "WebResponse res = api.patch(\"/store/cart\", \"{\"uid\":uid, \"count\":\"count\"}\");",
+          "content": "String uuid = cartRecordViewModel.getCartRecordID();\nint count = cartRecordViewModel.getGoodsCount();\nWebResponse res = api.patch(\"/store/cart\", String.format(\"{\\\"uuid\\\": %s, \\\"count\\\":%d}\", uuid, count);",
           "type": "json"
         }
       ]
@@ -938,7 +938,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Code Snippets",
-          "content": "WebResponse res = api.post(\"/store/cart\", goodsId);",
+          "content": "String goodsId = goodsViewModel.getGoodsId();\nWebResponse res = api.post(\"/store/cart\", goodsId);",
           "type": "json"
         }
       ]
@@ -960,6 +960,40 @@ define({ "api": [
   {
     "group": "Store",
     "type": "post",
+    "url": "/store/clear",
+    "title": "DeleteCartGoods",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>删除购物车商品</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "String uuid1 = cartRecordViewModel1.getCartRecordID();\nString uuid2 = cartRecordViewModel2.getCartRecordID();\nWebResponse res = api.post(\"/store/clear\", String.format(\"[%s, %s]\", uuid1, uuid2);",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n......",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StoreController.java",
+    "groupTitle": "Store",
+    "name": "PostStoreClear"
+  },
+  {
+    "group": "Store",
+    "type": "post",
     "url": "/store/purchase",
     "title": "Purchase",
     "permission": [
@@ -972,7 +1006,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Code Snippets",
-          "content": "WebResponse res = api.post(\"/store/purchase\", JSON.toJSONString(List<CartRecordViewModel>, CartRecordViewModel.class));",
+          "content": "String uuid1 = cartRecordViewModel1.getCartRecordID();\nString uuid2 = cartRecordViewModel2.getCartRecordID();\nList<String> purchases = new ArrayList<>();\npurchases.add(uuid1);\npurchases.add(uuid2);\nWebResponse res = api.post(\"/store/purchase\", JSON.toJSONString(purchases, String.class));",
           "type": "json"
         }
       ]
