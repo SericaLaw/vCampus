@@ -15,6 +15,10 @@ public class CourseReportViewModel {
 
     public CourseReportViewModel() {}
 
+    public CourseReportViewModel(CourseReportViewModel that) {
+        this.campusCardId = that.getCampusCardId();
+        this.courseName = that.getCourseName();
+    }
     public CourseReportViewModel(String campusCardId, String courseName, double credit, int score, String semester, String scoreType) {
         this.campusCardId = campusCardId;
         this.courseName = courseName;

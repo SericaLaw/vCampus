@@ -2,7 +2,9 @@ package team.yummy.vCampus.client;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -18,6 +20,7 @@ import team.yummy.vCampus.web.WebResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CourseViewFactory {
     MainViewController controller;
@@ -26,12 +29,24 @@ public class CourseViewFactory {
     }
 
     public void createCourseSchedule(List<CourseScheduleViewModel> items) {
+        controller.course_scheduleGrid.getChildren().clear();
+        controller.course_scheduleGrid.add(new Label("星期一"), 1, 0);
+        controller.course_scheduleGrid.add(new Label("星期二"), 3, 0);
+        controller.course_scheduleGrid.add(new Label("星期三"), 5, 0);
+        controller.course_scheduleGrid.add(new Label("星期四"), 7, 0);
+        controller.course_scheduleGrid.add(new Label("星期五"), 9, 0);
+
+        for(int col = 2; col < 9; col +=2 ) {
+            controller.course_scheduleGrid.add(new Separator(Orientation.VERTICAL), col, 0, 1, 14);
+        }
+        for(int row = 1; row < 14; row++) {
+            controller.course_scheduleGrid.add(new Label(String.valueOf(row)), 0, row);
+        }
         String[] colors = {"#DD9708", "#56AF5A", "#E9433f", "#0EB5CA", "#512DA8"};
         List<String> listColors = new ArrayList<String>();
         for (String color : colors) {
             listColors.add(color);
         }
-
         for (CourseScheduleViewModel course : items) {
             CourseScheduleViewData data = new CourseScheduleViewData(course);
             JFXButton courseItem = new JFXButton();
@@ -53,13 +68,20 @@ public class CourseViewFactory {
 
             controller.course_scheduleGrid.add(courseItem, course.getWeekDay() * 2 - 1, course.getSpanStart(), 1, course.getSpanEnd() - course.getSpanStart() + 1);
         }
+
     }
 
     public void createCourseReport(List<CourseReportViewModel> items) {
         controller.course_reportContent.getChildren().clear();
         double totalScore = 0;
         double totalCredit = 0;
-        for(CourseReportViewModel report : items) {
+
+        // 过滤0分课程
+        List<CourseReportViewModel> reports = items.stream()
+                        .filter(r -> r.getScore() > 0)
+                        .collect(Collectors.toList());
+
+        for(CourseReportViewModel report : reports) {
             totalScore += report.getScore();
             totalCredit += report.getCredit();
 
@@ -87,7 +109,8 @@ public class CourseViewFactory {
             controller.course_reportContent.getChildren().add(newRow);
         }
 
-        controller.score_avgScore.setText(String.valueOf(totalScore / items.size()));
+
+        controller.score_avgScore.setText(String.valueOf(totalScore / reports.size()));
         controller.score_totalCredit.setText(String.valueOf(totalCredit));
 
         controller.score_avgGPA.setText(String.valueOf(controller.stuInfoViewModel.getGpa()));
@@ -160,6 +183,11 @@ public class CourseViewFactory {
             if(course.getStatus() == CourseStatusEnum.AVAILABLE) {
                 buttonOp = new JFXButton("选择");
                 buttonOp.setStyle("-fx-background-color: #673AB7;-fx-text-fill: #fff;-fx-font-size: 18;");
+                buttonOp.setOnAction(e->{
+                    WebResponse res = controller.api.post("/course/register", course.getCourseID());
+                    controller.switchCourse(e);
+
+                });
             }
             else if(course.getStatus() == CourseStatusEnum.CONFLICT) {
                 buttonOp = new JFXButton("冲突");
@@ -174,6 +202,12 @@ public class CourseViewFactory {
             else if(course.getStatus() == CourseStatusEnum.SELECTED) {
                 buttonOp = new JFXButton("退选");
                 buttonOp.setStyle("-fx-background-color: #ff2300;-fx-text-fill: #fff;-fx-font-size: 18;");
+                buttonOp.setOnAction(e->{
+                    WebResponse res = controller.api.delete("/course/register/" + course.getCourseID());
+                    controller.switchCourse(e);
+
+                });
+
 
             }
             buttonOp.setButtonType(JFXButton.ButtonType.RAISED);
