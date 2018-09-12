@@ -17,9 +17,9 @@
         </ImageView>
         <AnchorPane fx:id="loginpane" layoutX="360.0" layoutY="44.0" minWidth="360.0" onKeyPressed="#presslogin" prefHeight="500.0" prefWidth="360.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
             <children>
-                <VBox id="loginpane__content" layoutX="34.0" layoutY="98.0" prefHeight="550.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <VBox fx:id="loginpane__content" layoutX="34.0" layoutY="98.0" prefHeight="550.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Label id="loginpane__content__title" prefHeight="70.0" prefWidth="246.0" text="Welcome" textFill="#4cadf8">
+                        <Label fx:id="loginpane__content__title" prefHeight="70.0" prefWidth="246.0" text="Welcome" textFill="#4cadf8">
                             <font>
                                 <Font name="Book Antiqua Bold" size="40.0" />
                             </font>
@@ -28,7 +28,7 @@
                         <JFXPasswordField fx:id="login_Tpassword" labelFloat="true" promptText="密码" />
                         <HBox id="loginpane__button-group">
                             <children>
-                                <JFXButton id="login_signup" onAction="#switchToSignup" text="注册" />
+                                <JFXButton fx:id="login_signup" onAction="#switchToSignup" text="注册" />
                                 <JFXButton fx:id="login_button" onAction="#login" text="登录" />
                             </children>
                         </HBox>
@@ -38,9 +38,9 @@
         </AnchorPane>
         <AnchorPane fx:id="registerpane" layoutX="353.0" layoutY="44.0" minHeight="500.0" minWidth="367.0" prefHeight="500.0" prefWidth="360.0" visible="false" AnchorPane.leftAnchor="353.0" AnchorPane.rightAnchor="7.0">
             <children>
-                <VBox id="registerpane__content" prefHeight="550.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <VBox fx:id="registerpane__content" prefHeight="550.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Label id="register_Lsignup" prefHeight="45.0" prefWidth="189.0" text="Sign up" textFill="#3385ff">
+                        <Label fx:id="register_Lsignup" prefHeight="45.0" prefWidth="189.0" text="Sign up" textFill="#3385ff">
                             <font>
                                 <Font name="System Bold" size="35.0" />
                             </font>
@@ -79,7 +79,7 @@
                         </HBox>
                         <HBox id="registerpane__button-group" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <JFXButton id="register_cancel" fx:id="register_cancel" onAction="#switchToLogin" text="取消" />
+                                <JFXButton fx:id="register_cancel" onAction="#switchToLogin" text="取消" />
                                 <JFXButton fx:id="register_ok" onAction="#signup" text="注册" />
                             </children>
                         </HBox>
@@ -87,7 +87,7 @@
                 </VBox>
             </children>
         </AnchorPane>
-        <HBox id="title" layoutX="680.0" layoutY="4.0">
+        <HBox fx:id="title" layoutX="680.0" layoutY="4.0">
             <children>
                 <Label fx:id="windowmini" layoutX="652.0" layoutY="14.0" onMouseReleased="#window_mini" prefWidth="26.0" text="一" />
                 <Label fx:id="windowclose" onMouseReleased="#window_close" prefWidth="14.0" text="X">

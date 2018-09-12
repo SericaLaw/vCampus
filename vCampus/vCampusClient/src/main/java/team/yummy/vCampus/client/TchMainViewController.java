@@ -22,6 +22,7 @@ import javafx.scene.text.Font;
 import org.omg.CORBA.PRIVATE_MEMBER;
 import team.yummy.vCampus.models.*;
 
+import team.yummy.vCampus.models.viewmodel.CourseScheduleViewModel;
 import team.yummy.vCampus.web.WebResponse;
 
 import javafx.event.ActionEvent;
@@ -52,6 +53,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 
 
 public class TchMainViewController extends ViewController implements  Initializable{
+    @FXML public GridPane course_scheduleGrid;
     @FXML private StackPane rootStackPane;
     @FXML private GridPane title;
     @FXML private AnchorPane InitPane;
@@ -67,17 +69,26 @@ public class TchMainViewController extends ViewController implements  Initializa
 
     @FXML private TableColumn campusIDcardCol;
     @FXML private TableColumn studentnameCol;
+    @FXML private TableColumn subjectCol;
     @FXML private TableColumn termCol;
     @FXML private TableColumn gradeCol;
     @FXML private TableView Tch_GradeTV;
     private double xOffset = 0;
     private double yOffset = 0;
 
+    // @FXML public GridPane course_scheduleGrid;
+    // data
+    List<CourseScheduleViewModel> courseScheduleViewModels = new ArrayList<CourseScheduleViewModel>();
     @Override
     public void initialize(URL url, ResourceBundle rb) {     //点其他栏目的时候要不initpane上的图案淡一点？
         InitPane.setVisible(true);
         CoursePane.setVisible(false);
         AccountMagPane.setVisible(false);
+
+      CourseScheduleViewModel CourseScheduleViewModel1 = new CourseScheduleViewModel("1001", 1, 1, 3, "计算机组成原理", "任国林","J2-102");
+        CourseScheduleViewModel CourseScheduleViewModel2 = new CourseScheduleViewModel("2001", 3, 6, 8, "计算机组成原理", "任国林","J2-202");
+        courseScheduleViewModels.add(CourseScheduleViewModel1);
+        courseScheduleViewModels.add(CourseScheduleViewModel2);
     }
 
     @FXML
@@ -111,7 +122,7 @@ public class TchMainViewController extends ViewController implements  Initializa
         CoursePane.setVisible(false);
         InitPane.setVisible(false);
 
-//        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
+//        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
 //        StuInfo stuInfoViewModel = res.dataList(StuInfo.class, 0);
         am_CampusCardID.setText(currentAccount.getCampusCardId());
         am_Username.setText(currentAccount.getNickname());
@@ -125,18 +136,47 @@ public class TchMainViewController extends ViewController implements  Initializa
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
 
+        String[] colors = {"#DD9708", "#56AF5A", "#E9433f", "#0EB5CA", "#512DA8"};
+        List<String> listColors = new ArrayList<String>();
+        for (String color : colors) {
+            listColors.add(color);
+        }
+
+        for (CourseScheduleViewModel course : courseScheduleViewModels) {
+            CourseViewFactory.CourseScheduleViewData data = new CourseViewFactory.CourseScheduleViewData(course);
+            JFXButton courseItem = new JFXButton();
+            courseItem.textProperty().bindBidirectional(data.contentProperty());
+            courseItem.setPrefHeight(200);
+            courseItem.setPrefWidth(200);
+
+            if (listColors.isEmpty()) {
+                for (String color : colors) {
+                    listColors.add(color);
+                }
+            }
+            int colorIndex = (int) (Math.random() * (listColors.size() - 1));
+            String itemColor = listColors.get(colorIndex);
+            listColors.remove(colorIndex);
+            courseItem.setBackground(new Background(new BackgroundFill(Color.web(itemColor), null, null)));
+            courseItem.setTextFill(Color.web("#fff"));
+            courseItem.setFont(Font.font(14));
+
+            course_scheduleGrid.add(courseItem, course.getWeekDay() * 2 - 1, course.getSpanStart(), 1, course.getSpanEnd() - course.getSpanStart() + 1);
+        }
+
         campusIDcardCol.setCellValueFactory(new PropertyValueFactory<>("campusIDCard"));
         studentnameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        subjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
         termCol.setCellValueFactory(new PropertyValueFactory<>("term"));
         gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
 
 
         final ObservableList<Person> data = FXCollections.observableArrayList(
-                new Person("213180000", "BIU", "17-18-2",""),
-                new Person("213180001", "CPU", "17-18-2",""),
-                new Person("213180002", "MMU", "17-18-2",""),
-                new Person("213180003", "MEM", "17-18-2",""),
-                new Person("213180004", "BUS", "17-18-2","")
+                new Person("213180001", "BIU", "计算机组成原理","17-18-2",""),
+                new Person("213180002", "CPU", "计算机组成原理","17-18-2",""),
+                new Person("213180003", "MMU", "计算机组成原理","17-18-2",""),
+                new Person("213180004", "MEM", "计算机组成原理","17-18-2",""),
+                new Person("213180005", "BUS", "计算机组成原理","17-18-2","")
         );
 
         Tch_GradeTV.setEditable(true);
@@ -205,10 +245,12 @@ public class TchMainViewController extends ViewController implements  Initializa
         private final SimpleStringProperty campusIDcard;
         private  final SimpleStringProperty term;
         private  final SimpleStringProperty grade;
+        private  final SimpleStringProperty subject;
 
-        private  Person(String CampusIDcard,String Name,String Term,String Grade) {
+        private  Person(String CampusIDcard,String Name,String Subject,String Term,String Grade) {
             this.campusIDcard = new SimpleStringProperty(CampusIDcard);
             this.name = new SimpleStringProperty(Name);
+            this.subject=new SimpleStringProperty(Subject);
             this.term = new SimpleStringProperty(Term);
             this.grade = new SimpleStringProperty(Grade);
         }
@@ -245,9 +287,45 @@ public class TchMainViewController extends ViewController implements  Initializa
             grade.set(Grade);
         }
 
+        public String getSubject(){
+            return subject.get();
+        }
+
+        public void setSubject(String Grade){
+            subject.set(Grade);
+        }
+
     }
 
+    /*public void createCourseSchedule(List<CourseScheduleViewModel> items) {
+        String[] colors = {"#DD9708", "#56AF5A", "#E9433f", "#0EB5CA", "#512DA8"};
+        List<String> listColors = new ArrayList<String>();
+        for (String color : colors) {
+            listColors.add(color);
+        }
 
+        for (CourseScheduleViewModel course : items) {
+            CourseViewFactory.CourseScheduleViewData data = new CourseViewFactory.CourseScheduleViewData(course);
+            JFXButton courseItem = new JFXButton();
+            courseItem.textProperty().bindBidirectional(data.contentProperty());
+            courseItem.setPrefHeight(200);
+            courseItem.setPrefWidth(200);
+
+            if (listColors.isEmpty()) {
+                for (String color : colors) {
+                    listColors.add(color);
+                }
+            }
+            int colorIndex = (int) (Math.random() * (listColors.size() - 1));
+            String itemColor = listColors.get(colorIndex);
+            listColors.remove(colorIndex);
+            courseItem.setBackground(new Background(new BackgroundFill(Color.web(itemColor), null, null)));
+            courseItem.setTextFill(Color.web("#fff"));
+            courseItem.setFont(Font.font(14));
+
+            course_scheduleGrid.add(courseItem, course.getWeekDay() * 2 - 1, course.getSpanStart(), 1, course.getSpanEnd() - course.getSpanStart() + 1);
+        }
+    }*/
 
 
 }

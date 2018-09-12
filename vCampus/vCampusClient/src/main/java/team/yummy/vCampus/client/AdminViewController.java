@@ -14,6 +14,8 @@ import javafx.scene.text.Font;
 import team.yummy.vCampus.models.*;
 
 import team.yummy.vCampus.models.viewmodel.BookViewModel;
+import team.yummy.vCampus.models.viewmodel.CourseRegisterViewModel;
+import team.yummy.vCampus.models.viewmodel.GoodsViewModel;
 import team.yummy.vCampus.web.WebResponse;
 
 import javafx.fxml.FXML;
@@ -34,7 +36,7 @@ public class AdminViewController extends ViewController implements Initializable
     @FXML private GridPane title;
     @FXML private AnchorPane InitPane;
     @FXML private AnchorPane StuInfoPane;
-    //@FXML private AnchorPane CoursePane;
+    @FXML private AnchorPane CoursePane;
     @FXML private AnchorPane LibraryPane;
     @FXML private AnchorPane StorePane;
     @FXML private AnchorPane AccountMagPane;
@@ -65,6 +67,13 @@ public class AdminViewController extends ViewController implements Initializable
     @FXML private Label stuinfo_errortext;
 
     /**
+     * memebers for course page
+     */
+    List<CourseRegisterViewModel> courseRegister = new ArrayList<CourseRegisterViewModel>();
+    @FXML public VBox course_inquireBox;
+
+
+    /**
      * members for store page
      */
     @FXML private VBox store_newItemBox;
@@ -89,24 +98,10 @@ public class AdminViewController extends ViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb) {
         InitPane.setVisible(true);
         StuInfoPane.setVisible(false);
-//        CoursePane.setVisible(false);
+        CoursePane.setVisible(false);
         LibraryPane.setVisible(false);
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
-
-        Goods good1 = new Goods("1","鞋子","123","白色", "./images/item.png");
-        Goods good2 = new Goods("2","鞋子","123", "红色","./images/item.png");
-        Goods good3 = new Goods("3","鞋子","123", "黑色","./images/item.png");
-        Goods good4 = new Goods("4","鞋子","123", "蓝色","./images/item.png");
-        Goods good5 = new Goods("5","鞋子","123", "黑色","./images/item.png");
-        Goods good6 = new Goods("6","鞋子","123", "蓝色","./images/item.png");
-
-        goodList.add(good1);
-        goodList.add(good2);
-        goodList.add(good3);
-        goodList.add(good4);
-        goodList.add(good5);
-        goodList.add(good6);
     }
 
     @FXML
@@ -171,7 +166,7 @@ public class AdminViewController extends ViewController implements Initializable
                 //登出的操作
                 InitPane.setVisible(true);
                 StuInfoPane.setVisible(false);
-                //CoursePane.setVisible(false);
+                CoursePane.setVisible(false);
                 LibraryPane.setVisible(false);
                 StorePane.setVisible(false);
                 AccountMagPane.setVisible(false);
@@ -191,7 +186,7 @@ public class AdminViewController extends ViewController implements Initializable
     protected void swithAccountmag(ActionEvent actionEvent) {
         AccountMagPane.setVisible(true);
         StuInfoPane.setVisible(false);
-        //CoursePane.setVisible(false);
+        CoursePane.setVisible(false);
         LibraryPane.setVisible(false);
         StorePane.setVisible(false);
         InitPane.setVisible(false);
@@ -203,12 +198,12 @@ public class AdminViewController extends ViewController implements Initializable
     @FXML
     protected void switchStuInfo(ActionEvent actionEvent) {
         StuInfoPane.setVisible(true);
-        //CoursePane.setVisible(false);
+        CoursePane.setVisible(false);
         LibraryPane.setVisible(false);
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
-        //WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
+        //WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
         //StuInfo stuInfoViewModel = res.dataList(StuInfo.class, 0);
 
         /*LocalDate d=stuInfoViewModel.getBirthDate();
@@ -220,7 +215,7 @@ public class AdminViewController extends ViewController implements Initializable
         */
     }
 
-    /*
+
     @FXML
     protected void switchCourse(ActionEvent actionEvent) {
         CoursePane.setVisible(true);
@@ -230,104 +225,24 @@ public class AdminViewController extends ViewController implements Initializable
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
 
-        WebResponse res = api.get("/course/schedule");
-        courseScheduleItems = res.dataList(CourseScheduleItem.class);
-
-        // 改成添加课程
-        /**
-         * 选课
-         */
-        /*res = api.get("/course/register");
-        CourseRegister courseRegister = res.data(CourseRegister.class);
-
-        for (CourseRegisterItem course : courseRegister.getCourseList()) {
-            VBox courseInfoCol = new VBox();
-
-            courseInfoCol.setStyle("-fx-spacing: 10");
-
-
-            Label courseName = new Label(course.getCourseName());
-            courseName.getStyleClass().add("register-item__course-name");
-
-            HBox courseDetailInfo = new HBox();
-//            courseDetailInfo.getStyleClass().add("register-item__course-detail");
-            courseDetailInfo.setStyle("-fx-alignment: center-left");
-            courseDetailInfo.setStyle("-fx-spacing: 10");
-
-            Label courseTeacher = new Label("教师：" + course.getProfName());
-            courseTeacher.setStyle("-fx-text-fill: #757575");
-            Label courseCredit = new Label("学分：" + course.getCredit());
-            courseCredit.setStyle("-fx-text-fill: #757575");
-            courseDetailInfo.getChildren().addAll(courseTeacher, courseCredit);
-            courseInfoCol.getChildren().addAll(courseName, courseDetailInfo);
-
-            courseInfoCol.getStyleClass().add("register-item");
-            register_courseNameCol.getChildren().addAll(courseInfoCol);
-
-            VBox courseVenueCol = new VBox();
-
-            Label courseVenue = new Label("@" + course.getCourseVenue());
-            courseVenue.setStyle("-fx-font-size: 18");
-            courseVenueCol.getChildren().addAll(courseVenue);
-            courseVenue.getStyleClass().add("register-item");
-            course_venueCol.getChildren().addAll(courseVenueCol);
-
-            VBox courseScheduleCol = new VBox();
-            for (Schedule s : course.getCourseSchedule()) {
-                String schedule = "";
-                schedule += "星期" + s.getWeekDay() + "（" + s.getSpanStart() + "-" + s.getSpanEnd() + "）";
-                Label courseSchedule = new Label(schedule);
-                courseScheduleCol.getChildren().addAll(courseSchedule);
-            }
-
-            courseScheduleCol.getStyleClass().add("register-item");
-            register_scheduleCol.getChildren().addAll(courseScheduleCol);
-
-            VBox courseStatusCol = new VBox();
-            Label courseStatus = new Label(String.valueOf(course.getStuAttendCount()) + " / " + String.valueOf(course.getStuLimitCount()));
-            courseStatus.setStyle("-fx-font-size: 18");
-            courseStatusCol.getChildren().addAll(courseStatus);
-            courseStatusCol.getStyleClass().add("register-item");
-            register_statusCol.getChildren().addAll(courseStatusCol);
-
-            VBox opCol = new VBox();
-            opCol.setStyle("-fx-min-width: 50");
-            opCol.setStyle("-fx-pref-width: 50");
-
-
-            JFXButton buttonOp = null;
-
-            // TODO: 按钮事件
-            if (course.getStatus() == CourseStatusEnum.AVAILABLE) {
-                buttonOp = new JFXButton("选择");
-                buttonOp.setStyle("-fx-background-color: #673AB7;-fx-text-fill: #fff;-fx-font-size: 18;");
-            } else if (course.getStatus() == CourseStatusEnum.CONFLICT) {
-                buttonOp = new JFXButton("冲突");
-                buttonOp.setStyle("-fx-font-size: 18;");
-                buttonOp.setDisable(true);
-            } else if (course.getStatus() == CourseStatusEnum.NOT_AVAILABLE) {
-                buttonOp = new JFXButton("已满");
-                buttonOp.setStyle("-fx-font-size: 18;");
-                buttonOp.setDisable(true);
-            } else if (course.getStatus() == CourseStatusEnum.SELECTED) {
-                buttonOp = new JFXButton("退选");
-                buttonOp.setStyle("-fx-background-color: #ff2300;-fx-text-fill: #fff;-fx-font-size: 18;");
-
-            }
-            buttonOp.setButtonType(JFXButton.ButtonType.RAISED);
-            opCol.getChildren().addAll(buttonOp);
-            opCol.getStyleClass().add("register-item");
-
-            register_opCol.getChildren().addAll(opCol);
-        }
-    }*/
+        //WebResponse res = api.get("/library/book");
+        //List<BookViewModel> bookList = res.dataList(BookViewModel.class);
+//        AdminCourseViewFactory admincourseViewFactory = new AdminCourseViewFactory(rootStackPane,this);
+//        List<HBox> row = admincourseViewFactory.createCourseRows(bookList);
+//        if (course_inquireBox.getChildren().size() != 0) {
+//            course_inquireBox.getChildren().clear();
+//            course_inquireBox.getChildren().addAll(row);
+//        } else {
+//            course_inquireBox.getChildren().addAll(row);
+//        }
+    }
 
 
     @FXML
     protected void switchLibrary(ActionEvent actionEvent) {
         LibraryPane.setVisible(true);
         StuInfoPane.setVisible(false);
-        //CoursePane.setVisible(false);
+        CoursePane.setVisible(false);
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
@@ -348,13 +263,15 @@ public class AdminViewController extends ViewController implements Initializable
     protected void switchStore(ActionEvent actionEvent) {
         StorePane.setVisible(true);
         StuInfoPane.setVisible(false);
-        //CoursePane.setVisible(false);
+        CoursePane.setVisible(false);
         LibraryPane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
 
+        WebResponse res = api.get("/goods");
+        List<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);
         AdminStoreViewFactory adminstoreViewFactory = new AdminStoreViewFactory(rootStackPane, this);
-        List<HBox> row = adminstoreViewFactory.createFullGoodsRows(goodList);
+        List<HBox> row = adminstoreViewFactory.createFullGoodsRows(goodsList);
         if(store_newItemBox.getChildren().size() != 0) {
             store_newItemBox.getChildren().clear();
             store_newItemBox.getChildren().addAll(row);
@@ -386,7 +303,7 @@ public class AdminViewController extends ViewController implements Initializable
     }
 
     @FXML
-    protected void bookadd(ActionEvent actionEvent) {
+    protected void addBook(ActionEvent actionEvent) {
         WebResponse res = api.get("/library/book");
         List<BookViewModel> bookList = res.dataList(BookViewModel.class);
         AdminLibraryViewFactory adminlibraryViewFactory = new AdminLibraryViewFactory(rootStackPane, this);
@@ -401,12 +318,12 @@ public class AdminViewController extends ViewController implements Initializable
     }
 
     @FXML
-    protected void goodsadd(ActionEvent actionEvent) {
-        //WebResponse res = api.get("/goods");
-        //List<Goods> goodsList = res.dataList(Goods.class);
+    protected void addGoods(ActionEvent actionEvent) {
+        WebResponse res = api.get("/goods");
+        List<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);
         AdminStoreViewFactory adminstoreViewFactory = new AdminStoreViewFactory(rootStackPane, this);
         List<HBox> row=adminstoreViewFactory.createEmptyGoodsRows();
-        row.addAll(adminstoreViewFactory.createFullGoodsRows(goodList));
+        row.addAll(adminstoreViewFactory.createFullGoodsRows(goodsList));
         if (store_newItemBox.getChildren().size() != 0) {
             store_newItemBox.getChildren().clear();
             store_newItemBox.getChildren().addAll(row);
@@ -416,7 +333,7 @@ public class AdminViewController extends ViewController implements Initializable
     }
 
     @FXML
-    protected void addstudent(ActionEvent actionEvent)
+    protected void addStudent(ActionEvent actionEvent)
     {
         editStu.setVisible(true);
         stuinfopane.setVisible(true);
@@ -436,7 +353,7 @@ public class AdminViewController extends ViewController implements Initializable
     }
 
     @FXML
-    private void editstudent(ActionEvent actionEvent)
+    private void editStudent(ActionEvent actionEvent)
     {
         if(editStu.getText().equals("编辑信息"))
         {
@@ -474,6 +391,21 @@ public class AdminViewController extends ViewController implements Initializable
                 editStu.setText("编辑信息");
             }
 
+        }
+    }
+
+    @FXML
+    private void addCourse(ActionEvent actionEvent) {
+        //WebResponse res = api.get("/library/book");
+        //List<BookViewModel> bookList = res.dataList(BookViewModel.class);
+        AdminCourseViewFactory admincourseViewFactory = new AdminCourseViewFactory(rootStackPane, this);
+        List<HBox> row=admincourseViewFactory.createEmptyCourseRows();
+        //row.addAll(admincourseViewFactory.createFullCourseRows(bookList));
+        if (course_inquireBox.getChildren().size() != 0) {
+            course_inquireBox.getChildren().clear();
+            course_inquireBox.getChildren().addAll(row);
+        } else {
+            course_inquireBox.getChildren().addAll(row);
         }
     }
 }

@@ -77,18 +77,20 @@
     -fx-effect: innershadow(one-pass-box, #673AB7, 2, 0.5, 0, 0);
 }
 
-#addStu,#editStu,
-#addBook,#editBook,
-#addGoods,#editGoods,
+#addStu_Bt,#editStu_Bt,
+#addCourse_Bt,#editCourse_Bt,
+#addBook_Bt,#editBook_Bt,
+#addGoods_Bt,#editGoods_Bt,
 #logout
 {
     -fx-background-color: #673AB7;
     -fx-text-fill: #fff;
     -jfx-button-type: RAISED;
 }
-#addStu:hover,#editStu:hover,
-#addBook:hover,#editBook:hover,
-#addGoods:hover,#editGoods:hover,
+#addStu_Bt:hover,#editStu_Bt:hover,
+#addCourse_Bt:hover,#editCourse_Bt:hover,
+#addBook_Bt:hover,#editBook_Bt:hover,
+#addGoods_Bt:hover,#editGoods_Bt:hover,
 #logout:hover {
     -fx-background-color: #7C4DFF;
     -fx-cursor: hand;
