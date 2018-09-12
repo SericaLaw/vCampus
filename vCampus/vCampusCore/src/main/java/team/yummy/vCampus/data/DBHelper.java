@@ -100,7 +100,10 @@ public class DBHelper {
 
             for (Map.Entry<String, String> entry:map.entrySet()) {
                 dataKey = entry.getKey();
-                dataValue = entry.getValue();
+                Object o = entry.getValue();
+                if (!(o instanceof String))
+                    o = o.toString();
+                dataValue = (String) o;
                 sql += String.format("%s = '%s', ", dataKey, dataValue);
             }
             sql = sql.substring(0,sql.length() - 2); // 去除多余的逗号

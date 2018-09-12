@@ -503,6 +503,49 @@
   {
     "group": "Library",
     "type": "delete",
+    "url": "/book/bookId/{bookId}",
+    "title": "DeleteBook",
+    "description": "<p>删除图书</p>",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "// 下面的操作在实际使用中并不需要，只需要得到一个要修改对象的引用即可\nBookViewModel bookToDelete = new BookViewModel();\nbookToDelete.setBookId(\"404\");\n// 下面开始删除\napi.delete(\"/book/bookId/\" + bookToDelete.getBookId());",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "404 \"Book not found.\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/LibraryController.java",
+    "groupTitle": "Library",
+    "name": "DeleteBookBookidBookid"
+  },
+  {
+    "group": "Library",
+    "type": "delete",
     "url": "/library/borrow",
     "title": "DeleteBorrowRecords",
     "description": "<p>还书</p>",
@@ -515,7 +558,7 @@
       "examples": [
         {
           "title": "Code Snippets",
-          "content": "\nWebResponse res = api.delete(\"/library/borrow/\" + borrowRecordViewModel.getId());",
+          "content": "WebResponse res = api.delete(\"/library/borrow/\" + borrowRecordViewModel.getId());",
           "type": "json"
         }
       ]
@@ -542,6 +585,49 @@
     "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/LibraryController.java",
     "groupTitle": "Library",
     "name": "DeleteLibraryBorrow"
+  },
+  {
+    "group": "Library",
+    "type": "get",
+    "url": "/book/bookId/{bookId}",
+    "title": "GetBookById",
+    "description": "<p>按ID查询图书</p>",
+    "permission": [
+      {
+        "name": "student admin"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "String bookId = \"101\";\nWebResponse res = api.get(\"/book/bookId/\" + bookId);\nBookViewModel book = res.dataList(BookViewModel.class, 0);",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n[{\n     \"TotalCount\":\"10\",\n     \"BookID\":\"101\",\n     \"BookName\":\"数据结构\",\n     \"Publisher\":\"清华大学出版社\",\n     \"AvailableCount\":\"10\",\n     \"Writer\":\"邓俊辉\"\n}]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "404 \"Book not found.\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/LibraryController.java",
+    "groupTitle": "Library",
+    "name": "GetBookBookidBookid"
   },
   {
     "group": "Library",
@@ -628,6 +714,49 @@
     "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/LibraryController.java",
     "groupTitle": "Library",
     "name": "GetLibraryBorrow"
+  },
+  {
+    "group": "Library",
+    "type": "patch",
+    "url": "/book/bookId/{bookId}",
+    "title": "ModifyBook",
+    "description": "<p>修改图书</p>",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "// 下面的操作在实际使用中并不需要，只需要得到一个要修改对象的引用即可\nBookViewModel bookToModify = new BookViewModel();\nbookToModify.setBookId(\"101\");\nbookToModify.setBookName(\"数据结构\");\nbookToModify.setWriter(\"邓俊辉\");\nbookToModify.setPublisher(\"清华大学出版社\");\nbookToModify.setAvailableCount(5);\nbookToModify.setTotalCount(5);\n\n// 下面开始更新\nbookToModify.setAvailableCount(10);\nbookToModify.setTotalCount(10);\n\napi.patch(\"/book/bookId/\" + bookToModify.getBookId(), JSON.toJSONString(bookToModify));",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "404 \"Book not found.\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/LibraryController.java",
+    "groupTitle": "Library",
+    "name": "PatchBookBookidBookid"
   },
   {
     "group": "Library",
@@ -720,7 +849,7 @@
     "type": "post",
     "url": "/library/book",
     "title": "SearchForBooks",
-    "description": "<p>按书名搜索图书</p>",
+    "description": "<p>按书名模糊搜索图书</p>",
     "permission": [
       {
         "name": "student admin"
@@ -757,6 +886,49 @@
     "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/LibraryController.java",
     "groupTitle": "Library",
     "name": "PostLibraryBook"
+  },
+  {
+    "group": "Store",
+    "type": "delete",
+    "url": "/goods/goodsId/{goodsId}",
+    "title": "DeleteGoods",
+    "description": "<p>删除商品</p>",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "// 下面的操作在实际使用中并不需要，只需要得到一个要修改对象的引用即可\nGoodsViewModel goodsToDelete = new GoodsViewModel();\ngoodsToDelete.setGoodsId(\"66b20429-922e-45f9-aeb3-6c7f4fdeaff1\");\n// 下面开始删除\napi.delete(\"/goods/goodsId/\" + goodsToDelete.getGoodsId());",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "404 \"Goods not found.\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StoreController.java",
+    "groupTitle": "Store",
+    "name": "DeleteGoodsGoodsidGoodsid"
   },
   {
     "group": "Store",
@@ -805,6 +977,49 @@
   {
     "group": "Store",
     "type": "get",
+    "url": "/goods/goodsId/{goodsId}",
+    "title": "GetGoodsById",
+    "description": "<p>按ID查询商品</p>",
+    "permission": [
+      {
+        "name": "student admin"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "String goodsId = \"66b20429-922e-45f9-aeb3-6c7f4fdeaff1\";\nWebResponse res = api.get(\"/goods/goodsId/\" + goodsId);\nGoodsViewModel goods = res.dataList(GoodsViewModel.class, 0);",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n[{\n     \"Price\":\"10000.0\",\n     \"Tag\":\"1\",\n     \"Info\":\"罗永浩子公司荣誉出品\",\n     \"ImgUrl\":\"./images/item.png\",\n     \"GoodsID\":\"66b20429-922e-45f9-aeb3-6c7f4fdeaff1\",\n     \"GoodsName\":\"iPhone 100\"\n}]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "404 \"Goods not found.\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StoreController.java",
+    "groupTitle": "Store",
+    "name": "GetGoodsGoodsidGoodsid"
+  },
+  {
+    "group": "Store",
+    "type": "get",
     "url": "/store/cart",
     "title": "GetCartList",
     "permission": [
@@ -849,19 +1064,19 @@
   {
     "group": "Store",
     "type": "patch",
-    "url": "/store/cart",
-    "title": "ModifyCart",
+    "url": "/goods/goodsId/{goodsId}",
+    "title": "ModifyBook",
+    "description": "<p>修改商品</p>",
     "permission": [
       {
-        "name": "student"
+        "name": "admin"
       }
     ],
-    "description": "<p>增加商品数量(cart record已有该商品)</p>",
     "parameter": {
       "examples": [
         {
           "title": "Code Snippets",
-          "content": "String uuid = cartRecordViewModel.getCartRecordID();\nint count = cartRecordViewModel.getGoodsCount();\nWebResponse res = api.patch(\"/store/cart\", String.format(\"{\\\"uuid\\\": %s, \\\"count\\\":%d}\", uuid, count);",
+          "content": "// 下面的操作在实际使用中并不需要，只需要得到一个要修改对象的引用即可\nGoodsViewModel goodsToModify = new GoodsViewModel();\ngoodsToModify.setGoodsId(\"66b20429-922e-45f9-aeb3-6c7f4fdeaff1\");\ngoodsToModify.setGoodsName(\"iPhone 100\");\ngoodsToModify.setPrice(10000);\ngoodsToModify.setImgUrl(\"./images/item.png\");\ngoodsToModify.setTag(1);\n\n// 下面开始更新\ngoodsToModify.setInfo(\"罗永浩子公司荣誉出品\");\napi.patch(\"/goods/goodsId/\" + goodsToModify.getGoodsId(), JSON.toJSONString(goodsToModify));",
           "type": "json"
         }
       ]
@@ -870,7 +1085,16 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "200 OK\n......",
+          "content": "200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "404 \"Goods not found.\"",
           "type": "json"
         }
       ]
@@ -878,7 +1102,7 @@
     "version": "0.0.0",
     "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StoreController.java",
     "groupTitle": "Store",
-    "name": "PatchStoreCart"
+    "name": "PatchGoodsGoodsidGoodsid"
   },
   {
     "group": "Store",
@@ -1163,5 +1387,38 @@
     "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StuInfoController.java",
     "groupTitle": "StuInfo",
     "name": "PostStuinfo"
+  },
+  {
+    "group": "_api__patch___store_cart_ModifyCart",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "description": "<p>增加商品数量(cart record已有该商品)</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "String uuid = cartRecordViewModel.getCartRecordID();\nint count = cartRecordViewModel.getGoodsCount();\nWebResponse res = api.patch(\"/store/cart\", String.format(\"{\\\"uuid\\\": %s, \\\"count\\\":%d}\", uuid, count);",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK\n......Store",
+          "type": "json"
+        }
+      ]
+    },
+    "type": "",
+    "url": "",
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StoreController.java",
+    "groupTitle": "_api__patch___store_cart_ModifyCart",
+    "name": ""
   }
 ]
