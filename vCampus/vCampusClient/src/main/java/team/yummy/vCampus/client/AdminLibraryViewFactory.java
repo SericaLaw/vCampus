@@ -44,22 +44,39 @@ public class AdminLibraryViewFactory {
             HBox newRow_6=new HBox();
             Label title_ID=new Label("ID: ");
             JFXTextField bookID = new JFXTextField(book.getBookId());
+            title_ID.setMinHeight(25);
+            bookID.setMinHeight(20);
+            bookID.setMaxWidth(120);
             newRow_1.getChildren().addAll(title_ID,bookID);
-            Label title_Name1=new Label("书名: 《");
+            Label title_Name=new Label("书名: ");
             JFXTextField bookName = new JFXTextField(book.getBookName());
-            Label title_Name2=new Label("》");
-            newRow_2.getChildren().addAll(title_Name1,bookName,title_Name2);
+            title_Name.setMinHeight(25);
+            bookName.setMinHeight(20);
+            bookName.setMaxWidth(120);
+            newRow_2.getChildren().addAll(title_Name,bookName);
             Label title_Writer=new Label("作者： ");
             JFXTextField bookWriter=new JFXTextField(book.getWriter());
+            title_Writer.setMinHeight(25);
+            bookWriter.setMinHeight(20);
+            bookWriter.setMaxWidth(120);
             newRow_3.getChildren().addAll(title_Writer,bookWriter);
             Label title_Publisher=new Label("出版社： ");
             JFXTextField bookPublisher=new JFXTextField(book.getPublisher());
+            title_Publisher.setMinHeight(25);
+            bookPublisher.setMinHeight(20);
+            bookPublisher.setMaxWidth(120);
             newRow_4.getChildren().addAll(title_Publisher,bookPublisher);
             Label title_TotalCount=new Label("图书总量： ");
             JFXTextField bookTotalCount = new JFXTextField(Integer.toString(book.getTotalCount()));
+            title_TotalCount.setMinHeight(25);
+            bookTotalCount.setMinHeight(20);
+            bookTotalCount.setMaxWidth(120);
             newRow_5.getChildren().addAll(title_TotalCount,bookTotalCount);
             Label title_AvailableCount=new Label("剩余量： ");
             JFXTextField bookAvailableCount=new JFXTextField(Integer.toString(book.getAvailableCount()));
+            title_AvailableCount.setMinHeight(25);
+            bookAvailableCount.setMinHeight(20);
+            bookAvailableCount.setMaxWidth(120);
             newRow_6.getChildren().addAll(title_AvailableCount,bookAvailableCount);
 
 
@@ -73,15 +90,16 @@ public class AdminLibraryViewFactory {
 
 
             final JFXButton editBook = new JFXButton("编辑");
-            Image bookImage = new Image("./images/Library.jpg", 240, 160, false, true, true);
+            Image bookImage = new Image("./images/Library.jpg", 240, 160, true, true, true);
             ImageView bookImageContent = new ImageView(bookImage);
-            InfoCard.getChildren().addAll(newRow_1,newRow_2,newRow_3,newRow_4,newRow_5,newRow_6,errorText);
+            InfoCard.getChildren().addAll(newRow_1,newRow_2,newRow_3,newRow_4,newRow_5,newRow_6);
 
 
             InfoCard.setSpacing(10);
             InfoCard.setMinWidth(240);
 
-            HBox BUTTONBOX=new HBox();
+            VBox InfoCard2=new VBox();
+            InfoCard2.setSpacing(30);
             editBook.setButtonType(JFXButton.ButtonType.RAISED);
             editBook.setBackground(new Background(new BackgroundFill(Color.web("#7C4DFF"),null,null)));
             editBook.setTextFill(Color.web("#FFF"));
@@ -141,15 +159,15 @@ public class AdminLibraryViewFactory {
             });
 
 
-            BUTTONBOX.getChildren().add(editBook);
-            BUTTONBOX.setAlignment(Pos.BOTTOM_RIGHT);
+            InfoCard2.getChildren().addAll(error_Text,editBook);
+            InfoCard2.setAlignment(Pos.BOTTOM_RIGHT);
 
-            newRow.getChildren().addAll(bookImageContent,InfoCard,BUTTONBOX);
+            newRow.getChildren().addAll(bookImageContent,InfoCard,InfoCard2);
 
-            newRow.setAlignment(Pos.CENTER_LEFT);
+            newRow.setAlignment(Pos.CENTER);
             newRow.setPrefWidth(300);
             newRow.setPadding(new Insets(40, 30, 5, 40));
-            newRow.setSpacing(20);
+            newRow.setSpacing(100);
 
             rows.add(newRow);
 
@@ -177,22 +195,58 @@ public class AdminLibraryViewFactory {
         Label title_ID = new Label("ID: ");
         JFXTextField bookID = new JFXTextField();
         newRow_1.getChildren().addAll(title_ID, bookID);
-        Label title_Name1 = new Label("书名: 《");
+        title_ID.setMinHeight(25);
+        title_ID.setMinWidth(80);
+        title_ID.setMaxWidth(80);
+        bookID.setMinHeight(20);
+        bookID.setMaxWidth(120);
+        Label title_Name = new Label("书名: ");
         JFXTextField bookName = new JFXTextField();
-        Label title_Name2 = new Label("》");
-        newRow_2.getChildren().addAll(title_Name1, bookName, title_Name2);
+        title_Name.setMinHeight(25);
+        title_Name.setMinWidth(80);
+        title_Name.setMaxWidth(80);
+        bookName.setMinHeight(20);
+        bookName.setMaxWidth(120);
+        newRow_2.getChildren().addAll(title_Name, bookName);
         Label title_Writer = new Label("作者： ");
         JFXTextField bookWriter = new JFXTextField();
+        title_Writer.setMinHeight(25);
+        title_Writer.setMinWidth(80);
+        title_Writer.setMaxWidth(80);
+        bookWriter.setMinHeight(20);
+        bookWriter.setMaxWidth(120);
         newRow_3.getChildren().addAll(title_Writer, bookWriter);
         Label title_Publisher = new Label("出版社： ");
         JFXTextField bookPublisher = new JFXTextField();
+        title_Publisher.setMinHeight(25);
+        title_Publisher.setMinWidth(80);
+        title_Publisher.setMaxWidth(80);
+        bookPublisher.setMinHeight(20);
+        bookPublisher.setMaxWidth(120);
         newRow_4.getChildren().addAll(title_Publisher, bookPublisher);
         Label title_TotalCount = new Label("图书总量： ");
         JFXTextField bookTotalCount = new JFXTextField();
+        title_TotalCount.setMinHeight(25);
+        title_TotalCount.setMinWidth(80);
+        title_TotalCount.setMaxWidth(80);
+        bookTotalCount.setMinHeight(20);
+        bookTotalCount.setMaxWidth(120);
         newRow_5.getChildren().addAll(title_TotalCount, bookTotalCount);
         Label title_AvailableCount = new Label("剩余量： ");
         JFXTextField bookAvailableCount = new JFXTextField();
+        title_AvailableCount.setMinHeight(25);
+        title_AvailableCount.setMinWidth(80);
+        title_AvailableCount.setMaxWidth(80);
+        bookAvailableCount.setMinHeight(20);
+        bookAvailableCount.setMaxWidth(120);
         newRow_6.getChildren().addAll(title_AvailableCount, bookAvailableCount);
+
+       /* newRow_1.setSpacing(50);
+        newRow_2.setSpacing(50);
+        newRow_3.setSpacing(50);
+        newRow_4.setSpacing(50);
+        newRow_5.setSpacing(50);
+        newRow_6.setSpacing(50);*/
 
 
         Label errorText = new Label("");
@@ -204,30 +258,31 @@ public class AdminLibraryViewFactory {
         bookAvailableCount.setDisable(false);
 
         final JFXButton editBook = new JFXButton("保存");
-        Image bookImage = new Image("./images/Library.jpg", 240, 160, false, true, true);
+        Image bookImage = new Image("./images/Library.jpg", 240, 160, true, true, true);
         ImageView bookImageContent = new ImageView(bookImage);
-        InfoCard.getChildren().addAll(newRow_1, newRow_2, newRow_3, newRow_4, newRow_5, newRow_6,errorText);
+        InfoCard.getChildren().addAll(newRow_1, newRow_2, newRow_3, newRow_4, newRow_5, newRow_6);
 
 
         InfoCard.setSpacing(10);
         InfoCard.setMinWidth(240);
 
-        HBox BUTTONBOX = new HBox();
+        VBox InfoCard2 = new VBox();
+        InfoCard2.setSpacing(30);
         editBook.setButtonType(JFXButton.ButtonType.RAISED);
         editBook.setBackground(new Background(new BackgroundFill(Color.web("#7C4DFF"), null, null)));
         editBook.setTextFill(Color.web("#FFF"));
         editBook.setFont(Font.font(18));
         editBook.setAlignment(Pos.BOTTOM_RIGHT);
 
-        BUTTONBOX.getChildren().add(editBook);
-        BUTTONBOX.setAlignment(Pos.BOTTOM_RIGHT);
+        InfoCard2.getChildren().add(editBook);
+        InfoCard2.setAlignment(Pos.BOTTOM_RIGHT);
 
-        newRow.getChildren().addAll(bookImageContent, InfoCard, BUTTONBOX);
+        newRow.getChildren().addAll(bookImageContent, InfoCard, InfoCard2);
 
-        newRow.setAlignment(Pos.CENTER_LEFT);
+        newRow.setAlignment(Pos.CENTER);
         newRow.setPrefWidth(300);
         newRow.setPadding(new Insets(40, 30, 5, 40));
-        newRow.setSpacing(20);
+        newRow.setSpacing(100);
 
         rows.add(newRow);
 

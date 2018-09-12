@@ -11,6 +11,7 @@ import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -112,8 +113,13 @@ public class AdminStoreViewFactory {
             goodsPrice.setStyle("-fx-text-fill:#673AB7");
             newRow_4.getChildren().addAll(title_Price,goodsPrice);
             Label title_Tag=new Label("类别： ");
-            JFXComboBox goodsTag=new JFXComboBox();
-            goodsTag.getItems().addAll("1","2","3");
+            title_Tag.setFont(Font.font(17));
+            JFXComboBox<String> goodsTag=new JFXComboBox<>();
+            goodsTag.setItems(FXCollections.observableArrayList(
+                    new String("1"),
+                    new String("2"),
+                    new String("3")));
+            goodsTag.setValue(Integer.toString(goods.getTag()));
             newRow_5.getChildren().addAll(title_Tag,goodsTag);
             InfoCard1.getChildren().addAll(newRow_1,newRow_2,newRow_3,newRow_4,newRow_5);
             Label errorText=new Label("");
@@ -223,24 +229,27 @@ public class AdminStoreViewFactory {
         title_Name.setMinSize(110,35);
         JFXTextField goodsName = new JFXTextField();
         goodsName.setFont(Font.font(17));
-        goodsName.setMinSize(100,18);
+        goodsName.setMinSize(100,15);
         newRow_2.getChildren().addAll(title_Name,goodsName);
         Label title_Info=new Label("  型号： ");
         title_Info.setFont(Font.font(17));
         title_Info.setMinSize(110,35);
         JFXTextField goodsInfo=new JFXTextField();
         goodsInfo.setFont(Font.font(17));
-        goodsInfo.setMinSize(100,18);
+        goodsInfo.setMinSize(100,15);
         newRow_3.getChildren().addAll(title_Info,goodsInfo);
         Label title_Price=new Label("  价格：￥ ");
         title_Price.setFont(Font.font(17));
         title_Price.setMinSize(110,35);
         JFXTextField goodsPrice = new JFXTextField();
         goodsPrice.setFont(Font.font(17));
-        goodsPrice.setMinSize(100,18);
+        goodsPrice.setMinSize(100,15);
         newRow_4.getChildren().addAll(title_Price,goodsPrice);
-        Label title_Tag=new Label("类别： ");
+        Label title_Tag=new Label("  类别： ");
+        title_Tag.setFont(Font.font(17));
+        title_Tag.setMinSize(110,35);
         JFXComboBox goodsTag=new JFXComboBox();
+        goodsTag.setMinHeight(17);
         goodsTag.getItems().addAll("1","2","3");
         newRow_5.getChildren().addAll(title_Tag,goodsTag);
         Label errorText=new Label("");
@@ -317,5 +326,6 @@ public class AdminStoreViewFactory {
 
         return rows;
     }
+
 }
 

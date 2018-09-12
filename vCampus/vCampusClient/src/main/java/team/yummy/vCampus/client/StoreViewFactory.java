@@ -41,12 +41,13 @@ import static javafx.geometry.Pos.BASELINE_CENTER;
 import static javafx.geometry.Pos.CENTER;
 import static javafx.geometry.Pos.CENTER_LEFT;
 import static sun.swing.MenuItemLayoutHelper.max;
+import team.yummy.vCampus.models.viewmodel.GoodsViewModel;
 
 
 public class StoreViewFactory {
     private StackPane rootStackPane;
     private MainViewController controller;
-    private List<Goods> goodsSelected = new ArrayList<>();
+    private List<GoodsViewModel> goodsSelected = new ArrayList<>();
 
     StoreViewFactory(StackPane rootStackPane, MainViewController mainViewController) {
         this.rootStackPane = rootStackPane;
@@ -54,12 +55,12 @@ public class StoreViewFactory {
     }
 
     // TODO: 添加样式
-    public List<HBox> createStoreRows(List<Goods> goodsList, int countPerRow) {
+    public List<HBox> createStoreRows(List<GoodsViewModel> goodsList, int countPerRow) {
         List<HBox> rows = new ArrayList<>();
         List<StackPane> items = new ArrayList<>();
 
         int i = 0;
-        for (final Goods goods : goodsList) {
+        for (final GoodsViewModel goods : goodsList) {
             final StackPane child = new StackPane();
             double width = 280;
             child.setMinWidth(width);
@@ -75,7 +76,7 @@ public class StoreViewFactory {
             StackPane body = new StackPane();
             body.setPrefHeight(50);
             HBox goodsInfoContent = new HBox();
-            Label goodsNameInfo = new Label(goods.getName());
+            Label goodsNameInfo = new Label(goods.getGoodsName());
             Label goodsPriceInfo = new Label("￥" + goods.getPrice());
 
             goodsInfoContent.setSpacing(10);
@@ -161,7 +162,7 @@ public class StoreViewFactory {
 
             Label cartGoodsInfo = new Label(goods.getInfo());
             Label cartGoodsPrice = new Label("￥" + goods.getPrice());
-            Label cartGoodsName = new Label(goods.getName());
+            Label cartGoodsName = new Label(goods.getGoodsName());
             cartGoodsPrice.setFont(Font.font(20));
             cartGoodsName.setFont(Font.font(28));
             cartGoodsName.setTextFill(Color.web("#212121"));
@@ -221,9 +222,9 @@ public class StoreViewFactory {
 
     // TODO: 应使用购物车商品类；相关事件处理
     // TODO: 应使用购物车商品类；相关事件处理
-    public List<HBox> createCartRows(List<Goods> goodsToBuy) {
+    public List<HBox> createCartRows(List<GoodsViewModel> goodsToBuy) {
         List<HBox> rows = new ArrayList<>();
-        for (final Goods goods : goodsToBuy) {
+        for (final GoodsViewModel goods : goodsToBuy) {
 
             final JFXCheckBox goodsSelector =new JFXCheckBox();
             final HBox newRow = new HBox();
@@ -260,7 +261,7 @@ public class StoreViewFactory {
             goodsImageView.setFitHeight(100);
             newRow.getChildren().add(goodsImageView);
 
-            Label goodsName = new Label(goods.getName());
+            Label goodsName = new Label(goods.getGoodsName());
             goodsName.setStyle("-fx-font-weight:bold;-fx-font-size:17px;");
             Label goodsInfo=new Label(goods.getInfo());
             Label goodsPrice = new Label("￥" + goods.getPrice());
@@ -375,13 +376,13 @@ public class StoreViewFactory {
                         else
                         {
                             goodsAmount.setText("1");
-                            goodsTotalPrice.setText(goods.getPrice());
+                            goodsTotalPrice.setText(Double.toString(goods.getPrice()));
                         }
                     }
                 }
             });
 
-            final Goods goodsToRemove = goods;
+            final GoodsViewModel goodsToRemove = goods;
             goodsRemove.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent arg0) {
