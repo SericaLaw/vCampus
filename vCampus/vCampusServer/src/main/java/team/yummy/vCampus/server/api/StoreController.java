@@ -221,5 +221,72 @@ public class StoreController extends Controller {
      *
      */
 
+    /**
+     * @apiGroup Store
+     * @api {get} /goods/goodsId/{goodsId} GetGoodsById
+     * @apiDescription 按ID查询商品
+     * @apiPermission student admin
+     * @apiParamExample Code Snippets
+     * String goodsId = "66b20429-922e-45f9-aeb3-6c7f4fdeaff1";
+     * WebResponse res = api.get("/goods/goodsId/" + goodsId);
+     * GoodsViewModel goods = res.dataList(GoodsViewModel.class, 0);
+     * @apiSuccessExample Success-Response:
+     *     200 OK
+     *     [{
+     *          "Price":"10000.0",
+     *          "Tag":"1",
+     *          "Info":"罗永浩子公司荣誉出品",
+     *          "ImgUrl":"./images/item.png",
+     *          "GoodsID":"66b20429-922e-45f9-aeb3-6c7f4fdeaff1",
+     *          "GoodsName":"iPhone 100"
+     *     }]
+     *
+     *
+     * @apiErrorExample Error-Response:
+     *     404 "Goods not found."
+     */
+
+    /**
+     * @apiGroup Store
+     * @api {delete} /goods/goodsId/{goodsId} DeleteGoods
+     * @apiDescription 删除商品
+     * @apiPermission admin
+     * @apiParamExample Code Snippets
+     * // 下面的操作在实际使用中并不需要，只需要得到一个要修改对象的引用即可
+     * GoodsViewModel goodsToDelete = new GoodsViewModel();
+     * goodsToDelete.setGoodsId("66b20429-922e-45f9-aeb3-6c7f4fdeaff1");
+     * // 下面开始删除
+     * api.delete("/goods/goodsId/" + goodsToDelete.getGoodsId());
+     * @apiSuccessExample Success-Response:
+     *     200 OK
+     *
+     * @apiErrorExample Error-Response:
+     *     404 "Goods not found."
+     */
+
+    /**
+     * @apiGroup Store
+     * @api {patch} /goods/goodsId/{goodsId} ModifyBook
+     * @apiDescription 修改商品
+     * @apiPermission admin
+     * @apiParamExample Code Snippets
+     * // 下面的操作在实际使用中并不需要，只需要得到一个要修改对象的引用即可
+     * GoodsViewModel goodsToModify = new GoodsViewModel();
+     * goodsToModify.setGoodsId("66b20429-922e-45f9-aeb3-6c7f4fdeaff1");
+     * goodsToModify.setGoodsName("iPhone 100");
+     * goodsToModify.setPrice(10000);
+     * goodsToModify.setImgUrl("./images/item.png");
+     * goodsToModify.setTag(1);
+     *
+     * // 下面开始更新
+     * goodsToModify.setInfo("罗永浩子公司荣誉出品");
+     * api.patch("/goods/goodsId/" + goodsToModify.getGoodsId(), JSON.toJSONString(goodsToModify));
+     * @apiSuccessExample Success-Response:
+     *     200 OK
+     *
+     * @apiErrorExample Error-Response:
+     *     404 "Goods not found."
+     */
+
 
 }
