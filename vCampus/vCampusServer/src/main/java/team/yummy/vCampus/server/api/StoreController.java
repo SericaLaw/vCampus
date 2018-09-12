@@ -1,8 +1,6 @@
 package team.yummy.vCampus.server.api;
 
 import com.alibaba.fastjson.JSON;
-import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
-import org.hibernate.Transaction;
 import team.yummy.vCampus.models.entity.*;
 import team.yummy.vCampus.models.viewmodel.*;
 import team.yummy.vCampus.server.annotation.*;
@@ -83,8 +81,9 @@ public class StoreController extends Controller {
         // 不管是购物车中已有记录还是新生成的，自增1即可
         record.incGoodsCnt();
         dbSession.beginTransaction();
-        dbSession.update(record);
+        dbSession.saveOrUpdate(record);
         dbSession.getTransaction().commit();
+        webContext.response.setBody(record.getCartRecordId());
     }
 
     /**
@@ -129,16 +128,16 @@ public class StoreController extends Controller {
         bank.setBalance(bank.getBalance() - total_price);
         BankRecordEntity bank_record = new BankRecordEntity();
         bank_record.setId(UUID.randomUUID().toString());
-        bank_record.setBankAccountByBankAccountId(bank);
-        bank_record.setDeposit((int) total_price);
-        bank_record.setDepositTime(new Timestamp(System.currentTimeMillis()));
+        bank_record.setBankAccountByCampusCardId(bank);
+        bank_record.setIncomeAndExpense(total_price);
+        bank_record.setRecordTime(new Timestamp(System.currentTimeMillis()));
         dbSession.save(bank_record);
         dbSession.getTransaction().commit();
         return "OK";
     }
 
     /**
-     * @apiGroup Store
+     * @apiGroup
      * @api {patch} /store/cart ModifyCart
      * @apiPermission student
      * @apiDescription 增加商品数量(cart record已有该商品)
@@ -147,7 +146,7 @@ public class StoreController extends Controller {
      *
      * @apiSuccessExample Success-Response:
      *      200 OK
-     *      ......
+     *      ......Store
      */
     @Patch(route = "cart")
     public void modifyCart() {

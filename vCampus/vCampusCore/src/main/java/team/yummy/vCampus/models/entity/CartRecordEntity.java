@@ -30,6 +30,7 @@ public class CartRecordEntity {
         this.createdTime = new Timestamp(System.currentTimeMillis());
         this.goodsCnt = 0;
         this.isSel = true;
+        this.isPurchased = false;
     }
 
     @Basic

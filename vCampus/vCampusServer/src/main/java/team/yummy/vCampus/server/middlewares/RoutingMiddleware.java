@@ -30,6 +30,8 @@ public class RoutingMiddleware implements Middleware {
                     controller = new LibraryController(); break;
                 case "stuinfo":
                     controller = new StuInfoController(); break;
+                case "store":
+                    controller = new StoreController(); break;
             }
 
             if (controller != null) {

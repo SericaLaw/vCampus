@@ -7,10 +7,10 @@
     <class name="team.yummy.vCampus.models.entity.BankRecordEntity" table="BankRecord" schema="&quot;.&quot;"
            catalog="&quot;.&quot;">
         <id name="id" column="ID"/>
-        <property name="deposit" column="Deposit"/>
-        <property name="depositTime" column="DepositTime"/>
-        <many-to-one name="bankAccountByBankAccountId" class="team.yummy.vCampus.models.entity.BankAccountEntity">
-            <column name="BankAccountID" not-null="true"/>
+        <property name="incomeAndExpense" column="IncomeAndExpense"/>
+        <property name="recordTime" column="RecordTime"/>
+        <many-to-one name="bankAccountByCampusCardId" class="team.yummy.vCampus.models.entity.BankAccountEntity">
+            <column name="CampusCardID" not-null="true"/>
         </many-to-one>
     </class>
 </hibernate-mapping>

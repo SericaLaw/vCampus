@@ -7,7 +7,7 @@
     <property name="dialect">com.hxtt.support.hibernate.HxttAccessDialect</property>
     <property name="connection.url">jdbc:Access:///C:\Users\Vigilans\Desktop\Projects\vCampus\vCampus\vCampusServer\database\test_database.accdb</property>
     <property name="connection.driver_class">com.hxtt.sql.access.AccessDriver</property>
-    <mapping class="team.yummy.vCampus.models.entity.AccountEntity"/>
+      <mapping class="team.yummy.vCampus.models.entity.AccountEntity"/>
     <mapping resource="team/yummy/vCampus/models/entity/AccountEntity.hbm.xml"/>
     <mapping class="team.yummy.vCampus.models.entity.StuInfoEntity"/>
     <mapping resource="team/yummy/vCampus/models/entity/StuInfoEntity.hbm.xml"/>
@@ -42,6 +42,9 @@
     <mapping class="team.yummy.vCampus.models.entity.GoodsEntity"/>
     <mapping resource="team/yummy/vCampus/models/entity/GoodsEntity.hbm.xml"/>
     <mapping resource="team/yummy/vCampus/models/entity/StuInfoEntity.hbm.xml"/>
+      <mapping resource="team/yummy/vCampus/models/entity/AccountEntity.hbm.xml"/>
+      <mapping resource="team/yummy/vCampus/models/entity/BankAccountEntity.hbm.xml"/>
+      <mapping resource="team/yummy/vCampus/models/entity/BankRecordEntity.hbm.xml"/>
       <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
