@@ -8,7 +8,9 @@ import team.yummy.vCampus.server.middlewares.Middleware;
 import team.yummy.vCampus.web.*;
 import team.yummy.vCampus.util.Logger;
 
-
+/**
+ * 实现网络连接
+ */
 public class WebContext extends Thread {
 
     public Logger logger;
@@ -23,6 +25,11 @@ public class WebContext extends Thread {
 
     public Session session;
 
+    /**
+     * 构造函数
+     * @param socket 网络连接所需socket
+     * @param server 对应服务器
+     */
     public WebContext(Socket socket, Server server) {
         this.socket = socket;
         this.server = server;
@@ -30,7 +37,9 @@ public class WebContext extends Thread {
         this.response = new WebResponse();
     }
 
-    // 线程执行的操作，响应客户端的请求
+    /**
+     * 线程执行的操作（获取输入流读取信息，进行中间件处理，输出服务器响应）
+     */
     public void run() {
         // 获取输入流，并读取客户端信息
         try {
@@ -71,7 +80,9 @@ public class WebContext extends Thread {
             e.printStackTrace();
         }
 
-        // 整个请求结束，关闭socket连接
+        /**
+         * 整个请求结束，关闭socket连接
+         */
         try {
             if (socket != null) {
                 socket.close();
@@ -81,15 +92,24 @@ public class WebContext extends Thread {
         }
     }
 
+    /**
+     * 激活中间件进行处理
+     */
     public class MiddlewareInvoker {
         // 记录当前context正在运行的中间件
         Iterator<Middleware> iterator;
 
+        /**
+         * 构造函数
+         * @param iterator 中间件迭代器
+         */
         MiddlewareInvoker(Iterator<Middleware> iterator) {
             this.iterator = iterator;
         }
 
-        // 调用此函数使得管道进入下一个中间件
+        /**
+         * 调用此函数使得管道进入下一个中间件
+         */
         public void invoke() {
             if (iterator.hasNext()) {
                 Middleware middleware = iterator.next();

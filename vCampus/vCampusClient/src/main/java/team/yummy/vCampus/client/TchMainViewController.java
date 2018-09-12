@@ -53,6 +53,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 
 
 public class TchMainViewController extends ViewController implements  Initializable{
+    @FXML public GridPane course_scheduleGrid;
     @FXML private StackPane rootStackPane;
     @FXML private GridPane title;
     @FXML private AnchorPane InitPane;
@@ -77,17 +78,17 @@ public class TchMainViewController extends ViewController implements  Initializa
 
     // @FXML public GridPane course_scheduleGrid;
     // data
-    // List<CourseScheduleViewModel> courseScheduleViewModels;
+    List<CourseScheduleViewModel> courseScheduleViewModels = new ArrayList<CourseScheduleViewModel>();
     @Override
     public void initialize(URL url, ResourceBundle rb) {     //点其他栏目的时候要不initpane上的图案淡一点？
         InitPane.setVisible(true);
         CoursePane.setVisible(false);
         AccountMagPane.setVisible(false);
 
-      /*  CourseScheduleViewModel CourseScheduleViewModel1 = new CourseScheduleViewModel("1001", 1, 1, 3, "数据结构", "邓俊辉","J2-102");
-        CourseScheduleViewModel CourseScheduleViewModel2 = new CourseScheduleViewModel("2001", 1, 12, 13, "算法", "图灵","J2-202");
+      CourseScheduleViewModel CourseScheduleViewModel1 = new CourseScheduleViewModel("1001", 1, 1, 3, "计算机组成原理", "任国林","J2-102");
+        CourseScheduleViewModel CourseScheduleViewModel2 = new CourseScheduleViewModel("2001", 3, 6, 8, "计算机组成原理", "任国林","J2-202");
         courseScheduleViewModels.add(CourseScheduleViewModel1);
-        courseScheduleViewModels.add(CourseScheduleViewModel2);*/
+        courseScheduleViewModels.add(CourseScheduleViewModel2);
     }
 
     @FXML
@@ -135,6 +136,34 @@ public class TchMainViewController extends ViewController implements  Initializa
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
 
+        String[] colors = {"#DD9708", "#56AF5A", "#E9433f", "#0EB5CA", "#512DA8"};
+        List<String> listColors = new ArrayList<String>();
+        for (String color : colors) {
+            listColors.add(color);
+        }
+
+        for (CourseScheduleViewModel course : courseScheduleViewModels) {
+            CourseViewFactory.CourseScheduleViewData data = new CourseViewFactory.CourseScheduleViewData(course);
+            JFXButton courseItem = new JFXButton();
+            courseItem.textProperty().bindBidirectional(data.contentProperty());
+            courseItem.setPrefHeight(200);
+            courseItem.setPrefWidth(200);
+
+            if (listColors.isEmpty()) {
+                for (String color : colors) {
+                    listColors.add(color);
+                }
+            }
+            int colorIndex = (int) (Math.random() * (listColors.size() - 1));
+            String itemColor = listColors.get(colorIndex);
+            listColors.remove(colorIndex);
+            courseItem.setBackground(new Background(new BackgroundFill(Color.web(itemColor), null, null)));
+            courseItem.setTextFill(Color.web("#fff"));
+            courseItem.setFont(Font.font(14));
+
+            course_scheduleGrid.add(courseItem, course.getWeekDay() * 2 - 1, course.getSpanStart(), 1, course.getSpanEnd() - course.getSpanStart() + 1);
+        }
+
         campusIDcardCol.setCellValueFactory(new PropertyValueFactory<>("campusIDCard"));
         studentnameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         subjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
@@ -143,11 +172,11 @@ public class TchMainViewController extends ViewController implements  Initializa
 
 
         final ObservableList<Person> data = FXCollections.observableArrayList(
-                new Person("213180000", "BIU", "计算机组成原理","17-18-2",""),
-                new Person("213180001", "CPU", "计算机组成原理","17-18-2",""),
-                new Person("213180002", "MMU", "计算机组成原理","17-18-2",""),
-                new Person("213180003", "MEM", "计算机组成原理","17-18-2",""),
-                new Person("213180004", "BUS", "计算机组成原理","17-18-2","")
+                new Person("213180001", "BIU", "计算机组成原理","17-18-2",""),
+                new Person("213180002", "CPU", "计算机组成原理","17-18-2",""),
+                new Person("213180003", "MMU", "计算机组成原理","17-18-2",""),
+                new Person("213180004", "MEM", "计算机组成原理","17-18-2",""),
+                new Person("213180005", "BUS", "计算机组成原理","17-18-2","")
         );
 
         Tch_GradeTV.setEditable(true);

@@ -7,29 +7,29 @@ import java.util.Objects;
 @Entity
 @Table(name = "BankRecord", schema = "\".\"", catalog = "\".\"")
 public class BankRecordEntity {
-    private Integer deposit;
-    private Timestamp depositTime;
     private String id;
-    private BankAccountEntity bankAccountByBankAccountId;
+    private Double incomeAndExpense;
+    private Timestamp recordTime;
+    private BankAccountEntity bankAccountByCampusCardId;
 
     @Basic
-    @Column(name = "Deposit")
-    public Integer getDeposit() {
-        return deposit;
+    @Column(name = "IncomeAndExpense")
+    public Double getIncomeAndExpense() {
+        return incomeAndExpense;
     }
 
-    public void setDeposit(Integer deposit) {
-        this.deposit = deposit;
+    public void setIncomeAndExpense(Double deposit) {
+        this.incomeAndExpense = deposit;
     }
 
     @Basic
-    @Column(name = "DepositTime")
-    public Timestamp getDepositTime() {
-        return depositTime;
+    @Column(name = "RecordTime")
+    public Timestamp getRecordTime() {
+        return recordTime;
     }
 
-    public void setDepositTime(Timestamp depositTime) {
-        this.depositTime = depositTime;
+    public void setRecordTime(Timestamp depositTime) {
+        this.recordTime = depositTime;
     }
 
     @Id
@@ -47,23 +47,23 @@ public class BankRecordEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BankRecordEntity that = (BankRecordEntity) o;
-        return Objects.equals(deposit, that.deposit) &&
-                Objects.equals(depositTime, that.depositTime) &&
+        return Objects.equals(incomeAndExpense, that.incomeAndExpense) &&
+                Objects.equals(recordTime, that.recordTime) &&
                 Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(deposit, depositTime, id);
+        return Objects.hash(incomeAndExpense, recordTime, id);
     }
 
     @ManyToOne
-    @JoinColumn(name = "BankAccountID", referencedColumnName = "ID")
-    public BankAccountEntity getBankAccountByBankAccountId() {
-        return bankAccountByBankAccountId;
+    @JoinColumn(name = "CampusCardID", referencedColumnName = "CampusCardID")
+    public BankAccountEntity getBankAccountByCampusCardId() {
+        return bankAccountByCampusCardId;
     }
 
-    public void setBankAccountByBankAccountId(BankAccountEntity bankAccountByBankAccountId) {
-        this.bankAccountByBankAccountId = bankAccountByBankAccountId;
+    public void setBankAccountByCampusCardId(BankAccountEntity bankAccountByBankAccountId) {
+        this.bankAccountByCampusCardId = bankAccountByBankAccountId;
     }
 }

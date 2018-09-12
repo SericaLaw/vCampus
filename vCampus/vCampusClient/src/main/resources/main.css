@@ -451,3 +451,15 @@
     -fx-spacing: 10;
     -fx-text-fill: #757575;
 }
+
+#welcomeLabel
+{
+    -fx-font-size:35;
+    -fx-text-fill:#7B86EE;
+}
+
+#timeLabel
+{
+    -fx-font-size:18;
+    -fx-text-fill:#7286EE;
+}

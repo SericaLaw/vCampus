@@ -17,7 +17,9 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+/**
+ * 服务器类，记录日志，管理session和中间件，连接服务器
+ */
 public class Server {
     // 日志记录
     private Logger logger;
@@ -35,6 +37,10 @@ public class Server {
     // 服务器端Socket
     private ServerSocket serverSocket;
 
+    /**
+     * 根据分配的端口，运行服务器
+     * @param port 设置服务器运行的端口
+     */
     public Server(int port) {
         try {
             logger = new Logger("Server");
@@ -44,6 +50,9 @@ public class Server {
         }
     }
 
+    /**
+     * 设置数据库地址，与数据库进行连接，激活中间件
+     */
     public void configure() {
         String url = "jdbc:Access:///" + System.getProperty("user.dir") + "\\vCampusServer\\database\\test_database.accdb";
         dbConfig = new Configuration().configure("/hibernate.cfg.xml");
@@ -55,6 +64,9 @@ public class Server {
         middlewares.add(new RoutingMiddleware());
     }
 
+    /**
+     * 运行服务器，定时清除session，同时循环监听客户端来凝结
+     */
     public void run() {
         logger.log("服务器即将启动，等待客户端的连接...");
 

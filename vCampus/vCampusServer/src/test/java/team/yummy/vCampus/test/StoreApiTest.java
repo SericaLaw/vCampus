@@ -2,6 +2,7 @@ package team.yummy.vCampus.test;
 
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
+import team.yummy.vCampus.models.entity.BankAccountEntity;
 import team.yummy.vCampus.models.viewmodel.GoodsViewModel;
 import team.yummy.vCampus.web.WebResponse;
 
@@ -73,6 +74,15 @@ public class StoreApiTest extends ApiTest {
         WebResponse res = api.get("/goods");
         List<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);
         assert res.getStatusCode().equals("200");
+    }
 
+    @Test
+    public void addAndBuy() {
+        GoodsViewModel goods = api.get("/goods").dataList(GoodsViewModel.class).get(0);
+        String cartId = api.post("/store/cart", goods.getGoodsId()).getBody();
+        BankAccountEntity before = api.get("/bankAccount/campusCardId/213160003").dataList(BankAccountEntity.class).get(0);
+        api.post("/store/purchase", "[\"" + cartId + "\"]");
+        BankAccountEntity after = api.get("/bankAccount/campusCardId/213160003").dataList(BankAccountEntity.class).get(0);
+        assert before.getBalance() == after.getBalance() + goods.getPrice();
     }
 }

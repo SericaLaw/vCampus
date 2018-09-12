@@ -4,6 +4,9 @@ import team.yummy.vCampus.server.WebContext;
 import team.yummy.vCampus.util.Logger;
 import team.yummy.vCampus.web.RequestMethod;
 
+/**
+ * 鉴权类中间件， 除登陆、注册无需鉴权外，其他请求均需通过此中间件
+ */
 public class AuthMiddleware implements Middleware {
     private Logger logger = new Logger("AuthMiddleware");
     @Override

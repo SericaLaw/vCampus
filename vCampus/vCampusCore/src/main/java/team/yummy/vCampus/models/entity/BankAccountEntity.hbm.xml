@@ -6,12 +6,12 @@
 
     <class name="team.yummy.vCampus.models.entity.BankAccountEntity" table="BankAccount" schema="&quot;.&quot;"
            catalog="&quot;.&quot;">
-        <id name="id" column="ID"/>
+        <id name="campusCardId" column="CampusCardID"/>
         <property name="balance" column="Balance"/>
         <one-to-one name="accountByCampusCardId" class="team.yummy.vCampus.models.entity.AccountEntity"/>
-        <set name="bankRecordsById" inverse="true">
+        <set name="bankRecordsByCampusCardId" inverse="true">
             <key>
-                <column name="BankAccountID" not-null="true"/>
+                <column name="CampusCardID" not-null="true"/>
             </key>
             <one-to-many not-found="ignore" class="team.yummy.vCampus.models.entity.BankRecordEntity"/>
         </set>

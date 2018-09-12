@@ -65,11 +65,11 @@
                             </VBox.margin>
                         </GridPane>
                         <JFXTextField fx:id="register_Tcard" labelFloat="true" promptText="一卡通" />
-                        <JFXTextField fx:id="register_Tusername" labelFloat="true" promptText="昵称" />
+                        <JFXTextField fx:id="register_Tnickname" labelFloat="true" promptText="昵称" />
                         <JFXPasswordField fx:id="register_Tpassword" labelFloat="true" promptText="密码" />
                         <HBox id="registerpane__radio-button-group" prefHeight="34.0" prefWidth="440.0">
                             <children>
-                                <JFXRadioButton fx:id="register_radiostudent" text="学生">
+                                <JFXRadioButton id="register_radiostudent" fx:id="register_radiostudent" text="学生">
                                     <toggleGroup>
                                         <ToggleGroup fx:id="radiogroup" />
                                     </toggleGroup></JFXRadioButton>

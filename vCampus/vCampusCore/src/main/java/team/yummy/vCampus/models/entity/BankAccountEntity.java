@@ -8,9 +8,9 @@ import java.util.Objects;
 @Table(name = "BankAccount", schema = "\".\"", catalog = "\".\"")
 public class BankAccountEntity {
     private Double balance;
-    private String id;
+    private String campusCardId;
     private AccountEntity accountByCampusCardId;
-    private Collection<BankRecordEntity> bankRecordsById;
+    private Collection<BankRecordEntity> bankRecordsByCampusCardId;
 
     @Basic
     @Column(name = "Balance")
@@ -22,28 +22,17 @@ public class BankAccountEntity {
         this.balance = balance;
     }
 
-    @Id
-    @Column(name = "ID")
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BankAccountEntity that = (BankAccountEntity) o;
-        return Objects.equals(balance, that.balance) &&
-                Objects.equals(id, that.id);
+        return Objects.equals(balance, that.balance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(balance, id);
+        return Objects.hash(balance);
     }
 
     @OneToOne
@@ -56,12 +45,22 @@ public class BankAccountEntity {
         this.accountByCampusCardId = accountByCampusCardId;
     }
 
-    @OneToMany(mappedBy = "bankAccountByBankAccountId")
-    public Collection<BankRecordEntity> getBankRecordsById() {
-        return bankRecordsById;
+    @OneToMany(mappedBy = "bankAccountByCampusCardId")
+    public Collection<BankRecordEntity> getBankRecordsByCampusCardId() {
+        return bankRecordsByCampusCardId;
     }
 
-    public void setBankRecordsById(Collection<BankRecordEntity> bankRecordsById) {
-        this.bankRecordsById = bankRecordsById;
+    public void setBankRecordsByCampusCardId(Collection<BankRecordEntity> bankRecordsById) {
+        this.bankRecordsByCampusCardId = bankRecordsById;
+    }
+
+    @Id
+    @Column(name = "CampusCardID")
+    public String getCampusCardId() {
+        return campusCardId;
+    }
+
+    public void setCampusCardId(String campusCardId) {
+        this.campusCardId = campusCardId;
     }
 }

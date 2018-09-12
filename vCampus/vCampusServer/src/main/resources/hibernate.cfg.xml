@@ -42,7 +42,10 @@
     <mapping class="team.yummy.vCampus.models.entity.GoodsEntity"/>
     <mapping resource="team/yummy/vCampus/models/entity/GoodsEntity.hbm.xml"/>
     <mapping resource="team/yummy/vCampus/models/entity/StuInfoEntity.hbm.xml"/>
-      <!-- <property name="connection.username"/> -->
+    <mapping resource="team/yummy/vCampus/models/entity/AccountEntity.hbm.xml"/>
+    <mapping resource="team/yummy/vCampus/models/entity/BankAccountEntity.hbm.xml"/>
+    <mapping resource="team/yummy/vCampus/models/entity/BankRecordEntity.hbm.xml"/>
+    <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
     <!-- DB schema will be updated if needed -->

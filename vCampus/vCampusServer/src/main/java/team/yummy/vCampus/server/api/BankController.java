@@ -16,7 +16,7 @@ public class BankController extends Controller {
      *      200 OK
      *      ......
      */
-    @Get(route = "bank")
+    @Get(route = "info")
     public void getBankInfo() {
 
     }

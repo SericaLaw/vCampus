@@ -29,7 +29,7 @@ public class WelcomeViewController extends ViewController implements Initializab
     @FXML public TextField register_Tfirstname;
     @FXML public TextField register_Tlastname;
     @FXML public TextField register_Tcard;
-    @FXML public TextField register_Tusername;
+    @FXML public TextField register_Tnickname;
     @FXML public TextField register_Tpassword;
 
     @FXML private AnchorPane welcomebackground;
@@ -101,7 +101,7 @@ public class WelcomeViewController extends ViewController implements Initializab
         String firstName=register_Tfirstname.getText();
         String lastname=register_Tlastname.getText();
         String card=register_Tcard.getText();
-        String username=register_Tusername.getText();
+        String username=register_Tnickname.getText();
         String password=register_Tpassword.getText();
 
         JFXSnackbar bar = new JFXSnackbar(registerpane);
@@ -116,7 +116,7 @@ public class WelcomeViewController extends ViewController implements Initializab
             String role=radiogroup.getSelectedToggle().getUserData().toString();
             JSONObject info = new JSONObject();
             info.put("CampusCardID",card);
-            info.put("Username",username);
+            info.put("Nickname",username);
             info.put("Password",password);
             info.put("FirstName",firstName);
             info.put("LastName",lastname);
