@@ -6,6 +6,9 @@ import team.yummy.vCampus.server.WebContext;
 import java.sql.Timestamp;
 import java.util.Random;
 
+/**
+ * 会话类中间件，管理会话
+ */
 public class SessionMiddleware implements Middleware {
     @Override
     public void run(WebContext ctx, WebContext.MiddlewareInvoker next) {

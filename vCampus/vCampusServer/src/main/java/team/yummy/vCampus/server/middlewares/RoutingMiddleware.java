@@ -12,9 +12,17 @@ import team.yummy.vCampus.util.Logger;
 import java.io.File;
 import java.net.URI;
 
+/**
+ * 路由类中间件
+ */
 public class RoutingMiddleware implements Middleware {
     private Logger logger = new Logger("RoutingMiddleware");
 
+    /**
+     * 运行路由类中间件，定义GET,POST,PATCH,DELETE四类交互方式
+     * @param ctx 网络连接内容
+     * @param next 中间件触发器
+     */
     @Override
     public void run(WebContext ctx, WebContext.MiddlewareInvoker next) {
         try {
@@ -41,8 +49,6 @@ public class RoutingMiddleware implements Middleware {
                 // 运行Controller，若成功，则response将不为null。
                 controller.run();
             }
-
-
 
             // 如果状态码没有设置过，则路由失败
             if (ctx.response.getStatusCode() == null) {
