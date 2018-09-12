@@ -63,6 +63,7 @@ public class AdminCourseViewFactory {
         for(final CourseRegisterViewModel course : courses) {
 
             final HBox newRow = new HBox();
+
             VBox courseInfoCol = new VBox();
             courseInfoCol.setStyle("-fx-spacing: 10");
 

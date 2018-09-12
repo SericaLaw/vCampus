@@ -1,5 +1,7 @@
 package team.yummy.vCampus.client;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
@@ -13,9 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import team.yummy.vCampus.models.*;
 
-import team.yummy.vCampus.models.viewmodel.BookViewModel;
-import team.yummy.vCampus.models.viewmodel.CourseRegisterViewModel;
-import team.yummy.vCampus.models.viewmodel.GoodsViewModel;
+import team.yummy.vCampus.models.viewmodel.*;
 import team.yummy.vCampus.web.WebResponse;
 
 import javafx.fxml.FXML;
@@ -56,15 +56,27 @@ public class AdminViewController extends ViewController implements Initializable
     @FXML public VBox library_inquireBox;
     @FXML private TextField library_InquireText;
 
-    @FXML private GridPane stuinfopane;
-    @FXML private JFXButton editStu;
-    @FXML private JFXTextField si_name;
+    @FXML private GridPane stuinfogrid;
+    @FXML private JFXButton addStu_Bt;
+    @FXML private JFXButton editStu_Bt;
+    @FXML private JFXButton saveNewStu_Bt;
+    @FXML private JFXTextField si_firstname;
+    @FXML private JFXTextField si_lastname;
     @FXML private JFXTextField si_enrollmentyear;
     @FXML private JFXTextField si_campuscardID;
     @FXML private JFXTextField si_studentID;
     @FXML private JFXTextField si_department;
     @FXML private JFXTextField si_major;
+    @FXML private Label si_IDnum;
+    @FXML private Label si_sex;
+    @FXML private Label si_birthdate;
+    @FXML private Label si_birthplace;
+    @FXML private Label si_phone;
+    @FXML private Label si_email;
+    @FXML private Label si_address;
+    @FXML private Label si_seniorhigh;
     @FXML private Label stuinfo_errortext;
+    @FXML private JFXTextField student_InquireText;
 
     /**
      * memebers for course page
@@ -203,16 +215,11 @@ public class AdminViewController extends ViewController implements Initializable
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
-        //WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardID());
-        //StuInfo stuInfoViewModel = res.dataList(StuInfo.class, 0);
 
-        /*LocalDate d=stuInfoViewModel.getBirthDate();
-        Date date = stuInfoViewModel.getBirthDate();
-        Instant instant = date.toInstant();
-        ZoneId zoneId = ZoneId.systemDefault();
-        // atZone()方法返回在指定时区从此Instant生成的ZonedDateTime。
-        LocalDate d = instant.atZone(zoneId).toLocalDate();
-        */
+        stuinfogrid.setVisible(false);
+        addStu_Bt.setVisible(true);
+        editStu_Bt.setVisible(false);
+        saveNewStu_Bt.setVisible(false);
     }
 
 
@@ -225,16 +232,6 @@ public class AdminViewController extends ViewController implements Initializable
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
 
-        //WebResponse res = api.get("/library/book");
-        //List<BookViewModel> bookList = res.dataList(BookViewModel.class);
-//        AdminCourseViewFactory admincourseViewFactory = new AdminCourseViewFactory(rootStackPane,this);
-//        List<HBox> row = admincourseViewFactory.createCourseRows(bookList);
-//        if (course_inquireBox.getChildren().size() != 0) {
-//            course_inquireBox.getChildren().clear();
-//            course_inquireBox.getChildren().addAll(row);
-//        } else {
-//            course_inquireBox.getChildren().addAll(row);
-//        }
     }
 
 
@@ -280,6 +277,40 @@ public class AdminViewController extends ViewController implements Initializable
         }
     }
 
+    @FXML
+    protected void studentsearch(KeyEvent keyEvent)
+    {
+        String keyword = student_InquireText.getText();
+        WebResponse res = api.get("/stuInfo/campusCardID/" + keyword);
+        StuInfoViewModel stuInfoGot = res.dataList(StuInfoViewModel.class, 0);
+        stuinfogrid.setVisible(true);
+        editStu_Bt.setVisible(true);
+        saveNewStu_Bt.setVisible(false);
+        si_lastname.setText(stuInfoGot.getLastName());
+        si_firstname.setText(stuInfoGot.getFirstName());
+        si_enrollmentyear.setText(stuInfoGot.getEnrollmentYear().toString());
+        si_campuscardID.setText(stuInfoGot.getCampusCardId());
+        si_studentID.setText(stuInfoGot.getStudentId());
+        si_department.setText(stuInfoGot.getDepartment());
+        si_major.setText(stuInfoGot.getMajor());
+        si_lastname.setDisable(false);
+        si_firstname.setDisable(false);
+        si_enrollmentyear.setDisable(false);
+        si_campuscardID.setDisable(false);
+        si_studentID.setDisable(false);
+        si_department.setDisable(false);
+        si_major.setDisable(false);
+
+
+        si_IDnum.setText(stuInfoGot.getIdNum());
+        si_sex.setText(stuInfoGot.getSex());
+        si_birthdate.setText(stuInfoGot.getBirthdate().toString());
+        si_birthplace.setText(stuInfoGot.getBirthplace());
+        si_phone.setText(stuInfoGot.getPhone());
+        si_email.setText(stuInfoGot.getEmail());
+        si_address.setText(stuInfoGot.getAddress());
+        si_seniorhigh.setText(stuInfoGot.getSeniorHigh());
+    }
 
     @FXML
     protected void booksearch(KeyEvent keyEvent)
@@ -335,62 +366,122 @@ public class AdminViewController extends ViewController implements Initializable
     @FXML
     protected void addStudent(ActionEvent actionEvent)
     {
-        editStu.setVisible(true);
-        stuinfopane.setVisible(true);
-        si_name.setText("");
+        saveNewStu_Bt.setVisible(true);
+        editStu_Bt.setVisible(false);
+        stuinfogrid.setVisible(true);
+
+        si_lastname.setText("");
+        si_firstname.setText("");
         si_enrollmentyear.setText("");
         si_campuscardID.setText("");
         si_studentID.setText("");
         si_department.setText("");
         si_major.setText("");
-        si_name.setDisable(false);
+        si_lastname.setDisable(false);
+        si_firstname.setDisable(false);
         si_enrollmentyear.setDisable(false);
         si_campuscardID.setDisable(false);
         si_studentID.setDisable(false);
         si_department.setDisable(false);
         si_major.setDisable(false);
-        editStu.setText("保存信息");
     }
+
+    @FXML
+    private void saveNewStudent(ActionEvent actionEvent){
+
+        String lastname = si_lastname.getText();
+        String firstname = si_firstname.getText();
+        String enrollmentyear = si_enrollmentyear.getText();
+        String campuscardID = si_campuscardID. getText();
+        String studentID = si_studentID.getText();
+        String department = si_department.getText();
+        String major = si_major.getText();
+        if(lastname.length()==0||firstname.length()==0 || enrollmentyear.length()==0||campuscardID.length()==0||
+                studentID.length()==0||department.length()==0||major.length()==0)
+            stuinfo_errortext.setText("请完善所有信息！");
+
+        else
+        {
+            // 和后端信息交互
+            AccountViewModel newAccount = new AccountViewModel();
+            newAccount.setCampusCardId(campuscardID);
+            newAccount.setFirstName(firstname);
+            newAccount.setLastName(lastname);
+            newAccount.setRole("student");
+            newAccount.setNickname("NULL");
+            newAccount.setPassword("123456");
+
+            StuInfoViewModel newStudent = new StuInfoViewModel();
+            newStudent.setEnrollmentYear(Integer.valueOf(enrollmentyear));
+            newStudent.setCampusCardId(campuscardID);
+            newStudent.setStudentId(studentID);
+            newStudent.setDepartment(department);
+            newStudent.setMajor(major);
+
+            WebResponse res = api.post("/account", JSON.toJSONString(newAccount));
+            if(res.getStatusCode().equals("201"))
+                api.post("/stuInfo", JSON.toJSONString(newStudent));
+
+            stuinfo_errortext.setText("");
+            si_lastname.setDisable(true);
+            si_firstname.setDisable(true);
+            si_enrollmentyear.setDisable(true);
+            si_campuscardID.setDisable(true);
+            si_studentID.setDisable(true);
+            si_department.setDisable(true);
+            si_major.setDisable(true);
+            editStu_Bt.setVisible(false);
+            saveNewStu_Bt.setVisible(true);
+            saveNewStu_Bt.setText("编辑信息");
+        }
+
+    }
+
 
     @FXML
     private void editStudent(ActionEvent actionEvent)
     {
-        if(editStu.getText().equals("编辑信息"))
+        String lastname = si_lastname.getText();
+        String firstname = si_firstname.getText();
+        String enrollmentyear = si_enrollmentyear.getText();
+        String campuscardID = si_campuscardID. getText();
+        String studentID = si_studentID.getText();
+        String department = si_department.getText();
+        String major = si_major.getText();
+
+        if(editStu_Bt.getText().equals("编辑信息"))
         {
-            si_name.setDisable(false);
+            si_lastname.setDisable(false);
+            si_firstname.setDisable(false);
             si_enrollmentyear.setDisable(false);
             si_campuscardID.setDisable(false);
             si_studentID.setDisable(false);
             si_department.setDisable(false);
             si_major.setDisable(false);
-            editStu.setText("保存信息");
+            editStu_Bt.setText("保存信息");
         }
         else
         {
-            String name = si_name.getText();
-            String enrollmentyear = si_enrollmentyear.getText();
-            String campuscardID = si_campuscardID. getText();
-            String studentID = si_studentID.getText();
-            String department = si_department.getText();
-            String major = si_major.getText();
-            if(name.length()==0||enrollmentyear.length()==0||campuscardID.length()==0||
-                    studentID.length()==0||department.length()==0||major.length()==0)
-                stuinfo_errortext.setText("请完善学生信息！");
+//            JSONObject infoToModify = new JSONObject();
+//            infoToModify.put("LastName",lastname);
+//            infoToModify.put("FirstName",firstname);
+//            infoToModify.put("EnrollmentYear",enrollmentyear);
+//            infoToModify.put("CampusCardId",campuscardID);
+//            infoToModify.put("StudentId",studentID);
+//            infoToModify.put("Department",department);
+//            infoToModify.put("Major",major);
+//
+//            api.patch("/stuInfo/campusCardID/"+currentAccount.getCampusCardId(), infoToModify.toJSONString());
 
-            else
-            {
-                // 和后端信息交互
-
-                stuinfo_errortext.setText("");
-                si_name.setDisable(true);
-                si_enrollmentyear.setDisable(true);
-                si_campuscardID.setDisable(true);
-                si_studentID.setDisable(true);
-                si_department.setDisable(true);
-                si_major.setDisable(true);
-                editStu.setText("编辑信息");
-            }
-
+            stuinfo_errortext.setText("");
+            si_lastname.setDisable(true);
+            si_firstname.setDisable(true);
+            si_enrollmentyear.setDisable(true);
+            si_campuscardID.setDisable(true);
+            si_studentID.setDisable(true);
+            si_department.setDisable(true);
+            si_major.setDisable(true);
+            editStu_Bt.setText("编辑信息");
         }
     }
 

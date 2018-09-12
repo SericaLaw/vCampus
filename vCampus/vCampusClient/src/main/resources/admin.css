@@ -77,7 +77,7 @@
     -fx-effect: innershadow(one-pass-box, #673AB7, 2, 0.5, 0, 0);
 }
 
-#addStu_Bt,#editStu_Bt,
+#addStu_Bt,#editStu_Bt,#saveNewStu_Bt,
 #addCourse_Bt,#editCourse_Bt,
 #addBook_Bt,#editBook_Bt,
 #addGoods_Bt,#editGoods_Bt,
@@ -87,7 +87,7 @@
     -fx-text-fill: #fff;
     -jfx-button-type: RAISED;
 }
-#addStu_Bt:hover,#editStu_Bt:hover,
+#addStu_Bt:hover,#editStu_Bt:hover,#saveNewStu_Bt:hover,
 #addCourse_Bt:hover,#editCourse_Bt:hover,
 #addBook_Bt:hover,#editBook_Bt:hover,
 #addGoods_Bt:hover,#editGoods_Bt:hover,
@@ -101,4 +101,47 @@
 .jfx-text-field:disabled {
     -jfx-focus-color: transparent;
     -jfx-unfocus-color: transparent;
+}
+
+
+#wrapper__content__course__register {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+#content__course__register {
+    -fx-pref-width: 900;
+    -fx-alignment: center;
+    -fx-padding: 50;
+    -fx-spacing: 10;
+}
+#content__course__register__name {
+    -fx-pref-width: 250;
+    -fx-alignment: top-left;
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
+#content__course__register__venue,
+#content__course__register__schedule,
+#content__course__register__status,
+#content__course__register__op {
+    -fx-pref-width: 150;
+    -fx-alignment: top-left;
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
+.register-item {
+    -fx-pref-height: 100;
+    -fx-min-height: 100;
+    -fx-max-height: 100;
+    -fx-alignment: center-left;
+}
+.register-item__course-name {
+    -fx-font-size: 22;
+    -fx-text-fill: #673AB7;
+}
+.register-item__course-detail {
+    -fx-alignment: center-left;
+    -fx-spacing: 10;
+    -fx-text-fill: #757575;
 }

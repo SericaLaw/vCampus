@@ -110,9 +110,8 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML public VBox store_CartBox;
 
     // 这里放商品列表数据
-    public List<Goods> goodList = new ArrayList<Goods>();
-    // 这里存放购物车数据
-    public List<Goods> goodsToBuy = new ArrayList<>();
+    public List<GoodsViewModel> goodList = new ArrayList<>();
+    public List<GoodsViewModel> goodsToBuy = new ArrayList<>();
 
     /**
      * members for course schedule
@@ -151,24 +150,24 @@ public class MainViewController extends ViewController implements Initializable 
         togglePane(InitPane, Bt_Init);
 
 
-        // 模拟服务器返回的信息
-
-        Goods good1 = new Goods("1","鞋子","123","白色", "./images/item.png");
-        Goods good2 = new Goods("2","鞋子","123", "红色","./images/item.png");
-        Goods good3 = new Goods("3","鞋子","123", "黑色","./images/item.png");
-        Goods good4 = new Goods("4","鞋子","123", "蓝色","./images/item.png");
-        Goods good5 = new Goods("5","鞋子","123", "黑色","./images/item.png");
-        Goods good6 = new Goods("6","鞋子","123", "蓝色","./images/item.png");
-
-        goodList.add(good1);
-        goodList.add(good2);
-        goodList.add(good3);
-        goodList.add(good4);
-        goodList.add(good5);
-        goodList.add(good6);
-
-        goodsToBuy.add(good1);
-        goodsToBuy.add(good2);
+//        // 模拟服务器返回的信息
+//
+//        Goods good1 = new Goods("1","鞋子","123","白色", "./images/item.png");
+//        Goods good2 = new Goods("2","鞋子","123", "红色","./images/item.png");
+//        Goods good3 = new Goods("3","鞋子","123", "黑色","./images/item.png");
+//        Goods good4 = new Goods("4","鞋子","123", "蓝色","./images/item.png");
+//        Goods good5 = new Goods("5","鞋子","123", "黑色","./images/item.png");
+//        Goods good6 = new Goods("6","鞋子","123", "蓝色","./images/item.png");
+//
+//        goodList.add(good1);
+//        goodList.add(good2);
+//        goodList.add(good3);
+//        goodList.add(good4);
+//        goodList.add(good5);
+//        goodList.add(good6);
+//
+//        goodsToBuy.add(good1);
+//        goodsToBuy.add(good2);
 
         CourseScheduleViewModel CourseScheduleViewModel1 = new CourseScheduleViewModel("1001", 1, 1, 3, "数据结构", "邓俊辉","J2-102");
         CourseScheduleViewModel CourseScheduleViewModel2 = new CourseScheduleViewModel("2001", 1, 12, 13, "算法", "图灵","J2-202");
@@ -322,13 +321,52 @@ public class MainViewController extends ViewController implements Initializable 
     protected void switchStore(ActionEvent actionEvent) {
         togglePane(StorePane, Bt_Store);
 
+        WebResponse res = api.get("/goods");
+        List<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);
+        List<GoodsViewModel> goodsList1=new ArrayList<>();
+        List<GoodsViewModel> goodsList2=new ArrayList<>();
+        List<GoodsViewModel> goodsList3=new ArrayList<>();
         StoreViewFactory storeViewFactory = new StoreViewFactory(rootStackPane, this);
-        List<HBox> row = storeViewFactory.createStoreRows(goodList, 3);
+        //List<HBox> row = storeViewFactory.createStoreRows(goodsList, 3);
+
+        for (GoodsViewModel goods : goodsList) {
+            if(goods.getTag() == 1)
+            {
+                goodsList1.add(goods);
+            }
+            else if(goods.getTag() == 2)
+            {
+                goodsList2.add(goods);
+            }
+            else if(goods.getTag() == 3)
+            {
+                goodsList3.add(goods);
+            }
+        }
+
+        List<HBox> row1 = storeViewFactory.createStoreRows(goodsList1, 2);
+        List<HBox> row2 = storeViewFactory.createStoreRows(goodsList2, 2);
+        List<HBox> row3 = storeViewFactory.createStoreRows(goodsList3, 2);
+
         if(store_newItemBox.getChildren().size() != 0) {
             store_newItemBox.getChildren().clear();
-            store_newItemBox.getChildren().addAll(row);
+            store_newItemBox.getChildren().addAll(row1);
         } else {
-            store_newItemBox.getChildren().addAll(row);
+            store_newItemBox.getChildren().addAll(row1);
+        }
+
+        if(store_popItemBox.getChildren().size() != 0) {
+            store_popItemBox.getChildren().clear();
+            store_popItemBox.getChildren().addAll(row2);
+        } else {
+            store_popItemBox.getChildren().addAll(row2);
+        }
+
+        if(store_favItemBox.getChildren().size() != 0) {
+            store_favItemBox.getChildren().clear();
+            store_favItemBox.getChildren().addAll(row3);
+        } else {
+            store_favItemBox.getChildren().addAll(row3);
         }
 
         List<HBox> cartRows = storeViewFactory.createCartRows(goodsToBuy);

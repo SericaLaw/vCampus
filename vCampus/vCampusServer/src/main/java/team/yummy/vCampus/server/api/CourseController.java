@@ -407,7 +407,6 @@ public class CourseController extends Controller {
      * @apiDescription 登记或改变学生成绩
      * @apiParamExample Code Snippets
      * WebResponse res = api.patch("/course/record", "{"id":"uuid", "score":"the score"}");
-     * List<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);
      * @apiSuccessExample Success-Response:
      *      200 OK
      */
@@ -417,6 +416,37 @@ public class CourseController extends Controller {
 
     }
 
+    /**
+     * @apiGroup Course
+     * @api {get} /course/record GetCourseRecord
+     * @apiPermission teacher
+     * @apiDescription 获取任教课程对应学生的CourseReport列表
+     * @apiParamExample Code Snippets
+     * WebResponse res = api.get("/course/record");
+     * List<TeacherCourseReportViewModel> reportList = res.dataList(TeacherCourseReportViewModel.class);
+     * @apiSuccessExample Success-Response:
+     *      200 OK
+     */
+    @Get(route = "record")
+    public void getCourseRecord() {
+
+    }
+
+    /**
+     * @apiGroup Course
+     * @api {get} /course/teacher GetTeacherCourseSchedule
+     * @apiPermission teacher
+     * @apiDescription 根据ProfCampusCardId获取教师任教的课程表
+     * @apiParamExample Code Snippets
+     * WebResponse res = api.get("/course/teacher");
+     * List<CourseScheduleViewModel> schedules = res.dataList(CourseScheduleViewModel.class);
+     * @apiSuccessExample Success-Response:
+     *      200 OK
+     */
+    @Get(route = "teacher")
+    public void getTeacherCourseSchedule() {
+
+    }
     /**
      * @apiGroup Course
      * @api {get} /course GetCourseList
