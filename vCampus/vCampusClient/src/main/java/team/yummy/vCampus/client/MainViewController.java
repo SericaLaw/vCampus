@@ -214,7 +214,9 @@ public class MainViewController extends ViewController implements Initializable 
     protected void switchStuInfo(ActionEvent actionEvent) {
         togglePane(StuInfoPane, Bt_StuInfo);
 
-        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
+        WebResponse res = api.get("/stuInfo/gpa");
+        res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
+
         stuInfoViewModel = res.dataList(StuInfoViewModel.class, 0);
 
         si_Name.setText(currentAccount.getLastName()+currentAccount.getFirstName());

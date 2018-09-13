@@ -36,7 +36,7 @@ public class StuInfoController extends Controller {
         double gpa = 0;
         int credits = 0;
         // Serica: 需要过滤0分课程
-        for (CourseRecordEntity record : 
+        for (CourseRecordEntity record :
                 account.getCourseRecordsByCampusCardId().stream()
                         .filter(r -> r.getScore() > 0)
                         .collect(Collectors.toList())) {

@@ -210,8 +210,14 @@ public class StoreViewFactory {
 
         int size = items.size();
         for (i = 0; i < size / countPerRow; i++) {
-            // TODO: 有些可以无视的bug
             List<StackPane> rowItems = items.subList(i * countPerRow, i * countPerRow + countPerRow);
+            HBox newRow = new HBox();
+            newRow.getChildren().addAll(rowItems);
+            newRow.getStyleClass().add("row");
+            rows.add(newRow);
+        }
+        if(i * countPerRow < items.size()) {
+            List<StackPane> rowItems = items.subList(i * countPerRow, items.size());
             HBox newRow = new HBox();
             newRow.getChildren().addAll(rowItems);
             newRow.getStyleClass().add("row");
