@@ -232,6 +232,16 @@ public class AdminViewController extends ViewController implements Initializable
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
 
+        WebResponse res = api.get("/course");
+        List<CourseRegisterViewModel> courseRegisterViewModels = res.dataList(CourseRegisterViewModel.class);
+        AdminCourseViewFactory admincourseViewFactory = new AdminCourseViewFactory(rootStackPane,this);
+        List<HBox> row = admincourseViewFactory.createFullCourseRows(courseRegisterViewModels);
+        if (course_inquireBox.getChildren().size() != 0) {
+            course_inquireBox.getChildren().clear();
+            course_inquireBox.getChildren().addAll(row);
+        } else {
+            course_inquireBox.getChildren().addAll(row);
+        }
     }
 
 
@@ -487,11 +497,11 @@ public class AdminViewController extends ViewController implements Initializable
 
     @FXML
     private void addCourse(ActionEvent actionEvent) {
-        //WebResponse res = api.get("/library/book");
-        //List<BookViewModel> bookList = res.dataList(BookViewModel.class);
-        AdminCourseViewFactory admincourseViewFactory = new AdminCourseViewFactory(rootStackPane, this);
+        WebResponse res = api.get("/course");
+        List<CourseRegisterViewModel> courseRegisterViewModels = res.dataList(CourseRegisterViewModel.class);
+        AdminCourseViewFactory admincourseViewFactory = new AdminCourseViewFactory(rootStackPane,this);
         List<HBox> row=admincourseViewFactory.createEmptyCourseRows();
-        //row.addAll(admincourseViewFactory.createFullCourseRows(bookList));
+        row.addAll(admincourseViewFactory.createFullCourseRows(courseRegisterViewModels));
         if (course_inquireBox.getChildren().size() != 0) {
             course_inquireBox.getChildren().clear();
             course_inquireBox.getChildren().addAll(row);

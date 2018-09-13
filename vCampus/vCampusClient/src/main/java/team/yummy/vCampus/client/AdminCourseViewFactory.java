@@ -89,34 +89,82 @@ public class AdminCourseViewFactory {
             courseVenue.getStyleClass().add("register-item");
             newRow.getChildren().add(courseVenueCol);
 
-            VBox courseScheduleCol = new VBox();
-            for(CourseScheduleViewModel s : course.getCourseSchedule()) {
-
-                HBox courseScheduleRow = new HBox();
-                Label title_weekday=new Label("星期");
-                JFXTextField weekday=new JFXTextField(Integer.toString(s.getWeekDay()));
-                JFXTextField spanstart=new JFXTextField(Integer.toString(s.getSpanStart()));
-                Label slash=new Label("-");
-                JFXTextField spanend=new JFXTextField(Integer.toString(s.getSpanEnd()));
-                courseScheduleRow.getChildren().addAll(title_weekday,weekday,spanstart,slash,spanend);
-                courseScheduleCol.getChildren().addAll(courseScheduleRow);
-            }
-            newRow.getChildren().add(courseScheduleCol);
+//            VBox courseScheduleCol = new VBox();
+//            for(CourseScheduleViewModel s : course.getCourseSchedule()) {
+//
+//                HBox courseScheduleRow = new HBox();
+//                Label title_weekday=new Label("星期");
+//                JFXTextField weekday=new JFXTextField(Integer.toString(s.getWeekDay()));
+////                JFXTextField spanstart=new JFXTextField(Integer.toString(s.getSpanStart()));
+////                Label slash=new Label("-");
+////                JFXTextField spanend=new JFXTextField(Integer.toString(s.getSpanEnd()));
+//                courseScheduleRow.getChildren().addAll(title_weekday,weekday);
+//                //courseScheduleRow.getChildren().addAll(spanstart,slash,spanend);
+//                courseScheduleCol.getChildren().addAll(courseScheduleRow);
+//            }
+//            newRow.getChildren().add(courseScheduleCol);
 
             VBox opCol = new VBox();
             opCol.setStyle("-fx-min-width: 50");
             opCol.setStyle("-fx-pref-width: 50");
 
-            JFXButton buttonOp = new JFXButton("编辑");
+            Label errorText=new Label("");
 
-            // TODO: 按钮事件
-
-
-            buttonOp.setButtonType(JFXButton.ButtonType.RAISED);
-            opCol.getChildren().addAll(buttonOp);
+            JFXButton editcourse = new JFXButton("编辑");
+            editcourse.setButtonType(JFXButton.ButtonType.RAISED);
+            opCol.getChildren().addAll(errorText,editcourse);
             newRow.getChildren().addAll(opCol);
 
+
+
             rows.add(newRow);
+
+            courseName.setDisable(true);
+            courseTeacher.setDisable(true);
+            courseCredit.setDisable(true);
+            courseVenue.setDisable(true);
+
+            // TODO: 按钮事件
+            editcourse.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    if(editcourse.getText().equals("编辑")) {
+                        editcourse.setText("保存");
+                        courseName.setDisable(false);
+                        courseTeacher.setDisable(false);
+                        courseCredit.setDisable(false);
+                        courseVenue.setDisable(false);
+                    }
+                    else {
+
+                        String Name=courseName.getText();
+                        String Teacher=courseTeacher.getText();
+                        String Credit=courseCredit.getText();
+                        String Venue=courseVenue.getText();
+
+                        if (Name.length() == 0 || Teacher.length() == 0 || Credit.length() == 0 || Venue.length() ==0)
+                            errorText.setText("有空项!");
+
+                        else {
+
+//                            course newcourse = new GoodsViewModel();
+//                            newGoods.setGoodsName(Name);
+//                            newGoods.setImgUrl("./images/item.png");
+//                            newGoods.setPrice(Double.valueOf(Price));
+//                            newGoods.setTag(Integer.valueOf(Tag));
+//
+//                            WebResponse res = controller.api.post("/goods", JSON.toJSONString(newGoods));
+//
+//                            error_Text.setText("");
+//                            goods_Name.setDisable(true);
+//                            goods_Info.setDisable(true);
+//                            goods_Price.setDisable(true);
+//                            goods_Tag.setDisable(true);
+//                            editgoods.setText("编辑");
+                        }
+                    }
+                }
+            });
         }
         return rows;
     }

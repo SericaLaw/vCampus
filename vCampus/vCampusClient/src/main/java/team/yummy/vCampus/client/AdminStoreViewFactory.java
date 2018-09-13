@@ -97,7 +97,7 @@ public class AdminStoreViewFactory {
             goodsName.setFont(Font.font(17));
             goodsName.setMinSize(100,18);
             newRow_2.getChildren().addAll(title_Name,goodsName);
-            Label title_Info=new Label("型号： ");
+            Label title_Info=new Label("简介： ");
             title_Info.setFont(Font.font(17));
             title_Info.setMinSize(100,35);
             JFXTextField goodsInfo=new JFXTextField(goods.getInfo());
@@ -181,14 +181,12 @@ public class AdminStoreViewFactory {
                             error_Text.setText("有空项!");
 
                         else {
-
-                            GoodsViewModel newGoods = new GoodsViewModel();
-                            newGoods.setGoodsName(Name);
-                            newGoods.setImgUrl("./images/item.png");
-                            newGoods.setPrice(Double.valueOf(Price));
-                            newGoods.setTag(Integer.valueOf(Tag));
-
-                            WebResponse res = controller.api.post("/goods", JSON.toJSONString(newGoods));
+                            GoodsViewModel goodsToModify = goods;
+                            goodsToModify.setGoodsName(Name);
+                            goodsToModify.setPrice(Double.valueOf(Price));
+                            goodsToModify.setTag(Integer.valueOf(Tag));
+                            goodsToModify.setInfo(Info);
+                            controller.api.patch("/goods/goodsId/" + goodsToModify.getGoodsId(), JSON.toJSONString(goodsToModify));
 
                             error_Text.setText("");
                             goods_Name.setDisable(true);
@@ -231,7 +229,7 @@ public class AdminStoreViewFactory {
         goodsName.setFont(Font.font(17));
         goodsName.setMinSize(100,15);
         newRow_2.getChildren().addAll(title_Name,goodsName);
-        Label title_Info=new Label("  型号： ");
+        Label title_Info=new Label("  简介： ");
         title_Info.setFont(Font.font(17));
         title_Info.setMinSize(110,35);
         JFXTextField goodsInfo=new JFXTextField();
@@ -252,30 +250,31 @@ public class AdminStoreViewFactory {
         goodsTag.setMinHeight(17);
         goodsTag.getItems().addAll("1","2","3");
         newRow_5.getChildren().addAll(title_Tag,goodsTag);
-        Label errorText=new Label("");
-        errorText.setFont(Font.font(16));
-        errorText.setMinSize(100,20);
-        InfoCard1.getChildren().addAll(newRow_1,newRow_2,newRow_3,newRow_4,newRow_5,errorText);
+        InfoCard1.getChildren().addAll(newRow_1,newRow_2,newRow_3,newRow_4,newRow_5);
 
 
-        JFXButton editgoods = new JFXButton("保存");
+        final JFXButton editgoods = new JFXButton("保存");
         editgoods.setButtonType(JFXButton.ButtonType.RAISED);
         editgoods.setButtonType(JFXButton.ButtonType.RAISED);
         editgoods.setBackground(new Background(new BackgroundFill(Color.web("#7C4DFF"),null,null)));
         editgoods.setTextFill(Color.web("#FFF"));
         editgoods.setFont(Font.font(18));
         editgoods.setMinSize(60,10);
+        Label errorText=new Label("");
+        errorText.setFont(Font.font(16));
+        errorText.setMinSize(100,20);
+        errorText.setStyle("-fx-text-fill:#673AB7");     //换成那个红色
+        errorText.setAlignment(Pos.CENTER_RIGHT);
         InfoCard2.setSpacing(20);
         InfoCard2.setAlignment(Pos.BOTTOM_RIGHT);
-        errorText.setAlignment(Pos.CENTER_RIGHT);
         InfoCard2.getChildren().addAll(errorText,editgoods);
 
         newRow.getChildren().addAll(goodsImageContent,InfoCard1,InfoCard2);
         newRow.setAlignment(CENTER);
         newRow.setAlignment(Pos.CENTER_LEFT);
-        newRow.setPrefWidth(300);
+        //newRow.setPrefWidth(300);
         newRow.setPadding(new Insets(40, 30, 5, 40));
-        newRow.setSpacing(20);
+        //newRow.setSpacing(20);
 
         goodsName.setDisable(false);
         goodsInfo.setDisable(false);
@@ -299,14 +298,14 @@ public class AdminStoreViewFactory {
                 if (Name.length() == 0 || Info.length() == 0 || Price.length() == 0 || Tag.length()==0)
                     error_Text.setText("有空项!");
                 else {
-                    System.out.println("here");
                     GoodsViewModel newGoods = new GoodsViewModel();
                     newGoods.setGoodsName(Name);
                     newGoods.setImgUrl("./images/item.png");
+                    newGoods.setInfo(Info);
                     newGoods.setPrice(Double.valueOf(Price));
                     newGoods.setTag(Integer.valueOf(Tag));
 
-                    WebResponse res = controller.api.post("/goods", JSON.toJSONString(newGoods));
+                    controller.api.post("/goods", JSON.toJSONString(newGoods));
 
                     error_Text.setText("");
                     goods_Name.setDisable(true);
