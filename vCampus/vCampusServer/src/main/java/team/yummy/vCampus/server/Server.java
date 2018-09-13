@@ -4,6 +4,7 @@ package team.yummy.vCampus.server;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import team.yummy.vCampus.server.framework.Session;
+import team.yummy.vCampus.server.middlewares.ApiMiddleware;
 import team.yummy.vCampus.server.middlewares.AuthMiddleware;
 import team.yummy.vCampus.server.framework.Middleware;
 import team.yummy.vCampus.server.middlewares.RoutingMiddleware;
@@ -64,6 +65,7 @@ public class Server {
         middlewares.add(new SessionMiddleware());
         middlewares.add(new RoutingMiddleware());
         middlewares.add(new AuthMiddleware());
+        middlewares.add(new ApiMiddleware());
     }
 
     /**

@@ -10,6 +10,7 @@ import team.yummy.vCampus.server.annotation.*;
 import team.yummy.vCampus.util.Logger;
 import team.yummy.vCampus.web.WebRequest;
 
+import javax.persistence.criteria.From;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -28,6 +29,8 @@ public class Controller {
     public ArrayList<Object> arguments;
 
     public Session dbSession;
+
+    public boolean isModelValid;
 
     public AccountEntity account;
 
@@ -66,6 +69,7 @@ public class Controller {
         this.webContext = webContext;
         this.dbSession = webContext.server.dbFactory.openSession();
         this.arguments = new ArrayList<>();
+        this.isModelValid = true;
         String campusCardId = webContext.session.getString("campusCardId");
         if (campusCardId != null) {
             Transaction tx = dbSession.beginTransaction();
@@ -85,7 +89,18 @@ public class Controller {
             Class<?> paramType = param.getType();
             Object argument = null;
             if (fromBody.hasNext() && param.isAnnotationPresent(FromBody.class)) {
-                argument = JSON.parseObject((String) fromBody.next(), paramType);
+                String body = (String) fromBody.next();
+                if (paramType.isAssignableFrom(String.class)) {
+                    argument = body;
+                } else if (body.charAt(0) == '{') {
+                    argument = JSON.parseObject(body, paramType);
+                } else if (body.charAt(0) == '[') {
+                    Class elemType = param.getAnnotation(FromBody.class).value();
+                    argument = JSON.parseArray(body, elemType);
+                } else {
+                    argument = body;
+                    isModelValid = false;
+                }
             } else if (fromUrls.hasNext() && (param.isAnnotationPresent(FromUrl.class) || param.getAnnotations().length == 0)) {
                 if (paramType.isAssignableFrom(String.class)) {
                     argument = fromUrls.next();
@@ -95,6 +110,8 @@ public class Controller {
                     argument = Double.valueOf((String) fromUrls.next());
                 } else if (paramType.isAssignableFrom(Boolean.class)) {
                     argument = Boolean.valueOf((String) fromUrls.next());
+                } else {
+                    isModelValid = false;
                 }
             }
             arguments.add(argument);

@@ -24,8 +24,7 @@ public class TeacherController extends Controller {
      *      200 OK
      */
     @Patch(route = "record")
-    public String modifyCourseRecord() {
-        Map<String, String> body = webContext.request.deserializeBody(Map.class);
+    public String modifyCourseRecord(@FromBody Map<String, String> body) {
         dbSession.beginTransaction();
         CourseRecordEntity record = dbSession.get(CourseRecordEntity.class, body.get("id"));
 

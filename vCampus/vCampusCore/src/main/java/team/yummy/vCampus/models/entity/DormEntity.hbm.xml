@@ -11,7 +11,7 @@
         <many-to-one name="accountByCampusCardId" class="team.yummy.vCampus.models.entity.AccountEntity">
             <column name="CampusCardID"/>
         </many-to-one>
-        <set name="getDormRecordsByDormId" inverse="true">
+        <set name="dormRecordsByDormId" inverse="true">
             <key>
                 <column name="DormID" not-null="true"/>
             </key>

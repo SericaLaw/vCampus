@@ -43,15 +43,15 @@ public class AuthMiddleware implements Middleware {
             // 按补充的路由表检查鉴权
             String route = "/";
             if (ctx.request.getField() != null) {
-                route = String.format("/%s/%s", ctx.request.getTableName(), ctx.request.getField());
+                route = String.format("/%s/%s", ctx.request.getTableName().toLowerCase(), ctx.request.getField().toLowerCase());
             } else if (ctx.request.getTableName() != null) {
-                route = String.format("/%s", ctx.request.getTableName());
+                route = String.format("/%s", ctx.request.getTableName().toLowerCase());
             }
 
             Map<String, Boolean> authMap = new HashMap<String, Boolean>();
             authMap.put("/", true);
             authMap.put("/stuinfo", false);
-            if (authMap.containsKey(route) && authMap.get(route)) {
+            if (!authMap.containsKey(route) || authMap.get(route)) {
                 next.invoke();
             } else {
                 ctx.response.setStatusCode("401");

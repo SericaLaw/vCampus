@@ -76,8 +76,7 @@ public class StoreController extends Controller {
      *      ......
      */
     @Post(route = "cart")
-    public void addToCart() {
-        String goodsId = webContext.request.getBody();
+    public void addToCart(@FromBody String goodsId) {
         CartRecordEntity record = account.getCartRecordsByCampusCardId().stream()
             .filter(r -> !r.getIsPurchased())
             .filter(r -> r.getGoodsByGoodsId().getGoodsId().equals(goodsId))
@@ -109,11 +108,11 @@ public class StoreController extends Controller {
      *      ......
      */
     @Post(route = "purchase")
-    public String purchase() {
+    public String purchase(@FromBody(String.class) List<String> recordIds) {
         dbSession.beginTransaction();
         double total_price = 0.0;
         List<CartRecordEntity> records = new ArrayList<>();
-        for (String recordId : webContext.request.deserializeList(String.class)) {
+        for (String recordId : recordIds) {
             CartRecordEntity record = dbSession.get(CartRecordEntity.class, recordId);
             if (record.getCartRecordId() != null && !record.getIsPurchased()) {
                 total_price += record.getGoodsByGoodsId().getPrice() * record.getGoodsCnt();
@@ -161,12 +160,11 @@ public class StoreController extends Controller {
      *      ......Store
      */
     @Patch(route = "cart")
-    public void modifyCart() {
-        CartRecordViewModel request = webContext.request.deserializeBody(CartRecordViewModel.class);
+    public void modifyCart(@FromBody CartRecordViewModel model) {
         dbSession.beginTransaction();
-        CartRecordEntity record = dbSession.get(CartRecordEntity.class, request.getCartRecordID());
+        CartRecordEntity record = dbSession.get(CartRecordEntity.class, model.getCartRecordID());
         if (record.getCartRecordId() != null && !record.getIsPurchased()) {
-            record.setGoodsCnt(request.getGoodsCount());
+            record.setGoodsCnt(model.getGoodsCount());
             dbSession.update(record);
         }
         dbSession.getTransaction().commit();
@@ -186,9 +184,9 @@ public class StoreController extends Controller {
      *      ......
      */
     @Post(route = "clear")
-    public void deleteCartGoods() {
+    public void deleteCartGoods(@FromBody(String.class) List<String> recordIds) {
         dbSession.beginTransaction();
-        for (String recordId : webContext.request.deserializeList(String.class)) {
+        for (String recordId : recordIds) {
             CartRecordEntity record = dbSession.load(CartRecordEntity.class, recordId);
             if (record.getCartRecordId() != null && !record.getIsPurchased()) {
                 dbSession.delete(record);

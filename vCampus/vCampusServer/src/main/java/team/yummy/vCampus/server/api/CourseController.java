@@ -300,9 +300,8 @@ public class CourseController extends Controller {
      * WebResponse res = api.post("/course/register", courseId);
      */
     @Post(route = "register")
-    public String registerCourse() {
+    public String registerCourse(@FromBody String courseId) {
         String campusCardId = webContext.session.getString("campusCardId");
-        String courseId = webContext.request.getBody();
         Transaction tx = dbSession.beginTransaction();
         CourseEntity course = dbSession.get(CourseEntity.class, courseId);
 
@@ -360,7 +359,7 @@ public class CourseController extends Controller {
      * WebResponse res = api.delete("/course/register/{courseId}");
      */
     @Delete(route = "register")
-    public String unregisterCourse(String courseId) {
+    public String unregisterCourse(@FromUrl String courseId) {
         String campusCardId = webContext.session.getString("campusCardId");
         Transaction tx = dbSession.beginTransaction();
         CourseEntity course = dbSession.get(CourseEntity.class, courseId);

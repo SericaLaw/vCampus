@@ -135,9 +135,8 @@ public class LibraryController extends Controller {
      */
     @Authorize
     @Post(route = "borrow")
-    public String newBorrowRecords() {
+    public String newBorrowRecords(@FromBody String bookId) {
         Transaction tx = dbSession.beginTransaction();
-        String bookId = webContext.request.getBody();
         if (bookId == null) {
             webContext.response.setStatusCode("400");
             return "Incorrect body data";
@@ -190,7 +189,7 @@ public class LibraryController extends Controller {
      */
     @Authorize
     @Delete(route = "borrow")
-    public String deleteBorrowRecords(String borrowRecordId) {
+    public String deleteBorrowRecords(@FromUrl String borrowRecordId) {
         Transaction tx = dbSession.beginTransaction();
         BorrowRecordEntity record = dbSession.load(BorrowRecordEntity.class, borrowRecordId);
         if (record != null) {

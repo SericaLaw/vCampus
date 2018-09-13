@@ -178,7 +178,7 @@ public class StoreApiTest extends ApiTest {
      */
     @Test
     public void getGoodsById() {
-        String goodsId = "66b20429-922e-45f9-aeb3-6c7f4fdeaff1";
+        String goodsId = "c14eb7df-0624-421a-8c3f-d1b8b016c5db";
         WebResponse res = api.get("/goods/goodsId/" + goodsId);
         GoodsViewModel goods = res.dataList(GoodsViewModel.class, 0);
     }
