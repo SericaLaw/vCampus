@@ -36,6 +36,7 @@ import java.util.*;
 public class AdminViewController extends ViewController implements Initializable {
     @FXML private StackPane rootStackPane;
     @FXML private GridPane title;
+    @FXML public Button Bt_Init, Bt_StuInfo, Bt_Course, Bt_Store, Bt_Account, Bt_Library;
     @FXML private AnchorPane InitPane;
     @FXML private AnchorPane StuInfoPane;
     @FXML private AnchorPane CoursePane;
@@ -201,6 +202,7 @@ public class AdminViewController extends ViewController implements Initializable
 
     @FXML
     protected void swithAccountmag(ActionEvent actionEvent) {
+        togglePane(AccountMagPane, Bt_Account);
         AccountMagPane.setVisible(true);
         StuInfoPane.setVisible(false);
         CoursePane.setVisible(false);
@@ -214,6 +216,7 @@ public class AdminViewController extends ViewController implements Initializable
 
     @FXML
     protected void switchStuInfo(ActionEvent actionEvent) {
+        togglePane(StuInfoPane, Bt_StuInfo);
         StuInfoPane.setVisible(true);
         CoursePane.setVisible(false);
         LibraryPane.setVisible(false);
@@ -230,6 +233,7 @@ public class AdminViewController extends ViewController implements Initializable
 
     @FXML
     protected void switchCourse(ActionEvent actionEvent) {
+        togglePane(CoursePane, Bt_Course);
         CoursePane.setVisible(true);
         StuInfoPane.setVisible(false);
         LibraryPane.setVisible(false);
@@ -252,6 +256,7 @@ public class AdminViewController extends ViewController implements Initializable
 
     @FXML
     protected void switchLibrary(ActionEvent actionEvent) {
+        togglePane(LibraryPane, Bt_Library);
         LibraryPane.setVisible(true);
         StuInfoPane.setVisible(false);
         CoursePane.setVisible(false);
@@ -273,6 +278,7 @@ public class AdminViewController extends ViewController implements Initializable
 
     @FXML
     protected void switchStore(ActionEvent actionEvent) {
+        togglePane(StorePane, Bt_Store);
         StorePane.setVisible(true);
         StuInfoPane.setVisible(false);
         CoursePane.setVisible(false);
@@ -585,5 +591,44 @@ public class AdminViewController extends ViewController implements Initializable
         } else {
             course_inquireBox.getChildren().addAll(row);
         }
+    }
+
+    @FXML
+    protected void switchInit(ActionEvent actionEvent) {
+        togglePane(InitPane, Bt_Init);
+    }
+
+
+    public void togglePane(Pane paneToDisplay, Button button) {
+        StorePane.setVisible(false);
+        StuInfoPane.setVisible(false);
+        CoursePane.setVisible(false);
+        LibraryPane.setVisible(false);
+        AccountMagPane.setVisible(false);
+        InitPane.setVisible(false);
+
+        String defaultStyle = "-fx-pref-width: 250;\n" +
+                "    -fx-background-color: #fff;\n" +
+                "    -fx-pref-height: 50;\n" +
+                "    -fx-padding:  0 20;\n" +
+                "    -fx-border-width: 0 0 0 6px;\n" +
+                "    -fx-border-height: 50;\n" +
+                "    -fx-border-color: transparent;\n" +
+                "    -fx-font-size: 20;\n" +
+                "    -fx-alignment: center-left;";
+
+        String focusedStyle = "-fx-text-fill: #673AB7; -fx-border-color: transparent transparent transparent linear-gradient(to bottom right, #7C4DFF, #673AB7);";
+
+        // 暂时性代码
+        Bt_Init.setStyle(defaultStyle);
+        Bt_StuInfo.setStyle(defaultStyle);
+        Bt_Course.setStyle(defaultStyle);
+        Bt_Library.setStyle(defaultStyle);
+        Bt_Store.setStyle(defaultStyle);
+        Bt_Account.setStyle(defaultStyle);
+
+        button.setStyle(focusedStyle);
+
+        paneToDisplay.setVisible(true);
     }
 }

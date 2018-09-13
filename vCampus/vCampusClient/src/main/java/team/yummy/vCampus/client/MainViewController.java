@@ -315,7 +315,7 @@ public class MainViewController extends ViewController implements Initializable 
                 break;
             }
         }*/
-        //获取卫生和水电记录213
+        //获取卫生和水电记录
 
         content__d__Year.setCellValueFactory(new PropertyValueFactory<>("year"));
         content__d__Month.setCellValueFactory(new PropertyValueFactory<>("month"));
@@ -494,7 +494,7 @@ public class MainViewController extends ViewController implements Initializable 
             String Address=si_Address.getText();
             String SeniorHigh=si_SeniorHigh.getText();
 
-            while(IDNum.length() == 0 || Sex.length() == 0 || Birthplace.length() == 0 ||
+            if(IDNum.length() == 0 || Sex.length() == 0 || Birthplace.length() == 0 ||
                     Phone.length() == 0 || Email.length() == 0 || Address.length() == 0 || SeniorHigh.length() == 0 )
                 si_errorText.setText("有空选项!");
 
@@ -509,27 +509,30 @@ public class MainViewController extends ViewController implements Initializable 
                 e.printStackTrace();
             }*/
 
-            JSONObject infoToModify = new JSONObject();
-            infoToModify.put("IDNum", IDNum);
-            infoToModify.put("Sex",Sex);
-            infoToModify.put("Birthdate", Birthdate);
-            infoToModify.put("Birthplace",Birthplace);
-            infoToModify.put("Phone", Phone);
-            infoToModify.put("Email",Email);
-            infoToModify.put("Address", Address);
-            infoToModify.put("SeniorHigh",SeniorHigh);
-            api.patch("/stuInfo/campusCardID/"+ currentAccount.getCampusCardId(), infoToModify.toJSONString());
+            else
+            {
+                JSONObject infoToModify = new JSONObject();
+                infoToModify.put("IDNum", IDNum);
+                infoToModify.put("Sex",Sex);
+                infoToModify.put("Birthdate", Birthdate);
+                infoToModify.put("Birthplace",Birthplace);
+                infoToModify.put("Phone", Phone);
+                infoToModify.put("Email",Email);
+                infoToModify.put("Address", Address);
+                infoToModify.put("SeniorHigh",SeniorHigh);
+                api.patch("/stuInfo/campusCardID/"+ currentAccount.getCampusCardId(), infoToModify.toJSONString());
 
-            si_errorText.setText("");
-            si_IDNum.setDisable(true);
-            si_Sex.setDisable(true);
-            si_Birthdate.setDisable(true);
-            si_Birthplace.setDisable(true);
-            si_Phone.setDisable(true);
-            si_Email.setDisable(true);
-            si_Address.setDisable(true);
-            si_SeniorHigh.setDisable(true);
-            editorSaveStuInfo.setText("编辑");
+                si_errorText.setText("");
+                si_IDNum.setDisable(true);
+                si_Sex.setDisable(true);
+                si_Birthdate.setDisable(true);
+                si_Birthplace.setDisable(true);
+                si_Phone.setDisable(true);
+                si_Email.setDisable(true);
+                si_Address.setDisable(true);
+                si_SeniorHigh.setDisable(true);
+                editorSaveStuInfo.setText("编辑");
+            }
         }
     }
 
