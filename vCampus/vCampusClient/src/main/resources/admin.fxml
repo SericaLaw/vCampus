@@ -126,6 +126,7 @@
                         </AnchorPane>
                         <AnchorPane id="content__stu-info" fx:id="StuInfoPane" disable="false" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
+                        <Label fx:id="si_errortext" layoutX="558.0" layoutY="95.0" text="" />
                                 <HBox layoutX="551.0" layoutY="40.0" prefHeight="10.0" prefWidth="289.0" spacing="5.0">
                                     <children>
                                         <JFXTextField fx:id="student_InquireText" focusColor="#673ab7" layoutX="289.0" layoutY="19.0" prefHeight="29.0" prefWidth="237.0" promptText=" 按一卡通号搜索">
