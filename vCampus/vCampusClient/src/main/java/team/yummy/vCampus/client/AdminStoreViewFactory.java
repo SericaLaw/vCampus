@@ -307,12 +307,16 @@ public class AdminStoreViewFactory {
 
                     controller.api.post("/goods", JSON.toJSONString(newGoods));
 
-                    error_Text.setText("");
-                    goods_Name.setDisable(true);
-                    goods_Info.setDisable(true);
-                    goods_Price.setDisable(true);
-                    goods_Tag.setDisable(true);
-                    editgoods.setText("编辑");
+                    WebResponse res = controller.api.get("/goods");
+                    List<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);
+                    AdminStoreViewFactory adminstoreViewFactory = new AdminStoreViewFactory(rootStackPane, controller);
+                    List<HBox> row = adminstoreViewFactory.createFullGoodsRows(goodsList);
+                    if(controller.store_newItemBox.getChildren().size() != 0) {
+                        controller.store_newItemBox.getChildren().clear();
+                        controller.store_newItemBox.getChildren().addAll(row);
+                    } else {
+                        controller.store_newItemBox.getChildren().addAll(row);
+                    }
                 }
             }
         });

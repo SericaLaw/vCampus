@@ -75,7 +75,7 @@ public class AdminViewController extends ViewController implements Initializable
     @FXML private Label si_email;
     @FXML private Label si_address;
     @FXML private Label si_seniorhigh;
-    @FXML private Label stuinfo_errortext;
+    @FXML private Label si_errortext;
     @FXML private JFXTextField student_InquireText;
 
     /**
@@ -88,9 +88,9 @@ public class AdminViewController extends ViewController implements Initializable
     /**
      * members for store page
      */
-    @FXML private VBox store_newItemBox;
-    @FXML private VBox store_popItemBox;
-    @FXML private VBox store_favItemBox;     ///////////////////
+    @FXML public VBox store_newItemBox;
+    @FXML public VBox store_popItemBox;
+    @FXML public VBox store_favItemBox;     ///////////////////
 
     // 这里放商品列表数据
     private List<Goods> goodList = new ArrayList<Goods>();
@@ -293,33 +293,33 @@ public class AdminViewController extends ViewController implements Initializable
         String keyword = student_InquireText.getText();
         WebResponse res = api.get("/stuInfo/campusCardID/" + keyword);
         StuInfoViewModel stuInfoGot = res.dataList(StuInfoViewModel.class, 0);
-        stuinfogrid.setVisible(true);
-        editStu_Bt.setVisible(true);
-        saveNewStu_Bt.setVisible(false);
-        si_lastname.setText(stuInfoGot.getLastName());
-        si_firstname.setText(stuInfoGot.getFirstName());
-        si_enrollmentyear.setText(stuInfoGot.getEnrollmentYear().toString());
-        si_campuscardID.setText(stuInfoGot.getCampusCardId());
-        si_studentID.setText(stuInfoGot.getStudentId());
-        si_department.setText(stuInfoGot.getDepartment());
-        si_major.setText(stuInfoGot.getMajor());
-        si_lastname.setDisable(false);
-        si_firstname.setDisable(false);
-        si_enrollmentyear.setDisable(false);
-        si_campuscardID.setDisable(false);
-        si_studentID.setDisable(false);
-        si_department.setDisable(false);
-        si_major.setDisable(false);
+            si_errortext.setText("");
+            stuinfogrid.setVisible(true);
+            editStu_Bt.setVisible(true);
+            saveNewStu_Bt.setVisible(false);
+            si_lastname.setText(stuInfoGot.getLastName());
+            si_firstname.setText(stuInfoGot.getFirstName());
+            si_enrollmentyear.setText(stuInfoGot.getEnrollmentYear().toString());
+            si_campuscardID.setText(stuInfoGot.getCampusCardId());
+            si_studentID.setText(stuInfoGot.getStudentId());
+            si_department.setText(stuInfoGot.getDepartment());
+            si_major.setText(stuInfoGot.getMajor());
+            si_lastname.setDisable(false);
+            si_firstname.setDisable(false);
+            si_enrollmentyear.setDisable(false);
+            si_campuscardID.setDisable(false);
+            si_studentID.setDisable(false);
+            si_department.setDisable(false);
+            si_major.setDisable(false);
+            si_IDnum.setText(stuInfoGot.getIdNum());
+            si_sex.setText(stuInfoGot.getSex());
+            si_birthdate.setText(stuInfoGot.getBirthdate().toString());
+            si_birthplace.setText(stuInfoGot.getBirthplace());
+            si_phone.setText(stuInfoGot.getPhone());
+            si_email.setText(stuInfoGot.getEmail());
+            si_address.setText(stuInfoGot.getAddress());
+            si_seniorhigh.setText(stuInfoGot.getSeniorHigh());
 
-
-        si_IDnum.setText(stuInfoGot.getIdNum());
-        si_sex.setText(stuInfoGot.getSex());
-        si_birthdate.setText(stuInfoGot.getBirthdate().toString());
-        si_birthplace.setText(stuInfoGot.getBirthplace());
-        si_phone.setText(stuInfoGot.getPhone());
-        si_email.setText(stuInfoGot.getEmail());
-        si_address.setText(stuInfoGot.getAddress());
-        si_seniorhigh.setText(stuInfoGot.getSeniorHigh());
     }
 
     @FXML
@@ -408,7 +408,7 @@ public class AdminViewController extends ViewController implements Initializable
         String major = si_major.getText();
         if(lastname.length()==0||firstname.length()==0 || enrollmentyear.length()==0||campuscardID.length()==0||
                 studentID.length()==0||department.length()==0||major.length()==0)
-            stuinfo_errortext.setText("请完善所有信息！");
+            si_errortext.setText("请完善所有信息！");
 
         else
         {
@@ -432,7 +432,7 @@ public class AdminViewController extends ViewController implements Initializable
             if(res.getStatusCode().equals("201"))
                 api.post("/stuInfo", JSON.toJSONString(newStudent));
 
-            stuinfo_errortext.setText("");
+            si_errortext.setText("");
             si_lastname.setDisable(true);
             si_firstname.setDisable(true);
             si_enrollmentyear.setDisable(true);
@@ -483,7 +483,7 @@ public class AdminViewController extends ViewController implements Initializable
 //
 //            api.patch("/stuInfo/campusCardID/"+currentAccount.getCampusCardId(), infoToModify.toJSONString());
 
-            stuinfo_errortext.setText("");
+            si_errortext.setText("");
             si_lastname.setDisable(true);
             si_firstname.setDisable(true);
             si_enrollmentyear.setDisable(true);

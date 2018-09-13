@@ -61,12 +61,17 @@ public class AdminCourseViewFactory {
         for(final CourseRegisterViewModel course : courses) {
 
             final HBox newRow = new HBox();
-
+            newRow.setSpacing(100);
+            newRow.setAlignment(CENTER);
+            newRow.setPadding(new Insets(40, 30, 5, 40));
             VBox courseInfoCol = new VBox();
-            courseInfoCol.setStyle("-fx-spacing: 10");
+            courseInfoCol.setStyle("-fx-spacing: 15");
 
             JFXTextField courseName = new JFXTextField(course.getCourseName());
             courseName.getStyleClass().add("register-item__course-name");
+            courseName.setStyle("-fx-font-size: 22;-fx-text-fill: #673AB7;");
+            courseName.setMaxSize(240,50);
+            courseName.setAlignment(CENTER);
 
             HBox courseDetailInfo = new HBox();
             courseDetailInfo.setStyle("-fx-alignment: center-left");
@@ -74,8 +79,14 @@ public class AdminCourseViewFactory {
 
             JFXTextField courseTeacher = new JFXTextField(course.getProfName());
             courseTeacher.setStyle("-fx-text-fill: #757575");
+            courseTeacher.setAlignment(CENTER);
+            courseTeacher.setMaxWidth(130);
+
             JFXTextField courseCredit = new JFXTextField(course.getCredit().toString());
             courseCredit.setStyle("-fx-text-fill: #757575");
+            courseCredit.setAlignment(CENTER);
+            courseCredit.setMaxWidth(50);
+
             courseDetailInfo.getChildren().addAll(courseTeacher, courseCredit);
             courseInfoCol.getChildren().addAll(courseName, courseDetailInfo);
             courseInfoCol.getStyleClass().add("register-item");
@@ -85,6 +96,8 @@ public class AdminCourseViewFactory {
 
             JFXTextField courseVenue = new JFXTextField(course.getCourseVenue());
             courseVenue.setStyle("-fx-font-size: 18");
+            courseVenue.setAlignment(BASELINE_CENTER);
+            courseVenue.setMinHeight(70);
             courseVenueCol.getChildren().addAll(courseVenue);
             courseVenue.getStyleClass().add("register-item");
             newRow.getChildren().add(courseVenueCol);
@@ -112,10 +125,14 @@ public class AdminCourseViewFactory {
 
             JFXButton editcourse = new JFXButton("编辑");
             editcourse.setButtonType(JFXButton.ButtonType.RAISED);
+            editcourse.setBackground(new Background(new BackgroundFill(Color.web("#7C4DFF"),null,null)));
+            editcourse.setTextFill(Color.web("#FFF"));
+            editcourse.setFont(Font.font(18));
+            editcourse.setAlignment(Pos.BOTTOM_RIGHT);
+
+            opCol.setAlignment(BASELINE_LEFT);
             opCol.getChildren().addAll(errorText,editcourse);
             newRow.getChildren().addAll(opCol);
-
-
 
             rows.add(newRow);
 
@@ -174,8 +191,9 @@ public class AdminCourseViewFactory {
         List<HBox> rows = new ArrayList<>();
 
         final HBox newRow = new HBox();
-        newRow.setSpacing(100);
+        newRow.setSpacing(75);               //////////////////////////////////////////
         newRow.setAlignment(CENTER);
+        newRow.setPadding(new Insets(40, 30, 5, 40));
         VBox courseInfoCol = new VBox();
         courseInfoCol.setStyle("-fx-spacing: 15");
 
@@ -185,6 +203,7 @@ public class AdminCourseViewFactory {
         courseName.setStyle("-fx-font-size: 22;-fx-text-fill: #673AB7;");
         courseName.setMaxSize(240,50);
         courseName.setAlignment(CENTER);
+
         HBox courseDetailInfo = new HBox();
         courseDetailInfo.setStyle("-fx-alignment: center-left");
         courseDetailInfo.setStyle("-fx-spacing: 10");
@@ -194,11 +213,13 @@ public class AdminCourseViewFactory {
         courseTeacher.setStyle("-fx-text-fill: #757575");
         courseTeacher.setAlignment(CENTER);
         courseTeacher.setMaxWidth(130);
+
         JFXTextField courseCredit = new JFXTextField();
         courseCredit.setPromptText("学分");
         courseCredit.setStyle("-fx-text-fill: #757575");
         courseCredit.setAlignment(CENTER);
         courseCredit.setMaxWidth(50);
+
         courseDetailInfo.getChildren().addAll(courseTeacher, courseCredit);
         courseInfoCol.getChildren().addAll(courseName, courseDetailInfo);
         courseInfoCol.getStyleClass().add("register-item");
@@ -229,18 +250,52 @@ public class AdminCourseViewFactory {
         VBox opCol = new VBox();
         opCol.setStyle("-fx-min-width: 50");
         opCol.setStyle("-fx-pref-width: 50");
-        JFXButton buttonOp = new JFXButton("编辑");
-        buttonOp.setAlignment(Pos.BOTTOM_LEFT);
+        Label errorText=new Label("");
+        JFXButton editcourse = new JFXButton("保存");
+        editcourse.setButtonType(JFXButton.ButtonType.RAISED);
+        editcourse.setBackground(new Background(new BackgroundFill(Color.web("#7C4DFF"),null,null)));
+        editcourse.setTextFill(Color.web("#FFF"));
+        editcourse.setFont(Font.font(18));
+        editcourse.setAlignment(Pos.BOTTOM_RIGHT);
 
-        // TODO: 按钮事件
-
-
-        buttonOp.setButtonType(JFXButton.ButtonType.RAISED);
         opCol.setAlignment(BASELINE_LEFT);
-        opCol.getChildren().addAll(buttonOp);
+        opCol.getChildren().addAll(errorText,editcourse);
         newRow.getChildren().addAll(opCol);
 
         rows.add(newRow);
+
+        // TODO: 按钮事件
+        editcourse.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                    String Name=courseName.getText();
+                    String Teacher=courseTeacher.getText();
+                    String Credit=courseCredit.getText();
+                    String Venue=courseVenue.getText();
+
+                    if (Name.length() == 0 || Teacher.length() == 0 || Credit.length() == 0 || Venue.length() ==0)
+                        errorText.setText("有空项!");
+
+                    else {
+
+//                            course newcourse = new GoodsViewModel();
+//                            newGoods.setGoodsName(Name);
+//                            newGoods.setImgUrl("./images/item.png");
+//                            newGoods.setPrice(Double.valueOf(Price));
+//                            newGoods.setTag(Integer.valueOf(Tag));
+//
+//                            WebResponse res = controller.api.post("/goods", JSON.toJSONString(newGoods));
+//
+//                            error_Text.setText("");
+//                            goods_Name.setDisable(true);
+//                            goods_Info.setDisable(true);
+//                            goods_Price.setDisable(true);
+//                            goods_Tag.setDisable(true);
+//                            editgoods.setText("编辑");
+                    }
+                }
+        });
+
         return rows;
     }
 
