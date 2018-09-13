@@ -8,6 +8,9 @@
     divider-color: #BDBDBD;
 }
 
+#InitPane {
+    -fx-background-color: #fff;
+}
 
 #title {
     -fx-background-color: linear-gradient(to bottom right, #7C4DFF, #673AB7);

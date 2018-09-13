@@ -56,6 +56,7 @@ public class TchMainViewController extends ViewController implements  Initializa
     @FXML public GridPane course_scheduleGrid;
     @FXML private StackPane rootStackPane;
     @FXML private GridPane title;
+    @FXML public Button Bt_Init,  Bt_Course, Bt_Account;
     @FXML private AnchorPane InitPane;
     @FXML private AnchorPane CoursePane;
     @FXML private AnchorPane AccountMagPane;
@@ -329,4 +330,36 @@ public class TchMainViewController extends ViewController implements  Initializa
     }*/
 
 
+    @FXML
+    protected void switchInit(ActionEvent actionEvent) {
+        togglePane(InitPane, Bt_Init);
+    }
+
+
+    public void togglePane(Pane paneToDisplay, Button button) {
+        CoursePane.setVisible(false);
+        AccountMagPane.setVisible(false);
+        InitPane.setVisible(false);
+
+        String defaultStyle = "-fx-pref-width: 250;\n" +
+                "    -fx-background-color: #fff;\n" +
+                "    -fx-pref-height: 50;\n" +
+                "    -fx-padding:  0 20;\n" +
+                "    -fx-border-width: 0 0 0 6px;\n" +
+                "    -fx-border-height: 50;\n" +
+                "    -fx-border-color: transparent;\n" +
+                "    -fx-font-size: 20;\n" +
+                "    -fx-alignment: center-left;";
+
+        String focusedStyle = "-fx-text-fill: #673AB7; -fx-border-color: transparent transparent transparent linear-gradient(to bottom right, #7C4DFF, #673AB7);";
+
+        // 暂时性代码
+        Bt_Init.setStyle(defaultStyle);
+        Bt_Course.setStyle(defaultStyle);
+        Bt_Account.setStyle(defaultStyle);
+
+        button.setStyle(focusedStyle);
+
+        paneToDisplay.setVisible(true);
+    }
 }

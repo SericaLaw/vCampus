@@ -58,7 +58,7 @@
             <left>
                 <VBox id="main_sidebar">
                     <children>
-                        <Button fx:id="test" disable="false" mnemonicParsing="false" text="欢迎" visible="true" />
+                        <Button fx:id="Bt_Init" onAction="#switchInit" disable="false" mnemonicParsing="false" text="欢迎" visible="true" />
                         <Label prefWidth="86.0" text="Campus">
                             <font>
                                 <Font name="Californian FB" size="20.0" fx:id="x1" />
@@ -117,19 +117,23 @@
                 </VBox>
             </left>
             <center>
-                <AnchorPane minHeight="0.0" minWidth="0.0"  prefHeight="747.0" prefWidth="590.0" visible="true" BorderPane.alignment="CENTER">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="747.0" prefWidth="590.0" visible="true" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane fx:id="InitPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="InitPane" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <Label layoutX="496.0" layoutY="374.0" prefHeight="73.0" prefWidth="86.0" text="init" />
+                                <ImageView fitHeight="288.0" fitWidth="400.0" layoutX="275.0" layoutY="221.0">
+                                    <image>
+                                        <Image url="@images/mainWelcomeBG.jpg" />
+                                    </image>
+                                </ImageView>
                             </children>
                         </AnchorPane>
-                        <AnchorPane id="content__stu-info" fx:id="StuInfoPane" disable="false" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane id="content__stu-info" fx:id="StuInfoPane" disable="false" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                        <Label fx:id="si_errortext" layoutX="558.0" layoutY="95.0" text="" />
+                                <Label fx:id="si_errortext" layoutX="558.0" layoutY="95.0" text="" />
                                 <HBox layoutX="551.0" layoutY="40.0" prefHeight="10.0" prefWidth="289.0" spacing="5.0">
                                     <children>
-                                        <JFXTextField onKeyPressed="#studentsearch" fx:id="student_InquireText" focusColor="#673ab7" layoutX="289.0" layoutY="19.0" prefHeight="29.0" prefWidth="237.0" promptText=" 按一卡通号搜索">
+                                        <JFXTextField fx:id="student_InquireText" focusColor="#673ab7" layoutX="289.0" layoutY="19.0" onKeyPressed="#studentsearch" prefHeight="29.0" prefWidth="237.0" promptText=" 按一卡通号搜索">
                                             <font>
                                                 <Font size="16.0" />
                                             </font>
@@ -340,6 +344,14 @@
                 </AnchorPane>
             </center>
         </BorderPane>
+        <ImageView fitHeight="23.0" fitWidth="96.0" StackPane.alignment="BOTTOM_LEFT">
+            <image>
+                <Image url="@images/xmmy.png" />
+            </image>
+            <StackPane.margin>
+                <Insets bottom="30.0" left="73.0" />
+            </StackPane.margin>
+        </ImageView>
     </children>
     <stylesheets>
         <URL value="@admin.css" />

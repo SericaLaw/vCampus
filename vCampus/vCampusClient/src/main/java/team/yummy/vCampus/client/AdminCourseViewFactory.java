@@ -1,5 +1,6 @@
 package team.yummy.vCampus.client;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -37,6 +38,7 @@ import team.yummy.vCampus.models.CourseStatusEnum;
 import team.yummy.vCampus.models.Goods;
 import team.yummy.vCampus.models.viewmodel.CourseRegisterViewModel;
 import team.yummy.vCampus.models.viewmodel.CourseScheduleViewModel;
+import team.yummy.vCampus.web.WebResponse;
 
 import java.util.*;
 
@@ -61,17 +63,30 @@ public class AdminCourseViewFactory {
         for(final CourseRegisterViewModel course : courses) {
 
             final HBox newRow = new HBox();
-            newRow.setSpacing(100);
+            newRow.setSpacing(50);
             newRow.setAlignment(CENTER);
             newRow.setPadding(new Insets(40, 30, 5, 40));
             VBox courseInfoCol = new VBox();
             courseInfoCol.setStyle("-fx-spacing: 15");
 
+            HBox courseBasicInfo=new HBox();
+            courseBasicInfo.setStyle("-fx-alignment: center-left");
+            courseBasicInfo.setStyle("-fx-spacing: 10");
+
+            JFXTextField courseID = new JFXTextField(course.getCourseID());
+            courseID.setPromptText("ID");
+            courseID.getStyleClass().add("register-item__course-id");
+            courseID.setStyle("-fx-font-size: 22;-fx-text-fill: #673AB7;");
+            courseID.setMaxSize(80,50);
+            courseID.setAlignment(CENTER);
+
             JFXTextField courseName = new JFXTextField(course.getCourseName());
             courseName.getStyleClass().add("register-item__course-name");
             courseName.setStyle("-fx-font-size: 22;-fx-text-fill: #673AB7;");
-            courseName.setMaxSize(240,50);
-            courseName.setAlignment(CENTER);
+            courseName.setMaxSize(160,50);
+            courseName.setAlignment(CENTER_LEFT);
+
+            courseBasicInfo.getChildren().addAll(courseID,courseName);
 
             HBox courseDetailInfo = new HBox();
             courseDetailInfo.setStyle("-fx-alignment: center-left");
@@ -88,7 +103,7 @@ public class AdminCourseViewFactory {
             courseCredit.setMaxWidth(50);
 
             courseDetailInfo.getChildren().addAll(courseTeacher, courseCredit);
-            courseInfoCol.getChildren().addAll(courseName, courseDetailInfo);
+            courseInfoCol.getChildren().addAll(courseBasicInfo, courseDetailInfo);
             courseInfoCol.getStyleClass().add("register-item");
             newRow.getChildren().add(courseInfoCol);
 
@@ -102,20 +117,20 @@ public class AdminCourseViewFactory {
             courseVenue.getStyleClass().add("register-item");
             newRow.getChildren().add(courseVenueCol);
 
-            VBox courseScheduleCol = new VBox();
-            for(CourseScheduleViewModel s : course.getCourseSchedule()) {
-
-                HBox courseScheduleRow = new HBox();
-                Label title_weekday=new Label("星期");
-                JFXTextField weekday=new JFXTextField(Integer.toString(s.getWeekDay()));
-                JFXTextField spanstart=new JFXTextField(Integer.toString(s.getSpanStart()));
-                Label slash=new Label("-");
-                JFXTextField spanend=new JFXTextField(Integer.toString(s.getSpanEnd()));
-                courseScheduleRow.getChildren().addAll(title_weekday,weekday);
-                //courseScheduleRow.getChildren().addAll(spanstart,slash,spanend);
-                courseScheduleCol.getChildren().addAll(courseScheduleRow);
-            }
-            newRow.getChildren().add(courseScheduleCol);
+//            VBox courseScheduleCol = new VBox();
+//            for(CourseScheduleViewModel s : course.getCourseSchedule()) {
+//
+//                HBox courseScheduleRow = new HBox();
+//                Label title_weekday=new Label("星期");
+//                JFXTextField weekday=new JFXTextField(Integer.toString(s.getWeekDay()));
+//                JFXTextField spanstart=new JFXTextField(Integer.toString(s.getSpanStart()));
+//                Label slash=new Label("-");
+//                JFXTextField spanend=new JFXTextField(Integer.toString(s.getSpanEnd()));
+//                courseScheduleRow.getChildren().addAll(title_weekday,weekday);
+//                //courseScheduleRow.getChildren().addAll(spanstart,slash,spanend);
+//                courseScheduleCol.getChildren().addAll(courseScheduleRow);
+//            }
+//            newRow.getChildren().add(courseScheduleCol);
 
             VBox opCol = new VBox();
             opCol.setStyle("-fx-min-width: 50");
@@ -136,6 +151,7 @@ public class AdminCourseViewFactory {
 
             rows.add(newRow);
 
+            courseID.setDisable(true);
             courseName.setDisable(true);
             courseTeacher.setDisable(true);
             courseCredit.setDisable(true);
@@ -147,6 +163,7 @@ public class AdminCourseViewFactory {
                 public void handle(ActionEvent event) {
                     if(editcourse.getText().equals("编辑")) {
                         editcourse.setText("保存");
+                        courseID.setDisable(false);
                         courseName.setDisable(false);
                         courseTeacher.setDisable(false);
                         courseCredit.setDisable(false);
@@ -154,30 +171,33 @@ public class AdminCourseViewFactory {
                     }
                     else {
 
+                        String ID=courseID.getText();
                         String Name=courseName.getText();
                         String Teacher=courseTeacher.getText();
                         String Credit=courseCredit.getText();
                         String Venue=courseVenue.getText();
 
-                        if (Name.length() == 0 || Teacher.length() == 0 || Credit.length() == 0 || Venue.length() ==0)
+                        if (ID.length() == 0 || Name.length() == 0 || Teacher.length() == 0 || Credit.length() == 0 || Venue.length() ==0)
                             errorText.setText("有空项!");
 
                         else {
 
-//                            course newcourse = new GoodsViewModel();
-//                            newGoods.setGoodsName(Name);
-//                            newGoods.setImgUrl("./images/item.png");
-//                            newGoods.setPrice(Double.valueOf(Price));
-//                            newGoods.setTag(Integer.valueOf(Tag));
-//
-//                            WebResponse res = controller.api.post("/goods", JSON.toJSONString(newGoods));
-//
-//                            error_Text.setText("");
-//                            goods_Name.setDisable(true);
-//                            goods_Info.setDisable(true);
-//                            goods_Price.setDisable(true);
-//                            goods_Tag.setDisable(true);
-//                            editgoods.setText("编辑");
+                            Map<String, String> courseToModify = new HashMap();
+                            courseToModify.put("CourseId",ID);
+                            courseToModify.put("CourseName", Name);
+                            courseToModify.put("ProfName", Teacher);
+                            courseToModify.put("Credit", Credit);
+                            courseToModify.put("CourseVenue", Venue);
+
+                            controller.api.patch("/course/courseId/" + course.getCourseID(), JSON.toJSONString(courseToModify));
+
+                            errorText.setText("");
+                            courseID.setDisable(true);
+                            courseName.setDisable(true);
+                            courseTeacher.setDisable(true);
+                            courseCredit.setDisable(true);
+                            courseVenue.setDisable(true);
+                            editcourse.setText("编辑");
                         }
                     }
                 }
@@ -191,18 +211,31 @@ public class AdminCourseViewFactory {
         List<HBox> rows = new ArrayList<>();
 
         final HBox newRow = new HBox();
-        newRow.setSpacing(75);               //////////////////////////////////////////
+        newRow.setSpacing(50);               //////////////////////////////////////////
         newRow.setAlignment(CENTER);
         newRow.setPadding(new Insets(40, 30, 5, 40));
         VBox courseInfoCol = new VBox();
         courseInfoCol.setStyle("-fx-spacing: 15");
 
+        HBox courseBasicInfo=new HBox();
+        courseBasicInfo.setStyle("-fx-alignment: center-left");
+        courseBasicInfo.setStyle("-fx-spacing: 10");
+
+        JFXTextField courseID = new JFXTextField();
+        courseID.setPromptText("ID");
+        courseID.getStyleClass().add("register-item__course-id");
+        courseID.setStyle("-fx-font-size: 22;-fx-text-fill: #673AB7;");
+        courseID.setMaxSize(80,50);
+        courseID.setAlignment(CENTER);
+
         JFXTextField courseName = new JFXTextField();
         courseName.setPromptText("课程名称");
         courseName.getStyleClass().add("register-item__course-name");
         courseName.setStyle("-fx-font-size: 22;-fx-text-fill: #673AB7;");
-        courseName.setMaxSize(240,50);
-        courseName.setAlignment(CENTER);
+        courseName.setMaxSize(160,50);
+        courseName.setAlignment(CENTER_LEFT);
+
+        courseBasicInfo.getChildren().addAll(courseID,courseName);
 
         HBox courseDetailInfo = new HBox();
         courseDetailInfo.setStyle("-fx-alignment: center-left");
@@ -221,7 +254,7 @@ public class AdminCourseViewFactory {
         courseCredit.setMaxWidth(50);
 
         courseDetailInfo.getChildren().addAll(courseTeacher, courseCredit);
-        courseInfoCol.getChildren().addAll(courseName, courseDetailInfo);
+        courseInfoCol.getChildren().addAll(courseBasicInfo, courseDetailInfo);
         courseInfoCol.getStyleClass().add("register-item");
         newRow.getChildren().add(courseInfoCol);
 
@@ -236,16 +269,16 @@ public class AdminCourseViewFactory {
         courseVenue.getStyleClass().add("register-item");
         newRow.getChildren().add(courseVenueCol);
 
-        VBox courseScheduleCol = new VBox();
-        HBox courseScheduleRow = new HBox();
-        Label title_weekday=new Label("星期");
-        JFXTextField weekday=new JFXTextField();
-        JFXTextField spanstart=new JFXTextField();
-        Label slash=new Label("-");
-        JFXTextField spanend=new JFXTextField();
-        courseScheduleCol.getChildren().addAll(courseScheduleRow);
-
-        newRow.getChildren().add(courseScheduleCol);
+//        VBox courseScheduleCol = new VBox();
+//        HBox courseScheduleRow = new HBox();
+//        Label title_weekday=new Label("星期");
+//        JFXTextField weekday=new JFXTextField();
+//        JFXTextField spanstart=new JFXTextField();
+//        Label slash=new Label("-");
+//        JFXTextField spanend=new JFXTextField();
+//        courseScheduleCol.getChildren().addAll(courseScheduleRow);
+//
+//        newRow.getChildren().add(courseScheduleCol);
 
         VBox opCol = new VBox();
         opCol.setStyle("-fx-min-width: 50");
@@ -257,6 +290,7 @@ public class AdminCourseViewFactory {
         editcourse.setTextFill(Color.web("#FFF"));
         editcourse.setFont(Font.font(18));
         editcourse.setAlignment(Pos.BOTTOM_RIGHT);
+        editcourse.setMaxWidth(150);
 
         opCol.setAlignment(BASELINE_LEFT);
         opCol.getChildren().addAll(errorText,editcourse);
@@ -268,32 +302,39 @@ public class AdminCourseViewFactory {
         editcourse.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                    String ID=courseID.getText();
                     String Name=courseName.getText();
                     String Teacher=courseTeacher.getText();
                     String Credit=courseCredit.getText();
                     String Venue=courseVenue.getText();
 
-                    if (Name.length() == 0 || Teacher.length() == 0 || Credit.length() == 0 || Venue.length() ==0)
-                        errorText.setText("有空项!");
+                if ( ID.length() == 0 || Name.length() == 0 || Teacher.length() == 0 || Credit.length() == 0 || Venue.length() ==0)
+                    errorText.setText("有空项!");
 
-                    else {
+                else {
 
-//                            course newcourse = new GoodsViewModel();
-//                            newGoods.setGoodsName(Name);
-//                            newGoods.setImgUrl("./images/item.png");
-//                            newGoods.setPrice(Double.valueOf(Price));
-//                            newGoods.setTag(Integer.valueOf(Tag));
-//
-//                            WebResponse res = controller.api.post("/goods", JSON.toJSONString(newGoods));
-//
-//                            error_Text.setText("");
-//                            goods_Name.setDisable(true);
-//                            goods_Info.setDisable(true);
-//                            goods_Price.setDisable(true);
-//                            goods_Tag.setDisable(true);
-//                            editgoods.setText("编辑");
+                    Map<String, String> newCourse = new HashMap();
+                    newCourse.put("CourseID",ID);
+                    newCourse.put("CourseName", Name);
+                    newCourse.put("ProfName", Teacher);
+                    newCourse.put("Credit", Credit);
+                    newCourse.put("CourseVenue", Venue);
+
+                    controller.api.post("/course", JSON.toJSONString(newCourse));
+                    WebResponse res = controller.api.get("/course");
+                    List<CourseRegisterViewModel> bookList = res.dataList(CourseRegisterViewModel.class);
+                    AdminCourseViewFactory admincourseViewFactory = new AdminCourseViewFactory(rootStackPane,controller);
+                    List<HBox> row = admincourseViewFactory.createFullCourseRows(bookList);
+                    if (controller.course_inquireBox.getChildren().size() != 0) {
+                        controller.course_inquireBox.getChildren().clear();
+                        controller.course_inquireBox.getChildren().addAll(row);
+                    } else {
+                        controller.course_inquireBox.getChildren().addAll(row);
                     }
+                    errorText.setText("");
+                    editcourse.setText("编辑");
                 }
+            }
         });
 
         return rows;
