@@ -447,7 +447,8 @@ public class CourseController extends Controller {
     @Get(route = "list")
     public void getCourseList() {
         dbSession.beginTransaction();
-        webContext.response.setBody(JSON.toJSONString(dbSession.createQuery("from CourseEntity c").list()));
+        List<CourseEntity> courseList = dbSession.createQuery("from CourseEntity c").list();
+        webContext.response.setBody(JSON.toJSONString(courseList.stream().map(c -> new CourseRegisterViewModel(c)).toArray()));
         dbSession.getTransaction().commit();
     }
 

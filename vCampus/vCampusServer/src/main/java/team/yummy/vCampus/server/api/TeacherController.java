@@ -82,8 +82,8 @@ public class TeacherController extends Controller {
     }
 
     /**
-     * @apiGroup Course
-     * @api {get} /course/teacher GetTeacherCourseSchedule
+     * @apiGroup Teacher
+     * @api {get} /teacher/course GetTeacherCourseSchedule
      * @apiPermission teacher
      * @apiDescription 根据ProfCampusCardId获取教师任教的课程表
      * @apiParamExample Code Snippets
@@ -92,7 +92,7 @@ public class TeacherController extends Controller {
      * @apiSuccessExample Success-Response:
      *      200 OK
      */
-    @Get(route = "teacher")
+    @Get(route = "course")
     public void getTeacherCourseSchedule() {
         dbSession.beginTransaction();
         List<CourseEntity> courseList = dbSession.createQuery(

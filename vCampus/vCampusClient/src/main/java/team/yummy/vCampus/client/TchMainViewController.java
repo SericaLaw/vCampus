@@ -142,6 +142,7 @@ public class TchMainViewController extends ViewController implements  Initializa
             listColors.add(color);
         }
 
+        courseScheduleViewModels = api.get("/teacher/course").dataList(CourseScheduleViewModel.class);
         for (CourseScheduleViewModel course : courseScheduleViewModels) {
             CourseViewFactory.CourseScheduleViewData data = new CourseViewFactory.CourseScheduleViewData(course);
             JFXButton courseItem = new JFXButton();
