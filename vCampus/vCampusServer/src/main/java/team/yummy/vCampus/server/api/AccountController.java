@@ -5,6 +5,7 @@ import org.hibernate.Transaction;
 import team.yummy.vCampus.models.entity.AccountEntity;
 import team.yummy.vCampus.models.viewmodel.*;
 import team.yummy.vCampus.server.annotation.Post;
+import team.yummy.vCampus.server.framework.Controller;
 
 public class AccountController extends Controller {
 

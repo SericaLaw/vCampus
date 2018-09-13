@@ -1,6 +1,7 @@
 package team.yummy.vCampus.server.middlewares;
 
-import team.yummy.vCampus.server.WebContext;
+import team.yummy.vCampus.server.framework.Middleware;
+import team.yummy.vCampus.server.framework.WebContext;
 import team.yummy.vCampus.util.Logger;
 import team.yummy.vCampus.web.RequestMethod;
 

@@ -3,6 +3,8 @@ package team.yummy.vCampus.test;
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import team.yummy.vCampus.models.entity.BankAccountEntity;
+import team.yummy.vCampus.models.entity.CartRecordEntity;
+import team.yummy.vCampus.models.viewmodel.CartRecordViewModel;
 import team.yummy.vCampus.models.viewmodel.GoodsViewModel;
 import team.yummy.vCampus.web.WebResponse;
 
@@ -179,5 +181,11 @@ public class StoreApiTest extends ApiTest {
         String goodsId = "66b20429-922e-45f9-aeb3-6c7f4fdeaff1";
         WebResponse res = api.get("/goods/goodsId/" + goodsId);
         GoodsViewModel goods = res.dataList(GoodsViewModel.class, 0);
+    }
+
+    @Test
+    public void getCartList() {
+        WebResponse res = api.get("/store/cart");
+        List<CartRecordViewModel> goods = res.dataList(CartRecordViewModel.class);
     }
 }

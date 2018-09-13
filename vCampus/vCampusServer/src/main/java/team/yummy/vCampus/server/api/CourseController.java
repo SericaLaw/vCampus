@@ -5,15 +5,14 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.junit.Test;
 import team.yummy.vCampus.models.CourseStatusEnum;
 import team.yummy.vCampus.models.Semester;
 import team.yummy.vCampus.models.entity.*;
 import team.yummy.vCampus.models.viewmodel.CourseRegisterViewModel;
 import team.yummy.vCampus.models.viewmodel.CourseReportViewModel;
 import team.yummy.vCampus.models.viewmodel.CourseScheduleViewModel;
-import team.yummy.vCampus.server.WebContext;
 import team.yummy.vCampus.server.annotation.*;
+import team.yummy.vCampus.server.framework.Controller;
 
 import java.util.*;
 import java.util.List;
@@ -400,53 +399,6 @@ public class CourseController extends Controller {
         return "OK";
     }
 
-    /**
-     * @apiGroup Course
-     * @api {patch} /course/record ModifyCourseRecord
-     * @apiPermission teacher
-     * @apiDescription 登记或改变学生成绩
-     * @apiParamExample Code Snippets
-     * WebResponse res = api.patch("/course/record", "{"id":"uuid", "score":"the score"}");
-     * @apiSuccessExample Success-Response:
-     *      200 OK
-     */
-
-    @Patch(route = "record")
-    public void modifyCourseRecord() {
-
-    }
-
-    /**
-     * @apiGroup Course
-     * @api {get} /course/record GetCourseRecord
-     * @apiPermission teacher
-     * @apiDescription 获取任教课程对应学生的CourseReport列表
-     * @apiParamExample Code Snippets
-     * WebResponse res = api.get("/course/record");
-     * List<TeacherCourseReportViewModel> reportList = res.dataList(TeacherCourseReportViewModel.class);
-     * @apiSuccessExample Success-Response:
-     *      200 OK
-     */
-    @Get(route = "record")
-    public void getCourseRecord() {
-
-    }
-
-    /**
-     * @apiGroup Course
-     * @api {get} /course/teacher GetTeacherCourseSchedule
-     * @apiPermission teacher
-     * @apiDescription 根据ProfCampusCardId获取教师任教的课程表
-     * @apiParamExample Code Snippets
-     * WebResponse res = api.get("/course/teacher");
-     * List<CourseScheduleViewModel> schedules = res.dataList(CourseScheduleViewModel.class);
-     * @apiSuccessExample Success-Response:
-     *      200 OK
-     */
-    @Get(route = "teacher")
-    public void getTeacherCourseSchedule() {
-
-    }
     /**
      * @apiGroup Course
      * @api {get} /course GetCourseList

@@ -1,9 +1,8 @@
-package team.yummy.vCampus.server.api;
+package team.yummy.vCampus.server.framework;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import team.yummy.vCampus.models.entity.AccountEntity;
-import team.yummy.vCampus.server.WebContext;
 import team.yummy.vCampus.server.annotation.*;
 import team.yummy.vCampus.util.Logger;
 import team.yummy.vCampus.web.WebRequest;
@@ -18,6 +17,8 @@ public class Controller {
     public Logger logger;
 
     public WebContext webContext;
+
+    public Method action;
 
     public Session dbSession;
 
@@ -38,21 +39,6 @@ public class Controller {
     public boolean run() {
         try {
             WebRequest request = webContext.request;
-
-            Class methodType = new Class[] {
-                Get.class, Post.class, Patch.class, Delete.class
-            }[request.getType().ordinal()];
-
-            Method action = null;
-            for (Method method : this.getClass().getMethods()) {
-                if (method.isAnnotationPresent(methodType)) {
-                    String route = (String) methodType.getMethod("route").invoke(method.getAnnotation(methodType));
-                    if (request.getField() != null && route.equals(request.getField().toLowerCase())) {
-                        action = method;
-                        break;
-                    }
-                }
-            }
 
             // 路由失败
             if (action == null) {
@@ -81,7 +67,7 @@ public class Controller {
                 webContext.response.setStatusCode("200");
             }
             return true;
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
             webContext.response.setStatusCode("500");
             webContext.response.setMessage(e.toString());

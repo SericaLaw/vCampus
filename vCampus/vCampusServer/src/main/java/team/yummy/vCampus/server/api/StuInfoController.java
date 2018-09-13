@@ -2,12 +2,13 @@ package team.yummy.vCampus.server.api;
 
 import org.hibernate.Transaction;
 import team.yummy.vCampus.models.entity.*;
-import team.yummy.vCampus.server.WebContext;
+import team.yummy.vCampus.server.framework.WebContext;
 import team.yummy.vCampus.server.annotation.*;
+import team.yummy.vCampus.server.framework.Controller;
 
 import java.util.stream.Collectors;
 
-public class StuInfoController extends Controller {
+public class StuinfoController extends Controller {
 
     AccountEntity account;
 
