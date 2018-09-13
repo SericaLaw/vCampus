@@ -9,7 +9,7 @@ import team.yummy.vCampus.server.framework.Controller;
 import java.util.stream.Collectors;
 
 @Authorize(roles = { "admin", "student" })
-public class StuinfoController extends Controller {
+public class StuInfoController extends Controller {
 
     /**
      * @apiGroup StuInfo
