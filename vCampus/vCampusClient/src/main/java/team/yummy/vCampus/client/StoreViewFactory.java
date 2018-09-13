@@ -1,8 +1,10 @@
 package team.yummy.vCampus.client;
 
+import com.alibaba.fastjson.JSON;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.effects.JFXDepthManager;
 import com.jfoenix.svg.SVGGlyph;
 import javafx.animation.KeyFrame;
@@ -34,6 +36,7 @@ import javafx.util.Duration;
 import team.yummy.vCampus.models.Goods;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.lang.Math.min;
 import static javafx.animation.Interpolator.EASE_BOTH;
@@ -41,13 +44,16 @@ import static javafx.geometry.Pos.BASELINE_CENTER;
 import static javafx.geometry.Pos.CENTER;
 import static javafx.geometry.Pos.CENTER_LEFT;
 import static sun.swing.MenuItemLayoutHelper.max;
+
+import team.yummy.vCampus.models.viewmodel.CartRecordViewModel;
 import team.yummy.vCampus.models.viewmodel.GoodsViewModel;
+import team.yummy.vCampus.web.WebResponse;
 
 
 public class StoreViewFactory {
     private StackPane rootStackPane;
     private MainViewController controller;
-    private List<GoodsViewModel> goodsSelected = new ArrayList<>();
+    private List<CartRecordViewModel> goodsSelected = new ArrayList<>();
 
     StoreViewFactory(StackPane rootStackPane, MainViewController mainViewController) {
         this.rootStackPane = rootStackPane;
@@ -186,9 +192,8 @@ public class StoreViewFactory {
                 @Override
                 public void handle(ActionEvent event) {
                     // TODO: 这里处理和购物车有关的逻辑
-                    controller.goodsToBuy.add(goods);
-                    List<HBox> cartRows = createCartRows(controller.goodsToBuy);
-                    controller.store_CartBox.getChildren().addAll(cartRows);
+                    WebResponse res = controller.api.post("/store/cart", goods.getGoodsId());
+                    controller.refreshCartView();
                     dialog.setVisible(false);
                 }
             });
@@ -226,40 +231,65 @@ public class StoreViewFactory {
         return rows;
     }
 
-    // TODO: 应使用购物车商品类；相关事件处理
-    // TODO: 应使用购物车商品类；相关事件处理
-    public List<HBox> createCartRows(List<GoodsViewModel> goodsToBuy) {
+
+    public List<HBox> createCartRows(List<CartRecordViewModel> goodsToBuy) {
+        // 排序
+        Collections.sort(goodsToBuy, new Comparator<CartRecordViewModel>() {
+            @Override
+            public int compare(CartRecordViewModel o1, CartRecordViewModel o2) {
+                if(o1.getCartRecordID().compareTo(o2.getCartRecordID()) > 0)
+                    return 1;
+                else
+                    return -1;
+            }
+        });
         List<HBox> rows = new ArrayList<>();
-        for (final GoodsViewModel goods : goodsToBuy) {
+        Double totalPrice = 0.;
+        goodsSelected.clear();
+        for(CartRecordViewModel goods: goodsToBuy) {
+            totalPrice += goods.getPrice() * goods.getGoodsCount() * (goods.getIsSelected() ? 1 : 0);
+            if(goods.getIsSelected())
+                goodsSelected.add(goods);
+        }
+        controller.content__Store__Cart__GrandTotalPrice.setText(String.valueOf(totalPrice));
+        for (final CartRecordViewModel goods : goodsToBuy) {
 
             final JFXCheckBox goodsSelector =new JFXCheckBox();
+            goodsSelector.setSelected(goods.getIsSelected());
+
             final HBox newRow = new HBox();
             JFXDepthManager.setDepth(newRow, 1);
+
+
             newRow.addEventFilter(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    newRow.setStyle("-fx-background-color: #fff; -fx-background-radius: 10;  -fx-spacing: 70; -fx-padding: 20 50 20 50;-fx-cursor: hand;");
+                    newRow.setStyle("-fx-background-color: #fff; -fx-background-radius: 10;  -fx-spacing: 30; -fx-padding: 20 50 20 50;-fx-cursor: hand;");
                     JFXDepthManager.setDepth(newRow, 3);
                 }
             });
+            // TODO
 
-//            newRow.addEventFilter(MouseEvent.MOUSE_CLICKED, (mouseEvent) -> {
-//                goodsSelector.setSelected(!goodsSelector.isSelected());
-//            });
+            newRow.addEventFilter(MouseEvent.MOUSE_CLICKED, (mouseEvent) -> {
+                String patch = String.format("{\"IsSel\":%s}", String.valueOf(!goods.getIsSelected()));
+                controller.api.patch("/cartRecord/cartRecordID/" + goods.getCartRecordID(), patch);
+                controller.refreshCartView();
+            });
             newRow.addEventFilter(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     JFXDepthManager.setDepth(newRow, 1);
                 }
             });
-            newRow.setStyle("-fx-background-color: #fff; -fx-background-radius: 10; -fx-spacing: 70; -fx-padding: 20 50 20 50;");
-//            newRow.setSpacing(70);
-//            newRow.setPadding(new Insets(20, 50, 20, 50));
+            newRow.setStyle("-fx-background-color: #fff; -fx-background-radius: 10; -fx-spacing: 30; -fx-padding: 20 50 20 50;");
 
             VBox newCol_0 = new VBox();
             newCol_0.setAlignment(CENTER);
             newCol_0.getChildren().add(goodsSelector);
             newRow.getChildren().add(newCol_0);
+            newCol_0.setMaxWidth(30);
+            newCol_0.setPrefWidth(30);
+            newCol_0.setMinWidth(30);
 
             Image goodsImage = new Image(goods.getImgUrl());
             ImageView goodsImageView = new ImageView(goodsImage);
@@ -279,7 +309,11 @@ public class StoreViewFactory {
             newCol_1.getChildren().add(goodsName);
             newCol_1.getChildren().add(goodsInfo);
             newCol_1.getChildren().add(goodsPrice);
+            newCol_1.setMaxWidth(250);
+            newCol_1.setPrefWidth(250);
+            newCol_1.setMinWidth(250);
             newRow.getChildren().add(newCol_1);
+
 
             Image goodsdec=new Image("./images/goodsDec.png",22,22,true,true);
             Image goodsinc=new Image("./images/goodsInc.png",22,22,true,true);
@@ -291,35 +325,42 @@ public class StoreViewFactory {
             goodsInc.setPrefSize(10,10);
             goodsDec.setStyle("-fx-background-color:transparent");
             goodsInc.setStyle("-fx-background-color:transparent");
-            final TextField goodsAmount = new TextField("1");
+            final TextField goodsAmount = new TextField(String.valueOf(goods.getGoodsCount()));
+            goodsAmount.setMinWidth(50);
             goodsAmount.setPrefWidth(50);
+            goodsAmount.setMaxWidth(50);
             HBox newRow_1 = new HBox();
             newRow_1.setSpacing(10);
             newRow_1.setAlignment(BASELINE_CENTER);
             newRow_1.getChildren().add(goodsDec);
             newRow_1.getChildren().add(goodsAmount);
             newRow_1.getChildren().add(goodsInc);
+//            newRow_1.setMaxWidth(100);
 
-            Label goodsTotalPriceTitle = new Label();
-            final Label goodsTotalPrice = new Label();
-            final double Price = Double.valueOf(goods.getPrice()).doubleValue();
-            int Amount = Integer.valueOf(goodsAmount.getText());
-            double TotalPrice = Price * Amount;
-            goodsTotalPriceTitle.setText("Total：￥  ");
-            goodsTotalPrice.setText(Double.toString(TotalPrice));
-            goodsTotalPriceTitle.setStyle("-fx-text-fill: #7547E8;");
-            goodsTotalPrice.setStyle("-fx-text-fill: #7547E8;");
-            goodsTotalPrice.setFont(Font.font(18));
-            goodsTotalPriceTitle.setFont(Font.font(18));
-            HBox newRow_2=new HBox();
-            newRow_2.setAlignment(CENTER);
-            newRow_2.getChildren().add(goodsTotalPriceTitle);
-            newRow_2.getChildren().add(goodsTotalPrice);
+//            Label goodsTotalPriceTitle = new Label();
+//            final Label goodsTotalPrice = new Label();
+//            final double Price = Double.valueOf(goods.getPrice()).doubleValue();
+//            int Amount = Integer.valueOf(goodsAmount.getText());
+//            double TotalPrice = Price * Amount;
+//            goodsTotalPriceTitle.setText("￥  ");
+//            goodsTotalPrice.setText(Double.toString(TotalPrice));
+//            goodsTotalPriceTitle.setStyle("-fx-text-fill: #7547E8;");
+//            goodsTotalPrice.setStyle("-fx-text-fill: #7547E8;");
+//            goodsTotalPrice.setFont(Font.font(18));
+//            goodsTotalPriceTitle.setFont(Font.font(18));
+//            goodsTotalPriceTitle.setMinWidth(100);
+
+//            HBox newRow_2=new HBox();
+//            newRow_2.setAlignment(CENTER);
+//            newRow_2.getChildren().add(goodsTotalPriceTitle);
+//            newRow_2.getChildren().add(goodsTotalPrice);
+//            newRow_2.setMinWidth(100);
             VBox newCol_2 = new VBox();
             newCol_2.setSpacing(30);
             newCol_2.setAlignment(CENTER);
             newCol_2.getChildren().add(newRow_1);
-            newCol_2.getChildren().add(newRow_2);
+            newCol_2.setPrefWidth(120);
+//            newCol_2.getChildren().add(newRow_2);
             newRow.getChildren().add(newCol_2);
 
             Button goodsRemove = new Button("删除");
@@ -329,6 +370,7 @@ public class StoreViewFactory {
             newCol_3.setAlignment(CENTER);
             newCol_3.getChildren().add(goodsRemove);
             newRow.getChildren().add(newCol_3);
+            newCol_3.setMinWidth(80);
             //newRow.setBackground(new Background(new BackgroundFill(Color.web("#707070"),null,null)));
 
             rows.add(newRow);
@@ -336,35 +378,20 @@ public class StoreViewFactory {
             goodsDec.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent arg0) {
-                    int tempAmount = Integer.valueOf(goodsAmount.getText()) - 1;
-                    if(tempAmount<1) goodsAmount.setText("1");
-                    else {
-                        goodsAmount.setText(Integer.toString(tempAmount));
-                        goodsTotalPrice.setText(Double.toString(Price * tempAmount));
-                        if(goodsSelector.isSelected())
-                        {
-                            Double GTPtemp=Double.valueOf(controller.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
-                            Double TPtemp=Double.valueOf(goods.getPrice()).doubleValue();
-                            GTPtemp=GTPtemp-TPtemp;
-                            controller.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
-                        }
+
+                    if(Integer.valueOf(goodsAmount.getText()) > 1) {
+                        String patch = String.format("{\"GoodsCnt\":\"%s\"}", String.valueOf(goods.getGoodsCount() - 1));
+                        WebResponse res = controller.api.patch("/cartRecord/cartRecordId/" + goods.getCartRecordID(), patch);
+                        controller.refreshCartView();
                     }
                 }
             });
             goodsInc.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent arg0) {
-//                    goodsSelector.setSelected(!goodsSelector.isSelected());
-                    int tempAmount = Integer.valueOf(goodsAmount.getText()) + 1;
-                    goodsAmount.setText(Integer.toString(tempAmount));
-                    goodsTotalPrice.setText(Double.toString(Price * tempAmount));
-                    if(goodsSelector.isSelected())
-                    {
-                        Double GTPtemp=Double.valueOf(controller.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
-                        Double TPtemp=Double.valueOf(goods.getPrice()).doubleValue();
-                        GTPtemp=GTPtemp+TPtemp;
-                        controller.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
-                    }
+                    String patch = String.format("{\"GoodsCnt\":\"%s\"}", String.valueOf(goods.getGoodsCount()+1));
+                    WebResponse res = controller.api.patch("/cartRecord/cartRecordId/" + goods.getCartRecordID(), patch);
+                    controller.refreshCartView();
                 }
             });
 
@@ -374,37 +401,23 @@ public class StoreViewFactory {
                     // TODO Auto-generated method stub
                     if (newValue == false) {
                         int tempAmount = Integer.valueOf(goodsAmount.getText());
-                        if(tempAmount>=1)
-                        {
-                            goodsAmount.setText(Integer.toString(tempAmount));
-                            goodsTotalPrice.setText(Double.toString(Price * tempAmount));
+                        if(tempAmount >= 1) {
+                            String patch = String.format("{\"GoodsCnt\":%d}", tempAmount);
+                            WebResponse res = controller.api.patch("/cartRecord/cartRecordID/" + goods.getCartRecordID(), patch);
+                            controller.refreshCartView();
+//                            goodsAmount.setText(Integer.toString(tempAmount));
                         }
-                        else
-                        {
-                            goodsAmount.setText("1");
-                            goodsTotalPrice.setText(Double.toString(goods.getPrice()));
-                        }
+
                     }
                 }
             });
 
-            final GoodsViewModel goodsToRemove = goods;
+            final CartRecordViewModel goodsToRemove = goods;
             goodsRemove.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent arg0) {
-
-                    if(goodsSelector.isSelected())
-                    {
-                        goodsSelected.remove(newRow);
-                        Double GTPtemp=Double.valueOf(controller.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
-                        Double TPtemp=Double.valueOf(goodsTotalPrice.getText()).doubleValue();
-                        GTPtemp=GTPtemp-TPtemp;
-                        controller.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
-                    }
-                    controller.goodsToBuy.remove(goodsToRemove);
-                    controller.store_CartBox.getChildren().remove(newRow);
-                    //List<HBox> cartRows = createCartRows(mainViewController.goodsToBuy);   // 数据刷新
-                    //mainViewController.store_CartBox.getChildren().addAll(cartRows);        // 界面刷新
+                    WebResponse res = controller.api.delete("/cartRecord/cartRecordID/" + goods.getCartRecordID());
+                    controller.refreshCartView();
 
                 }
             });
@@ -412,39 +425,21 @@ public class StoreViewFactory {
             //final Goods goodsToSelect = goods;
             goodsSelector.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
-
-
                 public void handle(ActionEvent arg0) {
-//                    goodsSelector.setSelected(!goodsSelector.isSelected());
-                    boolean newValue=goodsSelector.isSelected();
-                    if (newValue) {
-                        goodsSelected.add(goods);
-                        Double GTPtemp=Double.valueOf(controller.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
-                        Double TPtemp=Double.valueOf(goodsTotalPrice.getText()).doubleValue();
-                        GTPtemp=GTPtemp+TPtemp;
-                        controller.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
-                    }
-                    else {
-                        goodsSelected.remove(goods);
-                        Double GTPtemp=Double.valueOf(controller.content__Store__Cart__GrandTotalPrice.getText()).doubleValue();
-                        Double TPtemp=Double.valueOf(goodsTotalPrice.getText()).doubleValue();
-                        GTPtemp=GTPtemp-TPtemp;
-                        controller.content__Store__Cart__GrandTotalPrice.setText(Double.toString(GTPtemp));
-                    }
+                    String patch = String.format("{\"IsSel\":%s}", String.valueOf(!goods.getIsSelected()));
+                    controller.api.patch("/cartRecord/cartRecordID/" + goods.getCartRecordID(), patch);
+                    controller.refreshCartView();
                 }
             });
 
             controller.content__Store__Cart__BatchRemove.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent arg0) {
-
-                    controller.goodsToBuy.removeAll(goodsSelected);
-                    controller.store_CartBox.getChildren().clear();
-                    List<HBox> cartRows = createCartRows(controller.goodsToBuy);
-                    controller.store_CartBox.getChildren().addAll(cartRows);
-
-                    goodsSelected.clear();
-                    controller.content__Store__Cart__GrandTotalPrice.setText("0");
+                    List<String> goodsToDelete = goodsSelected.stream()
+                            .map(r -> r.getCartRecordID())
+                            .collect(Collectors.toList());
+                    WebResponse res = controller.api.post("/store/clear", JSON.toJSONString(goodsToDelete));
+                    controller.refreshCartView();
                 }
             });
 
@@ -486,13 +481,24 @@ public class StoreViewFactory {
                         ok.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) {
-                                controller.goodsToBuy.removeAll(goodsSelected);
-                                controller.store_CartBox.getChildren().clear();
-                                List<HBox> cartRows = createCartRows( controller.goodsToBuy);   // 数据刷新
-                                controller.store_CartBox.getChildren().addAll(cartRows);        // 界面刷新
-                                goodsSelected.clear();
-                                controller.content__Store__Cart__GrandTotalPrice.setText("0");
+                                List<String> goodsToPurchase = goodsSelected.stream()
+                                        .map(r -> r.getCartRecordID())
+                                        .collect(Collectors.toList());
+                                WebResponse res = controller.api.post("/store/purchase", JSON.toJSONString(goodsToPurchase));
                                 dialog.setVisible(false);
+                                controller.refreshCartView();
+
+                                JFXSnackbar bar = new JFXSnackbar(controller.cartBottomView);
+                                bar.setStyle("-fx-font-size: 18px;");
+
+                                if(res.getStatusCode().equals("200")) {
+                                    bar.enqueue(new JFXSnackbar.SnackbarEvent("支付成功"));
+                                }
+                                else {
+                                    bar.enqueue(new JFXSnackbar.SnackbarEvent("支付失败"));
+                                }
+
+
                             }
                         });
                         cancel.setOnAction(new EventHandler<ActionEvent>() {

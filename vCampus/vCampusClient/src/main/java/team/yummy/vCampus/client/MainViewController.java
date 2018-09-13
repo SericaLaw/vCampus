@@ -13,9 +13,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import team.yummy.vCampus.models.*;
 
+import javafx.scene.text.Font;
 import team.yummy.vCampus.models.viewmodel.*;
 import team.yummy.vCampus.web.WebResponse;
 
@@ -74,6 +73,9 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML public JFXTextField si_Address;
     @FXML public JFXTextField si_SeniorHigh;
     @FXML public Label si_errorText;
+    @FXML public AnchorPane cartViewPane;
+    @FXML public GridPane cartBottomView;
+    @FXML public JFXRadioButton cart_radioSelectAll;
 
     StuInfoViewModel stuInfoViewModel;
 
@@ -111,7 +113,7 @@ public class MainViewController extends ViewController implements Initializable 
 
     // 这里放商品列表数据
     public List<GoodsViewModel> goodList = new ArrayList<>();
-    public List<GoodsViewModel> goodsToBuy = new ArrayList<>();
+    public List<CartRecordViewModel> goodsToBuy = new ArrayList<>();
 
     /**
      * members for course schedule
@@ -320,17 +322,15 @@ public class MainViewController extends ViewController implements Initializable 
         library_borrowedBox.getChildren().addAll(borrowedRows);
 
     }
-    @FXML
-    protected void switchStore(ActionEvent actionEvent) {
-        togglePane(StorePane, Bt_Store);
 
+    public void refreshStoreView() {
         WebResponse res = api.get("/goods");
         List<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);
         List<GoodsViewModel> goodsList1=new ArrayList<>();
         List<GoodsViewModel> goodsList2=new ArrayList<>();
         List<GoodsViewModel> goodsList3=new ArrayList<>();
         StoreViewFactory storeViewFactory = new StoreViewFactory(rootStackPane, this);
-        //List<HBox> row = storeViewFactory.createStoreRows(goodsList, 3);
+
 
         for (GoodsViewModel goods : goodsList) {
             if(goods.getTag() == 1)
@@ -347,34 +347,62 @@ public class MainViewController extends ViewController implements Initializable 
             }
         }
 
-        List<HBox> row1 = storeViewFactory.createStoreRows(goodsList1, 2);
-        List<HBox> row2 = storeViewFactory.createStoreRows(goodsList2, 2);
-        List<HBox> row3 = storeViewFactory.createStoreRows(goodsList3, 2);
+        List<HBox> row1 = storeViewFactory.createStoreRows(goodsList1, 3);
+        List<HBox> row2 = storeViewFactory.createStoreRows(goodsList2, 3);
+        List<HBox> row3 = storeViewFactory.createStoreRows(goodsList3, 3);
 
-        if(store_newItemBox.getChildren().size() != 0) {
-            store_newItemBox.getChildren().clear();
-            store_newItemBox.getChildren().addAll(row1);
-        } else {
-            store_newItemBox.getChildren().addAll(row1);
-        }
 
-        if(store_popItemBox.getChildren().size() != 0) {
-            store_popItemBox.getChildren().clear();
-            store_popItemBox.getChildren().addAll(row2);
-        } else {
-            store_popItemBox.getChildren().addAll(row2);
-        }
+        store_newItemBox.getChildren().clear();
+        store_newItemBox.getChildren().addAll(row1);
 
-        if(store_favItemBox.getChildren().size() != 0) {
-            store_favItemBox.getChildren().clear();
-            store_favItemBox.getChildren().addAll(row3);
-        } else {
-            store_favItemBox.getChildren().addAll(row3);
-        }
 
+        store_popItemBox.getChildren().clear();
+        store_popItemBox.getChildren().addAll(row2);
+
+        store_favItemBox.getChildren().clear();
+        store_favItemBox.getChildren().addAll(row3);
+
+    }
+
+    public void refreshCartView() {
+        StoreViewFactory storeViewFactory = new StoreViewFactory(rootStackPane, this);
+        WebResponse res = api.get("/store/cart");
+        goodsToBuy.clear();
+        goodsToBuy = res.dataList(CartRecordViewModel.class);
         List<HBox> cartRows = storeViewFactory.createCartRows(goodsToBuy);
+        store_CartBox.getChildren().clear();
         store_CartBox.getChildren().addAll(cartRows);
     }
+    @FXML
+    protected void switchStore(ActionEvent actionEvent) {
+        togglePane(StorePane, Bt_Store);
+
+        refreshStoreView();
+        refreshCartView();
+
+        cart_radioSelectAll.setOnAction(event -> {
+            WebResponse res = api.get("/store/cart");
+            goodsToBuy.clear();
+            goodsToBuy = res.dataList(CartRecordViewModel.class);
+
+            if(cart_radioSelectAll.isSelected()) {
+                for(CartRecordViewModel goods : goodsToBuy) {
+                    String patch = String.format("{\"IsSel\":%s}", String.valueOf(true));
+                    api.patch("/cartRecord/cartRecordID/" + goods.getCartRecordID(), patch);
+                }
+            } else {
+                for(CartRecordViewModel goods : goodsToBuy) {
+                    String patch = String.format("{\"IsSel\":%s}", String.valueOf(false));
+                    api.patch("/cartRecord/cartRecordID/" + goods.getCartRecordID(), patch);
+                }
+            }
+
+            refreshCartView();
+        });
+    }
+
+
+
     @FXML
     protected void editorSave(ActionEvent actionEvent) {
         if(editorSaveStuInfo.getText().equals("编辑"))

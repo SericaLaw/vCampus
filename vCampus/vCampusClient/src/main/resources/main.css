@@ -249,8 +249,8 @@
 #content__store__wrapper .section .row {
     -fx-pref-width: 920;
     -fx-spacing: 20;
-    -fx-padding: 10;
-    -fx-alignment: center;
+    -fx-padding: 20;
+    -fx-alignment: center-left;
 }
 
 #content__store__wrapper .section .label {
@@ -462,4 +462,10 @@
 {
     -fx-font-size:18;
     -fx-text-fill:#7286EE;
+}
+#select-all {
+    -fx-font-size: 18;
+}
+#select-all:hover {
+    -fx-cursor: hand;
 }

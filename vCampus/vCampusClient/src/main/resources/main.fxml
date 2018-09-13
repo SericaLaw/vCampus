@@ -563,7 +563,7 @@
                             </children>
                         </AnchorPane>
 
-                        <AnchorPane fx:id="BankPane" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="BankPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <GridPane layoutX="142.0" layoutY="73.0" prefHeight="82.0" prefWidth="680.0">
                                     <columnConstraints>
@@ -620,7 +620,7 @@
                                     </columns>
                                 </TreeTableView>
                             </children></AnchorPane>
-                        <AnchorPane fx:id="StorePane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="StorePane" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <JFXTabPane prefHeight="740.0" prefWidth="950.0">
                                     <tabs>
@@ -703,19 +703,20 @@
                                         </Tab>
                                         <Tab text="购物车">
                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                <AnchorPane fx:id="cartViewPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
                                                         <ScrollPane layoutX="62.0" layoutY="20.0" minHeight="597.0" prefHeight="625.0" prefWidth="950.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                             <content>
                                                                 <VBox id="content__cart__wrapper" fx:id="store_CartBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" />
                                                             </content>
                                                         </ScrollPane>
-                                                        <GridPane alignment="CENTER_LEFT" layoutY="623.0" prefHeight="65.0" prefWidth="950.0">
+                                                        <GridPane fx:id="cartBottomView" alignment="CENTER_LEFT" layoutY="623.0" maxWidth="950.0" minWidth="950.0" prefHeight="65.0" prefWidth="950.0">
                                                             <columnConstraints>
-                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="640.0" minWidth="10.0" prefWidth="475.0" />
-                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="527.0" minWidth="10.0" prefWidth="206.0" />
-                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="163.0" />
-                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="106.0" />
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="640.0" minWidth="100.0" prefWidth="250.0" />
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="640.0" minWidth="100.0" prefWidth="200.0" />
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="527.0" minWidth="100.0" prefWidth="315.0" />
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" prefWidth="120.0" />
                                                             </columnConstraints>
                                                             <rowConstraints>
                                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -726,13 +727,14 @@
                                                                         <Insets bottom="2.0" left="40.0" />
                                                                     </GridPane.margin>
                                                                 </Button>
-                                                                <Button fx:id="content__Store__Cart__Pay" mnemonicParsing="false" prefHeight="121.0" prefWidth="106.0" text="结算" GridPane.columnIndex="3">
+                                                                <Button fx:id="content__Store__Cart__Pay" mnemonicParsing="false" prefHeight="65.0" prefWidth="155.0" text="结算" GridPane.columnIndex="4">
                                                                     <effect>
                                                                         <DropShadow />
                                                                     </effect>
                                                                 </Button>
-                                                                <Label text="合计： ￥  " GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
-                                                                <Label fx:id="content__Store__Cart__GrandTotalPrice" text="0" GridPane.columnIndex="2" />
+                                                                <Label text="合计： ￥  " GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+                                                                <Label fx:id="content__Store__Cart__GrandTotalPrice" text="0" GridPane.columnIndex="3" />
+                                                <JFXRadioButton id="select-all" fx:id="cart_radioSelectAll" text="全选" GridPane.columnIndex="1" />
                                                             </children>
                                                         </GridPane>
                                                     </children></AnchorPane>
