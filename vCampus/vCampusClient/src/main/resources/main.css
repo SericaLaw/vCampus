@@ -203,7 +203,7 @@
     -fx-font-size: 22px;
 }
 
-#pay_button1,#pay_button2
+#pay_button1,#pay_button2,#recharge_button
 {
     -fx-background-color: #673AB7;
     -fx-text-fill: #fff;
