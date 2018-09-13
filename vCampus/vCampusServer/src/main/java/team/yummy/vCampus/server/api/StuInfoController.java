@@ -8,18 +8,8 @@ import team.yummy.vCampus.server.framework.Controller;
 
 import java.util.stream.Collectors;
 
+@Authorize(roles = { "admin", "student" })
 public class StuinfoController extends Controller {
-
-    AccountEntity account;
-
-    @Override
-    public void init(WebContext webContext) {
-        super.init(webContext);
-        Transaction tx = dbSession.beginTransaction();
-        account = dbSession.get(AccountEntity.class, webContext.session.getString("campusCardId"));
-        tx.commit();
-    }
-
 
     /**
      * @apiGroup StuInfo

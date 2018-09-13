@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import org.hibernate.Transaction;
 import team.yummy.vCampus.models.entity.AccountEntity;
 import team.yummy.vCampus.models.viewmodel.*;
+import team.yummy.vCampus.server.annotation.Authorize;
+import team.yummy.vCampus.server.annotation.FromBody;
 import team.yummy.vCampus.server.annotation.Post;
 import team.yummy.vCampus.server.framework.Controller;
 
@@ -34,11 +36,10 @@ public class AccountController extends Controller {
      *
      */
     @Post(route = "login")
-    public void login() {
-        LoginViewModel login = webContext.request.deserializeBody(LoginViewModel.class);
-        Transaction tx = dbSession.beginTransaction();
+    public void login(@FromBody LoginViewModel login) {
+        dbSession.beginTransaction();
         AccountEntity account = dbSession.get(AccountEntity.class, login.getCampusCardId());
-        tx.commit();
+        dbSession.getTransaction().commit();
         if (account == null) {
             webContext.response.setStatusCode("404");
             webContext.response.setMessage("Account not found.");
@@ -46,9 +47,14 @@ public class AccountController extends Controller {
             webContext.response.setStatusCode("200");
             webContext.response.setMessage("OK");
             webContext.response.setBody(JSON.toJSONString(new AccountViewModel(account)));
-            // TODO: 如有必要，这里可以更新更多内容到Session，如Role
-            webContext.session.setString("campusCardId", login.getCampusCardId());
-            logger.log(String.format("Session [ sessionId = %s, username = %s, password = %s ]", webContext.session.getSessionId().toString(), webContext.session.getString("username"), webContext.session.getString("password")));
+            // TODO: 如有必要，这里可以更新更多内容到Session
+            webContext.session.setString("campusCardId", account.getCampusCardId());
+            webContext.session.setString("role", account.getRole());
+            logger.log(String.format("Session [ sessionId = %s, username = %s, password = %s ]",
+                webContext.session.getSessionId().toString(),
+                webContext.session.getString("username"),
+                webContext.session.getString("password")
+            ));
         } else {
             webContext.response.setStatusCode("403");
             webContext.response.setMessage("Wrong password.");

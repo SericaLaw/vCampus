@@ -23,6 +23,8 @@ public class WebContext extends Thread {
 
     public WebResponse response;
 
+    public Controller controller;
+
     public Session session;
 
     /**

@@ -9,6 +9,7 @@ import team.yummy.vCampus.server.framework.Controller;
 import java.sql.Timestamp;
 import java.util.*;
 
+@Authorize
 public class StoreController extends Controller {
 
     /**

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Authorize(roles = { "admin", "student" })
 public class CourseController extends Controller {
 
     /**

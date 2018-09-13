@@ -95,6 +95,7 @@ public class LibraryController extends Controller {
      *     404 "Book not found."
      *
      */
+    @Authorize
     @Get(route = "borrow")
     public void getBorrowRecords() {
         webContext.response.setBody(JSON.toJSONString(
@@ -132,6 +133,7 @@ public class LibraryController extends Controller {
      *     400 "No corresponding book found"
      *     400 "No available book now"
      */
+    @Authorize
     @Post(route = "borrow")
     public String newBorrowRecords() {
         Transaction tx = dbSession.beginTransaction();
@@ -186,6 +188,7 @@ public class LibraryController extends Controller {
      * @apiErrorExample Error-Response:
      *     404 "Entry does not exist!"
      */
+    @Authorize
     @Delete(route = "borrow")
     public String deleteBorrowRecords(String borrowRecordId) {
         Transaction tx = dbSession.beginTransaction();

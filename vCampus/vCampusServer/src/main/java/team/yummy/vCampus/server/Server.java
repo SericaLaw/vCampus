@@ -62,8 +62,8 @@ public class Server {
         dbFactory = dbConfig.buildSessionFactory();
 
         middlewares.add(new SessionMiddleware());
-        middlewares.add(new AuthMiddleware());
         middlewares.add(new RoutingMiddleware());
+        middlewares.add(new AuthMiddleware());
     }
 
     /**
