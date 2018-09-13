@@ -247,7 +247,8 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML
     protected void switchCourse(ActionEvent actionEvent) {
         togglePane(CoursePane, Bt_Course);
-        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
+        WebResponse res = api.get("/stuInfo/gpa");
+        res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
         stuInfoViewModel = res.dataList(StuInfoViewModel.class, 0);
 
         JFXDepthManager.setDepth(course_reportHeading, 1);

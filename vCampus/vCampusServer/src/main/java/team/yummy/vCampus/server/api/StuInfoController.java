@@ -5,6 +5,8 @@ import team.yummy.vCampus.models.entity.*;
 import team.yummy.vCampus.server.WebContext;
 import team.yummy.vCampus.server.annotation.*;
 
+import java.util.stream.Collectors;
+
 public class StuInfoController extends Controller {
 
     AccountEntity account;
@@ -18,11 +20,26 @@ public class StuInfoController extends Controller {
     }
 
 
-    @Post(route = "gpa")
+    /**
+     * @apiGroup StuInfo
+     * @api {get} /stuInfo/gpa CalculateGPA
+     * @apiDescription 计算GPA
+     * @apiPermission student admin
+     * @apiParamExample Code Snippets
+     * WebResponse res = api.get("/stuInfo/gpa");
+     *
+     * @apiSuccessExample Success-Response:
+     *     200 OK
+     */
+    @Get(route = "gpa")
     public void calcGPA() {
         double gpa = 0;
         int credits = 0;
-        for (CourseRecordEntity record : account.getCourseRecordsByCampusCardId()) {
+        // Serica: 需要过滤0分课程
+        for (CourseRecordEntity record : 
+                account.getCourseRecordsByCampusCardId().stream()
+                        .filter(r -> r.getScore() > 0)
+                        .collect(Collectors.toList())) {
             double grade = 0;
             if (record.getScore() >= 60) {
                 switch (record.getScore() % 10) {

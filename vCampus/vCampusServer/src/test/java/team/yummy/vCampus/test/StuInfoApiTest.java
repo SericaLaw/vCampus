@@ -134,5 +134,21 @@ public class StuInfoApiTest extends ApiTest {
         if(res.getStatusCode().equals("201"))
             api.post("/stuInfo", JSON.toJSONString(newStudent));
     }
+
+    /**
+     * @apiGroup StuInfo
+     * @api {get} /stuInfo/gpa CalculateGPA
+     * @apiDescription 计算GPA
+     * @apiPermission student admin
+     * @apiParamExample Code Snippets
+     * WebResponse res = api.get("/stuInfo/gpa");
+     *
+     * @apiSuccessExample Success-Response:
+     *     200 OK
+     */
+    @Test
+    public void calculateGPA() {
+        WebResponse res = api.get("/stuInfo/gpa");
+    }
 }
 
