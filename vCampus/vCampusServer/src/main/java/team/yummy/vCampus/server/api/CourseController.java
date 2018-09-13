@@ -457,7 +457,7 @@ public class CourseController extends Controller {
      * @apiPermission admin
      * @apiDescription 创建课程，需要在Course表和CourseSchedule表里增加条目
      * @apiParamExample Code Snippets
-     * WebResponse res = api.post("/course/new", courseRegisterViewModel);
+     * WebResponse res = api.post("/course/new", JSON.toJSONString(courseRegisterViewModel));
      */
     @Post(route = "new")
     public String createCourse(@FromBody CourseRegisterViewModel model) {

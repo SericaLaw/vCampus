@@ -194,7 +194,7 @@ public class StoreViewFactory {
                     // TODO: 这里处理和购物车有关的逻辑
                     WebResponse res = controller.api.post("/store/cart", goods.getGoodsId());
                     controller.refreshCartView();
-                    dialog.setVisible(false);
+                    dialog.close();
                 }
             });
 
@@ -485,7 +485,7 @@ public class StoreViewFactory {
                                         .map(r -> r.getCartRecordID())
                                         .collect(Collectors.toList());
                                 WebResponse res = controller.api.post("/store/purchase", JSON.toJSONString(goodsToPurchase));
-                                dialog.setVisible(false);
+                                dialog.close();
                                 controller.refreshCartView();
 
                                 JFXSnackbar bar = new JFXSnackbar(controller.cartBottomView);
@@ -504,7 +504,7 @@ public class StoreViewFactory {
                         cancel.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) {
-                                dialog.setVisible(false);
+                                dialog.close();
                             }
                         });
                     }

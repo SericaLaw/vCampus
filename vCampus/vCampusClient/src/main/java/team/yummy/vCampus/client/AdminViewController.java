@@ -4,12 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -77,6 +79,9 @@ public class AdminViewController extends ViewController implements Initializable
     @FXML private Label si_seniorhigh;
     @FXML private Label si_errortext;
     @FXML private JFXTextField student_InquireText;
+
+    public StuInfoViewModel stuInfoViewModel;
+    public AccountViewModel accountViewModel;
 
     /**
      * memebers for course page
@@ -290,36 +295,75 @@ public class AdminViewController extends ViewController implements Initializable
     @FXML
     protected void studentsearch(KeyEvent keyEvent)
     {
-        String keyword = student_InquireText.getText();
-        WebResponse res = api.get("/stuInfo/campusCardID/" + keyword);
-        StuInfoViewModel stuInfoGot = res.dataList(StuInfoViewModel.class, 0);
-            si_errortext.setText("");
-            stuinfogrid.setVisible(true);
-            editStu_Bt.setVisible(true);
-            saveNewStu_Bt.setVisible(false);
-            si_lastname.setText(stuInfoGot.getLastName());
-            si_firstname.setText(stuInfoGot.getFirstName());
-            si_enrollmentyear.setText(stuInfoGot.getEnrollmentYear().toString());
-            si_campuscardID.setText(stuInfoGot.getCampusCardId());
-            si_studentID.setText(stuInfoGot.getStudentId());
-            si_department.setText(stuInfoGot.getDepartment());
-            si_major.setText(stuInfoGot.getMajor());
-            si_lastname.setDisable(false);
-            si_firstname.setDisable(false);
-            si_enrollmentyear.setDisable(false);
-            si_campuscardID.setDisable(false);
-            si_studentID.setDisable(false);
-            si_department.setDisable(false);
-            si_major.setDisable(false);
-            si_IDnum.setText(stuInfoGot.getIdNum());
-            si_sex.setText(stuInfoGot.getSex());
-            si_birthdate.setText(stuInfoGot.getBirthdate().toString());
-            si_birthplace.setText(stuInfoGot.getBirthplace());
-            si_phone.setText(stuInfoGot.getPhone());
-            si_email.setText(stuInfoGot.getEmail());
-            si_address.setText(stuInfoGot.getAddress());
-            si_seniorhigh.setText(stuInfoGot.getSeniorHigh());
+        if(keyEvent.getCode() == KeyCode.ENTER) {
+            String keyword = student_InquireText.getText();
+            WebResponse res = api.get("/stuInfo/campusCardID/" + keyword);
 
+            if (!res.dataList(StuInfoViewModel.class).isEmpty()) {
+                StuInfoViewModel stuInfoGot = res.dataList(StuInfoViewModel.class, 0);
+                AccountViewModel account = api.get("/account/campusCardID/" + keyword).dataList(AccountViewModel.class, 0);
+                stuInfoViewModel = stuInfoGot;
+                accountViewModel = account;
+
+                si_errortext.setText("");
+                stuinfogrid.setVisible(true);
+                editStu_Bt.setVisible(true);
+                saveNewStu_Bt.setVisible(false);
+                si_lastname.setText(account.getLastName());
+                si_firstname.setText(account.getFirstName());
+                si_enrollmentyear.setText(stuInfoGot.getEnrollmentYear().toString());
+                si_campuscardID.setText(stuInfoGot.getCampusCardId());
+                si_studentID.setText(stuInfoGot.getStudentId());
+                si_department.setText(stuInfoGot.getDepartment());
+                si_major.setText(stuInfoGot.getMajor());
+                si_lastname.setDisable(false);
+                si_firstname.setDisable(false);
+                si_enrollmentyear.setDisable(false);
+                si_campuscardID.setDisable(false);
+                si_studentID.setDisable(false);
+                si_department.setDisable(false);
+                si_major.setDisable(false);
+                si_IDnum.setText(stuInfoGot.getIdNum());
+                si_sex.setText(stuInfoGot.getSex());
+                si_birthdate.setText(stuInfoGot.getBirthdate().toString());
+                si_birthplace.setText(stuInfoGot.getBirthplace());
+                si_phone.setText(stuInfoGot.getPhone());
+                si_email.setText(stuInfoGot.getEmail());
+                si_address.setText(stuInfoGot.getAddress());
+                si_seniorhigh.setText(stuInfoGot.getSeniorHigh());
+
+                si_errortext.setText("");
+                si_lastname.setDisable(true);
+                si_firstname.setDisable(true);
+                si_enrollmentyear.setDisable(true);
+                si_campuscardID.setDisable(true);
+                si_studentID.setDisable(true);
+                si_department.setDisable(true);
+                si_major.setDisable(true);
+            } else {
+                stuinfogrid.setVisible(false);
+                JFXSnackbar bar = new JFXSnackbar(rootStackPane);
+                bar.setStyle("-fx-font-size: 28px");
+                bar.enqueue(new JFXSnackbar.SnackbarEvent("未找到该学生"));
+
+                accountViewModel = null;
+                stuInfoViewModel = null;
+                si_lastname.setText("");
+                si_firstname.setText("");
+                si_enrollmentyear.setText("");
+                si_campuscardID.setText("");
+                si_studentID.setText("");
+                si_department.setText("");
+                si_major.setText("");
+                si_lastname.setDisable(false);
+                si_firstname.setDisable(false);
+                si_enrollmentyear.setDisable(false);
+                si_campuscardID.setDisable(false);
+                si_studentID.setDisable(false);
+                si_department.setDisable(false);
+                si_major.setDisable(false);
+            }
+        }
     }
 
     @FXML
@@ -379,6 +423,7 @@ public class AdminViewController extends ViewController implements Initializable
         saveNewStu_Bt.setVisible(true);
         editStu_Bt.setVisible(false);
         stuinfogrid.setVisible(true);
+        addStu_Bt.setVisible(false);
 
         si_lastname.setText("");
         si_firstname.setText("");
@@ -394,11 +439,21 @@ public class AdminViewController extends ViewController implements Initializable
         si_studentID.setDisable(false);
         si_department.setDisable(false);
         si_major.setDisable(false);
+
+        si_IDnum.setText(" ");
+        si_sex.setText(" ");
+        si_birthdate.setText(" ");
+        si_birthplace.setText(" ");
+        si_phone.setText(" ");
+        si_email.setText(" ");
+        si_address.setText(" ");
+        si_seniorhigh.setText(" ");
     }
 
     @FXML
     private void saveNewStudent(ActionEvent actionEvent){
 
+        addStu_Bt.setVisible(true);
         String lastname = si_lastname.getText();
         String firstname = si_firstname.getText();
         String enrollmentyear = si_enrollmentyear.getText();
@@ -406,9 +461,16 @@ public class AdminViewController extends ViewController implements Initializable
         String studentID = si_studentID.getText();
         String department = si_department.getText();
         String major = si_major.getText();
+
+        JFXSnackbar bar = new JFXSnackbar(rootStackPane);
+        bar.setStyle("-fx-font-size: 24;");
+
+
+
+
         if(lastname.length()==0||firstname.length()==0 || enrollmentyear.length()==0||campuscardID.length()==0||
                 studentID.length()==0||department.length()==0||major.length()==0)
-            si_errortext.setText("请完善所有信息！");
+            bar.enqueue(new JFXSnackbar.SnackbarEvent("请完善所有信息"));
 
         else
         {
@@ -428,21 +490,25 @@ public class AdminViewController extends ViewController implements Initializable
             newStudent.setDepartment(department);
             newStudent.setMajor(major);
 
-            WebResponse res = api.post("/account", JSON.toJSONString(newAccount));
-            if(res.getStatusCode().equals("201"))
-                api.post("/stuInfo", JSON.toJSONString(newStudent));
+            bar = new JFXSnackbar(rootStackPane);
+            bar.setStyle("-fx-font-size: 24;");
 
-            si_errortext.setText("");
-            si_lastname.setDisable(true);
-            si_firstname.setDisable(true);
-            si_enrollmentyear.setDisable(true);
-            si_campuscardID.setDisable(true);
-            si_studentID.setDisable(true);
-            si_department.setDisable(true);
-            si_major.setDisable(true);
-            editStu_Bt.setVisible(false);
-            saveNewStu_Bt.setVisible(true);
-            saveNewStu_Bt.setText("编辑信息");
+
+
+            WebResponse res = api.post("/account", JSON.toJSONString(newAccount));
+            if(res.getStatusCode().equals("201")) {
+                res = api.post("/stuInfo", JSON.toJSONString(newStudent));
+                if(res.getStatusCode().equals("201"))
+                    bar.enqueue(new JFXSnackbar.SnackbarEvent("添加成功"));
+                else
+                    bar.enqueue(new JFXSnackbar.SnackbarEvent("添加失败"));
+            } else {
+                bar.enqueue(new JFXSnackbar.SnackbarEvent("添加失败"));
+            }
+
+            saveNewStu_Bt.setVisible(false);
+            stuinfogrid.setVisible(false);
+
         }
 
     }
@@ -472,17 +538,28 @@ public class AdminViewController extends ViewController implements Initializable
         }
         else
         {
-//            JSONObject infoToModify = new JSONObject();
-//            infoToModify.put("LastName",lastname);
-//            infoToModify.put("FirstName",firstname);
-//            infoToModify.put("EnrollmentYear",enrollmentyear);
-//            infoToModify.put("CampusCardId",campuscardID);
-//            infoToModify.put("StudentId",studentID);
-//            infoToModify.put("Department",department);
-//            infoToModify.put("Major",major);
-//
-//            api.patch("/stuInfo/campusCardID/"+currentAccount.getCampusCardId(), infoToModify.toJSONString());
+            JSONObject infoToModify = new JSONObject();
+            infoToModify.put("EnrollmentYear",enrollmentyear);
+            infoToModify.put("CampusCardId",campuscardID);
+            infoToModify.put("StudentId",studentID);
+            infoToModify.put("Department",department);
+            infoToModify.put("Major",major);
 
+            WebResponse res1 = api.patch("/stuInfo/campusCardID/" + stuInfoViewModel.getCampusCardId(), infoToModify.toJSONString());
+
+            JSONObject accountToModify = new JSONObject();
+            accountToModify.put("LastName",lastname);
+            accountToModify.put("FirstName",firstname);
+            WebResponse res2 = api.patch("/account/campusCardID/" + accountViewModel.getCampusCardId(), accountToModify.toJSONString());
+
+            JFXSnackbar bar = new JFXSnackbar(rootStackPane);
+            bar.setStyle("-fx-font-size: 24;");
+
+
+            if(res1.getStatusCode().equals("200") && res2.getStatusCode().equals("200"))
+                bar.enqueue(new JFXSnackbar.SnackbarEvent("修改成功"));
+            else
+                bar.enqueue(new JFXSnackbar.SnackbarEvent("修改失败"));
             si_errortext.setText("");
             si_lastname.setDisable(true);
             si_firstname.setDisable(true);

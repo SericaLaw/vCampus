@@ -166,26 +166,6 @@ public class MainViewController extends ViewController implements Initializable 
     public void initialize(URL url, ResourceBundle rb) {     //点其他栏目的时候要不initpane上的图案淡一点？
         togglePane(InitPane, Bt_Init);
 
-
-//        // 模拟服务器返回的信息
-//
-//        Goods good1 = new Goods("1","鞋子","123","白色", "./images/item.png");
-//        Goods good2 = new Goods("2","鞋子","123", "红色","./images/item.png");
-//        Goods good3 = new Goods("3","鞋子","123", "黑色","./images/item.png");
-//        Goods good4 = new Goods("4","鞋子","123", "蓝色","./images/item.png");
-//        Goods good5 = new Goods("5","鞋子","123", "黑色","./images/item.png");
-//        Goods good6 = new Goods("6","鞋子","123", "蓝色","./images/item.png");
-//
-//        goodList.add(good1);
-//        goodList.add(good2);
-//        goodList.add(good3);
-//        goodList.add(good4);
-//        goodList.add(good5);
-//        goodList.add(good6);
-//
-//        goodsToBuy.add(good1);
-//        goodsToBuy.add(good2);
-
         CourseScheduleViewModel CourseScheduleViewModel1 = new CourseScheduleViewModel("1001", 1, 1, 3, "数据结构", "邓俊辉","J2-102");
         CourseScheduleViewModel CourseScheduleViewModel2 = new CourseScheduleViewModel("2001", 1, 12, 13, "算法", "图灵","J2-202");
         courseScheduleViewModels.add(CourseScheduleViewModel1);
@@ -307,7 +287,7 @@ public class MainViewController extends ViewController implements Initializable 
         InitPane.setVisible(false);
 
         WebResponse res = api.get("/dorm/info");
-        List<DormInfoViewModel> dormInfoList = res.dataList(DormInfoViewModel.class);
+        DormInfoViewModel dormInfoList = res.data(DormInfoViewModel.class);
 
 /*        for(DormInfoViewModel DormInfo:dormInfoList)
         {
@@ -319,7 +299,7 @@ public class MainViewController extends ViewController implements Initializable 
                 break;
             }
         }*/
-        //获取卫生和水电记录
+        //获取卫生和水电记录213
 
         content__d__Year.setCellValueFactory(new PropertyValueFactory<>("year"));
         content__d__Month.setCellValueFactory(new PropertyValueFactory<>("month"));

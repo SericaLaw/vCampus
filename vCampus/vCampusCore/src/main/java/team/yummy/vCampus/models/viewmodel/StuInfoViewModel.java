@@ -12,10 +12,7 @@ import java.util.Date;
  * @author Vigilans
  */
 public class StuInfoViewModel {
-
     private String campusCardId = "N/A";
-    private String lastName="N/A";
-    private String firstName="N/A";
     private String seniorHigh = "N/A";
     private String birthplace = "N/A";
     private String sex = "N/A";
@@ -160,12 +157,4 @@ public class StuInfoViewModel {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getLastName() { return lastName; }
-
-    public void setLastName(String lastName) { this.lastName = lastName; }
-
-    public String getFirstName() { return firstName; }
-
-    public void setFirstName(String firstName) { this.firstName = firstName; }
 }
