@@ -485,7 +485,7 @@
                         </AnchorPane>
                         <AnchorPane fx:id="DormPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <TableView layoutX="105.0" layoutY="370.0" prefHeight="292.0" prefWidth="747.0" fx:id="DormTable">
+                                <TableView fx:id="DormTable" layoutX="105.0" layoutY="370.0" prefHeight="292.0" prefWidth="747.0">
                                     <columns>
                                         <TableColumn fx:id="content__d__Year" prefWidth="120.0" text="年" />
                                         <TableColumn fx:id="content__d__Month" prefWidth="120.0" text="月" />
@@ -563,7 +563,7 @@
                             </children>
                         </AnchorPane>
 
-                        <AnchorPane fx:id="BankPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="BankPane" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <GridPane layoutX="142.0" layoutY="73.0" prefHeight="82.0" prefWidth="680.0">
                                     <columnConstraints>
@@ -578,18 +578,15 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label fx:id="bank_name" text="姓 名" />
-                                        <Label fx:id="Lbank_name" text="Label" GridPane.columnIndex="1" />
-                                        <Label fx:id="bank_num" text="账 户 尾 号" GridPane.columnIndex="2" />
-                                        <Label fx:id="Lbank_num" text="0327" GridPane.columnIndex="3" />
-                                        <Label fx:id="bank_balance" text="账 户 余 额" GridPane.columnIndex="4" />
-                                        <Label fx:id="Lbank_balance" text="1823" GridPane.columnIndex="5" />
+                                        <Label fx:id="Lbank_balance" GridPane.columnIndex="1" />
+                                        <Label fx:id="bank_balance" text="账 户 余 额" />
+                                        <Button mnemonicParsing="false" text="充值" GridPane.columnIndex="3" />
                                     </children>
                                 </GridPane>
                                 <Line endX="680.0" layoutX="224.0" layoutY="156.0" startX="-180.0" stroke="#dddbdb" />
                                 <Label fx:id="bank_info" layoutX="51.0" layoutY="45.0" text="基本信息" />
                                 <Label fx:id="bank_pay" layoutX="51.0" layoutY="182.0" text="生活缴费" />
-                                <GridPane layoutX="209.0" layoutY="189.0" prefHeight="181.0" prefWidth="483.0">
+                                <GridPane layoutX="209.0" layoutY="189.0" prefHeight="127.0" prefWidth="483.0">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
@@ -598,29 +595,25 @@
                                     </columnConstraints>
                                     <rowConstraints>
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
                                         <Label fx:id="bank_wat_elec" text="水 电 费" />
-                                        <Label fx:id="bank_tuition" text="  学 费" GridPane.rowIndex="1" />
                                         <Label fx:id="Lbank_wat_elec" prefHeight="30.0" prefWidth="85.0" text="26" GridPane.columnIndex="1" />
-                                        <Label fx:id="Lbank_tuition" prefHeight="30.0" prefWidth="85.0" text="7500" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <Label fx:id="rmb1" text="¥" GridPane.columnIndex="2" />
-                                        <Label fx:id="rmb2" text="¥" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                         <JFXButton fx:id="pay_button1" onAction="#paywatelec" prefHeight="30.0" prefWidth="65.0" text="缴费" GridPane.columnIndex="3" />
-                                        <JFXButton fx:id="pay_button2" onAction="#paytuition" prefHeight="30.0" prefWidth="65.0" text="缴费" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                                     </children>
                                 </GridPane>
                                 <Line endX="680.0" layoutX="224.0" layoutY="375.0" startX="-180.0" stroke="#dddbdb" />
                                 <Label fx:id="bank_record" layoutX="51.0" layoutY="404.0" text="消费记录" />
-                                <TableView layoutX="202.0" layoutY="441.0" prefHeight="220.0" prefWidth="560.0" fx:id="main_bankTV">
+                                <TableView fx:id="main_bankTV" layoutX="99.0" layoutY="439.0" prefHeight="220.0" prefWidth="740.0">
                                     <columns>
-                                        <TableColumn fx:id="money" prefWidth="265.0" text="消费金额" />
-                                        <TableColumn fx:id="time" minWidth="0.0" prefWidth="294.0" text="消费时间" />
+                                        <TableColumn fx:id="money" prefWidth="159.0" text="消费金额" />
+                                        <TableColumn fx:id="time" minWidth="0.0" prefWidth="209.0" text="消费时间" />
+                                        <TableColumn fx:id="reason" prefWidth="371.0" text="消费原因" />
                                     </columns>
                                 </TableView>
                             </children></AnchorPane>
-                        <AnchorPane fx:id="StorePane" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="StorePane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <JFXTabPane prefHeight="740.0" prefWidth="950.0">
                                     <tabs>

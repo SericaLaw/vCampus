@@ -217,12 +217,12 @@
     -fx-cursor: hand;
 }
 
-#time.column-header, #money.column-header {
+#time.column-header, #money.column-header,#reason.column-header {
     -fx-background-color:#b196f3;
     -fx-font-size:20px;
 }
 
-#time.table-column,#money.table-column{
+#time.table-column,#money.table-column,#reason.table-column{
     -fx-alignment: center;
 
 }
