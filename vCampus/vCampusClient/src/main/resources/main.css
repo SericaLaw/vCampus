@@ -220,7 +220,8 @@
     -fx-cursor: hand;
 }
 
-#time.column-header, #money.column-header,#reason.column-header {
+#time.column-header, #money.column-header,#reason.column-header,
+#content__d__Year.column-header, #content__d__Month.column-header, #content__d__Score.column-header,#content__d__Fare.column-header{
     -fx-background-color:#b196f3;
     -fx-font-size:20px;
 }
