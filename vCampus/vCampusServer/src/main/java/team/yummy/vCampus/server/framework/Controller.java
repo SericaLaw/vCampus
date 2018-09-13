@@ -17,7 +17,10 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
+/**
+ * 控制器类
+ * @author Vigilans
+ */
 public class Controller {
 
     public Logger logger;

@@ -446,7 +446,9 @@ public class CourseController extends Controller {
      */
     @Get(route = "list")
     public void getCourseList() {
-
+        dbSession.beginTransaction();
+        webContext.response.setBody(JSON.toJSONString(dbSession.createQuery("from CourseEntity c").list()));
+        dbSession.getTransaction().commit();
     }
 
     /**
@@ -458,8 +460,37 @@ public class CourseController extends Controller {
      * WebResponse res = api.post("/course/new", courseRegisterViewModel);
      */
     @Post(route = "new")
-    public void createCourse() {
-
+    public String createCourse(@FromBody CourseRegisterViewModel model) {
+        if (dbSession.load(CourseEntity.class, model.getCourseID()) != null) {
+            webContext.response.setStatusCode("403");
+            return "Course already exist";
+        }
+        CourseEntity courseEntity = new CourseEntity();
+        courseEntity.setCourseId(model.getCourseID());
+        courseEntity.setCourseName(model.getCourseName());
+        courseEntity.setProfName(model.getProfName());
+        courseEntity.setCourseVenue(model.getCourseVenue());
+        courseEntity.setCredit(model.getCredit());
+        courseEntity.setStuLimitCount(model.getStuLimitCount());
+        courseEntity.setStuAttendCount(0);
+        courseEntity.setCourseSchedulesByCourseId(model.getCourseSchedule().stream()
+            .map(s -> {
+                CourseScheduleEntity scheduleEntity = new CourseScheduleEntity();
+                scheduleEntity.setId(UUID.randomUUID().toString());
+                scheduleEntity.setCourseByCourseId(courseEntity);
+                scheduleEntity.setSpanStart(s.getSpanStart());
+                scheduleEntity.setSpanEnd(s.getSpanEnd());
+                scheduleEntity.setWeekDay(s.getWeekDay());
+                dbSession.beginTransaction();
+                dbSession.saveOrUpdate(scheduleEntity);
+                dbSession.getTransaction().commit();
+                return scheduleEntity;
+            }).collect(Collectors.toList())
+        );
+        dbSession.beginTransaction();
+        dbSession.saveOrUpdate(courseEntity);
+        dbSession.getTransaction().commit();
+        return "OK";
     }
 
     /**

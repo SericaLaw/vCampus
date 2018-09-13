@@ -3,7 +3,6 @@ package team.yummy.vCampus.server.api;
 import com.alibaba.fastjson.JSON;
 import team.yummy.vCampus.models.entity.*;
 import team.yummy.vCampus.models.viewmodel.*;
-import team.yummy.vCampus.server.Controller;
 import team.yummy.vCampus.server.annotation.*;
 import team.yummy.vCampus.server.framework.Controller;
 
