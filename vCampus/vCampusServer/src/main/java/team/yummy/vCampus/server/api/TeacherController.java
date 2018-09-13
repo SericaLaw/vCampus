@@ -14,8 +14,8 @@ import java.util.Map;
 @Authorize(roles = { "admin", "teacher" })
 public class TeacherController extends Controller {
     /**
-     * @apiGroup Course
-     * @api {patch} /course/record ModifyCourseRecord
+     * @apiGroup Teacher
+     * @api {patch} /teacher/record ModifyCourseRecord
      * @apiPermission teacher
      * @apiDescription 登记或改变学生成绩
      * @apiParamExample Code Snippets
@@ -28,7 +28,8 @@ public class TeacherController extends Controller {
         dbSession.beginTransaction();
         CourseRecordEntity record = dbSession.get(CourseRecordEntity.class, body.get("id"));
 
-        if (record.getCourseByCourseId().getProfCampusCardId() != account.getCampusCardId()) {
+        // Serica: 修复了垃圾Java带来的bug
+        if (!record.getCourseByCourseId().getProfCampusCardId().equals(account.getCampusCardId())) {
             webContext.response.setStatusCode("403");
             return "This course record does not belong to you.";
         }
@@ -40,12 +41,12 @@ public class TeacherController extends Controller {
     }
 
     /**
-     * @apiGroup Course
-     * @api {get} /course/record GetCourseRecord
+     * @apiGroup Teacher
+     * @api {get} /teacher/record GetCourseRecord
      * @apiPermission teacher
      * @apiDescription 获取任教课程对应学生的CourseReport列表
      * @apiParamExample Code Snippets
-     * WebResponse res = api.get("/course/record");
+     * WebResponse res = api.get("/teacher/record");
      * List<TeacherCourseReportViewModel> reportList = res.dataList(TeacherCourseReportViewModel.class);
      * @apiSuccessExample Success-Response:
      *      200 OK
@@ -66,6 +67,7 @@ public class TeacherController extends Controller {
                 AccountEntity student = record.getAccountByCampusCardId();
                 TeacherCourseReportViewModel report = new TeacherCourseReportViewModel();
                 report.setReport(new CourseReportViewModel(
+                    record.getId(),
                     student.getCampusCardId(),
                     course.getCourseName(),
                     course.getCredit().doubleValue(),

@@ -49,4 +49,12 @@ public class DormInfoViewModel {
     public void setRecords(List<DormRecordViewModel> records) {
         this.records = records;
     }
+
+    public Integer getBedNo() {
+        return bedNo;
+    }
+
+    public void setBedNo(Integer bedNo) {
+        this.bedNo = bedNo;
+    }
 }

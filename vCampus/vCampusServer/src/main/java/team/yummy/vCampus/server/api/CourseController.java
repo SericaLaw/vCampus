@@ -119,6 +119,7 @@ public class CourseController extends Controller {
         for (CourseRecordEntity record : account.getCourseRecordsByCampusCardId()) {
             CourseEntity course = record.getCourseByCourseId();
             reports.add(new CourseReportViewModel(
+                record.getId(),
                 account.getCampusCardId(),
                 course.getCourseName(),
                 course.getCredit().doubleValue(),

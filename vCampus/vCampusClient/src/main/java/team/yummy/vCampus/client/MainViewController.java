@@ -80,9 +80,11 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML public AnchorPane cartViewPane;
     @FXML public GridPane cartBottomView;
     @FXML public JFXRadioButton cart_radioSelectAll;
+    @FXML public Label content__d__heading__DormID;
+    @FXML public Label scoreCurMonth;
+    @FXML public Label feesCurMonth;
 
     StuInfoViewModel stuInfoViewModel;
-
 
     @FXML public Label content__Store__Cart__GrandTotalPrice;
     @FXML public Button content__Store__Cart__BatchRemove;
@@ -280,17 +282,28 @@ public class MainViewController extends ViewController implements Initializable 
     protected void switchDorm(ActionEvent actionEvent)
     {
         togglePane(DormPane, Bt_Dorm);
-        DormPane.setVisible(true);
-        BankPane.setVisible(false);
-        StuInfoPane.setVisible(false);
-        CoursePane.setVisible(false);
-        LibraryPane.setVisible(false);
-        StorePane.setVisible(false);
-        AccountMagPane.setVisible(false);
-        InitPane.setVisible(false);
 
         WebResponse res = api.get("/dorm/info");
-        DormInfoViewModel dormInfoList = res.data(DormInfoViewModel.class);
+
+        DormInfoViewModel dormInfo = res.data(DormInfoViewModel.class);
+        List<Dorm> r = new ArrayList<>();
+        Date now = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(now);
+        String curYear = String.valueOf(c.get(Calendar.YEAR));
+        String curMonth = String.valueOf(c.get(Calendar.MONTH));
+
+        content__d__heading__DormID.setText(dormInfo.getDormID() + "   " + dormInfo.getBedNo() + "号床" );
+        for(DormRecordViewModel record : dormInfo.getRecords()) {
+            r.add(new Dorm(record));
+        }
+        for(Dorm d: r) {
+            if(d.getMonth().equals(curMonth) && d.getYear().equals(curYear)) {
+                scoreCurMonth.setText(d.getScore());
+                feesCurMonth.setText(d.getMonth());
+            }
+
+        }
 
 /*        for(DormInfoViewModel DormInfo:dormInfoList)
         {
@@ -306,13 +319,11 @@ public class MainViewController extends ViewController implements Initializable 
 
         content__d__Year.setCellValueFactory(new PropertyValueFactory<>("year"));
         content__d__Month.setCellValueFactory(new PropertyValueFactory<>("month"));
-        content__d__Score.setCellValueFactory(new PropertyValueFactory<>("DormScore"));
-        content__d__Fare.setCellValueFactory(new PropertyValueFactory<>("DormCost"));
+        content__d__Score.setCellValueFactory(new PropertyValueFactory<>("score"));
+        content__d__Fare.setCellValueFactory(new PropertyValueFactory<>("cost"));
 
-        final ObservableList<Dorm> data = FXCollections.observableArrayList(
-                new Dorm("2015","5","15","25")
-        );
-
+        final ObservableList<Dorm> data = FXCollections.observableArrayList();
+        data.addAll(r);
         DormTable.setItems(data);
 
     }
@@ -849,19 +860,28 @@ public class MainViewController extends ViewController implements Initializable 
         public String getDepositreason(){return depositreason.get();}
         public void getDepositreason(String Despositreason){ depositreason.set(Despositreason);}
     }
-    public class Dorm
+    public static class Dorm
     {
-        private final SimpleStringProperty year;
-        private final SimpleStringProperty month;
-        private final SimpleStringProperty DormScore;
-        private final SimpleStringProperty DormCost;
+        private final SimpleStringProperty year = new SimpleStringProperty();
+        private final SimpleStringProperty month = new SimpleStringProperty();
+        private final SimpleStringProperty score = new SimpleStringProperty();
+        private final SimpleStringProperty cost = new SimpleStringProperty();
 
-        private Dorm(String Year,String mon,String Sco,String cost)
+        public Dorm(DormRecordViewModel r) {
+            Calendar c = Calendar.getInstance();
+            Date d = r.getScoringDate();
+            c.setTime(d);
+            setYear(String.valueOf(c.get(Calendar.YEAR)));
+            setMonth(String.valueOf(c.get(Calendar.MONTH)));
+            setCost(String.valueOf(r.getFees()));
+            setScore(String.valueOf(r.getScore()));
+        }
+        public Dorm(String Year,String mon,String Sco,String cost)
         {
-            this.year = new SimpleStringProperty(Year);
-            this.month = new SimpleStringProperty(mon);
-            this.DormScore = new SimpleStringProperty(Sco);
-            this.DormCost = new SimpleStringProperty(cost);
+            setYear(Year);
+            setMonth(mon);
+            setScore(Sco);
+            setCost(cost);
         }
 
         public String getYear()
@@ -886,22 +906,24 @@ public class MainViewController extends ViewController implements Initializable 
 
         public String getScore()
         {
-            return DormScore.get();
+            return score.get();
         }
 
         public void setScore(String s)
         {
-            DormScore.set(s);
+            score.set(s);
         }
 
-        public String getCost()
-        {
-            return DormCost.get();
+
+        public String getCost() {
+            return cost.get();
         }
 
-        public void setCost(String c)
-        {
-            DormCost.set(c);
+        public void setCost(String cost) {
+            this.cost.set(cost);
+        }
+        public SimpleStringProperty costProperty() {
+            return cost;
         }
     }
 

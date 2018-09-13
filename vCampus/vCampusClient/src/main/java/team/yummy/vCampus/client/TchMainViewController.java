@@ -8,8 +8,10 @@ import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -23,6 +25,7 @@ import org.omg.CORBA.PRIVATE_MEMBER;
 import team.yummy.vCampus.models.*;
 
 import team.yummy.vCampus.models.viewmodel.CourseScheduleViewModel;
+import team.yummy.vCampus.models.viewmodel.TeacherCourseReportViewModel;
 import team.yummy.vCampus.web.WebResponse;
 
 import javafx.event.ActionEvent;
@@ -165,6 +168,14 @@ public class TchMainViewController extends ViewController implements  Initializa
             course_scheduleGrid.add(courseItem, course.getWeekDay() * 2 - 1, course.getSpanStart(), 1, course.getSpanEnd() - course.getSpanStart() + 1);
         }
 
+        WebResponse res = api.get("/teacher/record");
+        List<TeacherCourseReportViewModel> reportList = res.dataList(TeacherCourseReportViewModel.class);
+        List<Person> reportData = new ArrayList<>();
+        for(TeacherCourseReportViewModel reort : reportList) {
+            reportData.add(new Person(reort));
+        }
+
+
         campusIDcardCol.setCellValueFactory(new PropertyValueFactory<>("campusIDCard"));
         studentnameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         subjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
@@ -172,17 +183,31 @@ public class TchMainViewController extends ViewController implements  Initializa
         gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
 
 
-        final ObservableList<Person> data = FXCollections.observableArrayList(
-                new Person("213180001", "BIU", "计算机组成原理","17-18-2",""),
-                new Person("213180002", "CPU", "计算机组成原理","17-18-2",""),
-                new Person("213180003", "MMU", "计算机组成原理","17-18-2",""),
-                new Person("213180004", "MEM", "计算机组成原理","17-18-2",""),
-                new Person("213180005", "BUS", "计算机组成原理","17-18-2","")
-        );
+        final ObservableList<Person> data = FXCollections.observableArrayList();
+        data.addAll(reportData);
+
 
         Tch_GradeTV.setEditable(true);
+
         Tch_GradeTV.setItems(data);
         gradeCol.setCellFactory(TextFieldTableCell.<Person>forTableColumn());
+//        gradeCol.setOnEditCommit(
+//                (CellEditEvent<Person, String> t) -> {
+//                    ((Person) t.getTableView().getItems().get(
+//                            t.getTablePosition().getRow())
+//                    ).setGrade(t.getNewValue());
+//                });
+        gradeCol.setOnEditCommit(new EventHandler<CellEditEvent>() {
+            @Override
+            public void handle(CellEditEvent event) {
+                Person s = ((Person) event.getTableView().getItems().get(
+                        event.getTablePosition().getRow()
+                ));
+                s.setGrade((String)event.getNewValue());
+                String patch = String.format("{\"id\":\"%s\", \"score\":\"%s\"}", s.getUuid(), s.getGrade());
+                WebResponse res = api.patch("/teacher/record", patch);
+            }
+        });
 
     }
 
@@ -232,7 +257,8 @@ public class TchMainViewController extends ViewController implements  Initializa
         cancel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                dialog.setVisible(false);            }
+                dialog.setVisible(false);
+            }
         });
 
 
@@ -241,19 +267,21 @@ public class TchMainViewController extends ViewController implements  Initializa
     }
 
 
-    public class Person{
-        private final SimpleStringProperty name;
-        private final SimpleStringProperty campusIDcard;
-        private  final SimpleStringProperty term;
-        private  final SimpleStringProperty grade;
-        private  final SimpleStringProperty subject;
+    public static class Person{
+        private final SimpleStringProperty name = new SimpleStringProperty();
+        private final SimpleStringProperty campusIDcard = new SimpleStringProperty();
+        private  final SimpleStringProperty term = new SimpleStringProperty();
+        private  final SimpleStringProperty grade = new SimpleStringProperty();
+        private  final SimpleStringProperty subject = new SimpleStringProperty();
+        private final SimpleStringProperty uuid = new SimpleStringProperty();
 
-        private  Person(String CampusIDcard,String Name,String Subject,String Term,String Grade) {
-            this.campusIDcard = new SimpleStringProperty(CampusIDcard);
-            this.name = new SimpleStringProperty(Name);
-            this.subject=new SimpleStringProperty(Subject);
-            this.term = new SimpleStringProperty(Term);
-            this.grade = new SimpleStringProperty(Grade);
+        public Person(TeacherCourseReportViewModel r) {
+            setName(r.getLastName() + r.getFirstName());
+            setCampusIDcard(r.getReport().getCampusCardId());
+            setTerm(r.getReport().getSemester());
+            setGrade(String.valueOf(r.getReport().getScore()));
+            setSubject(r.getReport().getCourseName());
+            setUuid(r.getReport().getId());
         }
 
         public String getName(){
@@ -295,7 +323,26 @@ public class TchMainViewController extends ViewController implements  Initializa
         public void setSubject(String Grade){
             subject.set(Grade);
         }
+//
+//        public TeacherCourseReportViewModel getTeacherCourseReportViewModel() {
+//            return teacherCourseReportViewModel;
+//        }
+//
+//        public void setTeacherCourseReportViewModel(TeacherCourseReportViewModel teacherCourseReportViewModel) {
+//            this.teacherCourseReportViewModel = teacherCourseReportViewModel;
+//        }
 
+        public String getUuid() {
+            return uuid.get();
+        }
+
+        public void setUuid(String uuid) {
+            this.uuid.set(uuid);
+        }
+
+        public SimpleStringProperty uuidProperty() {
+            return uuid;
+        }
     }
 
     /*public void createCourseSchedule(List<CourseScheduleViewModel> items) {

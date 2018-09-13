@@ -11,6 +11,7 @@ public class DormRecordViewModel {
     private Integer score;
     private Double fees;
 
+    public DormRecordViewModel() {}
     public DormRecordViewModel(DormRecordEntity entity) {
         id = entity.getId();
         scoringDate = entity.getScoringDate();

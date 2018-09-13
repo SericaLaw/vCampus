@@ -5,6 +5,7 @@ package team.yummy.vCampus.models.viewmodel;
  * @author Serica
  */
 public class CourseReportViewModel {
+    private String id;
     private String campusCardId;
     private String courseName;
     private double credit;
@@ -18,7 +19,8 @@ public class CourseReportViewModel {
         this.campusCardId = that.getCampusCardId();
         this.courseName = that.getCourseName();
     }
-    public CourseReportViewModel(String campusCardId, String courseName, double credit, int score, String semester, String scoreType) {
+    public CourseReportViewModel(String id, String campusCardId, String courseName, double credit, int score, String semester, String scoreType) {
+        this.id = id;
         this.campusCardId = campusCardId;
         this.courseName = courseName;
         this.credit = credit;
@@ -79,5 +81,13 @@ public class CourseReportViewModel {
     public String getSql(String campusCardID) {
         String sql = String.format("SELECT CourseName, Semester, Credit, Score, ScoreType FROM Course c, CourseRecord cr WHERE c.CourseID = cr.CourseID AND cr.CampusCardID = '%s' AND (NOT cr.Score = '0')", campusCardID);
         return sql;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

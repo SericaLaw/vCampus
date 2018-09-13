@@ -9,6 +9,10 @@ import team.yummy.vCampus.util.Api;
 
 import java.util.HashMap;
 
+/**
+ * Stage控制类，用于实现多窗口的资源管理、窗口间的切换和数据通信
+ * @author Serica
+ */
 public class StageController {
     public Api api = new Api();
     public String authData = null;
