@@ -3,9 +3,8 @@ import java.util.*;
 import java.sql.Timestamp;
 
 /**
+ * 交易信息表项的视图模型类，用于前端展示银行账户交易记录
  * @author Dailin
- * 交易信息表项�?
- * 用于前端展示银行账户交易记录
  */
 public class BankRecordViewModel{
     private int bankRecordID;

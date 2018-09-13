@@ -1,4 +1,4 @@
-package team.yummy.vCampus.server.api;
+package team.yummy.vCampus.server;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;

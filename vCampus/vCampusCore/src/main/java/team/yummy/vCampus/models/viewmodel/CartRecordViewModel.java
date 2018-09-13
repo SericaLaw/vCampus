@@ -4,9 +4,8 @@ import team.yummy.vCampus.models.entity.CartRecordEntity;
 import java.sql.Timestamp;
 
 /**
+ * 购物车表项的视图模型类，用于前端展示购物车内信息
  * @author Dailin
- * 购物车表项类
- * 存放关联查询的结果，用于前端展示购物车内信息
  */
 
 

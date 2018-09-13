@@ -1,9 +1,8 @@
 package team.yummy.vCampus.models.viewmodel;
 
 /**
+ * 成绩单表项的视图模型类，用于前端展示成绩信息
  * @author Serica
- * 成绩单表项类
- * 存放关联查询的结果，用于前端展示成绩信息
  */
 public class CourseReportViewModel {
     private String campusCardId;
@@ -74,8 +73,8 @@ public class CourseReportViewModel {
 
     /**
      * 关联查询，返回成绩单列表，0分默认是这学期新选择的课程，不会展现在成绩单中
-     * @param campusCardID
-     * @return
+     * @param campusCardID 要查询成绩单的学生的一卡通号
+     * @return 查询的SQL语句
      */
     public String getSql(String campusCardID) {
         String sql = String.format("SELECT CourseName, Semester, Credit, Score, ScoreType FROM Course c, CourseRecord cr WHERE c.CourseID = cr.CourseID AND cr.CampusCardID = '%s' AND (NOT cr.Score = '0')", campusCardID);

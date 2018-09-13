@@ -1,9 +1,8 @@
 package team.yummy.vCampus.models.viewmodel;
 
 /**
+ * 宿舍表项的视图模型类，用于前端展示宿舍评分和水电信息
  * @author Dailin
- * 宿舍表项类
- * 存放关联查询的结果，用于前端展示宿舍评分&水电信息
  */
 import team.yummy.vCampus.models.entity.*;
 import java.sql.Timestamp;

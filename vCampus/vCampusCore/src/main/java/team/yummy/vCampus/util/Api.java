@@ -10,6 +10,10 @@ import java.io.*;
 import java.util.Hashtable;
 import java.util.Map;
 
+/**
+ * Api接口类，封装了Api的方法实现，前端可以通过Api类的对象示例向后端发送数据交互请求。
+ * @author Serica
+ */
 public class Api {
     private Logger logger = new Logger("API");
     private Integer sessionId = null;
@@ -30,25 +34,46 @@ public class Api {
         return socket;
     }
 
-    public WebResponse get(String route) {
-        WebRequest request = new WebRequest(RequestMethod.GET, route);
+    /**
+     * 用于发送GET类型请求
+     * @param body 请求路径
+     * @return the WebResponse
+     */
+    public WebResponse get(String body) {
+        WebRequest request = new WebRequest(RequestMethod.GET, body);
         WebResponse response = null;
         return sendResponse(getSocket(), request, response);
     }
 
-    // POST /tableName/key/:value, data 当新数据被创建
-    public WebResponse post(String route, String data){
-        WebRequest request = new WebRequest(RequestMethod.POST, route, data);
+    /**
+     * 用于发送POST类型请求
+     * @param route 请求路径
+     * @param body 请求体，用于装载交互数据
+     * @return the WebResponse
+     */
+    public WebResponse post(String route, String body){
+        WebRequest request = new WebRequest(RequestMethod.POST, route, body);
         WebResponse response = null;
         return sendResponse(getSocket(), request, response);
     }
-    // PATCH /tableName/:id, data为json string 当数据被修改
-    public WebResponse patch(String route, String data){
-        WebRequest request = new WebRequest(RequestMethod.PATCH, route, data);
+
+    /**
+     * 用于发送PATCH类型请求
+     * @param route 请求路径
+     * @param body 请求体，用于装载交互数据
+     * @return the WebResponse
+     */
+    public WebResponse patch(String route, String body){
+        WebRequest request = new WebRequest(RequestMethod.PATCH, route, body);
         WebResponse response = null;
         return sendResponse(getSocket(), request, response);
     }
-    // DELETE 当数据被删除
+
+    /**
+     * 用于发送DELETE类型请求
+     * @param route 请求路径
+     * @return the WebResponse
+     */
     public WebResponse delete(String route){
         WebRequest request = new WebRequest(RequestMethod.DELETE, route);
         WebResponse response = null;
@@ -84,10 +109,18 @@ public class Api {
         }
     }
 
+    /**
+     * 获取发送API请求的客户端对应的Session ID
+     * @return the session ID
+     */
     public Integer getSessionId() {
         return sessionId;
     }
 
+    /**
+     * 设置发送API请求的客户端的Session ID
+     * @param sessionId 客户端的Session ID
+     */
     public void setSessionId(Integer sessionId) {
         this.sessionId = sessionId;
     }

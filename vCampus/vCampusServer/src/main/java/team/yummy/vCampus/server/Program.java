@@ -11,6 +11,7 @@ import java.net.Socket;
 
 /**
  * 基于TCP协议的Socket通信，实现用户登录，为服务器端入口
+ * @author Vigilans
  */
 public class Program {
     static Logger logger = new Logger("Program");

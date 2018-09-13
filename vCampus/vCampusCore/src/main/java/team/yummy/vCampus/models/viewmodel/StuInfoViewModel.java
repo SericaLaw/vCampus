@@ -6,6 +6,11 @@ import team.yummy.vCampus.models.entity.AccountEntity;
 import java.sql.Timestamp;
 import java.util.Date;
 
+/**
+ * 学生信息的视图模型类，用于前端展示学生信息
+ * @author Serica
+ * @author Vigilans
+ */
 public class StuInfoViewModel {
 
     private String campusCardId = "N/A";

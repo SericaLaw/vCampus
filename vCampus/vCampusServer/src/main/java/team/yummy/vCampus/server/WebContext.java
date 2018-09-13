@@ -10,6 +10,7 @@ import team.yummy.vCampus.util.Logger;
 
 /**
  * 实现网络连接
+ * @author Vigilans
  */
 public class WebContext extends Thread {
 

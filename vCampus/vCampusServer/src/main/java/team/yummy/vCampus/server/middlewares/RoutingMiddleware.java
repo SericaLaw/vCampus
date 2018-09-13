@@ -1,19 +1,15 @@
 package team.yummy.vCampus.server.middlewares;
 
-import org.dom4j.Document;
-import org.dom4j.io.SAXReader;
 import team.yummy.vCampus.data.DBHelper;
-import team.yummy.vCampus.server.api.Controller;
-import team.yummy.vCampus.server.Server;
+import team.yummy.vCampus.server.Controller;
 import team.yummy.vCampus.server.WebContext;
 import team.yummy.vCampus.server.api.*;
 import team.yummy.vCampus.util.Logger;
 
-import java.io.File;
-import java.net.URI;
-
 /**
  * 路由类中间件
+ * @author Vigilans
+ * @author Serica
  */
 public class RoutingMiddleware implements Middleware {
     private Logger logger = new Logger("RoutingMiddleware");

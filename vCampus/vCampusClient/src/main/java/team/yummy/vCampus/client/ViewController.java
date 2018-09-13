@@ -4,6 +4,10 @@ import com.alibaba.fastjson.JSON;
 import team.yummy.vCampus.models.viewmodel.AccountViewModel;
 import team.yummy.vCampus.util.Api;
 
+/**
+ * ViewController抽象基类，封装了一些所有前端Controller的公有方法和成员
+ * @author Serica
+ */
 public abstract class ViewController {
     protected Api api;
     protected String accountJsonData;

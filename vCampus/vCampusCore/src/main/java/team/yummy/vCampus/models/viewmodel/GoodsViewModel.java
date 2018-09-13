@@ -5,9 +5,8 @@ import java.lang.reflect.Field;
 import java.util.UUID;
 
 /**
+ * 商店表项的视图模型类，用于前端展示商店首页商品信息
  * @author Dailin
- * 商店表项类
- * 存放关联查询的结果，用于前端展示商店首页商品信息
  */
 
  public class GoodsViewModel{

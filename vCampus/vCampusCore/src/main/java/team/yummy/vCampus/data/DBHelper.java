@@ -20,8 +20,8 @@ public class DBHelper {
     private Logger logger = new Logger("DBHelper");
 
     /**
-     * 构造函数，用于配置数据库路径
-     * 每次创建一个DBHelper实例时，都会打印相关日志信息
+     * 构造函数，用于配置数据库路径。每次创建一个DBHelper实例时，都会打印相关日志信息。
+     * @param url 数据库的连接路径
      */
     public DBHelper(String url) {
         this.url = url;
@@ -231,9 +231,9 @@ public class DBHelper {
 
     /**
      * 从数据表中选取前 count 个数据
-     * @param tableName
-     * @param count
-     * @return
+     * @param tableName 查询的数据表名
+     * @param count 要获取的数据数量
+     * @return 查询结果的JSON字符串
      */
     public String select(String tableName, int count) {
         String sql = String.format("SELECT TOP %d * FROM %s", count, tableName);

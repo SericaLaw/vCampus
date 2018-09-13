@@ -1,6 +1,9 @@
 package team.yummy.vCampus.models.viewmodel;
 
-
+/**
+ * 登录页面的视图模型类，用于前端展示用户名和密码以并作为与后端数据交互的媒介
+ * @author Vigilans
+ */
 public class LoginViewModel {
     private String campusCardId;
     private String password;

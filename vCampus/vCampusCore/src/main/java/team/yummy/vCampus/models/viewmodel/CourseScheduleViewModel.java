@@ -3,9 +3,8 @@ package team.yummy.vCampus.models.viewmodel;
 import java.util.stream.IntStream;
 
 /**
+ * 课程表表项的视图模型类，用于前端展示课程表信息
  * @author Serica
- * 课程表表项类
- * 存放关联查询的结果，用于前端展示课程表信息
  */
 public class CourseScheduleViewModel {
     private String courseID;

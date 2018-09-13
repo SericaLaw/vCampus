@@ -1,5 +1,6 @@
 package team.yummy.vCampus.server.api;
 
+import team.yummy.vCampus.server.Controller;
 import team.yummy.vCampus.server.annotation.Get;
 
 public class DormController extends Controller {

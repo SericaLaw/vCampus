@@ -2,6 +2,10 @@ package team.yummy.vCampus.models.viewmodel;
 
 import team.yummy.vCampus.models.entity.AccountEntity;
 
+/**
+ * 账户的视图模型类，用于前端展示账户信息
+ * @author Serica
+ */
 public class AccountViewModel {
     private String nickname;
     private String password;

@@ -5,14 +5,13 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.junit.Test;
 import team.yummy.vCampus.models.CourseStatusEnum;
 import team.yummy.vCampus.models.Semester;
 import team.yummy.vCampus.models.entity.*;
 import team.yummy.vCampus.models.viewmodel.CourseRegisterViewModel;
 import team.yummy.vCampus.models.viewmodel.CourseReportViewModel;
 import team.yummy.vCampus.models.viewmodel.CourseScheduleViewModel;
-import team.yummy.vCampus.server.WebContext;
+import team.yummy.vCampus.server.Controller;
 import team.yummy.vCampus.server.annotation.*;
 
 import java.util.*;
@@ -449,12 +448,12 @@ public class CourseController extends Controller {
     }
     /**
      * @apiGroup Course
-     * @api {get} /course GetCourseList
+     * @api {get} /course/list GetCourseList
      * @apiPermission admin
-     * @apiDescription 获取课程列表
+     * @apiDescription 获取本学期开设的课程列表
      * @apiSuccess List_CourseRegisterViewModel List of CourseRegisterViewModel
      * @apiParamExample Code Snippets
-     * WebResponse res = api.get("/course");
+     * WebResponse res = api.get("/course/list");
      * List<CourseRegisterViewModel> courseRegisterViewModels = res.dataList(CourseRegisterViewModel.class);
      * @apiSuccessExample Success-Response:
      *      200 OK
@@ -492,6 +491,36 @@ public class CourseController extends Controller {
      *     404 "Course not found."
      *
      */
+    @Get(route = "list")
+    public void getCourseList() {
 
+    }
 
+    /**
+     * @apiGroup Course
+     * @api {post} /course/new CreateCourse
+     * @apiPermission admin
+     * @apiDescription 创建课程，需要在Course表和CourseSchedule表里增加条目
+     * @apiParamExample Code Snippets
+     * WebResponse res = api.post("/course/new", courseRegisterViewModel);
+     */
+    @Post(route = "new")
+    public void createCourse() {
+
+    }
+
+    /**
+     * @apiGroup Course
+     * @api {patch} /courseSchedule/id/{uuid} ModifyCourseSchedule
+     * @apiPermission teacher
+     * @apiDescription 修改课程安排
+     * @apiParamExample Code Snippets
+     * CourseScheduleViewModel schedule = ...
+     * 
+     * String uuid = schedule.getId();
+     * schedule.set...;
+     * WebResponse res = api.patch("/course/record/" + uuid, JSON.toJSONString(schedule);
+     * @apiSuccessExample Success-Response:
+     *      200 OK
+     */
 }

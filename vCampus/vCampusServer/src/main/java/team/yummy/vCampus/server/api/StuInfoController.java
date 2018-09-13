@@ -2,6 +2,7 @@ package team.yummy.vCampus.server.api;
 
 import org.hibernate.Transaction;
 import team.yummy.vCampus.models.entity.*;
+import team.yummy.vCampus.server.Controller;
 import team.yummy.vCampus.server.WebContext;
 import team.yummy.vCampus.server.annotation.*;
 
