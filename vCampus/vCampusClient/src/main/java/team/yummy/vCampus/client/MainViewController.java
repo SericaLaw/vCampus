@@ -481,6 +481,7 @@ public class MainViewController extends ViewController implements Initializable 
                 //登出的操作
                 togglePane(InitPane, Bt_Init);
                 stageController.setStage(App.WELCOME_VIEW_NAME, App.MAIN_VIEW_NAME);
+                dialog.setVisible(false);
             }
         });
 

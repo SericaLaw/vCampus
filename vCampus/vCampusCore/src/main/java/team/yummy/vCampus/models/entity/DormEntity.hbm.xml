@@ -11,11 +11,11 @@
         <many-to-one name="accountByCampusCardId" class="team.yummy.vCampus.models.entity.AccountEntity">
             <column name="CampusCardID"/>
         </many-to-one>
-        <set name="dormScoresByDormId" inverse="true">
+        <set name="dormRecordsByDormId" inverse="true">
             <key>
                 <column name="DormID" not-null="true"/>
             </key>
-            <one-to-many not-found="ignore" class="team.yummy.vCampus.models.entity.DormScoreEntity"/>
+            <one-to-many not-found="ignore" class="team.yummy.vCampus.models.entity.DormRecordEntity"/>
         </set>
     </class>
 </hibernate-mapping>

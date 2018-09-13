@@ -4,11 +4,12 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="team.yummy.vCampus.models.entity.DormScoreEntity" table="DormScore" schema="&quot;.&quot;"
+    <class name="team.yummy.vCampus.models.entity.DormRecordEntity" table="DormRecord" schema="&quot;.&quot;"
            catalog="&quot;.&quot;">
         <id name="id" column="ID"/>
         <property name="scoringDate" column="ScoringDate"/>
         <property name="score" column="Score"/>
+        <property name="fees" column="Fees"/>
         <many-to-one name="dormByDormId" class="team.yummy.vCampus.models.entity.DormEntity">
             <column name="DormID" not-null="true"/>
         </many-to-one>

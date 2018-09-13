@@ -1,6 +1,4 @@
-package team.yummy.vCampus.server.middlewares;
-
-import team.yummy.vCampus.server.WebContext;
+package team.yummy.vCampus.server.framework;
 
 /**
  * 中间件的抽象方法集合

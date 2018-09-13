@@ -1,20 +1,26 @@
 package team.yummy.vCampus.models.viewmodel;
+import team.yummy.vCampus.models.entity.BankAccountEntity;
+
 import java.util.*;
+import java.util.stream.Collectors;
+
 /**
  * 银行信息表项的视图模型类，用于前端展示银行账户信息
  * @author Dailin
  */
 public class BankInfoViewModel{
     private String campusCardID;
-    private double balance;
-    private String bankAccount;
+    private Double balance;
     private List<BankRecordViewModel> bankRecordList;
 
-    public BankInfoViewModel(String campusCardID, double balance, String bankAccount, List<BankRecordViewModel> bankRecordList){
-        this.campusCardID = campusCardID;
-        this.balance = balance;
-        this.bankAccount = bankAccount;
-        this.bankRecordList = bankRecordList;
+    public BankInfoViewModel() {}
+
+    public BankInfoViewModel(BankAccountEntity entity) {
+        this.campusCardID = entity.getCampusCardId();
+        this.balance = entity.getBalance();
+        this.bankRecordList = entity.getBankRecordsByCampusCardId().stream().map(
+            r -> new BankRecordViewModel(r)
+        ).collect(Collectors.toList());
     }
 
     public String getCampusCardID() { 
@@ -25,27 +31,19 @@ public class BankInfoViewModel{
         this.campusCardID = campusCardID; 
     }
     
-    public double getBalance(){
+    public Double getBalance(){
         return this.balance;
     }
 
-    public void setBalance(double balance){
+    public void setBalance(Double balance){
         this.balance = balance;
     }
 
-    public String getBankAccount(){
-        return this.bankAccount;
-    }
-
-    public void setBankAccount(String bankAccount){
-        this.bankAccount = bankAccount;
-    }
-
-    public List<BankRecordViewModel> getBankList(){
+    public List<BankRecordViewModel> getBankRecordList(){
         return this.bankRecordList;
     }
 
-    public void setBankList(List<BankRecordViewModel> bankRecordList){
+    public void setBankRecordList(List<BankRecordViewModel> bankRecordList){
         this.bankRecordList = bankRecordList;
     }
 }

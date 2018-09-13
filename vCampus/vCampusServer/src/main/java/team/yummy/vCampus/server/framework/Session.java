@@ -1,4 +1,4 @@
-package team.yummy.vCampus.server;
+package team.yummy.vCampus.server.framework;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;

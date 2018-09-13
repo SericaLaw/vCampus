@@ -1,7 +1,8 @@
 package team.yummy.vCampus.server.middlewares;
 
-import team.yummy.vCampus.server.Session;
-import team.yummy.vCampus.server.WebContext;
+import team.yummy.vCampus.server.framework.Session;
+import team.yummy.vCampus.server.framework.Middleware;
+import team.yummy.vCampus.server.framework.WebContext;
 
 import java.sql.Timestamp;
 import java.util.Random;

@@ -5,8 +5,8 @@ import org.hibernate.Transaction;
 import team.yummy.vCampus.models.entity.*;
 import team.yummy.vCampus.models.viewmodel.BookViewModel;
 import team.yummy.vCampus.models.viewmodel.BorrowRecordViewModel;
-import team.yummy.vCampus.server.Controller;
 import team.yummy.vCampus.server.annotation.*;
+import team.yummy.vCampus.server.framework.Controller;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -95,6 +95,7 @@ public class LibraryController extends Controller {
      *     404 "Book not found."
      *
      */
+    @Authorize
     @Get(route = "borrow")
     public void getBorrowRecords() {
         webContext.response.setBody(JSON.toJSONString(
@@ -132,10 +133,10 @@ public class LibraryController extends Controller {
      *     400 "No corresponding book found"
      *     400 "No available book now"
      */
+    @Authorize
     @Post(route = "borrow")
-    public String newBorrowRecords() {
+    public String newBorrowRecords(@FromBody String bookId) {
         Transaction tx = dbSession.beginTransaction();
-        String bookId = webContext.request.getBody();
         if (bookId == null) {
             webContext.response.setStatusCode("400");
             return "Incorrect body data";
@@ -186,8 +187,9 @@ public class LibraryController extends Controller {
      * @apiErrorExample Error-Response:
      *     404 "Entry does not exist!"
      */
+    @Authorize
     @Delete(route = "borrow")
-    public String deleteBorrowRecords(String borrowRecordId) {
+    public String deleteBorrowRecords(@FromUrl String borrowRecordId) {
         Transaction tx = dbSession.beginTransaction();
         BorrowRecordEntity record = dbSession.load(BorrowRecordEntity.class, borrowRecordId);
         if (record != null) {

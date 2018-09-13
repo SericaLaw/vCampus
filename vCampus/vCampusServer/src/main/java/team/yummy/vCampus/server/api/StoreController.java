@@ -5,10 +5,13 @@ import team.yummy.vCampus.models.entity.*;
 import team.yummy.vCampus.models.viewmodel.*;
 import team.yummy.vCampus.server.Controller;
 import team.yummy.vCampus.server.annotation.*;
+import team.yummy.vCampus.server.framework.Controller;
 
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
 
+@Authorize
 public class StoreController extends Controller {
 
     /**
@@ -75,8 +78,7 @@ public class StoreController extends Controller {
      *      ......
      */
     @Post(route = "cart")
-    public void addToCart() {
-        String goodsId = webContext.request.getBody();
+    public void addToCart(@FromBody String goodsId) {
         CartRecordEntity record = account.getCartRecordsByCampusCardId().stream()
             .filter(r -> !r.getIsPurchased())
             .filter(r -> r.getGoodsByGoodsId().getGoodsId().equals(goodsId))
@@ -108,11 +110,11 @@ public class StoreController extends Controller {
      *      ......
      */
     @Post(route = "purchase")
-    public String purchase() {
+    public String purchase(@FromBody(String.class) List<String> recordIds) {
         dbSession.beginTransaction();
         double total_price = 0.0;
         List<CartRecordEntity> records = new ArrayList<>();
-        for (String recordId : webContext.request.deserializeList(String.class)) {
+        for (String recordId : recordIds) {
             CartRecordEntity record = dbSession.get(CartRecordEntity.class, recordId);
             if (record.getCartRecordId() != null && !record.getIsPurchased()) {
                 total_price += record.getGoodsByGoodsId().getPrice() * record.getGoodsCnt();
@@ -138,8 +140,11 @@ public class StoreController extends Controller {
         BankRecordEntity bank_record = new BankRecordEntity();
         bank_record.setId(UUID.randomUUID().toString());
         bank_record.setBankAccountByCampusCardId(bank);
-        bank_record.setIncomeAndExpense(total_price);
+        bank_record.setIncomeAndExpense(-total_price);
         bank_record.setRecordTime(new Timestamp(System.currentTimeMillis()));
+        bank_record.setReason("购买了" + records.stream().map(
+            r -> r.getGoodsByGoodsId().getGoodsName() + "×" + r.getGoodsCnt()
+        ).collect(Collectors.joining(", ")));
         dbSession.save(bank_record);
         dbSession.getTransaction().commit();
         return "OK";
@@ -160,12 +165,11 @@ public class StoreController extends Controller {
      *      ......Store
      */
     @Patch(route = "cart")
-    public void modifyCart() {
-        CartRecordViewModel request = webContext.request.deserializeBody(CartRecordViewModel.class);
+    public void modifyCart(@FromBody CartRecordViewModel model) {
         dbSession.beginTransaction();
-        CartRecordEntity record = dbSession.get(CartRecordEntity.class, request.getCartRecordID());
+        CartRecordEntity record = dbSession.get(CartRecordEntity.class, model.getCartRecordID());
         if (record.getCartRecordId() != null && !record.getIsPurchased()) {
-            record.setGoodsCnt(request.getGoodsCount());
+            record.setGoodsCnt(model.getGoodsCount());
             dbSession.update(record);
         }
         dbSession.getTransaction().commit();
@@ -185,9 +189,9 @@ public class StoreController extends Controller {
      *      ......
      */
     @Post(route = "clear")
-    public void deleteCartGoods() {
+    public void deleteCartGoods(@FromBody(String.class) List<String> recordIds) {
         dbSession.beginTransaction();
-        for (String recordId : webContext.request.deserializeList(String.class)) {
+        for (String recordId : recordIds) {
             CartRecordEntity record = dbSession.load(CartRecordEntity.class, recordId);
             if (record.getCartRecordId() != null && !record.getIsPurchased()) {
                 dbSession.delete(record);

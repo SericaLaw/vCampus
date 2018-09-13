@@ -2,24 +2,14 @@ package team.yummy.vCampus.server.api;
 
 import org.hibernate.Transaction;
 import team.yummy.vCampus.models.entity.*;
-import team.yummy.vCampus.server.Controller;
-import team.yummy.vCampus.server.WebContext;
+import team.yummy.vCampus.server.framework.WebContext;
 import team.yummy.vCampus.server.annotation.*;
+import team.yummy.vCampus.server.framework.Controller;
 
 import java.util.stream.Collectors;
 
+@Authorize(roles = { "admin", "student" })
 public class StuInfoController extends Controller {
-
-    AccountEntity account;
-
-    @Override
-    public void init(WebContext webContext) {
-        super.init(webContext);
-        Transaction tx = dbSession.beginTransaction();
-        account = dbSession.get(AccountEntity.class, webContext.session.getString("campusCardId"));
-        tx.commit();
-    }
-
 
     /**
      * @apiGroup StuInfo

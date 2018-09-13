@@ -1,10 +1,10 @@
-package team.yummy.vCampus.server;
+package team.yummy.vCampus.server.framework;
 
 import java.io.*;
 import java.net.*;
 import java.util.Iterator;
 
-import team.yummy.vCampus.server.middlewares.Middleware;
+import team.yummy.vCampus.server.Server;
 import team.yummy.vCampus.web.*;
 import team.yummy.vCampus.util.Logger;
 
@@ -23,6 +23,8 @@ public class WebContext extends Thread {
     public WebRequest request;
 
     public WebResponse response;
+
+    public Controller controller;
 
     public Session session;
 

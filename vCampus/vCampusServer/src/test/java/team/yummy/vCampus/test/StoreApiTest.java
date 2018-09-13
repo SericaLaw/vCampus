@@ -3,6 +3,8 @@ package team.yummy.vCampus.test;
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import team.yummy.vCampus.models.entity.BankAccountEntity;
+import team.yummy.vCampus.models.entity.CartRecordEntity;
+import team.yummy.vCampus.models.viewmodel.CartRecordViewModel;
 import team.yummy.vCampus.models.viewmodel.GoodsViewModel;
 import team.yummy.vCampus.web.WebResponse;
 
@@ -81,7 +83,7 @@ public class StoreApiTest extends ApiTest {
         GoodsViewModel goods = api.get("/goods").dataList(GoodsViewModel.class).get(0);
         String cartId = api.post("/store/cart", goods.getGoodsId()).getBody();
         BankAccountEntity before = api.get("/bankAccount/campusCardId/213160003").dataList(BankAccountEntity.class).get(0);
-        api.post("/store/purchase", "[\"" + cartId + "\"]");
+        api.post("/store/purchase", String.format("[\"%s\", \"%s\"]", "1ded8570-60bb-491f-9850-48e3b129f3f2", "36f772a3-5bff-41e1-97e4-de90c8ff5cea"));
         BankAccountEntity after = api.get("/bankAccount/campusCardId/213160003").dataList(BankAccountEntity.class).get(0);
         assert before.getBalance() == after.getBalance() + goods.getPrice();
     }
@@ -176,8 +178,14 @@ public class StoreApiTest extends ApiTest {
      */
     @Test
     public void getGoodsById() {
-        String goodsId = "66b20429-922e-45f9-aeb3-6c7f4fdeaff1";
+        String goodsId = "c14eb7df-0624-421a-8c3f-d1b8b016c5db";
         WebResponse res = api.get("/goods/goodsId/" + goodsId);
         GoodsViewModel goods = res.dataList(GoodsViewModel.class, 0);
+    }
+
+    @Test
+    public void getCartList() {
+        WebResponse res = api.get("/store/cart");
+        List<CartRecordViewModel> goods = res.dataList(CartRecordViewModel.class);
     }
 }

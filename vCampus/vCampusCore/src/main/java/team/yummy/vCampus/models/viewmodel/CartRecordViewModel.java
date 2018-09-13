@@ -46,6 +46,7 @@ public class CartRecordViewModel {
         this.imgUrl = record.getGoodsByGoodsId().getImgUrl();
         this.isSelected = record.getIsSel();
         this.createdTime = record.getCreatedTime();
+        this.goodsCount = record.getGoodsCnt();
     }
 
     public String getCartRecordID(){

@@ -6,10 +6,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "DormScore", schema = "\".\"", catalog = "\".\"")
-public class DormScoreEntity {
-    private Timestamp scoringDate;
-    private String score;
+public class DormRecordEntity {
     private String id;
+    private Timestamp scoringDate;
+    private Integer score;
+    private Double fees;
     private DormEntity dormByDormId;
 
     @Basic
@@ -24,11 +25,11 @@ public class DormScoreEntity {
 
     @Basic
     @Column(name = "Score")
-    public String getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(String score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 
@@ -46,7 +47,7 @@ public class DormScoreEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DormScoreEntity that = (DormScoreEntity) o;
+        DormRecordEntity that = (DormRecordEntity) o;
         return Objects.equals(scoringDate, that.scoringDate) &&
                 Objects.equals(score, that.score) &&
                 Objects.equals(id, that.id);
@@ -65,5 +66,15 @@ public class DormScoreEntity {
 
     public void setDormByDormId(DormEntity dormByDormId) {
         this.dormByDormId = dormByDormId;
+    }
+
+    @Basic
+    @Column(name = "Fees")
+    public Double getFees() {
+        return fees;
+    }
+
+    public void setFees(Double fees) {
+        this.fees = fees;
     }
 }

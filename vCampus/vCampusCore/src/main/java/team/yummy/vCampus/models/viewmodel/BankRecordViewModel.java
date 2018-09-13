@@ -1,4 +1,6 @@
 package team.yummy.vCampus.models.viewmodel;
+import team.yummy.vCampus.models.entity.BankRecordEntity;
+
 import java.util.*;
 import java.sql.Timestamp;
 
@@ -6,50 +8,41 @@ import java.sql.Timestamp;
  * 交易信息表项的视图模型类，用于前端展示银行账户交易记录
  * @author Dailin
  */
-public class BankRecordViewModel{
-    private int bankRecordID;
-    private String campusCardID;
-    private double deposit;
-    private Timestamp depositTime;
+public class BankRecordViewModel {
+    private Double incomeAndExpense;
+    private Timestamp recordTime;
+    private String reason;
 
-    public BankRecordViewModel(int bankRecordID,String campusCardID,double deposit,Timestamp depositTime){
-        this.bankRecordID = bankRecordID;
-        this.campusCardID = campusCardID;
-        this.deposit = deposit;
-        this.depositTime = depositTime;
+    public BankRecordViewModel() {}
+
+    public BankRecordViewModel(BankRecordEntity entity) {
+        this.incomeAndExpense = entity.getIncomeAndExpense();
+        this.recordTime = entity.getRecordTime();
+        this.reason = entity.getReason();
     }
 
-    public int getBankRecordID(){
-        return this.bankRecordID;
+    public Double getIncomeAndExpense() {
+        return incomeAndExpense;
     }
 
-    public void setBankRecordID(int bankRecordID){
-        this.bankRecordID = bankRecordID;
+    public void setIncomeAndExpense(Double incomeAndExpense) {
+        this.incomeAndExpense = incomeAndExpense;
     }
 
-    public String getCampusCardID() { 
-        return this.campusCardID; 
+    public Timestamp getRecordTime() {
+        return recordTime;
     }
 
-    public void setCampusCardID(String campusCardID) { 
-        this.campusCardID = campusCardID; 
+    public void setRecordTime(Timestamp recordTime) {
+        this.recordTime = recordTime;
     }
 
-    public double getDeposit(){
-        return this.deposit;
+    public String getReason() {
+        return reason;
     }
 
-    public void setDeposit(double deposit){
-        this.deposit = deposit;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
-
-    public Timestamp getDepostTime(){
-        return this.depositTime;
-    }
-
-    public void setDepositTime(Timestamp depositTime){
-        this.depositTime = depositTime;
-    }
-
 }
 

@@ -10,7 +10,7 @@ public class DormEntity {
     private String dormId;
     private Integer bedNo;
     private AccountEntity accountByCampusCardId;
-    private Collection<DormScoreEntity> dormScoresByDormId;
+    private Collection<DormRecordEntity> dormRecordsByDormId;
 
     @Id
     @Column(name = "DormID")
@@ -57,11 +57,11 @@ public class DormEntity {
     }
 
     @OneToMany(mappedBy = "dormByDormId")
-    public Collection<DormScoreEntity> getDormScoresByDormId() {
-        return dormScoresByDormId;
+    public Collection<DormRecordEntity> getDormRecordsByDormId() {
+        return dormRecordsByDormId;
     }
 
-    public void setDormScoresByDormId(Collection<DormScoreEntity> dormScoresByDormId) {
-        this.dormScoresByDormId = dormScoresByDormId;
+    public void setDormRecordsByDormId(Collection<DormRecordEntity> dormScoresByDormId) {
+        this.dormRecordsByDormId = dormScoresByDormId;
     }
 }

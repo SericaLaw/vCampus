@@ -3,10 +3,13 @@ package team.yummy.vCampus.server;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import team.yummy.vCampus.server.framework.Session;
+import team.yummy.vCampus.server.middlewares.ApiMiddleware;
 import team.yummy.vCampus.server.middlewares.AuthMiddleware;
-import team.yummy.vCampus.server.middlewares.Middleware;
+import team.yummy.vCampus.server.framework.Middleware;
 import team.yummy.vCampus.server.middlewares.RoutingMiddleware;
 import team.yummy.vCampus.server.middlewares.SessionMiddleware;
+import team.yummy.vCampus.server.framework.WebContext;
 import team.yummy.vCampus.util.Logger;
 
 import java.io.IOException;
@@ -61,8 +64,9 @@ public class Server {
         dbFactory = dbConfig.buildSessionFactory();
 
         middlewares.add(new SessionMiddleware());
-        middlewares.add(new AuthMiddleware());
         middlewares.add(new RoutingMiddleware());
+        middlewares.add(new AuthMiddleware());
+        middlewares.add(new ApiMiddleware());
     }
 
     /**

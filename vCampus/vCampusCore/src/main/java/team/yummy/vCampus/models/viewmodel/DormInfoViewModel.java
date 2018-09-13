@@ -6,23 +6,24 @@ package team.yummy.vCampus.models.viewmodel;
  */
 import team.yummy.vCampus.models.entity.*;
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 
 public class DormInfoViewModel {
     private String campusCardID;
     private String dormID;
-    private int score;
-    private Timestamp scoringDate;
-    private double waterAndElectricityFees;
+    private Integer bedNo;
+    private List<DormRecordViewModel> records;
 
     public DormInfoViewModel() {}
 
-    public DormInfoViewModel(String campusCardID, String dormID,int score, Timestamp scoringDate, double waterAndElectricityFees){
-        this.campusCardID = campusCardID;
-        this.dormID = dormID;
-        this.score = score;
-        this.scoringDate = scoringDate;
-        this.waterAndElectricityFees = waterAndElectricityFees;
+    public DormInfoViewModel(DormEntity entity) {
+        campusCardID = entity.getAccountByCampusCardId().getCampusCardId();
+        dormID = entity.getDormId();
+        bedNo = entity.getBedNo();
+        records = entity.getDormRecordsByDormId().stream().map(d -> new DormRecordViewModel(d)).collect(Collectors.toList());
     }
 
     public String getCampusCardID() { 
@@ -41,29 +42,11 @@ public class DormInfoViewModel {
         this.dormID = dormID; 
     }
 
-    public int getScore(){
-        return this.score;
+    public List<DormRecordViewModel> getRecords() {
+        return records;
     }
 
-    public void setScore(int score){
-        this.score = score;
+    public void setRecords(List<DormRecordViewModel> records) {
+        this.records = records;
     }
-
-    public Timestamp getScoringDate(){
-        return this.scoringDate;
-    }
-
-    public void setScoringDate(Timestamp scoringDate){
-        this.scoringDate = scoringDate;
-    }
-
-    public double getWaterAndElectricityFees(){
-        return this.waterAndElectricityFees;
-    }
-
-    public void setWaterAndElectricityFees(double waterAndElectricityFees){
-        this.waterAndElectricityFees = waterAndElectricityFees;
-    }
-
-    
 }

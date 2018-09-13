@@ -11,14 +11,15 @@ import team.yummy.vCampus.models.entity.*;
 import team.yummy.vCampus.models.viewmodel.CourseRegisterViewModel;
 import team.yummy.vCampus.models.viewmodel.CourseReportViewModel;
 import team.yummy.vCampus.models.viewmodel.CourseScheduleViewModel;
-import team.yummy.vCampus.server.Controller;
 import team.yummy.vCampus.server.annotation.*;
+import team.yummy.vCampus.server.framework.Controller;
 
 import java.util.*;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Authorize(roles = { "admin", "student" })
 public class CourseController extends Controller {
 
     /**
@@ -299,9 +300,8 @@ public class CourseController extends Controller {
      * WebResponse res = api.post("/course/register", courseId);
      */
     @Post(route = "register")
-    public String registerCourse() {
+    public String registerCourse(@FromBody String courseId) {
         String campusCardId = webContext.session.getString("campusCardId");
-        String courseId = webContext.request.getBody();
         Transaction tx = dbSession.beginTransaction();
         CourseEntity course = dbSession.get(CourseEntity.class, courseId);
 
@@ -359,7 +359,7 @@ public class CourseController extends Controller {
      * WebResponse res = api.delete("/course/register/{courseId}");
      */
     @Delete(route = "register")
-    public String unregisterCourse(String courseId) {
+    public String unregisterCourse(@FromUrl String courseId) {
         String campusCardId = webContext.session.getString("campusCardId");
         Transaction tx = dbSession.beginTransaction();
         CourseEntity course = dbSession.get(CourseEntity.class, courseId);
@@ -401,54 +401,7 @@ public class CourseController extends Controller {
 
     /**
      * @apiGroup Course
-     * @api {patch} /course/record ModifyCourseRecord
-     * @apiPermission teacher
-     * @apiDescription 登记或改变学生成绩
-     * @apiParamExample Code Snippets
-     * WebResponse res = api.patch("/course/record", "{"id":"uuid", "score":"the score"}");
-     * @apiSuccessExample Success-Response:
-     *      200 OK
-     */
-
-    @Patch(route = "record")
-    public void modifyCourseRecord() {
-
-    }
-
-    /**
-     * @apiGroup Course
-     * @api {get} /course/record GetCourseRecord
-     * @apiPermission teacher
-     * @apiDescription 获取任教课程对应学生的CourseReport列表
-     * @apiParamExample Code Snippets
-     * WebResponse res = api.get("/course/record");
-     * List<TeacherCourseReportViewModel> reportList = res.dataList(TeacherCourseReportViewModel.class);
-     * @apiSuccessExample Success-Response:
-     *      200 OK
-     */
-    @Get(route = "record")
-    public void getCourseRecord() {
-
-    }
-
-    /**
-     * @apiGroup Course
-     * @api {get} /course/teacher GetTeacherCourseSchedule
-     * @apiPermission teacher
-     * @apiDescription 根据ProfCampusCardId获取教师任教的课程表
-     * @apiParamExample Code Snippets
-     * WebResponse res = api.get("/course/teacher");
-     * List<CourseScheduleViewModel> schedules = res.dataList(CourseScheduleViewModel.class);
-     * @apiSuccessExample Success-Response:
-     *      200 OK
-     */
-    @Get(route = "teacher")
-    public void getTeacherCourseSchedule() {
-
-    }
-    /**
-     * @apiGroup Course
-     * @api {get} /course/list GetCourseList
+     * @api {get} /course GetCourseList
      * @apiPermission admin
      * @apiDescription 获取本学期开设的课程列表
      * @apiSuccess List_CourseRegisterViewModel List of CourseRegisterViewModel
