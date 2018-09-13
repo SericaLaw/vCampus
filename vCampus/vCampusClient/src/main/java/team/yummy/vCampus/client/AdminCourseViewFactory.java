@@ -42,9 +42,7 @@ import java.util.*;
 
 import static java.lang.Math.min;
 import static javafx.animation.Interpolator.EASE_BOTH;
-import static javafx.geometry.Pos.BASELINE_CENTER;
-import static javafx.geometry.Pos.CENTER;
-import static javafx.geometry.Pos.CENTER_LEFT;
+import static javafx.geometry.Pos.*;
 import static sun.swing.MenuItemLayoutHelper.max;
 
 
@@ -128,13 +126,17 @@ public class AdminCourseViewFactory {
         List<HBox> rows = new ArrayList<>();
 
         final HBox newRow = new HBox();
+        newRow.setSpacing(100);
+        newRow.setAlignment(CENTER);
         VBox courseInfoCol = new VBox();
-        courseInfoCol.setStyle("-fx-spacing: 10");
+        courseInfoCol.setStyle("-fx-spacing: 15");
 
         JFXTextField courseName = new JFXTextField();
         courseName.setPromptText("课程名称");
         courseName.getStyleClass().add("register-item__course-name");
-
+        courseName.setStyle("-fx-font-size: 22;-fx-text-fill: #673AB7;");
+        courseName.setMaxSize(240,50);
+        courseName.setAlignment(CENTER);
         HBox courseDetailInfo = new HBox();
         courseDetailInfo.setStyle("-fx-alignment: center-left");
         courseDetailInfo.setStyle("-fx-spacing: 10");
@@ -142,9 +144,13 @@ public class AdminCourseViewFactory {
         JFXTextField courseTeacher = new JFXTextField();
         courseTeacher.setPromptText("教师姓名");
         courseTeacher.setStyle("-fx-text-fill: #757575");
+        courseTeacher.setAlignment(CENTER);
+        courseTeacher.setMaxWidth(130);
         JFXTextField courseCredit = new JFXTextField();
         courseCredit.setPromptText("学分");
         courseCredit.setStyle("-fx-text-fill: #757575");
+        courseCredit.setAlignment(CENTER);
+        courseCredit.setMaxWidth(50);
         courseDetailInfo.getChildren().addAll(courseTeacher, courseCredit);
         courseInfoCol.getChildren().addAll(courseName, courseDetailInfo);
         courseInfoCol.getStyleClass().add("register-item");
@@ -155,6 +161,8 @@ public class AdminCourseViewFactory {
         JFXTextField courseVenue = new JFXTextField();
         courseVenue.setPromptText("教室：如“J6-103”");
         courseVenue.setStyle("-fx-font-size: 18");
+        courseVenue.setAlignment(BASELINE_CENTER);
+        courseVenue.setMinHeight(70);
         courseVenueCol.getChildren().addAll(courseVenue);
         courseVenue.getStyleClass().add("register-item");
         newRow.getChildren().add(courseVenueCol);
@@ -174,11 +182,13 @@ public class AdminCourseViewFactory {
         opCol.setStyle("-fx-min-width: 50");
         opCol.setStyle("-fx-pref-width: 50");
         JFXButton buttonOp = new JFXButton("编辑");
+        buttonOp.setAlignment(Pos.BOTTOM_LEFT);
 
         // TODO: 按钮事件
 
 
         buttonOp.setButtonType(JFXButton.ButtonType.RAISED);
+        opCol.setAlignment(BASELINE_LEFT);
         opCol.getChildren().addAll(buttonOp);
         newRow.getChildren().addAll(opCol);
 

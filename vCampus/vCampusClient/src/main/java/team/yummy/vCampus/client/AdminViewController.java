@@ -183,7 +183,7 @@ public class AdminViewController extends ViewController implements Initializable
                 StorePane.setVisible(false);
                 AccountMagPane.setVisible(false);
                 dialog.setVisible(false);
-                stageController.setStage(App.WELCOME_VIEW_NAME, App.MAIN_VIEW_NAME);
+                stageController.setStage(App.WELCOME_VIEW_NAME, App.ADMIN_VIEW_NAME);
             }
         });
 

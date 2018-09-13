@@ -47,7 +47,7 @@
                             <children>
                                 <ImageView cache="true" fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@images/icon.png" />
+                                        <Image url="@images/avater.jpg" />
                                     </image>
                                 </ImageView>
                             </children>
@@ -148,8 +148,8 @@
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="150.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="106.0" minWidth="10.0" prefWidth="75.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="150.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="68.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="150.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="68.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="150.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="225.0" />
                                     </columnConstraints>
@@ -195,21 +195,21 @@
                                         <Label fx:id="si_seniorhigh" GridPane.columnIndex="5" GridPane.rowIndex="7" />
                                     </children>
                                 </GridPane>
-                        <GridPane layoutX="130.0" layoutY="45.0" prefHeight="30.0" prefWidth="294.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="54.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.0" minWidth="10.0" prefWidth="146.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
+                                <GridPane layoutX="130.0" layoutY="45.0" prefHeight="30.0" prefWidth="294.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="103.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="54.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.0" minWidth="10.0" prefWidth="146.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="36.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
                                         <JFXButton fx:id="addStu_Bt" onAction="#addStudent" prefHeight="36.0" prefWidth="103.0" text="添加学生" />
-                                        <JFXButton fx:id="editStu_Bt" visible="false" onAction="#editStudent" prefHeight="36.0" prefWidth="103.0" text="编辑信息" GridPane.columnIndex="2" />
-                                        <JFXButton fx:id="saveNewStu_Bt" visible="false" onAction="#saveNewStudent" prefHeight="36.0" prefWidth="103.0" text="保存信息" GridPane.columnIndex="2" />
-                           </children>
-                        </GridPane>
+                                        <JFXButton fx:id="editStu_Bt" onAction="#editStudent" prefHeight="36.0" prefWidth="103.0" text="编辑信息" visible="false" GridPane.columnIndex="2" />
+                                        <JFXButton fx:id="saveNewStu_Bt" onAction="#saveNewStudent" prefHeight="36.0" prefWidth="103.0" text="保存信息" visible="false" GridPane.columnIndex="2" />
+                                    </children>
+                                </GridPane>
                             </children>
                         </AnchorPane>
                         <AnchorPane id="content__course" fx:id="CoursePane" prefHeight="740.0" prefWidth="950.0" visible="false">
