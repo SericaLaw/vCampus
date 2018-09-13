@@ -904,6 +904,59 @@ public class MainViewController extends ViewController implements Initializable 
             DormCost.set(c);
         }
     }
+   @FXML
+   protected void Recharge(ActionEvent actionEvent){
+        final JFXDialog dialog = new JFXDialog();
+        HBox hb1 = new HBox();
+        HBox hb2 = new HBox();
+        VBox vb = new VBox();
+        Label text =new Label("请输入密码：");
+        text.setFont(Font.font(20));
+        text.setTextFill(Color.web("black"));
+        text.setPadding(new Insets(10,0,0,40));
+        text.setPrefSize(160,200);
+        JFXPasswordField password = new JFXPasswordField();
+        password.setPadding(new Insets(10,0,0,0));
+        hb1.setPadding(new Insets(0,10,30,280));
+        JFXButton ok=new JFXButton("确定");
+        JFXButton cancel=new JFXButton("取消");
+        ok.setFont(Font.font(17));
+        ok.setPrefSize(80,35);
+        ok.setBackground(new Background(new BackgroundFill(Color.web("#B15BFF"),null,null)));
+        ok.setTextFill(Color.web("#fff"));
+        cancel.setFont(Font.font(17));
+        cancel.setPrefSize(80,35);
+        cancel.setBackground(new Background(new BackgroundFill(Color.web("#707070"),null,null)));
+        cancel.setTextFill(Color.web("#fff"));
+        hb1.setSpacing(35);
+        hb1.getChildren().addAll(ok,cancel);
+        vb.setPrefSize(500,250);
+        hb2.setAlignment(Pos.CENTER);
+        hb2.getChildren().addAll(text,password);
+        vb.getChildren().addAll(hb2,hb1);
+        dialog.setContent(vb);
+        dialog.show(rootStackPane);
+
+        ok.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //支付的操作
+                // 1.比较密码输入是否正确
+                if(password.getText().equals(currentAccount.getPassword())){
+
+                }
+                // 2.比较余额是否足够支付
+                // 3.成功支付后 欠费清零 余额减少 消费记录增加
+                dialog.setVisible(false);
+            }
+        });
+
+        cancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                dialog.setVisible(false);            }
+        });
+    }
 
 }
 
