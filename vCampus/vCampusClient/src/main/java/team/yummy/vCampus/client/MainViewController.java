@@ -162,6 +162,9 @@ public class MainViewController extends ViewController implements Initializable 
     public double xOffset = 0;
     public double yOffset = 0;
 
+    final ObservableList<Bank> BANK = FXCollections.observableArrayList();
+    @FXML public TableColumn reason;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {     //点其他栏目的时候要不initpane上的图案淡一点？
         togglePane(InitPane, Bt_Init);
@@ -325,18 +328,28 @@ public class MainViewController extends ViewController implements Initializable 
         StorePane.setVisible(false);
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
-        WebResponse res = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
-        // StuInfo stuInfoViewModel = res.dataList(StuInfo.class, 0);
-        Lbank_name.setText(currentAccount.getFirstName()+currentAccount.getLastName());
-        // Lbank_num.setText(currentAccount.get);  获取账号尾号
-        // Lbank_balance.setText(currentAccount.get);  获取账户余额
-        // Lbank_wat_elec.setText(currentAccount.get);  获取水电费
-        // Lbank_tuition.setText(currentAccount.get);  获取学费
+
+        WebResponse res = api.get("/bank/info");
+        BankInfoViewModel bankInfo = res.data(BankInfoViewModel.class);
+        WebResponse res2 = api.get("/stuInfo/campusCardID/" + currentAccount.getCampusCardId());
+
+       // Lbank_name.setText(currentAccount.getFirstName()+currentAccount.getLastName());
+
+        String s = String.valueOf(bankInfo.getBalance());
+        Lbank_balance.setText(s);
+
+
         money.setCellValueFactory(new PropertyValueFactory<>("deposit"));
         time.setCellValueFactory(new PropertyValueFactory<>("deposittime"));
-        final ObservableList<Bank> BANK = FXCollections.observableArrayList(
-                new Bank("不知道","25点")
-        );
+        reason.setCellValueFactory(new PropertyValueFactory<>("depositreason"));
+
+        for(BankRecordViewModel bankrecord:bankInfo.getBankRecordList()){
+            String s1=String.valueOf(bankrecord.getIncomeAndExpense());
+            String s2=bankrecord.getRecordTime().toString();
+            BANK.add(new Bank(s1,s2,bankrecord.getReason()));
+        }
+
+
         main_bankTV.setItems(BANK);
 
     }
@@ -808,11 +821,13 @@ public class MainViewController extends ViewController implements Initializable 
     public class Bank {
         private final SimpleStringProperty deposit;
         private final SimpleStringProperty deposittime;
+        private final SimpleStringProperty depositreason;
 
 
-        private Bank(String Deposit, String Deposittime) {
+        private Bank(String Deposit, String Deposittime,String Depositreason ) {
             this.deposit = new SimpleStringProperty(Deposit);
             this.deposittime = new SimpleStringProperty(Deposittime);
+            this.depositreason=new SimpleStringProperty(Depositreason);
 
         }
 
@@ -830,6 +845,9 @@ public class MainViewController extends ViewController implements Initializable 
         public void setDeposittime(String Deposittime) {
             deposittime.set(Deposittime);
         }
+
+        public String getDepositreason(){return depositreason.get();}
+        public void getDepositreason(String Despositreason){ depositreason.set(Despositreason);}
     }
     public class Dorm
     {
