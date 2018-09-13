@@ -163,9 +163,16 @@
     -fx-border-radius: 5;
 }
 
-#content__d__Year,#content__d__Month,#content__d__Score,#content__d__Fare{
+#content__d__Year.header,#content__d__Month.header,#content__d__Score.header,#content__d__Fare.header{
     -fx-background-color:#b196f3;
     -fx-font-size:20px;
+}
+#content__d__Year.table-column,
+#content__d__Month.table-column,
+#content__d__Score.table-column,
+#content__d__Fare.table-column
+{
+    -fx-alignment:center;
 }
 
 #bank_info,#bank_pay,#bank_record
@@ -210,9 +217,14 @@
     -fx-cursor: hand;
 }
 
-#time, #money {
+#time.column-header, #money.column-header {
     -fx-background-color:#b196f3;
     -fx-font-size:20px;
+}
+
+#time.table-column,#money.table-column{
+    -fx-alignment: center;
+
 }
 
 #content__lib__Borrowed,#content__lib__Search,#content__lib__Inquire{
