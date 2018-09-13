@@ -4,12 +4,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.effects.JFXDepthManager;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -95,12 +99,23 @@ public class MainViewController extends ViewController implements Initializable 
     @FXML private Label Lbank_wat_elec;
     @FXML private Label Lbank_tuition;
 
+    @FXML private Label DormID;
+    @FXML private Label DormScoreID;
+    @FXML private Label DormCostID;
+    @FXML private TableView DormTable;
+    @FXML private TableColumn content__d__Year;
+    @FXML private TableColumn content__d__Month;
+    @FXML private TableColumn content__d__Score;
+    @FXML private TableColumn content__d__Fare;
+
     @FXML public VBox library_inquireBox;
     @FXML public TextField library_InquireText;
     @FXML protected VBox library_borrowedBox;
     public List<BorrowRecordViewModel> borrowedbookList=new ArrayList<>();
 
-
+    @FXML private TableColumn time;
+    @FXML private TableColumn money;
+    @FXML private TableView  main_bankTV;
 
     /**
      * members for store page
@@ -279,8 +294,44 @@ public class MainViewController extends ViewController implements Initializable 
         factory.createCourseRegister(courseRegister);
     }
     @FXML
-    protected void switchDorm(ActionEvent actionEvent) {
+    protected void switchDorm(ActionEvent actionEvent)
+    {
         togglePane(DormPane, Bt_Dorm);
+        DormPane.setVisible(true);
+        BankPane.setVisible(false);
+        StuInfoPane.setVisible(false);
+        CoursePane.setVisible(false);
+        LibraryPane.setVisible(false);
+        StorePane.setVisible(false);
+        AccountMagPane.setVisible(false);
+        InitPane.setVisible(false);
+
+        WebResponse res = api.get("/dorm/info");
+        List<DormInfoViewModel> dormInfoList = res.dataList(DormInfoViewModel.class);
+
+/*        for(DormInfoViewModel DormInfo:dormInfoList)
+        {
+            if(DormInfo.getCampusCardID() == currentAccount.getCampusCardId())
+            {
+                DormID.setText(DormInfo.getDormID());
+//                DormScoreID.setText(String.valueOf(DormInfo.getRecords()));
+//                DormCostID.setText(String.valueOf(DormInfo.get));
+                break;
+            }
+        }*/
+        //获取卫生和水电记录
+
+        content__d__Year.setCellValueFactory(new PropertyValueFactory<>("year"));
+        content__d__Month.setCellValueFactory(new PropertyValueFactory<>("month"));
+        content__d__Score.setCellValueFactory(new PropertyValueFactory<>("DormScore"));
+        content__d__Fare.setCellValueFactory(new PropertyValueFactory<>("DormCost"));
+
+        final ObservableList<Dorm> data = FXCollections.observableArrayList(
+                new Dorm("2015","5","15","25")
+        );
+
+        DormTable.setItems(data);
+
     }
     @FXML
     protected void switchBank(ActionEvent actionEvent)
@@ -301,6 +352,13 @@ public class MainViewController extends ViewController implements Initializable 
         // Lbank_balance.setText(currentAccount.get);  获取账户余额
         // Lbank_wat_elec.setText(currentAccount.get);  获取水电费
         // Lbank_tuition.setText(currentAccount.get);  获取学费
+        money.setCellValueFactory(new PropertyValueFactory<>("deposit"));
+        time.setCellValueFactory(new PropertyValueFactory<>("deposittime"));
+        final ObservableList<Bank> BANK = FXCollections.observableArrayList(
+                new Bank("不知道","25点")
+        );
+        main_bankTV.setItems(BANK);
+
     }
     @FXML
     protected void switchLibrary(ActionEvent actionEvent) {
@@ -767,6 +825,91 @@ public class MainViewController extends ViewController implements Initializable 
         paneToDisplay.setVisible(true);
     }
 
+    public class Bank {
+        private final SimpleStringProperty deposit;
+        private final SimpleStringProperty deposittime;
+
+
+        private Bank(String Deposit, String Deposittime) {
+            this.deposit = new SimpleStringProperty(Deposit);
+            this.deposittime = new SimpleStringProperty(Deposittime);
+
+        }
+
+        public String getDeposit() {
+            return deposit.get();
+        }
+
+        public void setDeposit(String Deposit) {
+            deposit.set(Deposit);
+        }
+        public String getDeposittime() {
+            return deposittime.get();
+        }
+
+        public void setDeposittime(String Deposittime) {
+            deposittime.set(Deposittime);
+        }
+    }
+    public class Dorm
+    {
+        private final SimpleStringProperty year;
+        private final SimpleStringProperty month;
+        private final SimpleStringProperty DormScore;
+        private final SimpleStringProperty DormCost;
+
+        private Dorm(String Year,String mon,String Sco,String cost)
+        {
+            this.year = new SimpleStringProperty(Year);
+            this.month = new SimpleStringProperty(mon);
+            this.DormScore = new SimpleStringProperty(Sco);
+            this.DormCost = new SimpleStringProperty(cost);
+        }
+
+        public String getYear()
+        {
+            return year.get();
+        }
+
+        public void setYear(String y)
+        {
+            year.set(y);
+        }
+
+        public String getMonth()
+        {
+            return month.get();
+        }
+
+        public void setMonth(String m)
+        {
+            month.set(m);
+        }
+
+        public String getScore()
+        {
+            return DormScore.get();
+        }
+
+        public void setScore(String s)
+        {
+            DormScore.set(s);
+        }
+
+        public String getCost()
+        {
+            return DormCost.get();
+        }
+
+        public void setCost(String c)
+        {
+            DormCost.set(c);
+        }
+    }
+
 }
+
+
+
 
 

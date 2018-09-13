@@ -485,14 +485,14 @@
                         </AnchorPane>
                         <AnchorPane fx:id="DormPane" prefHeight="747.0" prefWidth="590.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <TreeTableView layoutX="105.0" layoutY="370.0" prefHeight="292.0" prefWidth="747.0">
+                                <TableView layoutX="105.0" layoutY="370.0" prefHeight="292.0" prefWidth="747.0" fx:id="DormTable">
                                     <columns>
-                                        <TreeTableColumn fx:id="content__d__Year" prefWidth="120.0" text="年" />
-                                        <TreeTableColumn fx:id="content__d__Month" prefWidth="120.0" text="月" />
-                                        <TreeTableColumn fx:id="content__d__Score" prefWidth="244.0" text="卫生成绩" />
-                                        <TreeTableColumn fx:id="content__d__Fare" prefWidth="262.0" text="水电费" />
+                                        <TableColumn fx:id="content__d__Year" prefWidth="120.0" text="年" />
+                                        <TableColumn fx:id="content__d__Month" prefWidth="120.0" text="月" />
+                                        <TableColumn fx:id="content__d__Score" prefWidth="244.0" text="卫生成绩" />
+                                        <TableColumn fx:id="content__d__Fare" prefWidth="262.0" text="水电费" />
                                     </columns>
-                                </TreeTableView>
+                                </TableView>
                                 <GridPane layoutX="101.0" layoutY="68.0" prefHeight="77.0" prefWidth="262.0">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="105.0" />
@@ -613,12 +613,12 @@
                                 </GridPane>
                                 <Line endX="680.0" layoutX="224.0" layoutY="375.0" startX="-180.0" stroke="#dddbdb" />
                                 <Label fx:id="bank_record" layoutX="51.0" layoutY="404.0" text="消费记录" />
-                                <TreeTableView layoutX="202.0" layoutY="441.0" prefHeight="220.0" prefWidth="560.0">
+                                <TableView layoutX="202.0" layoutY="441.0" prefHeight="220.0" prefWidth="560.0" fx:id="main_bankTV">
                                     <columns>
-                                        <TreeTableColumn fx:id="money" prefWidth="265.0" text="消费金额" />
-                                        <TreeTableColumn fx:id="time" minWidth="0.0" prefWidth="294.0" text="消费时间" />
+                                        <TableColumn fx:id="money" prefWidth="265.0" text="消费金额" />
+                                        <TableColumn fx:id="time" minWidth="0.0" prefWidth="294.0" text="消费时间" />
                                     </columns>
-                                </TreeTableView>
+                                </TableView>
                             </children></AnchorPane>
                         <AnchorPane fx:id="StorePane" prefHeight="747.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>

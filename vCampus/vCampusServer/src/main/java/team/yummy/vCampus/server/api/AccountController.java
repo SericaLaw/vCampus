@@ -19,7 +19,8 @@ public class AccountController extends Controller {
      * @apiSuccess AccountViewModel AccountViewModel
      * @apiParamExample Code Snippets
      * LoginViewModel login = new LoginViewModel(username, password);
-     * WebResponse res = api.post("/account/login", JSON.toJSONString(login));
+     * WebResponse res = api.p
+     * ost("/account/login", JSON.toJSONString(login));
      * @apiSuccessExample Success-Response:
      *     200 OK
      *     {

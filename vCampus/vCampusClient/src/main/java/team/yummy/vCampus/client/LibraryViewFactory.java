@@ -181,7 +181,7 @@ public class LibraryViewFactory {
             Label borrowedbookDate=new Label("借阅时间："+borrowdate);
             Label returnDate=new Label("到期时间："+returndate);
             JFXButton buttonreturn = new JFXButton("归还");
-            Image borrowedbookImage = new Image("./images/Library.jpg", 240, 160, false, true, true);
+            Image borrowedbookImage = new Image("./images/Library.jpg", 240, 160, true, true, true);
             ImageView borrowedbookImageContent = new ImageView(borrowedbookImage);
             InfoCard.getChildren().addAll(borrowedbookID,borrowedbookName,borrowedbookWriter,borrowedbookPublisher,borrowedbookDate,returnDate);
 
@@ -225,7 +225,7 @@ public class LibraryViewFactory {
             newRow.setAlignment(Pos.CENTER_LEFT);
             newRow.setPrefWidth(300);
             newRow.setPadding(new Insets(40, 30, 5, 40));
-            newRow.setSpacing(20);
+            newRow.setSpacing(100);
 
             rows.add(newRow);
 
