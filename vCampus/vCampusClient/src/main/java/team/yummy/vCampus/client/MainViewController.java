@@ -301,7 +301,7 @@ public class MainViewController extends ViewController implements Initializable 
         for(Dorm d: r) {
             if(d.getMonth().equals(curMonth) && d.getYear().equals(curYear)) {
                 scoreCurMonth.setText(d.getScore());
-                feesCurMonth.setText(d.getMonth());
+                feesCurMonth.setText(d.getCost());
             }
 
         }

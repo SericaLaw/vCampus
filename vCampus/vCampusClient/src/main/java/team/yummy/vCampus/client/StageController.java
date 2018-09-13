@@ -5,8 +5,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.*;
+import jdk.internal.util.xml.impl.Input;
 import team.yummy.vCampus.util.Api;
 
+import java.io.InputStream;
 import java.util.HashMap;
 
 /**
@@ -59,8 +61,6 @@ public class StageController {
     public void setPrimaryStage(String primaryStageName, Stage primaryStage) {
         this.addStage(primaryStageName, primaryStage);
         primaryStage.setIconified(true);
-//        primaryStage.getIcons().set
-        primaryStage.getIcons().add(new Image("./images/icon_new.png"));
 
     }
 
@@ -69,6 +69,8 @@ public class StageController {
         try {
             //加载FXML资源文件
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(resource));
+//            InputStream in = getClass().getClassLoader().getResourceAsStream(resource);
+//            FXMLLoader loader = new FXMLLoader();
             Parent root = (Parent) loader.load();
 
             //通过Loader获取FXML对应的ViewCtr，并将本StageController注入到ViewCtr中

@@ -471,7 +471,7 @@
                                     <children>
                                         <Label styleClass="column-title" text="当月卫生成绩" GridPane.halignment="CENTER" />
                                         <Label fx:id="scoreCurMonth" styleClass="column-content" text="93" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                        <!--<Label styleClass="column-title" text="当月水电费" GridPane.columnIndex="1" GridPane.halignment="CENTER" />-->
+                                        <Label styleClass="column-title" text="当月水电费" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
                                         <Label fx:id="feesCurMonth" styleClass="column-content" text="26" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                                     </children>
                                 </GridPane>

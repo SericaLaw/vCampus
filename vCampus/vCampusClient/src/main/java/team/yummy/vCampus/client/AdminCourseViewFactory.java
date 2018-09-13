@@ -63,7 +63,7 @@ public class AdminCourseViewFactory {
         for(final CourseRegisterViewModel course : courses) {
 
             final HBox newRow = new HBox();
-            newRow.setSpacing(50);
+            newRow.setSpacing(30);
             newRow.setAlignment(CENTER);
             newRow.setPadding(new Insets(40, 30, 5, 40));
             VBox courseInfoCol = new VBox();
@@ -143,7 +143,8 @@ public class AdminCourseViewFactory {
             editcourse.setBackground(new Background(new BackgroundFill(Color.web("#7C4DFF"),null,null)));
             editcourse.setTextFill(Color.web("#FFF"));
             editcourse.setFont(Font.font(18));
-            editcourse.setAlignment(Pos.BOTTOM_RIGHT);
+            editcourse.setAlignment(Pos.BOTTOM_CENTER);
+            editcourse.setMinWidth(70);
 
             opCol.setAlignment(BASELINE_LEFT);
             opCol.getChildren().addAll(errorText,editcourse);
@@ -211,7 +212,7 @@ public class AdminCourseViewFactory {
         List<HBox> rows = new ArrayList<>();
 
         final HBox newRow = new HBox();
-        newRow.setSpacing(50);               //////////////////////////////////////////
+        newRow.setSpacing(30);               //////////////////////////////////////////
         newRow.setAlignment(CENTER);
         newRow.setPadding(new Insets(40, 30, 5, 40));
         VBox courseInfoCol = new VBox();
@@ -289,8 +290,8 @@ public class AdminCourseViewFactory {
         editcourse.setBackground(new Background(new BackgroundFill(Color.web("#7C4DFF"),null,null)));
         editcourse.setTextFill(Color.web("#FFF"));
         editcourse.setFont(Font.font(18));
-        editcourse.setAlignment(Pos.BOTTOM_RIGHT);
-        editcourse.setMaxWidth(150);
+        editcourse.setAlignment(Pos.BOTTOM_CENTER);
+        editcourse.setMinWidth(70);
 
         opCol.setAlignment(BASELINE_LEFT);
         opCol.getChildren().addAll(errorText,editcourse);
