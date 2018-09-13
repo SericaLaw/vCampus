@@ -237,7 +237,7 @@ public class AdminViewController extends ViewController implements Initializable
         AccountMagPane.setVisible(false);
         InitPane.setVisible(false);
 
-        WebResponse res = api.get("/course");
+        WebResponse res = api.get("/course/list");
         List<CourseRegisterViewModel> courseRegisterViewModels = res.dataList(CourseRegisterViewModel.class);
         AdminCourseViewFactory admincourseViewFactory = new AdminCourseViewFactory(rootStackPane,this);
         List<HBox> row = admincourseViewFactory.createFullCourseRows(courseRegisterViewModels);
@@ -574,7 +574,7 @@ public class AdminViewController extends ViewController implements Initializable
 
     @FXML
     private void addCourse(ActionEvent actionEvent) {
-        WebResponse res = api.get("/course");
+        WebResponse res = api.get("/course/list");
         List<CourseRegisterViewModel> courseRegisterViewModels = res.dataList(CourseRegisterViewModel.class);
         AdminCourseViewFactory admincourseViewFactory = new AdminCourseViewFactory(rootStackPane,this);
         List<HBox> row=admincourseViewFactory.createEmptyCourseRows();

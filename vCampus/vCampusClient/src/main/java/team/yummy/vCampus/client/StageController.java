@@ -3,6 +3,7 @@ package team.yummy.vCampus.client;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.*;
 import team.yummy.vCampus.util.Api;
 
@@ -53,6 +54,10 @@ public class StageController {
      */
     public void setPrimaryStage(String primaryStageName, Stage primaryStage) {
         this.addStage(primaryStageName, primaryStage);
+        primaryStage.setIconified(true);
+//        primaryStage.getIcons().set
+        primaryStage.getIcons().add(new Image("./images/icon_new.png"));
+
     }
 
 

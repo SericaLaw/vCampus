@@ -102,20 +102,20 @@ public class AdminCourseViewFactory {
             courseVenue.getStyleClass().add("register-item");
             newRow.getChildren().add(courseVenueCol);
 
-//            VBox courseScheduleCol = new VBox();
-//            for(CourseScheduleViewModel s : course.getCourseSchedule()) {
-//
-//                HBox courseScheduleRow = new HBox();
-//                Label title_weekday=new Label("星期");
-//                JFXTextField weekday=new JFXTextField(Integer.toString(s.getWeekDay()));
-////                JFXTextField spanstart=new JFXTextField(Integer.toString(s.getSpanStart()));
-////                Label slash=new Label("-");
-////                JFXTextField spanend=new JFXTextField(Integer.toString(s.getSpanEnd()));
-//                courseScheduleRow.getChildren().addAll(title_weekday,weekday);
-//                //courseScheduleRow.getChildren().addAll(spanstart,slash,spanend);
-//                courseScheduleCol.getChildren().addAll(courseScheduleRow);
-//            }
-//            newRow.getChildren().add(courseScheduleCol);
+            VBox courseScheduleCol = new VBox();
+            for(CourseScheduleViewModel s : course.getCourseSchedule()) {
+
+                HBox courseScheduleRow = new HBox();
+                Label title_weekday=new Label("星期");
+                JFXTextField weekday=new JFXTextField(Integer.toString(s.getWeekDay()));
+                JFXTextField spanstart=new JFXTextField(Integer.toString(s.getSpanStart()));
+                Label slash=new Label("-");
+                JFXTextField spanend=new JFXTextField(Integer.toString(s.getSpanEnd()));
+                courseScheduleRow.getChildren().addAll(title_weekday,weekday);
+                //courseScheduleRow.getChildren().addAll(spanstart,slash,spanend);
+                courseScheduleCol.getChildren().addAll(courseScheduleRow);
+            }
+            newRow.getChildren().add(courseScheduleCol);
 
             VBox opCol = new VBox();
             opCol.setStyle("-fx-min-width: 50");
