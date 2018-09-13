@@ -471,7 +471,7 @@
                                     <children>
                                         <Label styleClass="column-title" text="当月卫生成绩" GridPane.halignment="CENTER" />
                                         <Label styleClass="column-content" fx:id="scoreCurMonth" text="93" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                        <Label styleClass="column-title" text="当月水电费" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                                        <!--<Label styleClass="column-title" text="当月水电费" GridPane.columnIndex="1" GridPane.halignment="CENTER" />-->
                                         <Label styleClass="column-content" fx:id="feesCurMonth" text="26" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                                     </children>
                                 </GridPane>
@@ -537,7 +537,7 @@
                                 </GridPane>
                                 <Line endX="680.0" layoutX="224.0" layoutY="156.0" startX="-180.0" stroke="#dddbdb" />
                                 <Label fx:id="bank_info" layoutX="51.0" layoutY="45.0" text="基本信息" />
-                                <Label fx:id="bank_pay" layoutX="51.0" layoutY="182.0" text="生活缴费" />
+                                <!--<Label fx:id="bank_pay" layoutX="51.0" layoutY="182.0" text="生活缴费" />-->
                                 <GridPane layoutX="209.0" layoutY="189.0" prefHeight="127.0" prefWidth="483.0">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
@@ -549,10 +549,10 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label fx:id="bank_wat_elec" text="水 电 费" />
-                                        <Label fx:id="Lbank_wat_elec" prefHeight="30.0" prefWidth="85.0" text="26" GridPane.columnIndex="2" />
-                                        <Label fx:id="rmb1" text="¥" GridPane.columnIndex="1" />
-                                        <JFXButton fx:id="pay_button1" onAction="#paywatelec" prefHeight="30.0" prefWidth="65.0" text="缴费" GridPane.columnIndex="3" />
+                                        <!--<Label fx:id="bank_wat_elec" text="水 电 费" />-->
+                                        <!--<Label fx:id="Lbank_wat_elec" prefHeight="30.0" prefWidth="85.0" text="26" GridPane.columnIndex="2" />-->
+                                        <!--<Label fx:id="rmb1" text="¥" GridPane.columnIndex="1" />-->
+                                        <!--<JFXButton fx:id="pay_button1" onAction="#paywatelec" prefHeight="30.0" prefWidth="65.0" text="缴费" GridPane.columnIndex="3" />-->
                                     </children>
                                 </GridPane>
                                 <Line endX="680.0" layoutX="224.0" layoutY="375.0" startX="-180.0" stroke="#dddbdb" />

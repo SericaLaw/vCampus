@@ -35,6 +35,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import com.jfoenix.controls.*;
 
@@ -331,14 +332,14 @@ public class MainViewController extends ViewController implements Initializable 
     protected void switchBank(ActionEvent actionEvent)
     {
         togglePane(BankPane, Bt_Bank);
-        BankPane.setVisible(true);
-        StuInfoPane.setVisible(false);
-        CoursePane.setVisible(false);
-        DormPane.setVisible(false);
-        LibraryPane.setVisible(false);
-        StorePane.setVisible(false);
-        AccountMagPane.setVisible(false);
-        InitPane.setVisible(false);
+//        BankPane.setVisible(true);
+//        StuInfoPane.setVisible(false);
+//        CoursePane.setVisible(false);
+//        DormPane.setVisible(false);
+//        LibraryPane.setVisible(false);
+//        StorePane.setVisible(false);
+//        AccountMagPane.setVisible(false);
+//        InitPane.setVisible(false);
 
         WebResponse res = api.get("/bank/info");
         BankInfoViewModel bankInfo = res.data(BankInfoViewModel.class);
@@ -701,7 +702,7 @@ public class MainViewController extends ViewController implements Initializable 
         text.setTextFill(Color.web("black"));
         text.setPadding(new Insets(10,0,0,40));
         text.setPrefSize(160,200);
-        JFXPasswordField password = new JFXPasswordField();
+        JFXTextField password = new JFXTextField();
         password.setPadding(new Insets(10,0,0,0));
         hb1.setPadding(new Insets(0,10,30,280));
         JFXButton ok=new JFXButton("确定");
@@ -929,18 +930,22 @@ public class MainViewController extends ViewController implements Initializable 
             return cost;
         }
     }
+    public static boolean isInteger(String str) {
+        Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+        return pattern.matcher(str).matches();
+    }
    @FXML
    protected void Recharge(ActionEvent actionEvent){
         final JFXDialog dialog = new JFXDialog();
         HBox hb1 = new HBox();
         HBox hb2 = new HBox();
         VBox vb = new VBox();
-        Label text =new Label("请输入密码：");
+        Label text =new Label("请输入金额：");
         text.setFont(Font.font(20));
         text.setTextFill(Color.web("black"));
         text.setPadding(new Insets(10,0,0,40));
         text.setPrefSize(160,200);
-        JFXPasswordField password = new JFXPasswordField();
+        JFXTextField password = new JFXTextField();
         password.setPadding(new Insets(10,0,0,0));
         hb1.setPadding(new Insets(0,10,30,280));
         JFXButton ok=new JFXButton("确定");
@@ -967,8 +972,24 @@ public class MainViewController extends ViewController implements Initializable 
             public void handle(ActionEvent event) {
                 //支付的操作
                 // 1.比较密码输入是否正确
-                if(password.getText().equals(currentAccount.getPassword())){
+                JFXSnackbar bar = new JFXSnackbar(rootStackPane);
+                bar.setStyle("-fx-font-size: 24;");
 
+                if(isInteger(password.getText())) {
+                    int momney = Integer.valueOf(password.getText());
+                    double banlance = Double.valueOf(Lbank_balance.getText());
+                    double sum = momney + banlance;
+                    if(momney > 0) {
+                        String patch = String.format("{\"Balance\": \"%s\"}", String.valueOf(sum));
+                        api.patch("/bankAccount/campusCardID/" + currentAccount.getCampusCardId(), patch);
+                        switchBank(event);
+                        bar.enqueue(new JFXSnackbar.SnackbarEvent("充值成功"));
+                    } else {
+                        bar.enqueue(new JFXSnackbar.SnackbarEvent("输入非法"));
+                    }
+
+                } else {
+                    bar.enqueue(new JFXSnackbar.SnackbarEvent("输入非法"));
                 }
                 // 2.比较余额是否足够支付
                 // 3.成功支付后 欠费清零 余额减少 消费记录增加
