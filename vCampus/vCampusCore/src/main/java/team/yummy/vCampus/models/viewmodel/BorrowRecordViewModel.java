@@ -3,9 +3,8 @@ package team.yummy.vCampus.models.viewmodel;
 import java.util.Date;
 
 /**
+ * 在借图书的视图模型类，用于前端展示在借图书信息
  * @author Serica
- * 在借图书类
- * 存放关联查询的结果，用于前端展示在借图书信息
  */
 public class BorrowRecordViewModel {
     private String Id;

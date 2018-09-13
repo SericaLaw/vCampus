@@ -1,2 +1,10 @@
+team.yummy.vCampus.client
+team.yummy.vCampus.data
+team.yummy.vCampus.models
+team.yummy.vCampus.models.entity
+team.yummy.vCampus.models.viewmodel
 team.yummy.vCampus.server
+team.yummy.vCampus.server.annotation
 team.yummy.vCampus.server.middlewares
+team.yummy.vCampus.util
+team.yummy.vCampus.web

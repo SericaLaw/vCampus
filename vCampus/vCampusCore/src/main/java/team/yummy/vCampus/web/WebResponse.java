@@ -6,6 +6,11 @@ import com.alibaba.fastjson.JSON;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 响应类，用于后端向前端发送请求响应结果
+ * @author Serica
+ * @author Vigilans
+ */
 public class WebResponse implements Serializable {
     private Integer sessionId;
     private String body;
@@ -51,6 +56,12 @@ public class WebResponse implements Serializable {
     }
 
 
+    /**
+     * 用于前端获取响应体中包含的单个对象信息，把响应体的JSON字符串转换为对象实例
+     * @param clazz 要转换的对象原型
+     * @param <T> 对象类型
+     * @return 转换后的对象实例
+     */
     public <T> T data(Class<T> clazz) {
         String jsonData = getBody();
         // 将字符串转为T类
@@ -58,6 +69,12 @@ public class WebResponse implements Serializable {
         return parsedData;
     }
 
+    /**
+     * 用于前端获取响应体中包含的对象数组信息，把响应体的JSON字符串转换为对象实例列表
+     * @param clazz 要转换的对象原型
+     * @param <T> 对象类型
+     * @return 转换后的对象实例列表
+     */
     public <T> List<T>  dataList(Class<T> clazz) {
         String jsonData = getBody();
         // 将字符串转为 T 类
@@ -65,12 +82,23 @@ public class WebResponse implements Serializable {
         return list;
     }
 
+    /**
+     * 用于前端获取响应体中包含的对象数组信息，把响应体的JSON字符串转换为对象实例列表后，返回位于pos索引的对象实例
+     * @param clazz 要转换的对象原型
+     * @param pos 索引
+     * @param <T> 对象类型
+     * @return 转换后的对象实例
+     */
     public <T> T  dataList(Class<T> clazz, int pos) {
         String jsonData = getBody();
         List<T> list = JSON.parseArray(jsonData, clazz);
         return list.get(pos);
     }
 
+    /**
+     * 用于Logger打印响应信息
+     * @return 响应日志信息
+     */
     @Override
     public String toString() {
         return statusCode + " --> "  + message + "\n[ JSON deserializeBody = " + body + " ]\n[ sessionId = " + sessionId +" ]\n";

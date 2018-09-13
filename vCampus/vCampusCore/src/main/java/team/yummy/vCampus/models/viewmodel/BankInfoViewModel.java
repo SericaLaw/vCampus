@@ -5,9 +5,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * 银行信息表项的视图模型类，用于前端展示银行账户信息
  * @author Dailin
- * 银行信息表项?
- * 用于前端展示银行账户信息
  */
 public class BankInfoViewModel{
     private String campusCardID;

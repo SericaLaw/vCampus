@@ -10,6 +10,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 选课的视图模型类，用于前端展示选课信息
+ * @author Serica
+ */
 public class CourseRegisterViewModel {
     private String courseID;
     private String courseName;

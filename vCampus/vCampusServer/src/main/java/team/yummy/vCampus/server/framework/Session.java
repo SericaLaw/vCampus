@@ -9,6 +9,7 @@ import java.util.Random;
 
 /**
  * 会话控制类
+ * @author Vigilans
  */
 public class Session {
     // Session ID

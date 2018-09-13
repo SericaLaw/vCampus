@@ -9,6 +9,7 @@ import java.util.Random;
 
 /**
  * 会话类中间件，管理会话
+ * @author Vigilans
  */
 public class SessionMiddleware implements Middleware {
     @Override

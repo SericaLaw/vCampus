@@ -22,6 +22,7 @@ import java.util.TimerTask;
 
 /**
  * 服务器类，记录日志，管理session和中间件，连接服务器
+ * @author Vigilans
  */
 public class Server {
     // 日志记录

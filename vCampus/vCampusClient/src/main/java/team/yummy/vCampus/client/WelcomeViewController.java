@@ -22,6 +22,11 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * 登录界面的ViewController，用于处理登录页事件以及和服务端的数据交互以及相应视图的更新渲染
+ * @author WonderfulWan
+ * @author Serica
+ */
 public class WelcomeViewController extends ViewController implements Initializable {
 
     @FXML public TextField login_TcampusCardId;

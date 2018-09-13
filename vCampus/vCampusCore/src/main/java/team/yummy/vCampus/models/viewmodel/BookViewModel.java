@@ -5,9 +5,8 @@ import team.yummy.vCampus.models.entity.BookEntity;
 import java.util.UUID;
 
 /**
+ * 书籍的视图模型类，用于前端展示书籍信息
  * @author Serica
- * BookViewModel 前端展示类
- * 对应Book表?
  */
 public class BookViewModel {
     private String bookId = UUID.randomUUID().toString();

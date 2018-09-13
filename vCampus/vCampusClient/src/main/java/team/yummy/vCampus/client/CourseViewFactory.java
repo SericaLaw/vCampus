@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import team.yummy.vCampus.models.*;
-import team.yummy.vCampus.models.entity.CourseScheduleEntity;
 import team.yummy.vCampus.models.viewmodel.CourseRegisterViewModel;
 import team.yummy.vCampus.models.viewmodel.CourseReportViewModel;
 import team.yummy.vCampus.models.viewmodel.CourseScheduleViewModel;
@@ -22,12 +21,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 课程界面的渲染工厂类，通过传入相应的ViewModel可以实现界面渲染和刷新
+ * @author Serica
+ */
 public class CourseViewFactory {
     MainViewController controller;
+
+    /**
+     * 构造函数
+     * @param controller MainViewController
+     */
     public CourseViewFactory(MainViewController controller) {
         this.controller = controller;
     }
 
+    /**
+     * 工厂方法，用于渲染课程表页面
+     * @param items 课程表表项的视图模型列表
+     */
     public void createCourseSchedule(List<CourseScheduleViewModel> items) {
         controller.course_scheduleGrid.getChildren().clear();
         controller.course_scheduleGrid.add(new Label("星期一"), 1, 0);
@@ -71,6 +83,10 @@ public class CourseViewFactory {
 
     }
 
+    /**
+     * 工厂方法，用于渲染成绩单页面
+     * @param items 成绩单表项的视图模型列表
+     */
     public void createCourseReport(List<CourseReportViewModel> items) {
         controller.course_reportContent.getChildren().clear();
         double totalScore = 0;
@@ -116,6 +132,10 @@ public class CourseViewFactory {
         controller.score_avgGPA.setText(String.valueOf(controller.stuInfoViewModel.getGpa()));
     }
 
+    /**
+     * 工厂方法，用于渲染选课页面
+     * @param courses 选课视图模型列表
+     */
     public void createCourseRegister(List<CourseRegisterViewModel> courses) {
         controller.register_courseNameCol.getChildren().clear();
         controller.course_venueCol.getChildren().clear();
@@ -218,6 +238,9 @@ public class CourseViewFactory {
         }
     }
 
+    /**
+     * 用于数据绑定
+     */
     public static class CourseScheduleViewData {
         private final SimpleStringProperty content = new SimpleStringProperty();
         CourseScheduleViewData(CourseScheduleViewModel course) {

@@ -93,7 +93,7 @@ public class AdminViewController extends ViewController implements Initializable
     @FXML public VBox store_favItemBox;     ///////////////////
 
     // 这里放商品列表数据
-    private List<Goods> goodList = new ArrayList<Goods>();
+//    private List<Goods> goodList = new ArrayList<Goods>();
 
     /**
      * members for course register

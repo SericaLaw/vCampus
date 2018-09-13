@@ -6,6 +6,11 @@ import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.List;
 
+/**
+ * 请求类，用于前端向后端发送交互请求
+ * @author Serica
+ * @author Vigilans
+ */
 public class WebRequest implements Serializable {
     // 请求方式
     private RequestMethod type = null;
@@ -83,7 +88,6 @@ public class WebRequest implements Serializable {
 
     public void setSessionId(Integer sessionId) { this.sessionId = sessionId; }
 
-    // TODO:这里需要修改以适合有缺省项的route
     private void parse() {
         String[] p = route.split("/");
         // tableName
@@ -119,6 +123,10 @@ public class WebRequest implements Serializable {
         this.sql = sql;
     }
 
+    /**
+     * 用于Logger打印请求信息
+     * @return 请求日志信息
+     */
     @Override
     public String toString() {
         return type + " <-- request url: " + route + "\n[ parsed ]: tableName = " + tableName +", key = " + field + ", value = " + value +", query = " + query +"\n[ body =  " + body +" ]\n[ sessionId = " + sessionId + " ]\n";
