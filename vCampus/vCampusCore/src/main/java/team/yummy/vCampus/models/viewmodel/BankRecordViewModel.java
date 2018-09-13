@@ -10,19 +10,23 @@ import java.sql.Timestamp;
  * 用于前端展示银行账户交易记录
  */
 public class BankRecordViewModel {
-    private double incomeAndExpense;
+    private Double incomeAndExpense;
     private Timestamp recordTime;
+    private String reason;
+
+    public BankRecordViewModel() {}
 
     public BankRecordViewModel(BankRecordEntity entity) {
         this.incomeAndExpense = entity.getIncomeAndExpense();
         this.recordTime = entity.getRecordTime();
+        this.reason = entity.getReason();
     }
 
-    public double getIncomeAndExpense() {
+    public Double getIncomeAndExpense() {
         return incomeAndExpense;
     }
 
-    public void setIncomeAndExpense(double incomeAndExpense) {
+    public void setIncomeAndExpense(Double incomeAndExpense) {
         this.incomeAndExpense = incomeAndExpense;
     }
 
@@ -32,6 +36,14 @@ public class BankRecordViewModel {
 
     public void setRecordTime(Timestamp recordTime) {
         this.recordTime = recordTime;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }
 

@@ -10,6 +10,7 @@ public class BankRecordEntity {
     private String id;
     private Double incomeAndExpense;
     private Timestamp recordTime;
+    private String reason;
     private BankAccountEntity bankAccountByCampusCardId;
 
     @Basic
@@ -65,5 +66,15 @@ public class BankRecordEntity {
 
     public void setBankAccountByCampusCardId(BankAccountEntity bankAccountByBankAccountId) {
         this.bankAccountByCampusCardId = bankAccountByBankAccountId;
+    }
+
+    @Basic
+    @Column(name = "Reason")
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }

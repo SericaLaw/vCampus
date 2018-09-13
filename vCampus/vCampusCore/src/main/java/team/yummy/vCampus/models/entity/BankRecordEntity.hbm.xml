@@ -9,6 +9,7 @@
         <id name="id" column="ID"/>
         <property name="incomeAndExpense" column="IncomeAndExpense"/>
         <property name="recordTime" column="RecordTime"/>
+        <property name="reason" column="Reason"/>
         <many-to-one name="bankAccountByCampusCardId" class="team.yummy.vCampus.models.entity.BankAccountEntity">
             <column name="CampusCardID" not-null="true"/>
         </many-to-one>

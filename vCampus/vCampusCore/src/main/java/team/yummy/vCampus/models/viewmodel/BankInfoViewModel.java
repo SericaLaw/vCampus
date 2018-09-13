@@ -11,8 +11,10 @@ import java.util.stream.Collectors;
  */
 public class BankInfoViewModel{
     private String campusCardID;
-    private double balance;
+    private Double balance;
     private List<BankRecordViewModel> bankRecordList;
+
+    public BankInfoViewModel() {}
 
     public BankInfoViewModel(BankAccountEntity entity) {
         this.campusCardID = entity.getCampusCardId();
@@ -30,19 +32,19 @@ public class BankInfoViewModel{
         this.campusCardID = campusCardID; 
     }
     
-    public double getBalance(){
+    public Double getBalance(){
         return this.balance;
     }
 
-    public void setBalance(double balance){
+    public void setBalance(Double balance){
         this.balance = balance;
     }
 
-    public List<BankRecordViewModel> getBankList(){
+    public List<BankRecordViewModel> getBankRecordList(){
         return this.bankRecordList;
     }
 
-    public void setBankList(List<BankRecordViewModel> bankRecordList){
+    public void setBankRecordList(List<BankRecordViewModel> bankRecordList){
         this.bankRecordList = bankRecordList;
     }
 }

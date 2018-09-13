@@ -83,7 +83,7 @@ public class StoreApiTest extends ApiTest {
         GoodsViewModel goods = api.get("/goods").dataList(GoodsViewModel.class).get(0);
         String cartId = api.post("/store/cart", goods.getGoodsId()).getBody();
         BankAccountEntity before = api.get("/bankAccount/campusCardId/213160003").dataList(BankAccountEntity.class).get(0);
-        api.post("/store/purchase", "[\"" + cartId + "\"]");
+        api.post("/store/purchase", String.format("[\"%s\", \"%s\"]", "1ded8570-60bb-491f-9850-48e3b129f3f2", "36f772a3-5bff-41e1-97e4-de90c8ff5cea"));
         BankAccountEntity after = api.get("/bankAccount/campusCardId/213160003").dataList(BankAccountEntity.class).get(0);
         assert before.getBalance() == after.getBalance() + goods.getPrice();
     }

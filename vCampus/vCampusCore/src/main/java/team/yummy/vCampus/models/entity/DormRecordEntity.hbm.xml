@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="team.yummy.vCampus.models.entity.DormRecordEntity" table="DormScore" schema="&quot;.&quot;"
+    <class name="team.yummy.vCampus.models.entity.DormRecordEntity" table="DormRecord" schema="&quot;.&quot;"
            catalog="&quot;.&quot;">
         <id name="id" column="ID"/>
         <property name="scoringDate" column="ScoringDate"/>

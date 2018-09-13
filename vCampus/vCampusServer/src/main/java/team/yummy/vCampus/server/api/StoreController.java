@@ -8,6 +8,7 @@ import team.yummy.vCampus.server.framework.Controller;
 
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Authorize
 public class StoreController extends Controller {
@@ -138,8 +139,11 @@ public class StoreController extends Controller {
         BankRecordEntity bank_record = new BankRecordEntity();
         bank_record.setId(UUID.randomUUID().toString());
         bank_record.setBankAccountByCampusCardId(bank);
-        bank_record.setIncomeAndExpense(total_price);
+        bank_record.setIncomeAndExpense(-total_price);
         bank_record.setRecordTime(new Timestamp(System.currentTimeMillis()));
+        bank_record.setReason("购买了" + records.stream().map(
+            r -> r.getGoodsByGoodsId().getGoodsName() + "×" + r.getGoodsCnt()
+        ).collect(Collectors.joining(", ")));
         dbSession.save(bank_record);
         dbSession.getTransaction().commit();
         return "OK";
