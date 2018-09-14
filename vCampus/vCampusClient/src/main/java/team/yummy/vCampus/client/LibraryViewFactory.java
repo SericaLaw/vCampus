@@ -24,7 +24,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static java.lang.Math.min;
-
+/**
+ * 学生端图书馆视图工厂，用于渲染学生端图书馆页面的ViewModel
+ * @author QQFLQH
+ */
 public class LibraryViewFactory {
     private StackPane rootStackPane;
     private MainViewController mainViewController;

@@ -47,7 +47,10 @@ import static javafx.animation.Interpolator.EASE_BOTH;
 import static javafx.geometry.Pos.*;
 import static sun.swing.MenuItemLayoutHelper.max;
 
-
+/**
+ * 管理员课程视图工厂，用于渲染管理员页面的ViewModel
+ * @author peggywashington
+ */
 public class AdminCourseViewFactory {
     private StackPane rootStackPane;
     private AdminViewController controller;

@@ -7,14 +7,24 @@
 | 路径                     | 说明                                     |
 | ------------------------ | ---------------------------------------- |
 | `vCampus/vCampusClient`    | 前端                                     |
+| `vCampus/vCampusClient/App.java`    | 前端程序主入口                    |
+| `vCampus/vCampusClient/StageController.java`    | 前端多页应用管理配置工具类 |
+| `vCampus/vCampusClient/ViewController.java`    | 前端Controller抽象类 |
+| `vCampus/vCampusClient/***ViewController.java`    | 前端ViewController类 |
+| `vCampus/vCampusClient/***ViewFactory.java`    | 前端视图工厂类 |
 | `vCampus/vCampusServer `   | 后端                                     |
+| `vCampus/vCampusServer/annotation `   | 后端注解定义|
+| `vCampus/vCampusServer/api `   | 后端APIController|
+| `vCampus/vCampusServer/framework `   | 后端核心框架|
+| `vCampus/vCampusServer/Program.java `   | 后端服务器程序主入口类|
 | `vCampus/vCampusCore` | 前后端公用模块                           |
 |`vCampus/vCampusCore/data`|DBHelper工具类|
 |`vCampus/vCampusCore/models`|entity和viewmodel|
 |`vCampus/vCampusCore/util`|Api类和Logger工具类|
 |`vCampus/vCampusCore/web`|基于Socket封装的前后端通信工具类|
 | `vCampus/third-party-lib` | 项目依赖 |
-| `docs`               | 不存在的API文档                          |
+| `docs`               | API文档                          |
+| `javadoc`               | Javadoc文档                          |
 | `java-app-template-demo` | 一个采用MVC模式的Java示例程序 |
 | `vCampus/vCampusServer/database` | 数据库 |
 
@@ -45,6 +55,8 @@ git status
 git commit -m "comment"
 git push origin master (or other branch)
 git pull
+git branch (a new branch)
+git checkout (some other branch)
 ```
 
 用Git进行多人协作的原则：每个人应明确自己的责任区，尽量避免提交时出现冲突；对自己的commit负责，先进行测试后再提交

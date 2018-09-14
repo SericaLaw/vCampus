@@ -39,6 +39,13 @@ import java.util.regex.Pattern;
 
 import com.jfoenix.controls.*;
 
+/**
+ * 学生端主界面的ViewController，用于处理学生端程序界面的事件以及和服务端的数据交互以及相应视图的更新渲染
+ * @author 崔玉娟
+ * @author peggywashington
+ * @author QQFLQH
+ * @author Serica
+ */
 public class MainViewController extends ViewController implements Initializable {
 
     @FXML public Button Bt_Init, Bt_StuInfo, Bt_Course, Bt_Dorm, Bt_Bank, Bt_Store, Bt_Account, Bt_Library;

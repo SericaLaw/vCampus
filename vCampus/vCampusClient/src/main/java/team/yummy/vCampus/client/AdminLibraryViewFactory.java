@@ -21,6 +21,10 @@ import java.util.*;
 
 import static java.lang.Math.min;
 
+/**
+ * 管理员图书馆视图工厂，用于渲染管理员页面的ViewModel
+ * @author peggywashington
+ */
 public class AdminLibraryViewFactory {
     private StackPane rootStackPane;
     private AdminViewController adminViewController;

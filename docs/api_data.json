@@ -33,7 +33,7 @@
       "examples": [
         {
           "title": "Code Snippets",
-          "content": "LoginViewModel login = new LoginViewModel(username, password);\nWebResponse res = api.post(\"/account/login\", JSON.toJSONString(login));",
+          "content": "LoginViewModel login = new LoginViewModel(username, password);\nWebResponse res = api.p\nost(\"/account/login\", JSON.toJSONString(login));",
           "type": "json"
         }
       ]
@@ -198,7 +198,7 @@
         "name": "admin"
       }
     ],
-    "description": "<p>获取课程列表</p>",
+    "description": "<p>获取本学期开设的课程列表</p>",
     "success": {
       "fields": {
         "Success 200": [
@@ -222,7 +222,7 @@
       "examples": [
         {
           "title": "Code Snippets",
-          "content": "WebResponse res = api.get(\"/course\");\nList<CourseRegisterViewModel> courseRegisterViewModels = res.dataList(CourseRegisterViewModel.class);",
+          "content": "WebResponse res = api.get(\"/course/list\");\nList<CourseRegisterViewModel> courseRegisterViewModels = res.dataList(CourseRegisterViewModel.class);",
           "type": "json"
         }
       ]
@@ -376,19 +376,19 @@
   {
     "group": "Course",
     "type": "patch",
-    "url": "/course/record",
-    "title": "ModifyCourseRecord",
+    "url": "/courseSchedule/id/{uuid}",
+    "title": "ModifyCourseSchedule",
     "permission": [
       {
         "name": "teacher"
       }
     ],
-    "description": "<p>登记或改变学生成绩</p>",
+    "description": "<p>修改课程安排</p>",
     "parameter": {
       "examples": [
         {
           "title": "Code Snippets",
-          "content": "WebResponse res = api.patch(\"/course/record\", \"{\"id\":\"uuid\", \"score\":\"the score\"}\");\nList<GoodsViewModel> goodsList = res.dataList(GoodsViewModel.class);",
+          "content": "CourseScheduleViewModel schedule = ...\n\nString uuid = schedule.getId();\nschedule.set...;\nWebResponse res = api.patch(\"/course/record/\" + uuid, JSON.toJSONString(schedule);",
           "type": "json"
         }
       ]
@@ -405,7 +405,32 @@
     "version": "0.0.0",
     "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/CourseController.java",
     "groupTitle": "Course",
-    "name": "PatchCourseRecord"
+    "name": "PatchCoursescheduleIdUuid"
+  },
+  {
+    "group": "Course",
+    "type": "post",
+    "url": "/course/new",
+    "title": "CreateCourse",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "description": "<p>创建课程，需要在Course表和CourseSchedule表里增加条目</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.post(\"/course/new\", JSON.toJSONString(courseRegisterViewModel));",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/CourseController.java",
+    "groupTitle": "Course",
+    "name": "PostCourseNew"
   },
   {
     "group": "Course",
@@ -490,7 +515,7 @@
       "examples": [
         {
           "title": "Code Snippets",
-          "content": "WebResponse res = api.get(\"/dorm/info\");\nList<DormInfoViewModel> dormInfoList = res.dataList(DormInfoViewModel.class);",
+          "content": "WebResponse res = api.get(\"/dorm/info\");\nDormInfoViewModel dormInfo = res.data(DormInfoViewModel.class);",
           "type": "json"
         }
       ]
@@ -805,49 +830,6 @@
     "group": "Library",
     "type": "post",
     "url": "/library/book",
-    "title": "NewBorrowRecords",
-    "description": "<p>借书</p>",
-    "permission": [
-      {
-        "name": "student"
-      }
-    ],
-    "parameter": {
-      "examples": [
-        {
-          "title": "Code Snippets",
-          "content": "\nWebResponse res = api.post(\"/library/borrow\", bookViewModel.getBookId());",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "201 \"Successfully created\"\n......",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "400 \"Incorrect body data\";\n400 \"No corresponding book found\"\n400 \"No available book now\"",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/LibraryController.java",
-    "groupTitle": "Library",
-    "name": "PostLibraryBook"
-  },
-  {
-    "group": "Library",
-    "type": "post",
-    "url": "/library/book",
     "title": "SearchForBooks",
     "description": "<p>按书名模糊搜索图书</p>",
     "permission": [
@@ -878,6 +860,49 @@
         {
           "title": "Error-Response:",
           "content": "404 \"Book not found.\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/LibraryController.java",
+    "groupTitle": "Library",
+    "name": "PostLibraryBook"
+  },
+  {
+    "group": "Library",
+    "type": "post",
+    "url": "/library/book",
+    "title": "NewBorrowRecords",
+    "description": "<p>借书</p>",
+    "permission": [
+      {
+        "name": "student"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "\nWebResponse res = api.post(\"/library/borrow\", bookViewModel.getBookId());",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "201 \"Successfully created\"\n......",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "400 \"Incorrect body data\";\n400 \"No corresponding book found\"\n400 \"No available book now\"",
           "type": "json"
         }
       ]
@@ -1304,6 +1329,40 @@
   },
   {
     "group": "StuInfo",
+    "type": "get",
+    "url": "/stuInfo/gpa",
+    "title": "CalculateGPA",
+    "description": "<p>计算GPA</p>",
+    "permission": [
+      {
+        "name": "student admin"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.get(\"/stuInfo/gpa\");",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StuInfoController.java",
+    "groupTitle": "StuInfo",
+    "name": "GetStuinfoGpa"
+  },
+  {
+    "group": "StuInfo",
     "type": "patch",
     "url": "/stuInfo/campusCardID/:id",
     "title": "ModifyStuInfo",
@@ -1387,6 +1446,108 @@
     "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/StuInfoController.java",
     "groupTitle": "StuInfo",
     "name": "PostStuinfo"
+  },
+  {
+    "group": "Teacher",
+    "type": "get",
+    "url": "/teacher/course",
+    "title": "GetTeacherCourseSchedule",
+    "permission": [
+      {
+        "name": "teacher"
+      }
+    ],
+    "description": "<p>根据ProfCampusCardId获取教师任教的课程表</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.get(\"/course/teacher\");\nList<CourseScheduleViewModel> schedules = res.dataList(CourseScheduleViewModel.class);",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/TeacherController.java",
+    "groupTitle": "Teacher",
+    "name": "GetTeacherCourse"
+  },
+  {
+    "group": "Teacher",
+    "type": "get",
+    "url": "/teacher/record",
+    "title": "GetCourseRecord",
+    "permission": [
+      {
+        "name": "teacher"
+      }
+    ],
+    "description": "<p>获取任教课程对应学生的CourseReport列表</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.get(\"/teacher/record\");\nList<TeacherCourseReportViewModel> reportList = res.dataList(TeacherCourseReportViewModel.class);",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/TeacherController.java",
+    "groupTitle": "Teacher",
+    "name": "GetTeacherRecord"
+  },
+  {
+    "group": "Teacher",
+    "type": "patch",
+    "url": "/teacher/record",
+    "title": "ModifyCourseRecord",
+    "permission": [
+      {
+        "name": "teacher"
+      }
+    ],
+    "description": "<p>登记或改变学生成绩</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Code Snippets",
+          "content": "WebResponse res = api.patch(\"/course/record\", \"{\"id\":\"uuid\", \"score\":\"the score\"}\");",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "vCampus/vCampusServer/src/main/java/team/yummy/vCampus/server/api/TeacherController.java",
+    "groupTitle": "Teacher",
+    "name": "PatchTeacherRecord"
   },
   {
     "group": "_api__patch___store_cart_ModifyCart",

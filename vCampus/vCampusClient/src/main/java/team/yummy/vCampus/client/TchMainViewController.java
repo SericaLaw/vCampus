@@ -54,7 +54,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 
-
+/**
+ * 教师界面的ViewController，用于处理教师页事件以及和服务端的数据交互以及相应视图的更新渲染
+ * @author QQFLQH
+ * @author Serica
+ */
 public class TchMainViewController extends ViewController implements  Initializable{
     @FXML public GridPane course_scheduleGrid;
     @FXML private StackPane rootStackPane;

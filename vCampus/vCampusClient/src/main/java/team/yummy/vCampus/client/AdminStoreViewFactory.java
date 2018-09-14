@@ -42,7 +42,10 @@ import static javafx.geometry.Pos.CENTER;
 import static javafx.geometry.Pos.CENTER_LEFT;
 import static sun.swing.MenuItemLayoutHelper.max;
 
-
+/**
+ * 管理员商店视图工厂，用于渲染管理员页面的ViewModel
+ * @author peggywashington
+ */
 public class AdminStoreViewFactory {
     private StackPane rootStackPane;
     private AdminViewController controller;

@@ -60,8 +60,6 @@ public class StageController {
      */
     public void setPrimaryStage(String primaryStageName, Stage primaryStage) {
         this.addStage(primaryStageName, primaryStage);
-        primaryStage.setIconified(true);
-
     }
 
 

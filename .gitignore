@@ -32,3 +32,5 @@ target/
 .classpath
 .settings/
 /.settings/
+
+/production

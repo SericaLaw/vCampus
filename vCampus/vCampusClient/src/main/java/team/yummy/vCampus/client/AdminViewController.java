@@ -33,6 +33,11 @@ import java.net.URL;
 //import java.time.ZonedDateTime;
 import java.util.*;
 
+/**
+ * 管理员界面的ViewController，用于处理管理员页面事件以及和服务端的数据交互以及相应视图的更新渲染
+ * @author peggywashington
+ * @author Serica
+ */
 public class AdminViewController extends ViewController implements Initializable {
     @FXML private StackPane rootStackPane;
     @FXML private GridPane title;
